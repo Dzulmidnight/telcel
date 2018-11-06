@@ -58,18 +58,13 @@
             <!-- Side Content -->
             <div class="side-content side-content-full">
                 <ul class="nav-main">
-                    <li>
-                        <a href="base_pages_dashboard.html"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
-                    </li>
-                    <li>
-                        <a href="base_pages_dashboard_v2.html"><i class="si si-rocket"></i><span class="sidebar-mini-hide">Dashboard v2</span></a>
-                    </li>
-                    <li>
-                        <a href="base_pages_dashboard_v3.html"><i class="si si-cup"></i><span class="sidebar-mini-hide">Dashboard v3</span></a>
-                    </li>
-                    <li class="nav-main-heading"><span class="sidebar-mini-hide">User Interface</span></li>
                     <li class="open">
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-badge"></i><span class="sidebar-mini-hide">UI Elements</span></a>
+                        <a class="active" href="base_pages_dashboard.html"><i class="si si-speedometer"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                    </li>
+
+                    <li class="nav-main-heading"><span class="sidebar-mini-hide">User Interface</span></li>
+                    <li >
+                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-badge"></i><span class="sidebar-mini-hide">Servicios</span></a>
                         <ul>
                             <li>
                                 <a href="base_ui_widgets.html">Widgets</a>
@@ -107,7 +102,7 @@
                                 <a href="base_ui_tabs.html">Tabs</a>
                             </li>
                             <li>
-                                <a class="active" href="base_ui_tiles.html">Tiles</a>
+                                <a href="base_ui_tiles.html">Tiles</a>
                             </li>
                             <li>
                                 <a href="base_ui_cards.html">Cards</a>
@@ -152,7 +147,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-grid"></i><span class="sidebar-mini-hide">Tables</span></a>
+                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-grid"></i><span class="sidebar-mini-hide">Inventario</span></a>
                         <ul>
                             <li>
                                 <a href="base_tables_styles.html">Styles</a>
@@ -172,7 +167,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Forms</span></a>
+                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-note"></i><span class="sidebar-mini-hide">Finanzas</span></a>
                         <ul>
                             <li>
                                 <a href="base_forms_premade.html">Pre-made</a>
@@ -196,7 +191,7 @@
                     </li>
                     <li class="nav-main-heading"><span class="sidebar-mini-hide">Develop</span></li>
                     <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-wrench"></i><span class="sidebar-mini-hide">Components</span></a>
+                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-wrench"></i><span class="sidebar-mini-hide">Proveedores</span></a>
                         <ul>
                             <li>
                                 <a href="base_comp_images.html">Images</a>
@@ -262,7 +257,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-magic-wand"></i><span class="sidebar-mini-hide">Layouts</span></a>
+                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-magic-wand"></i><span class="sidebar-mini-hide">Garantia</span></a>
                         <ul>
                             <li>
                                 <a href="base_layouts_api.html">Layout API</a>
@@ -294,7 +289,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Multi Level Menu</span></a>
+                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Clientes</span></a>
                         <ul>
                             <li>
                                 <a href="#">Link 1-1</a>
@@ -359,9 +354,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-main-heading"><span class="sidebar-mini-hide">Pages</span></li>
+                    <li class="nav-main-heading"><span class="sidebar-mini-hide">Sucursales</span></li>
                     <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">Generic</span></a>
+                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">Personal</span></a>
                         <ul>
                             <li>
                                 <a href="base_pages_blank.html">Blank</a>
@@ -410,208 +405,6 @@
                             </li>
                             <li>
                                 <a href="base_pages_maintenance.html">Maintenance</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">Page Packs</span></a>
-                        <ul>
-                            <li>
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-bag"></i>e-Commerce</a>
-                                <ul>
-                                    <li>
-                                        <a href="base_pages_ecom_dashboard.html">Dashboard</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_ecom_orders.html">Orders</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_ecom_order.html">Order</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_ecom_products.html">Products</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_ecom_product_edit.html">Product Edit</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_ecom_customer.html">Customer</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-handbag"></i>e-Commerce Store</a>
-                                <ul>
-                                    <li>
-                                        <a href="base_pages_ecom_store_home.html">Home</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_ecom_store_search.html">Search Results</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_ecom_store_products.html">Products List</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_ecom_store_product.html">Product Page</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_ecom_store_checkout.html">Checkout</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-user"></i>User Profile</a>
-                                <ul>
-                                    <li>
-                                        <a href="base_pages_profile.html">Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_profile_v2.html">Profile v2</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_profile_edit.html">Profile Edit</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-bubbles"></i>Forum</a>
-                                <ul>
-                                    <li>
-                                        <a href="base_pages_forum_categories.html">Categories</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_forum_topics.html">Topics</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_forum_discussion.html">Discussion</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_forum_new_topic.html">New Topic</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-briefcase"></i>Projects</a>
-                                <ul>
-                                    <li>
-                                        <a href="base_pages_projects_dashboard.html">Dashboard</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_projects_view.html">Project</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_projects_create.html">Create</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_projects_edit.html">Edit</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-pencil"></i>Blog</a>
-                                <ul>
-                                    <li>
-                                        <a href="base_pages_blog_classic.html">Classic</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_blog_list.html">List</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_blog_grid.html">Grid</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_blog_story.html">Story</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_blog_story_cover.html">Story Cover</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-graduation"></i>e-Learning</a>
-                                <ul>
-                                    <li>
-                                        <a href="base_pages_elearning_courses.html">Courses</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_elearning_course.html">Course</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_elearning_lesson.html">Lesson</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-plane"></i>Travel</a>
-                                <ul>
-                                    <li>
-                                        <a href="base_pages_travel_agency.html">Agency</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_travel_package.html">Package</a>
-                                    </li>
-                                    <li>
-                                        <a href="base_pages_travel_guide.html">Guide</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-lock"></i><span class="sidebar-mini-hide">Authentication</span></a>
-                        <ul>
-                            <li>
-                                <a href="base_pages_auth.html">All Pages</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_login.html">Log In</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_login_v2.html">Log In v2</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_register.html">Register</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_register_v2.html">Register v2</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_lock.html">Lock Screen</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_lock_v2.html">Lock Screen v2</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_reminder.html">Password Reminder</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_reminder_v2.html">Password Reminder v2</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-fire"></i><span class="sidebar-mini-hide">Error Pages</span></a>
-                        <ul>
-                            <li>
-                                <a href="base_pages_errors.html">All Pages</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_400.html">400</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_401.html">401</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_403.html">403</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_404.html">404</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_500.html">500</a>
-                            </li>
-                            <li>
-                                <a href="base_pages_503.html">503</a>
                             </li>
                         </ul>
                     </li>
