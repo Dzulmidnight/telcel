@@ -63,5 +63,12 @@
         <script src="<?php echo base_url(); ?>assets/js/core/jquery.placeholder.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/app.js"></script>
+
+        <!-- Page JS Plugins -->
+        <script src="<?php echo base_url(); ?>assets/js/plugins/datatables/jquery.dataTables.min.js"></script>
+
+        <!-- Page JS Code -->
+        <script src="<?php echo base_url(); ?>assets/js/pages/base_tables_datatables.js"></script>
+
     </body>
 </html>

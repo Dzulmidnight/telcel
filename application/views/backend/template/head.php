@@ -32,6 +32,9 @@
         <link rel="apple-touch-icon" sizes="180x180" href="<?php echo base_url(); ?>assets/img/favicons/apple-touch-icon-180x180.png">
         <!-- END Icons -->
 
+        <!-- Page JS Plugins CSS -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/datatables/jquery.dataTables.min.css">
+
         <!-- Stylesheets -->
         <!-- Web fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
@@ -43,6 +46,10 @@
         <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="<?php echo base_url(); ?>assets/css/themes/flat.min.css"> -->
         <!-- END Stylesheets -->
+
+        <!-- Sweet alert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     </head>
     <body>
 
