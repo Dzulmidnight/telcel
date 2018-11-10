@@ -113,9 +113,12 @@
                     <div class="col-md-12">
                         <hr>
                     </div>
-                    
-                    <!-- Div venta_telefono -->
-                    <div id="div_venta_telefono">
+
+                    <!-- Div servicio_tecnico -->
+                    <div id="div_servicio_tecnico" style="display:block">
+                        <h3 style="margin-bottom: 1em">
+                            Servicio Técnico
+                        </h3>
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div class="form-material form-material-primary">
@@ -129,56 +132,123 @@
                                     <label for="material-color-primary">Nº Telefono *</label>
                                 </div>
                             </div>
-
                         </div>
 
-
-
-                    </div>
-                    <!-- END Div venta_telefono -->
-
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <div class="form-material form-material-primary">
-                                <input class="form-control" type="number" step="0.01" min="0" id="material-color-primary" name="material-color-primary" placeholder="Ej: 150.50" required>
-                                <label for="material-color-primary">Costo del equipo *</label>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <select class="form-control" id="material-select" name="material-select" size="1" required="" onchange="tipoServicio()">
+                                    <option>...</option>
+                                    <option value="1">Venta de equipo telefonico</option>
+                                    <option value="2">Servicio Tecnico</option>
+                                </select>
+                                <label for="material-select">Estado fisico del equipo *</label>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="row" style="margin-bottom:1em;">
-                        <div class="col-md-12">
-                            <h4>Información del equipo</h4>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-material">
+                                    <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
+                                    <label for="material-textarea-small">Detalles del servicio</label>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="col-md-12">
-                            <table class="table table-striped">
-                                <tr>
-                                    <td>Costo</td>
-                                    <td class="text-primary">$ 21,000 MXN</td>
+                        <div class="row" style="margin-bottom:1em;">
+                            <div class="col-md-12">
+                                <h4>Información del equipo</h4>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td>Costo</td>
+                                        <td class="text-primary">$ 21,000 MXN</td>
 
-                                    <td>Marca</td>
-                                    <td class="text-primary">Samsung</td>
-                                </tr>
-                                <tr>
-                                    <td>Modelo</td>
-                                    <td class="text-primary">Galaxy S10</td>
+                                        <td>Marca</td>
+                                        <td class="text-primary">Samsung</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Modelo</td>
+                                        <td class="text-primary">Galaxy S10</td>
 
-                                    <td>Color</td>
-                                    <td class="text-primary">Azul</td>
-                                </tr>
-                                <tr>
-                                    <td>IMEI</td>
-                                    <td class="text-primary">232423423</td>
+                                        <td>Color</td>
+                                        <td class="text-primary">Azul</td>
+                                    </tr>
+                                    <tr>
+                                        <td>IMEI</td>
+                                        <td class="text-primary">232423423</td>
 
-                                    <td>ICCID</td>
-                                    <td class="text-primary">SDAA3341342</td>
-                                </tr>
-                            </table>
+                                        <td>ICCID</td>
+                                        <td class="text-primary">SDAA3341342</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END Div servicio_tecnico -->                    
+
+                    <!-- Div venta_telefono -->
+                    <div id="div_venta_telefono" style="display:none">
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-material form-material-primary">
+                                    <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="IMEI del equipo" required>
+                                    <label for="material-color-primary">IMEI *</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-material form-material-primary">
+                                    <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Telefono" required>
+                                    <label for="material-color-primary">Nº Telefono *</label>
+                                </div>
+                            </div>
                         </div>
 
-                    </div>
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="form-material form-material-primary">
+                                    <input class="form-control" type="number" step="0.01" min="0" id="material-color-primary" name="material-color-primary" placeholder="Ej: 150.50" required>
+                                    <label for="material-color-primary">Costo del equipo *</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row" style="margin-bottom:1em;">
+                            <div class="col-md-12">
+                                <h4>Información del equipo</h4>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td>Costo</td>
+                                        <td class="text-primary">$ 21,000 MXN</td>
 
+                                        <td>Marca</td>
+                                        <td class="text-primary">Samsung</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Modelo</td>
+                                        <td class="text-primary">Galaxy S10</td>
+
+                                        <td>Color</td>
+                                        <td class="text-primary">Azul</td>
+                                    </tr>
+                                    <tr>
+                                        <td>IMEI</td>
+                                        <td class="text-primary">232423423</td>
+
+                                        <td>ICCID</td>
+                                        <td class="text-primary">SDAA3341342</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END Div venta_telefono -->
 
 
                 </form>
