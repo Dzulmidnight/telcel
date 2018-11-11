@@ -3,7 +3,7 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                CLIENTES
+                LISTADO STOCK ACTUAL
             </h3>
         </div>
         <!--<div class="col-sm-5 text-right hidden-xs">
@@ -34,8 +34,29 @@
                     <table class="table table-bordered table-striped js-dataTable-full">
                         <thead>
                             <tr>
-                                <th class="text-center">#</th>
-                                <th>Nombre</th>
+                                <th class="text-center">Nº</th>
+                                <th>
+                                    Codigo
+                                </th>
+                                <th>
+                                    Cant
+                                </th>
+                                <th>
+                                    Nombre
+                                </th>
+                                <th>
+                                    Modelo
+                                </th>
+                                <th>
+                                    Color
+                                </th>
+                                <th>
+                                    Tipo
+                                </th>
+                                <th>
+                                    Articulo
+                                </th>
+
                                 <th class="hidden-xs">Telefono</th>
                                 <th class="hidden-xs" style="width: 15%;">Extra</th>
                                 <th class="text-center" style="width: 10%;">...</th>
