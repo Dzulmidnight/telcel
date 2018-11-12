@@ -26,73 +26,79 @@
 <div class="content">
 
 	<div class="row">
-
-		<!--<div class="col-md-12 col-lg-5">
-	        <!-- Pie Chart -->
-	        <!--<div class="block">
-	            <div class="block-header">
-	                <ul class="block-options">
-	                    <li>
-	                        <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
-	                    </li>
-	                </ul>
-	                <h3 class="block-title">Ventas Sucursal (dia)</h3>
-	            </div>
-	            <div class="block-content block-content-full text-center">
-	                <!-- Pie Chart Container -->
-	                <!--<canvas class="js-chartjs2-pie"></canvas>
-	            <!--</div>
-	        </div>
-	        <!-- END Pie Chart -->	
-	    <!--</div>-->
-
-    		<div class="col-md-12">
-    			<h3 style="margin-bottom:1em">Resumen general</h3>
-    		</div>
-  		    <div class="col-xs-6 col-md-3">
-		        <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>">
-		            <div class="block-content block-content-full clearfix">
-		                <div class="pull-right push-15-t push-15">
-		                    <i class="fa fa-users fa-2x text-primary"></i>
-		                </div>
-		                <div class="h2 text-primary" data-toggle="countTo" data-to="36300">36300</div>
-		                <div class="text-uppercase font-w600 font-s12 text-muted">Stock actual(unidades)</div>
-		            </div>
-		        </a>
-		    </div>
-		    <div class="col-xs-6 col-md-3">
-		        <a class="block block-link-hover1" href="javascript:void(0)">
-		            <div class="block-content block-content-full clearfix">
-		                <div class="pull-right push-15-t push-15">
-		                    <i class="fa fa-briefcase fa-2x text-smooth"></i>
-		                </div>
-		                <div class="h2 text-smooth" data-toggle="countTo" data-to="360">360</div>
-		                <div class="text-uppercase font-w600 font-s12 text-muted">Valor stock actual ($)</div>
-		            </div>
-		        </a>
-		    </div>
-		    <div class="col-xs-6 col-md-3">
-		        <a class="block block-link-hover1" href="javascript:void(0)">
-		            <div class="block-content block-content-full clearfix">
-		                <div class="pull-right push-15-t push-15">
-		                    <i class="fa fa-line-chart fa-2x text-success"></i>
-		                </div>
-		                <div class="h2 text-success" data-toggle="countTo" data-to="760" data-before="$">4</div>
-		                <div class="text-uppercase font-w600 font-s12 text-muted">Telefonos</div>
-		            </div>
-		        </a>
-		    </div>
-		    <div class="col-xs-6 col-md-3">
-		        <a class="block block-link-hover1" href="javascript:void(0)">
-		            <div class="block-content block-content-full clearfix">
-		                <div class="pull-right push-15-t push-15">
-		                    <i class="fa fa-bar-chart-o fa-2x text-amethyst"></i>
-		                </div>
-		                <div class="h2 text-amethyst" data-toggle="countTo" data-to="48">48</div>
-		                <div class="text-uppercase font-w600 font-s12 text-muted">Proveedores</div>
-		            </div>
-		        </a>
-		    </div>
+		<div class="col-lg-5">
+			<div class="row">
+				<div class="col-md-12">
+			        <!-- Pie Chart -->
+			        <div class="block">
+			            <div class="block-header">
+			                <ul class="block-options">
+			                    <li>
+			                        <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+			                    </li>
+			                </ul>
+			                <h3 class="block-title">Stock sucursales</h3>
+			            </div>
+			            <div class="block-content block-content-full text-center">
+			                <!-- Pie Chart Container -->
+			                <canvas class="js-chartjs2-pie"></canvas>
+			            </div>
+			        </div>
+			        <!-- END Pie Chart -->
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-7">
+			<div class="row">
+				<div class="col-md-12">
+					<h3 style="margin-bottom:1em">Resumen general</h3>
+				</div>
+				<div class="col-xs-6 col-md-6">
+			        <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>">
+			            <div class="block-content block-content-full clearfix">
+			                <div class="pull-right push-15-t push-15">
+			                    <i class="fa fa-users fa-2x text-primary"></i>
+			                </div>
+			                <div class="h2 text-primary" data-toggle="countTo" data-to="36300">36300</div>
+			                <div class="text-uppercase font-w600 font-s12 text-muted">Stock actual(unidades)</div>
+			            </div>
+			        </a>
+				</div>
+			    <div class="col-xs-6 col-md-6">
+			        <a class="block block-link-hover1" href="javascript:void(0)">
+			            <div class="block-content block-content-full clearfix">
+			                <div class="pull-right push-15-t push-15">
+			                    <i class="fa fa-briefcase fa-2x text-smooth"></i>
+			                </div>
+			                <div class="h2 text-smooth" data-toggle="countTo" data-to="360">360</div>
+			                <div class="text-uppercase font-w600 font-s12 text-muted">Valor stock actual ($)</div>
+			            </div>
+			        </a>
+			    </div>
+			    <div class="col-xs-6 col-md-6">
+			        <a class="block block-link-hover1" href="javascript:void(0)">
+			            <div class="block-content block-content-full clearfix">
+			                <div class="pull-right push-15-t push-15">
+			                    <i class="fa fa-line-chart fa-2x text-success"></i>
+			                </div>
+			                <div class="h2 text-success" data-toggle="countTo" data-to="760" data-before="$">4</div>
+			                <div class="text-uppercase font-w600 font-s12 text-muted">Telefonos</div>
+			            </div>
+			        </a>
+			    </div>
+			    <div class="col-xs-6 col-md-6">
+			        <a class="block block-link-hover1" href="javascript:void(0)">
+			            <div class="block-content block-content-full clearfix">
+			                <div class="pull-right push-15-t push-15">
+			                    <i class="fa fa-bar-chart-o fa-2x text-amethyst"></i>
+			                </div>
+			                <div class="h2 text-amethyst" data-toggle="countTo" data-to="48">48</div>
+			                <div class="text-uppercase font-w600 font-s12 text-muted">Proveedores</div>
+			            </div>
+			        </a>
+			    </div>
+			</div>
+		</div>
 	</div>
 
 	<div class="row">

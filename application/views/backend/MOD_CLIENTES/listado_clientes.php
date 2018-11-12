@@ -31,14 +31,14 @@
         <div class="row">
         	<div class="col-md-12 block">
         		<div class="block-content">
-                    <table class="table table-bordered table-striped js-dataTable-full">
+                    <table class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
                                 <th>Nombre</th>
                                 <th class="hidden-xs">Telefono</th>
-                                <th class="hidden-xs" style="width: 15%;">Extra</th>
-                                <th class="text-center" style="width: 10%;">...</th>
+                                <th class="hidden-xs">Extra</th>
+                                <th class="text-center">...</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -17,7 +17,7 @@
 <!-- END Page Header -->
 
 <!-- Page Content -->
-<div class="content content-narrow">
+<div class="content">
     <!-- Modulos -->
     <h2 class="content-heading">Modulos</h2>
     <div class="content-grid push-50">
