@@ -1,6 +1,5 @@
 <?php
-
-class Clientes extends CI_Controller{
+class Proveedores extends CI_Controller{
 
 	public function index()
 	{
@@ -8,7 +7,7 @@ class Clientes extends CI_Controller{
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');
 		$this->load->view('backend/template/header');
-			$this->load->view('backend/MOD_CLIENTES/dashboard_clientes');
+			$this->load->view('backend/MOD_PROVEEDORES/dashboard_proveedores');
 		$this->load->view('backend/template/footer');	
 	}
 
@@ -18,7 +17,16 @@ class Clientes extends CI_Controller{
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');
 		$this->load->view('backend/template/header');
-			$this->load->view('backend/MOD_CLIENTES/listado_clientes');
+			$this->load->view('backend/MOD_PROVEEDORES/listado_inventario');
+		$this->load->view('backend/template/footer');
+	}
+	public function detalle()
+	{
+		$this->load->view('backend/template/head');
+		$this->load->view('backend/template/overlay');
+		$this->load->view('backend/template/navbar');
+		$this->load->view('backend/template/header');
+			$this->load->view('backend/MOD_PROVEEDORES/detalle_proveedor');
 		$this->load->view('backend/template/footer');
 	}
 }

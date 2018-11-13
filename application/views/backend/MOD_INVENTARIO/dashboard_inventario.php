@@ -59,7 +59,7 @@
 			                <div class="pull-right push-15-t push-15">
 			                    <i class="fa fa-users fa-2x text-primary"></i>
 			                </div>
-			                <div class="h2 text-primary" data-toggle="countTo" data-to="36300">36300</div>
+			                <div class="h2 text-primary" data-toggle="countTo" data-to="36300">36,300</div>
 			                <div class="text-uppercase font-w600 font-s12 text-muted">Stock actual(unidades)</div>
 			            </div>
 			        </a>
@@ -70,7 +70,7 @@
 			                <div class="pull-right push-15-t push-15">
 			                    <i class="fa fa-briefcase fa-2x text-smooth"></i>
 			                </div>
-			                <div class="h2 text-smooth" data-toggle="countTo" data-to="360">360</div>
+			                <div class="h2 text-smooth" data-toggle="countTo" data-to="360">$ 34,600</div>
 			                <div class="text-uppercase font-w600 font-s12 text-muted">Valor stock actual ($)</div>
 			            </div>
 			        </a>

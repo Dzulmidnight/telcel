@@ -36,7 +36,7 @@
         <div class="row">
             <div class="col-md-12 block">
                 <div class="block-content">
-                    <table class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
+                    <table id="example" class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
                         <thead>
                             <tr>
                                 <th class="encabezado text-center">
@@ -169,120 +169,215 @@
                         <!-- Formulario de registro de usuario -->
                         <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
                             <div class="form-group">
+                                <!-- Tipo de elemento -->
                                 <div class="col-sm-4">
                                     <div class="form-material">
-                                        <select class="form-control" id="material-select" name="material-select" size="1">
+                                        <select class="form-control" id="material-select" name="material-select" size="1" onchange="tipoElemento(this.value, 'formularios_inventario')">
                                             <option>...</option>
                                             <option value="1">Accesorio</option>
                                             <option value="2">Telefono</option>
-                                        </select>
+                                        </select> 
                                         <label for="material-select">Tipo de elemento</label>
                                     </div>
                                 </div>
+                                <!-- END Tipo de elemento -->
+
+                                <!-- Sucursales disponibles -->
                                 <div class="col-sm-4">
                                     <div class="form-material">
                                         <select class="form-control" id="material-select" name="material-select" size="1">
                                             <option>...</option>
-                                            <option value="1">Option #1</option>
-                                            <option value="2">Option #2</option>
-                                            <option value="3">Option #3</option>
+                                            <option value="1">Sucursal #1</option>
+                                            <option value="2">Sucursal #2</option>
+                                            <option value="3">Sucursal #3</option>
                                         </select>
                                         <label for="material-select">Sucursal</label>
                                     </div>
                                 </div>
+                                <!-- END Sucursales disponibles -->
+
+                                <!-- Proveedores -->
                                 <div class="col-sm-4">
                                     <div class="form-material">
                                         <select class="form-control" id="material-select" name="material-select" size="1">
                                             <option>...</option>
-                                            <option value="1">Option #1</option>
-                                            <option value="2">Option #2</option>
-                                            <option value="3">Option #3</option>
+                                            <option value="1">Proveedor #1</option>
+                                            <option value="2">Proveedor #2</option>
+                                            <option value="3">Proveedor #3</option>
                                         </select>
                                         <label for="material-select">Proveedor</label>
                                     </div>
                                 </div>
-
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <div class="form-material">
-                                        <select class="form-control" id="material-select" name="material-select" size="1">
-                                            <option>...</option>
-                                            <option value="1">Accesorio</option>
-                                            <option value="2">Telefono</option>
-                                        </select>
-                                        <label for="material-select">Tipo de accesorio</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Cantidad *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Precio Interno *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Precio Publico</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Nombre *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Marca</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Modelo *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Color</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Capacidad *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
+                                <!-- END Proveedores -->
 
                             </div>
 
-                       
-                       
+                            <hr>
+                            <!-- Formularios invetario -->
+                            <div id="formularios_inventario">
+                                <!-- Frm accesorio -->
+                                <div id="frm_accesorio" style="display:block">
+
+                                    <div class="form-group">
+                                        <div class="col-sm-4">
+                                            <div class="form-material">
+                                                <select class="form-control" id="id_tipo_accesorio" name="id_tipo_accesorio" size="1">
+                                                    <option>...</option>
+                                                    <option value="1">Accesorio</option>
+                                                    <option value="2">Telefono</option>
+                                                </select>
+                                                <label for="id_tipo_accesorio" >
+                                                    <button id="btn_accion" type="button" class="btn btn-xs btn-default" onclick="mostrar(this.id, 'nuevo_accesorio', this.value)" value="mostrar"><i id="icono_btn" class="fa fa-plus" data-toggle="tooltip" title="Nuevo tipo de accesorio"></i></button> Tipo de accesorio
+                                                </label>
+                                            </div>
+                                            <div id="nuevo_accesorio" style="display:none">
+                                                <div class="form-material form-material-success input-group">
+                                                    <input class="form-control" type="text" id="material-color-success" name="material-color-success" placeholder="Escribe el nuevo tipo" required>
+                                                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                </div>
+                                                <input id="estado" type="hidden" value="oculto">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Cantidad *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Precio Interno *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Precio Publico</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Nombre *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Marca</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Modelo *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Color</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Capacidad *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END Frm accesorio -->
+
+                                <!-- Frm telefono -->
+                                <div id="frm_telefono" style="display:none">
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Precio Interno (Unidad) *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Cantidad *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Nombre *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Precio Publico</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Marca</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Modelo *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Color</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-material form-material-primary input-group">
+                                                <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                <label for="material-color-primary">Capacidad *</label>
+                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END Frm telefono -->  
+                            </div>
+                            <!-- END Formularios inventario -->
+
                         </form>
                         <!-- END Formulario de registro de cliente -->
                     </div>
@@ -290,16 +385,61 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                <button class="btn btn-sm btn-success" type="button">Registrar</button>
+                <button id="btn_guardar" class="btn btn-sm btn-success" type="button" style="display:none">Registrar</button>
             </div>
         </div>
     </div>
 </div>
 <!-- END Pop Out Modal -->
-
-
-
 <script>
+    function mostrar(id_padre, elemento, accion){
+
+        console.log('ID: '+id_padre);
+        console.log('elemento: '+elemento);
+        console.log('accion: '+accion);
+
+        var elemento_padre = document.getElementById(id_padre);
+        var bandera = document.getElementById('estado');
+        var estado = accion;
+        
+        if(accion == 'mostrar'){
+            document.getElementById(elemento).style.display = 'block';
+            document.getElementById('icono_btn').classList.remove('fa-plus');
+            document.getElementById('icono_btn').classList.add('text-danger','fa-close',);
+            elemento_padre.value = "ocultar";
+            document.getElementById('id_tipo_accesorio').style.display = 'none';
+        }else{
+            document.getElementById(elemento).style.display = 'none';
+            document.getElementById('icono_btn').classList.add('text-success','fa-plus');
+            document.getElementById('icono_btn').classList.remove('text-danger','fa-close');
+            elemento_padre.value = "mostrar";
+            document.getElementById('id_tipo_accesorio').style.display = 'block';
+        }
+        /*if(bandera.value == 'oculto'){
+            estado = 'mostrar';
+        }else{
+            estado = 'oculto';
+        }*/
+        
+        bandera.value = estado;
+
+    }
+    function tipoElemento(tipo, seccion){
+        var hijos = document.querySelectorAll("div#"+seccion+" > div");
+        
+        tipo = tipo - 1;
+        
+        for (var i = 0; i < hijos.length; i++) {
+            var div_id = hijos[i].id;
+            if(tipo == i ){
+                document.getElementById(div_id).style.display = 'block';
+            }else{
+                document.getElementById(div_id).style.display = 'none';
+            }
+       
+        };
+        document.getElementById('btn_guardar').style.display = 'initial';
+    }
     function eliminar(){
         swal({
             title: "¿Estas seguro?",
