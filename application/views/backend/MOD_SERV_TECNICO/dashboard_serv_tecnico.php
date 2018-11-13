@@ -7,22 +7,17 @@
             </h3>
         </div>
 
-        <!--<div class="col-sm-5 text-right hidden-xs">
-            <ol class="breadcrumb push-10-t">
-                <li>UI Elements</li>
-                <li><a class="link-effect" href="">Tiles</a></li>
-            </ol>
-        </div>-->
+        <div class="col-sm-5 text-right hidden-xs">
+            <button class="btn btn-sm btn-round btn-primary" onclick="history.back(-1)">
+                <i class="fa fa-arrow-left"></i> Regresar
+            </button>
+            <button type="button" class="btn btn-sm btn-round btn-success" data-toggle="modal" data-target="#modal-popout2">
+                <span data-toggle="tooltip" title="Agregar nuevo cliente">
+                    <i class="fa fa-user-plus"></i> Nuevo
+                </span>
+            </button>
+        </div>
     </div>
-	<!-- Modulos -->
-    <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
-        <i class="fa fa-arrow-left"></i> Regresar
-    </button>
-    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">
-        <span data-toggle="tooltip" title="Agregar nuevo cliente">
-            <i class="fa fa-user-plus"></i> Nuevo
-        </span>
-    </button>
 
 
 </div>
@@ -30,196 +25,348 @@
 
 <!-- Page Content -->
 <div class="content">
-
-	<!-- Opciones servicio tecnico -->
-	<div class="bg-white">
-	    <section class="content content-boxed overflow-hidden">
-	        <!-- Section Content -->
-	        <div class="content-grid">
-	            <div class="row">
-	                <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear" data-class="animated fadeInDown">
-	                    <a class="block block-bordered block-rounded block-link-hover3" href="javascript:void(0)">
-	                        <div class="block-content block-content-full border-b text-center">
-	                            <div class="item">
-	                                <i class="si si-user text-amethyst"></i>
-	                            </div>
-	                        </div>
-	                        <div class="block-content block-content-full block-content-mini">
-	                            <span class="font-w600 text-uppercase"><span class="badge badge-default pull-right">23</span> Account</span>
-	                        </div>
-	                    </a>
-	                </div>
-	                <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear" data-timeout="200" data-class="animated fadeInDown">
-	                    <a class="block block-bordered block-rounded block-link-hover3" href="javascript:void(0)">
-	                        <div class="block-content block-content-full border-b text-center">
-	                            <div class="item">
-	                                <i class="si si-settings text-city"></i>
-	                            </div>
-	                        </div>
-	                        <div class="block-content block-content-full block-content-mini">
-	                            <span class="font-w600 text-uppercase"><span class="badge badge-default pull-right">11</span> Features</span>
-	                        </div>
-	                    </a>
-	                </div>
-	                <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear" data-timeout="400" data-class="animated fadeInDown">
-	                    <a class="block block-bordered block-rounded block-link-hover3" href="javascript:void(0)">
-	                        <div class="block-content block-content-full border-b text-center">
-	                            <div class="item">
-	                                <i class="si si-target text-flat"></i>
-	                            </div>
-	                        </div>
-	                        <div class="block-content block-content-full block-content-mini">
-	                            <span class="font-w600 text-uppercase"><span class="badge badge-default pull-right">16</span> Services</span>
-	                        </div>
-	                    </a>
-	                </div>
-	                <div class="col-xs-6 col-sm-3 animated fadeInDown" data-toggle="appear" data-timeout="600" data-class="animated fadeInDown">
-	                    <a class="block block-bordered block-rounded block-link-hover3" href="javascript:void(0)">
-	                        <div class="block-content block-content-full border-b text-center">
-	                            <div class="item">
-	                                <i class="si si-wallet text-smooth"></i>
-	                            </div>
-	                        </div>
-	                        <div class="block-content block-content-full block-content-mini">
-	                            <span class="font-w600 text-uppercase"><span class="badge badge-default pull-right">19</span> Payment</span>
-	                        </div>
-	                    </a>
-	                </div>
-	            </div>
-	        </div>
-	        <!-- END Section Content -->
-	    </section>
-	</div>
-	<!-- END Opciones servico tecnico -->
-
-	<!-- Busqueda de equipo -->
-	<div class="bg-gray-lighter">
-	    <section class="content content-full content-boxed">
-	        <!-- Section Content -->
-	        <div class="row">
-	            <div class="col-sm-8 col-sm-offset-2">
-	                <form action="base_pages_support.html" method="post">
-	                    <div class="input-group input-group-lg">
-	                        <input class="form-control" type="text" placeholder="Busqueda de equipo (Telefono, IMEI, ID Soporte)">
-	                        <div class="input-group-btn">
-	                            <button class="btn btn-default"><i class="fa fa-search"></i></button>
-	                        </div>
-	                    </div>
-	                </form>
-	            </div>
-	        </div>
-	        <!-- END Section Content -->
-	    </section>
-	</div>
-	<!-- END Busqueda de equipo -->
-	<div class="row">
-		<div class="col-lg-7">
-			<div class="row">
-				<div class="col-md-12">
-			        <!-- Pie Chart -->
-			        <div class="block">
-			            <div class="block-header">
-			                <ul class="block-options">
-			                    <li>
-			                        <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
-			                    </li>
-			                </ul>
-			                <h3 class="block-title">Stock por proveedor</h3>
-			            </div>
-			            <div class="block-content block-content-full text-center">
-			                <!-- Pie Chart Container -->
-			                <canvas class="js-chartjs2-pie"></canvas>
-			            </div>
-			        </div>
-			        <!-- END Pie Chart -->
-				</div>
-			</div>
-		</div>
-
-
-		<!-- Listado de proveedores -->
-    	<div class="col-lg-12">
-    		<div class="block block-content">
-                <table class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
-                    <thead>
-                        <tr>
-                            <th class="text-center">#</th>
-                            <th>Proveedor</th>
-                            <th class="hidden-xs">Telefono</th>
-                            <th>Stock</th>
-                            <th>Saldos</th>
-                            <th class="text-center">...</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td class="">
-                                <span class="text-primary">Nombre del proveedor</span>
-                            </td>
-                            <td class="hidden-xs">9511999723</td>
-                            <!-- Stock -->
-                            <td>
-                            	<a href="#">
-                            		<b>345</b>
-                            	</a>
-                            </td>
-                            <!-- Saldos -->
-                            <td>
-                            	<b class="text-danger">
-                            		<i class="fa fa-arrow-down"></i> $ 12,400
-                            	</b>
-                            </td>
-
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" title="Consultar perfil">
-                                        <i class="glyphicon glyphicon-folder-open"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Editar proveedor"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminar()"><i class="fa fa-times"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td class="">
-                                <span class="text-primary">Nombre del proveedor</span>
-                            </td>
-                            <td class="hidden-xs">9511999723</td>
-                            <!-- Stock -->
-                            <td>
-                            	<a href="#">
-                            		<b>345</b>
-                            	</a>
-                            </td>
-                            <!-- Saldos -->
-                            <td>
-                            	<b class="text-success">
-                            		<i class="fa fa-arrow-up"></i> $ 2,400
-                            	</b>
-                            </td>
-
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" title="Consultar perfil">
-                                        <i class="glyphicon glyphicon-folder-open"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Editar proveedor"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminar()"><i class="fa fa-times"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-
-
-                    </tbody>
-                </table>
+    <!-- Busqueda de equipo -->
+    <div class="bg-gray-lighter">
+        <section class="content content-full content-boxed">
+            <!-- Section Content -->
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2">
+                    <form action="base_pages_support.html" method="post">
+                        <div class="input-group input-group-lg">
+                            <input class="form-control" type="text" placeholder="Busqueda de equipo (Telefono, IMEI, ID Soporte)">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-    	</div>
+            <!-- END Section Content -->
+        </section>
+    </div>
+    <!-- END Busqueda de equipo -->
+    <!-- Opciones servicio tecnico -->
+    <div class="bg-white">
+        <div class="row">
+            <!-- Sub opciones garantia -->
+            <div class="col-sm-12">
+                <div class="block">
+                    <ul class="nav nav-tabs nav-tabs-alt nav-justified" data-toggle="tabs">
+                        <li class="active">
+                            <a href="#btabs-alt-static-justified-home"><i class="fa fa-home"></i> En proceso</a>
+                        </li>
+                        <li class="">
+                            <a href="#btabs-alt-static-justified-profile"><i class="fa fa-pencil"></i> Finalizados</a>
+                        </li>
+                        <li class="">
+                            <a href="#btabs-alt-static-justified-settings"><i class="fa fa-cog"></i> Total</a>
+                        </li>
+                    </ul>
+                    <div class="block-content tab-content">
+                        <!-- Equipos en proceso de garantia -->
+                        <div class="tab-pane active" id="btabs-alt-static-justified-home">
+                            <h4 class="font-w300 push-15">En proceso</h4>
+                            <table class="js-table-sections table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            #ID
+                                        </th>
+                                        <th>
+                                            Nº Telefono
+                                        </th>
+                                        <th>
+                                            EQUIPO
+                                        </th>
+                                        <th>
+                                            Cliente
+                                        </th>
+                                        <th>
+                                            Entrega aprox
+                                        </th>
+                                        <th>
+                                            Garantia
+                                        </th>
+                                        <th>
+                                            ...
+                                        </th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody class="js-table-sections-header">
+                                <!--<tbody class="js-table-sections-header open">-->
+                                    <tr>
+                                        <!-- ID general -->
+                                        <td>
+                                            <i class="fa fa-angle-right"></i> 342
+                                        </td>
+                                        <!-- Nº DE TELEFONO -->
+                                        <td>
+                                            951 199 9723
+                                        </td>
+                                        <!-- EQUIPO -->
+                                        <td>
+                                            <a href="#">
+                                                Nombre del equipo
+                                            </a>
+                                        </td>
+                                        <!-- CLIENTE -->
+                                        <td>
+                                            <a href="#">Nombre del cliente</a>
+                                        </td>
+                                        <!-- ENTREGA APROXIMADA -->
+                                        <td>
+                                            <span class="text-danger">
+                                                <?= date('d/m/Y', time()) ?>
+                                            </span> 
+                                        </td>
 
-		<!-- END Listado de proveedores -->
+                                        <!-- FECHA DE INGRESO -->
+                                        <td>
+                                            <?php 
+                                                $validez = 2.592e+6; // 30 dias
+                                                $fin_garantia = date('d/m/Y', time()+$validez);
+                                             ?>
+                                            <?= date('d/m/Y', time()); ?>
+                                            -
+                                            <?= $fin_garantia ?>
+                                        </td>
+                                        <!-- Acciones -->
+                                        <td>
+                                            <button class="btn btn-xs btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
 
-	</div>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center"></td>
+                                        <td class="font-w600 text-success">+ $31,00</td>
+                                        <td>
+                                            <small>Paypal</small>
+                                        </td>
+                                        <td class="hidden-xs">
+                                            <small class="text-muted">June 27, 2015 12:16</small>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                               
+                            </table>
+                        </div>
+
+                        <!-- Equipos finalizados -->
+                        <div class="tab-pane" id="btabs-alt-static-justified-profile">
+                            <h4 class="font-w300 push-15">Finalizados</h4>
+                            <table class="js-table-sections table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            #ID
+                                        </th>
+                                        <th>
+                                            Nº Telefono
+                                        </th>
+                                        <th>
+                                            EQUIPO
+                                        </th>
+                                        <th>
+                                            Cliente
+                                        </th>
+                                        <th>
+                                            Entrega aprox
+                                        </th>
+                                        <th>
+                                            Garantia
+                                        </th>
+                                        <th>
+                                            ...
+                                        </th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody class="js-table-sections-header">
+                                <!--<tbody class="js-table-sections-header open">-->
+                                    <tr>
+                                        <!-- ID general -->
+                                        <td>
+                                            <i class="fa fa-angle-right"></i> 342
+                                        </td>
+                                        <!-- Nº DE TELEFONO -->
+                                        <td>
+                                            951 199 9723
+                                        </td>
+                                        <!-- EQUIPO -->
+                                        <td>
+                                            <a href="#">
+                                                Nombre del equipo
+                                            </a>
+                                        </td>
+                                        <!-- CLIENTE -->
+                                        <td>
+                                            <a href="#">Nombre del cliente</a>
+                                        </td>
+                                        <!-- ENTREGA APROXIMADA -->
+                                        <td>
+                                            <span class="text-danger">
+                                                <?= date('d/m/Y', time()) ?>
+                                            </span> 
+                                        </td>
+
+                                        <!-- FECHA DE INGRESO -->
+                                        <td>
+                                            <?php 
+                                                $validez = 2.592e+6; // 30 dias
+                                                $fin_garantia = date('d/m/Y', time()+$validez);
+                                             ?>
+                                            <?= date('d/m/Y', time()); ?>
+                                            -
+                                            <?= $fin_garantia ?>
+                                        </td>
+                                        <!-- Acciones -->
+                                        <td>
+                                            <button class="btn btn-xs btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center"></td>
+                                        <td class="font-w600 text-success">+ $31,00</td>
+                                        <td>
+                                            <small>Paypal</small>
+                                        </td>
+                                        <td class="hidden-xs">
+                                            <small class="text-muted">June 27, 2015 12:16</small>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                               
+                            </table>
+                        </div>
+
+                        <!-- Total de equipos -->
+                        <div class="tab-pane" id="btabs-alt-static-justified-settings">
+                            <h4 class="font-w300 push-15">Listado de equipos</h4>
+                            <table class="js-table-sections table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            #ID
+                                        </th>
+                                        <th>
+                                            IMEI
+                                        </th>
+                                        <th>
+                                            Nº Telefono
+                                        </th>
+                                        <th>
+                                            EQUIPO
+                                        </th>
+                                        <th>
+                                            Cliente
+                                        </th>
+                                        <th>
+                                            Entrega aprox
+                                        </th>
+                                        <th>
+                                            Garantia
+                                        </th>
+                                        <th>
+                                            ...
+                                        </th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody class="js-table-sections-header">
+                                <!--<tbody class="js-table-sections-header open">-->
+                                    <tr>
+                                        <!-- ID general -->
+                                        <td>
+                                            <i class="fa fa-angle-right"></i> 342
+                                        </td>
+                                        <!-- IMEI -->
+                                        <td>
+                                            2234SDF22
+                                        </td>
+                                        <!-- Nº DE TELEFONO -->
+                                        <td>
+                                            951 199 9723
+                                        </td>
+                                        <!-- EQUIPO -->
+                                        <td>
+                                            <a href="#">
+                                                Nombre del equipo
+                                            </a>
+                                        </td>
+                                        <!-- CLIENTE -->
+                                        <td>
+                                            <a href="#">Nombre del cliente</a>
+                                        </td>
+                                        <!-- ENTREGA APROXIMADA -->
+                                        <td>
+                                            <span class="text-danger">
+                                                <?= date('d/m/Y', time()) ?>
+                                            </span> 
+                                        </td>
+
+                                        <!-- FECHA DE INGRESO -->
+                                        <td>
+                                            <?php 
+                                                $validez = 2.592e+6; // 30 dias
+                                                $fin_garantia = date('d/m/Y', time()+$validez);
+                                             ?>
+                                            <?= date('d/m/Y', time()); ?>
+                                            -
+                                            <?= $fin_garantia ?>
+                                        </td>
+                                        <!-- Acciones -->
+                                        <td>
+                                            <button class="btn btn-xs btn-default">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                            <button class="btn btn-xs btn-default">
+                                                <i class="fa fa-close"></i>
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center"></td>
+                                        <td class="font-w600 text-success">+ $31,00</td>
+                                        <td>
+                                            <small>Paypal</small>
+                                        </td>
+                                        <td class="hidden-xs">
+                                            <small class="text-muted">June 27, 2015 12:16</small>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                </tbody>
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Sub opciones garantia -->
+        </div>
+    </div>
+    <!-- END Opciones servico tecnico -->
 
 </div>
 <!-- FRM Registrar Proveedor -->
@@ -276,11 +423,11 @@
                                 </div>
                             </div>
 
-							
+                            
                             <div class="form-group">
-                            	<div class="col-sm-12">
-                            		<h4 style="margin-bottom:1em;">Persona de contacto</h4>
-                            	</div>
+                                <div class="col-sm-12">
+                                    <h4 style="margin-bottom:1em;">Persona de contacto</h4>
+                                </div>
                                 <div class="col-sm-4">
                                     <div class="form-material form-material-primary input-group">
                                         <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
@@ -318,8 +465,13 @@
 </div>
 <!-- END FRM Registrar Proveedor -->
 
+<!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
-<!-- Page JS Plugins -->
-<script src="<?php echo base_url(); ?>assets/js/plugins/chartjsv2/Chart.min.js"></script>
+
 <!-- Page JS Code -->
-<script src="<?php echo base_url(); ?>assets/js/pages/base_comp_chartjs_v2.js"></script>
+<script>
+    jQuery(function () {
+        // Init page helpers (Table Tools helper)
+        App.initHelpers('table-tools');
+    });
+</script>

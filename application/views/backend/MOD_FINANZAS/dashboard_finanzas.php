@@ -7,17 +7,12 @@
             </h3>
         </div>
 
-        <!--<div class="col-sm-5 text-right hidden-xs">
-            <ol class="breadcrumb push-10-t">
-                <li>UI Elements</li>
-                <li><a class="link-effect" href="">Tiles</a></li>
-            </ol>
-        </div>-->
+        <div class="col-sm-5 text-right hidden-xs">
+            <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
+                <i class="fa fa-arrow-left"></i> Regresar
+            </button>
+        </div>
     </div>
-    <!-- Modulos -->
-    <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
-        <i class="fa fa-arrow-left"></i> Regresar
-    </button>
 
 </div>
 <!-- END Page Header -->
@@ -29,9 +24,7 @@
 
         <div class="col-lg-12">
             <div class="row">
-                <div class="col-md-12">
-                    <h3 style="margin-bottom:1em">Resumen ventas</h3>
-                </div>
+
                 <div class="col-xs-6 col-md-3">
                     <a class="block block-link-hover1" href="javascript:void(0)">
                         <div class="block-content block-content-full clearfix">
@@ -39,9 +32,9 @@
                                 <i class="fa fa-bar-chart-o fa-2x text-amethyst"></i>
                             </div>
                             <div class="h2 text-amethyst" data-toggle="countTo" data-to="48">
-                               <span class="h2 text-muted">+</span> $ 8,000
+                               <span class="h2 text-muted">+</span> $ 7,000
                             </div>
-                            <div class="text-uppercase font-w600 font-s12 text-muted">Ganancia actual</div>
+                            <div class="text-uppercase font-w600 font-s12 text-muted">Balance</div>
                         </div>
                     </a>
                 </div>
@@ -144,7 +137,7 @@
 
     <div class="row">
         <!-- Articulos mas vendidos -->
-        <div class="col-xs-6 col-lg-4">
+        <div class="col-xs-6 col-lg-6">
             <div class="block block-themed">
                 <div class="block-header bg-success">
                     <ul class="block-options">
@@ -204,7 +197,7 @@
         <!-- END Articulos mas vendidos -->
 
         <!-- Articulos con mayor tiempo -->
-        <div class="col-xs-6 col-lg-5">
+        <div class="col-xs-6 col-lg-6">
 
             <div class="block block-themed">
                 <div class="block-header bg-danger">

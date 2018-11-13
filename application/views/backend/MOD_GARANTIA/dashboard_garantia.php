@@ -7,23 +7,17 @@
             </h3>
         </div>
 
-        <!--<div class="col-sm-5 text-right hidden-xs">
-            <ol class="breadcrumb push-10-t">
-                <li>UI Elements</li>
-                <li><a class="link-effect" href="">Tiles</a></li>
-            </ol>
-        </div>-->
+        <div class="col-sm-5 text-right hidden-xs">
+            <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
+                <i class="fa fa-arrow-left"></i> Regresar
+            </button>
+            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">
+                <span data-toggle="tooltip" title="Agregar nuevo cliente">
+                    <i class="fa fa-user-plus"></i> Nuevo
+                </span>
+            </button>
+        </div>
     </div>
-	<!-- Modulos -->
-    <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
-        <i class="fa fa-arrow-left"></i> Regresar
-    </button>
-    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">
-        <span data-toggle="tooltip" title="Agregar nuevo cliente">
-            <i class="fa fa-user-plus"></i> Nuevo
-        </span>
-    </button>
-
 
 </div>
 <!-- END Page Header -->
@@ -106,7 +100,7 @@
                         <tr>
                             <!-- ID general -->
                             <td>
-                                <i class="fa fa-angle-right"></i> 342
+                                <i class="fa fa-angle-right"></i> <span style="padding-left: 1em;">342</span>
                             </td>
                             <!-- IMEI -->
                             <td>
@@ -128,13 +122,16 @@
                             </td>
                             <!-- FECHA DE INGRESO -->
                             <td>
-                                <?php 
-                                    $validez = 2.592e+6; // 30 dias
-                                    $fin_garantia = date('d/m/Y', time()+$validez);
-                                 ?>
-                                <?= date('d/m/Y', time()); ?>
-                                -
-                                <?= $fin_garantia ?>
+                                <p class="alert alert-danger">
+                                    <?php 
+                                        $validez = 2.592e+6; // 30 dias
+                                        $fin_garantia = date('d/m/Y', time()+$validez);
+                                     ?>
+                                    <?= date('d/m/Y', time()); ?>
+                                    -
+                                    <?= $fin_garantia ?>
+                                </p>
+
                             </td>
 
                         </tr>

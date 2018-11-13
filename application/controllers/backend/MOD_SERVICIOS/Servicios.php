@@ -25,4 +25,14 @@ class Servicios extends CI_Controller{
 			$this->load->view('backend/MOD_SERVICIOS/'.$servicio);
 		$this->load->view('backend/template/footer');	
 	}
+
+	public function listado()
+	{
+		$this->load->view('backend/template/head');
+		$this->load->view('backend/template/overlay');
+		$this->load->view('backend/template/navbar');
+		$this->load->view('backend/template/header');
+			$this->load->view('backend/MOD_SERVICIOS/listado_servicios');
+		$this->load->view('backend/template/footer');
+	}
 }

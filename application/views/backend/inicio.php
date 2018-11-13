@@ -6,12 +6,8 @@
                 Dashboard
             </h1>
         </div>
-        <!--<div class="col-sm-5 text-right hidden-xs">
-            <ol class="breadcrumb push-10-t">
-                <li>UI Elements</li>
-                <li><a class="link-effect" href="">Tiles</a></li>
-            </ol>
-        </div>-->
+        <div class="col-sm-5 hidden-xs">
+        </div>
     </div>
 </div>
 <!-- END Page Header -->
@@ -26,7 +22,7 @@
                 <a class="block block-link-hover2 text-center" href="#" data-toggle="modal" data-target="#modal-popout">
                     <div class="block-content block-content-full bg-primary">
                         <i class="si si-shuffle fa-4x text-white"></i>
-                        <div class="font-w600 text-white-op push-15-t">Servicios</div>
+                        <div class="font-w600 text-white-op push-15-t">Ventas</div>
                     </div>
                 </a>
             </div>
@@ -129,20 +125,20 @@
                         </div>
 
 
-                        <div id="div_servicio_express" class="col-md-4">
+                        <div id="div_servicio_express" class="col-md-3">
                             <div class="row">
                                 <div class="col-xs-12">
                                     <a class="block block-link-hover3 text-center" href="#" onclick="mostrarServicio('mostrar', 'servicio_express');">
                                         <div class="block-content block-content-full">
                                             <div class="h1 font-w700 text-success"><i class="fa fa-plus"></i></div>
                                         </div>
-                                        <div class="block-content block-content-full block-content-mini bg-gray-lighter text-success font-w600">Servicio Express</div>
+                                        <div class="block-content block-content-full block-content-mini bg-gray-lighter text-success font-w600">Venta Express</div>
                                     </a>                                    
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="block block-rounded">
                                         <div class="block-header bg-gray-lighter">
-                                            <h4 class="block-title">Servicio Express</h4>
+                                            <h4 class="block-title">Venta Express</h4>
                                         </div>
                                         <div class="block-content">
                                             <p>
@@ -154,24 +150,24 @@
                             </div>
 
                         </div>
-                        <div id="div_servicio_detallado" class="col-md-4">
+                        <div id="div_servicio_detallado" class="col-md-3">
                             <div class="row">
                                 <div class="col-xs-12">
                                     <a class="block block-link-hover3 text-center" href="<?php echo base_url("backend/MOD_SERVICIOS/servicios/index/detallado"); ?>">
                                         <div class="block-content block-content-full">
                                             <div class="h1 font-w700 text-success"><i class="fa fa-plus"></i></div>
                                         </div>
-                                        <div class="block-content block-content-full block-content-mini bg-gray-lighter text-success font-w600">Servicio Detallado</div>
+                                        <div class="block-content block-content-full block-content-mini bg-gray-lighter text-success font-w600">Venta Detallada</div>
                                     </a>                                    
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="block block-rounded">
                                         <div class="block-header bg-gray-lighter">
-                                            <h4 class="block-title">Servicio Detallado</h4>
+                                            <h4 class="block-title">Venta Detallada</h4>
                                         </div>
                                         <div class="block-content">
                                             <p>
-                                                Se necesita dar de alta la información del cliente (<span style="color:red">venta, reparación</span>).
+                                                Se necesita dar de alta la información del cliente (<span style="color:red">venta equipos, reparación</span>).
                                             </p>
                                         </div>
                                     </div>
@@ -179,20 +175,20 @@
                             </div>
 
                         </div>
-                        <div id="div_servicio_interno" class="col-md-4">
+                        <div id="div_servicio_interno" class="col-md-3">
                             <div class="row">
                                 <div class="col-xs-12">
                                     <a class="block block-link-hover3 text-center" href="#" onclick="mostrarServicio('mostrar', 'servicio_interno');">
                                         <div class="block-content block-content-full">
                                             <div class="h1 font-w700 text-warning"><i class="fa fa-plus"></i></div>
                                         </div>
-                                        <div class="block-content block-content-full block-content-mini bg-gray-lighter text-warning font-w600">Servicio Interno</div>
+                                        <div class="block-content block-content-full block-content-mini bg-gray-lighter text-warning font-w600">Pago Interno</div>
                                     </a>                                    
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="block block-rounded">
                                         <div class="block-header bg-gray-lighter">
-                                            <h4 class="block-title">Servicio Interno</h4>
+                                            <h4 class="block-title">Pago Interno</h4>
                                         </div>
                                         <div class="block-content">
                                             <p>
@@ -202,8 +198,31 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+
+                        <div id="div_listado_servicios" class="col-md-3">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <a class="block block-link-hover3 text-center" href="<?php echo base_url('backend/MOD_SERVICIOS/servicios/listado'); ?>">
+                                        <div class="block-content block-content-full">
+                                            <div class="h1 font-w700 text-info"><i class="fa fa-search"></i></div>
+                                        </div>
+                                        <div class="block-content block-content-full block-content-mini bg-gray-lighter text-info font-w600">Listado</div>
+                                    </a>                                    
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="block block-rounded">
+                                        
+                                        <div class="block-content">
+                                            <p>
+                                                Consultar listado de servicios realizados
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
 
                         <!-- Div servicio_express -->
@@ -360,12 +379,14 @@
 
         if(accion == 'mostrar'){
             document.getElementById('div_servicio_detallado').style.display = 'none';
+            document.getElementById('div_listado_servicios').style.display = 'none';
             document.getElementById(div).style.display = 'none';
             document.getElementById(frm).style.display = 'block';
         }else if(accion == 'cancelar'){
             frm = 'frm_'+servicio;
 
             document.getElementById('div_servicio_detallado').style.display = 'block';
+            document.getElementById('div_listado_servicios').style.display = 'block';
             document.getElementById(div).style.display = 'block';
             document.getElementById(frm).style.display = 'none';
         }

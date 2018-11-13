@@ -6,22 +6,17 @@
                 Servicio Detallado
             </h3>
         </div>
-        <!--<div class="col-sm-5 text-right hidden-xs">
-            <ol class="breadcrumb push-10-t">
-                <li>UI Elements</li>
-                <li><a class="link-effect" href="">Tiles</a></li>
-            </ol>
-        </div>-->
+        <div class="col-sm-5 text-right hidden-xs">
+            <button class="btn btn-primary" onclick="history.back(-1)">
+                <i class="fa fa-arrow-left"></i> Regresar
+            </button>
+        </div>
     </div>
 </div>
 <!-- END Page Header -->
 
 <!-- Page Content -->
-<div class="content content-narrow">
-    <!-- Modulos -->
-    <button class="btn btn-primary" onclick="history.back(-1)">
-        <i class="fa fa-arrow-left"></i> Regresar
-    </button>
+<div class="content">
     <div class="content-grid push-50">
         <div class="row">
 

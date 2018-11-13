@@ -8,21 +8,27 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                LISTADO STOCK ACTUAL: <span class="text-primary">540</span>
+                LISTADO SERVICIOS
             </h3>
         </div>
-        <div class="col-sm-5 text-right hidden-xs">
-        <!-- Modulos -->
-        <button class="btn btn-sm btn-rounded btn-primary" onclick="history.back(-1)">
-            <i class="fa fa-arrow-left"></i> Regresar
-        </button>
-        <button type="button" class="btn btn-sm btn-rounded btn-success" data-toggle="modal" data-target="#modal-popout2">
-            <span data-toggle="tooltip" title="Agregar nuevo cliente">
-                <i class="fa fa-user-plus"></i> Nuevo
-            </span>
-        </button>
-        </div>
+
+
+        <!--<div class="col-sm-5 text-right hidden-xs">
+            <ol class="breadcrumb push-10-t">
+                <li>UI Elements</li>
+                <li><a class="link-effect" href="">Tiles</a></li>
+            </ol>
+        </div>-->
     </div>
+    <!-- Modulos -->
+    <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
+        <i class="fa fa-arrow-left"></i> Regresar
+    </button>
+    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">
+        <span data-toggle="tooltip" title="Agregar nuevo cliente">
+            <i class="fa fa-user-plus"></i> Nuevo
+        </span>
+    </button>
 
 </div>
 <!-- END Page Header -->
@@ -33,8 +39,62 @@
     <div class="content-grid push-50">
         <div class="row">
             <div class="col-md-12">
-                
+                <div class="row">
+                    <div class="col-xs-6 col-md-3">
+                        <a class="block block-link-hover1" href="javascript:void(0)">
+                            <div class="block-content block-content-full clearfix">
+                                <div class="pull-right push-15-t push-15">
+                                    <i class="fa fa-bar-chart-o fa-2x text-amethyst"></i>
+                                </div>
+                                <div class="h2 text-amethyst" data-toggle="countTo" data-to="48">
+                                    45
+                                </div>
+                                <div class="text-uppercase font-w600 font-s12 text-muted">Balance</div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xs-6 col-md-3">
+                        <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>">
+                            <div class="block-content block-content-full clearfix">
+                                <div class="pull-right push-15-t push-15">
+                                    <i class="fa fa-users fa-2x text-primary"></i>
+                                </div>
+                                <div class="h2 text-primary" data-toggle="countTo" data-to="36300">
+                                    23
+                                </div>
+                                <div class="text-uppercase font-w600 font-s12 text-muted">Servicios Express</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a class="block block-link-hover1" href="javascript:void(0)">
+                            <div class="block-content block-content-full clearfix">
+                                <div class="pull-right push-15-t push-15">
+                                    <i class="fa fa-briefcase fa-2x text-smooth"></i>
+                                </div>
+                                <div class="h2 text-smooth" data-toggle="countTo" data-to="360">
+                                    23
+                                </div>
+                                <div class="text-uppercase font-w600 font-s12 text-muted">Servicios detallados</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                        <a class="block block-link-hover1" href="javascript:void(0)">
+                            <div class="block-content block-content-full clearfix">
+                                <div class="pull-right push-15-t push-15">
+                                    <i class="fa fa-briefcase fa-2x text-success"></i>
+                                </div>
+                                <div class="h2 text-success" data-toggle="countTo" data-to="760" data-before="$">4</div>
+                                <div class="text-uppercase font-w600 font-s12 text-muted">Serv. Tecnico</div>
+                            </div>
+                        </a>
+                    </div>
+       
+                </div>
             </div>
+
             <div class="col-md-12 block">
                 <div class="block-content">
                     <table id="example" class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
@@ -43,26 +103,18 @@
                                 <th class="encabezado text-center">
                                     Nº
                                 </th>
-                                <th class="encabezado">
-                                    Sucursal
-                                </th>
-                                <th class="encabezado">
-                                    Codigo
+                                <th>
+                                    ID
                                 </th>
                                 <th class="encabezado">
                                     Tipo
                                 </th>
                                 <th class="encabezado">
-                                    Cant
+                                    Categoria
                                 </th>
                                 <th class="encabezado">
-                                    Articulo
+                                    Estatus
                                 </th>
-                                <th class="encabezado">
-                                    Precio Public
-                                </th>
-                                <th class="encabezado">
-                                    Detalles
                                 </th>
                                 <th class="encabezado">
                                     Fecha
@@ -79,50 +131,23 @@
                                     <td>
                                         1
                                     </td>
-                                    <!-- Sucursal -->
+                                    <!-- ID -->
                                     <td>
-                                        <button class="btn btn-xs btn-default" data-toggle="tooltip" title="Nom. Sucur">
-                                            <i class="si si-home"></i>
-                                        </button>
-                                        <button class="btn btn-xs btn-default" data-toggle="tooltip" title="Nom. Sucur">
-                                            <i class="si si-home"></i>
-                                        </button>
-                                        <button class="btn btn-xs btn-default" data-toggle="tooltip" title="Nom. Sucur">
-                                            <i class="si si-home"></i>
-                                        </button>
-                                        <button class="btn btn-xs btn-default" data-toggle="tooltip" title="Nom. Sucur">
-                                            <i class="si si-home"></i>
-                                        </button>
-
-
-
+                                        #342
                                     </td>
-                                    <!-- Codigo -->
+                                    <!-- Categoria -->
                                     <td>
-                                        3345234534
+                                        Express
                                     </td>
                                     <!-- Tipo -->
                                     <td>
-                                        Funda
+                                        Instalación whatsapp
                                     </td>
-                                    <!-- Cantidad -->
+                                    <!-- Estatus -->
                                     <td>
-                                        <input type="text" name="pin" maxlength="4" size="4" value="10">
-                                    </td>
-                                    <!-- Nombre articulo -->
-                                    <td>
-                                        Funda de telefono
-                                    </td>
-                                    <!-- Precio al publico -->
-                                    <td>
-                                        $ 450.00
-                                    </td>
-                                    <!-- Detalles -->
-                                    <td>
-                                        Proveedor: <span class="text-primary">Nom. Provee</span>
-                                        Modelo: <span class="text-primary">XR20</span> ,
-                                        Color: <span class="text-primary">Azul</span> ,
-                                        Capacidad:
+                                        <span class="text-success">
+                                            <i class="fa fa-check"></i> Completo
+                                        </span>
                                     </td>
                                     <!-- Fecha -->
                                     <td>
@@ -134,8 +159,7 @@
                                             <button class="btn btn-xs btn-default">
                                                 <i class="si si-settings"></i>
                                             </button>
-                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar cliente"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Eliminar cliente" onclick="eliminar()"><i class="fa fa-times"></i></button>
+                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Consultar detalles"><i class="fa fa-search"></i></button>
                                         </div>
                                     </td>
                                 </tr>

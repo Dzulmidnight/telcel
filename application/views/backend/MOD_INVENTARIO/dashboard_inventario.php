@@ -7,17 +7,13 @@
             </h3>
         </div>
 
-        <!--<div class="col-sm-5 text-right hidden-xs">
-            <ol class="breadcrumb push-10-t">
-                <li>UI Elements</li>
-                <li><a class="link-effect" href="">Tiles</a></li>
-            </ol>
-        </div>-->
+        <div class="col-sm-5 text-right hidden-xs">
+		    <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
+		        <i class="fa fa-arrow-left"></i> Regresar
+		    </button>
+        </div>
     </div>
-	<!-- Modulos -->
-    <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
-        <i class="fa fa-arrow-left"></i> Regresar
-    </button>
+
 
 </div>
 <!-- END Page Header -->
@@ -57,10 +53,10 @@
 			        <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>">
 			            <div class="block-content block-content-full clearfix">
 			                <div class="pull-right push-15-t push-15">
-			                    <i class="fa fa-users fa-2x text-primary"></i>
+			                    <i class="fa fa-search fa-2x text-primary"></i>
 			                </div>
-			                <div class="h2 text-primary" data-toggle="countTo" data-to="36300">36,300</div>
-			                <div class="text-uppercase font-w600 font-s12 text-muted">Stock actual(unidades)</div>
+			                <div class="h2 text-primary" data-toggle="countTo" data-to="36300">540</div>
+			                <div class="text-uppercase font-w600 font-s12 text-muted">Stock actual (accesorios)</div>
 			            </div>
 			        </a>
 				</div>
@@ -68,7 +64,7 @@
 			        <a class="block block-link-hover1" href="javascript:void(0)">
 			            <div class="block-content block-content-full clearfix">
 			                <div class="pull-right push-15-t push-15">
-			                    <i class="fa fa-briefcase fa-2x text-smooth"></i>
+			                    <i class="fa fa-search fa-2x text-smooth"></i>
 			                </div>
 			                <div class="h2 text-smooth" data-toggle="countTo" data-to="360">$ 34,600</div>
 			                <div class="text-uppercase font-w600 font-s12 text-muted">Valor stock actual ($)</div>
@@ -79,7 +75,7 @@
 			        <a class="block block-link-hover1" href="javascript:void(0)">
 			            <div class="block-content block-content-full clearfix">
 			                <div class="pull-right push-15-t push-15">
-			                    <i class="fa fa-line-chart fa-2x text-success"></i>
+			                    <i class="fa fa-search fa-2x text-success"></i>
 			                </div>
 			                <div class="h2 text-success" data-toggle="countTo" data-to="760" data-before="$">4</div>
 			                <div class="text-uppercase font-w600 font-s12 text-muted">Telefonos</div>
@@ -90,7 +86,7 @@
 			        <a class="block block-link-hover1" href="javascript:void(0)">
 			            <div class="block-content block-content-full clearfix">
 			                <div class="pull-right push-15-t push-15">
-			                    <i class="fa fa-bar-chart-o fa-2x text-amethyst"></i>
+			                    <i class="fa fa-search fa-2x text-amethyst"></i>
 			                </div>
 			                <div class="h2 text-amethyst" data-toggle="countTo" data-to="48">48</div>
 			                <div class="text-uppercase font-w600 font-s12 text-muted">Proveedores</div>
