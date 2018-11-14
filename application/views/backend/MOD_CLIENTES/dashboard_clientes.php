@@ -33,21 +33,29 @@
                     <thead>
                         <tr>
                             <th class="text-center">#</th>
+                            <th>
+                                Sucursal
+                            </th>
                             <th>Nombre</th>
                             <th class="hidden-xs">Telefono</th>
-                            <th class="hidden-xs">Extra</th>
+                            <th class="hidden-xs">Detalles</th>
                             <th class="text-center">...</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="text-center">1</td>
+                            <td>
+                                <i class="fa fa-home"></i> Sucursal 1
+                            </td>
                             <td class="">
                                 <span class="text-primary">Nombre</span> ApellidoP ApellidoM
                             </td>
                             <td class="hidden-xs">9511999723</td>
                             <td class="hidden-xs">
-                                <!-- <span class="label label-success">VIP</span> -->
+                                <b class="text-info">
+                                    <i class="si si-info"></i> Producto apartado
+                                </b>
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
@@ -59,6 +67,84 @@
                                 </div>
                             </td>
                         </tr>
+
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>
+                                <i class="fa fa-home"></i> Sucursal 1
+                            </td>
+                            <td class="">
+                                <span class="text-primary">Nombre</span> ApellidoP ApellidoM
+                            </td>
+                            <td class="hidden-xs">9511999723</td>
+                            <td class="hidden-xs">
+                                <b class="text-warning">
+                                    <i class="si si-info"></i> Garantia con proveedor
+                                </b>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" title="Consultar perfil">
+                                        <i class="glyphicon glyphicon-folder-open"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Editar cliente"><i class="fa fa-pencil"></i></button>
+                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar cliente" onclick="eliminar()"><i class="fa fa-times"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>
+                                <i class="fa fa-home"></i> Sucursal 1
+                            </td>
+                            <td class="">
+                                <span class="text-primary">Nombre</span> ApellidoP ApellidoM
+                            </td>
+                            <td class="hidden-xs">9511999723</td>
+                            <td class="hidden-xs">
+                                <b class="text-danger">
+                                    <i class="si si-info"></i> Equipo en reparación
+                                </b>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" title="Consultar perfil">
+                                        <i class="glyphicon glyphicon-folder-open"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Editar cliente"><i class="fa fa-pencil"></i></button>
+                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar cliente" onclick="eliminar()"><i class="fa fa-times"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>
+                                <i class="fa fa-home"></i> Sucursal 1
+                            </td>
+                            <td class="">
+                                <span class="text-primary">Nombre</span> ApellidoP ApellidoM
+                            </td>
+                            <td class="hidden-xs">9511999723</td>
+                            <td class="hidden-xs">
+                                <b class="text-success">
+                                    <i class="si si-info"></i> Compra accesorio
+                                </b>
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" title="Consultar perfil">
+                                        <i class="glyphicon glyphicon-folder-open"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Editar cliente"><i class="fa fa-pencil"></i></button>
+                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar cliente" onclick="eliminar()"><i class="fa fa-times"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+
+
+
                     </tbody>
                 </table>
             </div>

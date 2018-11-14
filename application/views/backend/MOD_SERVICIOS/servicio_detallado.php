@@ -115,7 +115,7 @@
                     </div>
                     <div id="contenedor_bloques">               
                         <!-- Div venta_accesorios -->
-                        <div id="div_venta_accesorios" style="display:none">
+                        <div id="div_venta_accesorios" style="display:block">
                             <h3 style="margin-bottom: 1em">
                                 Venta de Accesorios
                             </h3>
@@ -128,10 +128,20 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                    <div class="form-material form-material-primary">
-                                        <input class="form-control" type="number" step="0.01" min="0" id="material-color-primary" name="material-color-primary" placeholder="Ej: 150.50" required>
-                                        <label for="material-color-primary">Costo *</label>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="form-material form-material-primary">
+                                                <input class="form-control" type="number" step="0.01" min="0" id="costo_accesorio" name="costo_accesorio" placeholder="Ej: 150.50" required>
+                                                <label id="label_costo" for="costo_accesorio">Costo *</label>
+                                            </div>  
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label class="css-input css-checkbox css-checkbox-warning">
+                                                <input id="apartar_accesorio" type="checkbox" onclick="apartar(this.id,'label_costo')"><span></span> Apartar
+                                            </label>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                             
@@ -193,9 +203,18 @@
 
                             <div class="form-group">
                                 <div class="col-sm-6">
-                                    <div class="form-material form-material-primary">
-                                        <input class="form-control" type="number" step="0.01" min="0" id="material-color-primary" name="material-color-primary" placeholder="Ej: 150.50" required>
-                                        <label for="material-color-primary">Costo del equipo *</label>
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="form-material form-material-primary">
+                                                <input class="form-control" type="number" step="0.01" min="0" id="material-color-primary" name="material-color-primary" placeholder="Ej: 150.50" required>
+                                                <label id="label_costo_equipo" for="material-color-primary">Costo del equipo *</label>
+                                            </div>  
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <label class="css-input css-checkbox css-checkbox-warning">
+                                                <input id="apartar_equipo" type="checkbox" onclick="apartar(this.id, 'label_costo_equipo')"><span></span> Apartar
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -350,6 +369,14 @@
 
  ?>
 <script>
+    function apartar(id, elemento){
+        if(document.getElementById(id).checked == true){
+            document.getElementById(elemento).innerHTML = "Deposito en garantia *";
+        }else{
+            document.getElementById(elemento).innerHTML = 'Costo *';
+        }
+    }
+
     function tipoServicio(tipo){
         var hijos = document.querySelectorAll("div#contenedor_bloques > div");
         

@@ -3,6 +3,18 @@
         font-size: 11px !important;
     }
 </style>
+
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2-bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
     <div class="row items-push">
@@ -32,8 +44,13 @@
 
     <div class="content-grid push-50">
         <div class="row">
-            <div class="col-md-12">
-                
+            <div class="col-lg-3" style="margin-bottom:1em;">
+                <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width: 100%;" data-placeholder="Sucursales" multiple>
+                    <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                    <option value="1">Sucursal 1</option>
+                    <option value="2">Sucursal 2</option>
+                    <option value="3">Sucursal 3</option>
+                </select>
             </div>
             <div class="col-md-12 block">
                 <div class="block-content">
@@ -498,3 +515,15 @@
         background-color: #7f8c8d;
     }
 </style>
+
+<!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.slimscroll.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.scrollLock.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.appear.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.countTo.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.placeholder.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/app.js"></script>
+<!-- Page JS Code -->

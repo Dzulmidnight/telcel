@@ -21,7 +21,45 @@
 <div class="content">
 
     <div class="row">
-
+                        <div class="col-sm-4">
+                            <!-- Tiles Slider 3 -->
+                            <div class="js-slider" data-slider-dots="true" data-slider-autoplay="true">
+                                <div>
+                                    <div class="block text-center remove-margin-b">
+                                        <div class="block-content block-content-full">
+                                            <div class="h1 font-w700">28.600</div>
+                                            <div class="h5 text-muted text-uppercase push-5-t">Downloads</div>
+                                        </div>
+                                        <div class="block-content block-content-full block-content-mini bg-danger text-white">
+                                            <i class="fa fa-arrow-down text-black-op"></i> -15% This week
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="block text-center remove-margin-b">
+                                        <div class="block-content block-content-full">
+                                            <div class="h1 font-w700"><span class="h2 text-muted">+</span> 245</div>
+                                            <div class="h5 text-muted text-uppercase push-5-t">Sales</div>
+                                        </div>
+                                        <div class="block-content block-content-full block-content-mini bg-warning text-white">
+                                            <i class="fa fa-chevron-up text-black-op"></i> +15% This week
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="block text-center remove-margin-b">
+                                        <div class="block-content block-content-full">
+                                            <div class="h1 font-w700"><span class="h2 text-muted">+</span> 750</div>
+                                            <div class="h5 text-muted text-uppercase push-5-t">Users</div>
+                                        </div>
+                                        <div class="block-content block-content-full block-content-mini bg-primary text-white">
+                                            <i class="fa fa-chevron-down text-black-op"></i> -2% This week
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END Tiles Slider 3 -->
+                        </div>
         <div class="col-lg-12">
             <div class="row">
 
@@ -216,13 +254,13 @@
                                     #ID
                                 </th>
                                 <th>
-                                    ARTICULO
+                                    Monto
                                 </th>
                                 <th>
-                                    Vendidos
+                                    Detalle
                                 </th>
                                 <th>
-                                    STOCK
+                                    Comprobante
                                 </th>
                                 <th>
                                     Fecha

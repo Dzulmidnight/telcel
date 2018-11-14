@@ -71,9 +71,9 @@
                             
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" title="Consultar perfil">
+                                    <a  class="btn btn-sm btn-primary" href="<?php echo base_url('backend/MOD_PROVEEDORES/Proveedores/detalle'); ?>" data-toggle="tooltip" title="Consultar perfil">
                                         <i class="glyphicon glyphicon-folder-open"></i>
-                                    </button>
+                                    </a>
                                     <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Editar proveedor"><i class="fa fa-pencil"></i></button>
                                     <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminar()"><i class="fa fa-times"></i></button>
                                 </div>
@@ -105,9 +105,9 @@
                             </td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" title="Consultar perfil">
+                                    <a  class="btn btn-sm btn-primary" href="<?php echo base_url('backend/MOD_PROVEEDORES/Proveedores/detalle'); ?>" data-toggle="tooltip" title="Consultar perfil">
                                         <i class="glyphicon glyphicon-folder-open"></i>
-                                    </button>
+                                    </a>
                                     <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Editar proveedor"><i class="fa fa-pencil"></i></button>
                                     <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminar()"><i class="fa fa-times"></i></button>
                                 </div>

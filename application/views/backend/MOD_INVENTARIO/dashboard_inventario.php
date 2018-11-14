@@ -108,10 +108,18 @@
 			                <button type="button"><i class="si si-settings"></i></button>
 			            </li>
 			        </ul>
-			        <h3 class="block-title">ALERTAS</h3>
+			        <h3 class="block-title">OTROS</h3>
 			    </div>
 			    <div class="block-content" style="padding-top:0">
 					<table class="table table-striped">
+						<tr>
+							<td>
+								Apartados
+							</td>
+							<td>
+								<b class="text-info">20</b>
+							</td>
+						</tr>
 						<tr>
 							<td>
 								Productos por Agotar

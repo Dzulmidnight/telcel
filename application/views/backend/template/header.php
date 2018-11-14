@@ -9,8 +9,8 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li class="dropdown-header">Profile</li>
-                    <li>
+                    <li class="dropdown-header">Perfil</li>
+                    <!--<li>
                         <a tabindex="-1" href="base_pages_inbox.html">
                             <i class="si si-envelope-open pull-right"></i>
                             <span class="badge badge-primary pull-right">3</span>Inbox
@@ -26,17 +26,15 @@
                         <a tabindex="-1" href="javascript:void(0)">
                             <i class="si si-settings pull-right"></i>Settings
                         </a>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">Actions</li>
-                    <li>
+                    </li>-->
+                    <!--<li>
                         <a tabindex="-1" href="base_pages_lock.html">
                             <i class="si si-lock pull-right"></i>Lock Account
                         </a>
-                    </li>
+                    </li>-->
                     <li>
                         <a tabindex="-1" href="base_pages_login.html">
-                            <i class="si si-logout pull-right"></i>Log out
+                            <i class="si si-logout pull-right"></i>Cerrar sesión
                         </a>
                     </li>
                 </ul>

@@ -53,7 +53,7 @@
                                 </td>
                                 <td class="hidden-xs">9511999723</td>
                                 <td class="hidden-xs">
-                                    <!-- <span class="label label-success">VIP</span> -->
+                                    <span class="label label-success">VIP</span>
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group">
