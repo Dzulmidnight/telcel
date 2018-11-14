@@ -12,7 +12,7 @@
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
             <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">
-                <span data-toggle="tooltip" title="Agregar nuevo cliente">
+                <span data-toggle="tooltip" title="Agregar nuevo proveedor">
                     <i class="fa fa-user-plus"></i> Nuevo
                 </span>
             </button>

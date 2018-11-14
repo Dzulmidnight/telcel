@@ -11,24 +11,17 @@
                 LISTADO SERVICIOS
             </h3>
         </div>
-
-
-        <!--<div class="col-sm-5 text-right hidden-xs">
-            <ol class="breadcrumb push-10-t">
-                <li>UI Elements</li>
-                <li><a class="link-effect" href="">Tiles</a></li>
-            </ol>
-        </div>-->
+        <div class="col-sm-5 text-right hidden-xs">
+            <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
+                <i class="fa fa-arrow-left"></i> Regresar
+            </button>
+            <!--<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">
+                <span data-toggle="tooltip" title="Agregar nuevo cliente">
+                    <i class="fa fa-user-plus"></i> Nuevo
+                </span>
+            </button>-->
+        </div>
     </div>
-    <!-- Modulos -->
-    <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
-        <i class="fa fa-arrow-left"></i> Regresar
-    </button>
-    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">
-        <span data-toggle="tooltip" title="Agregar nuevo cliente">
-            <i class="fa fa-user-plus"></i> Nuevo
-        </span>
-    </button>
 
 </div>
 <!-- END Page Header -->
