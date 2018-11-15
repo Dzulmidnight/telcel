@@ -8,14 +8,10 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
-            <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
+            <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">
-                <span data-toggle="tooltip" title="Agregar nuevo proveedor">
-                    <i class="fa fa-user-plus"></i> Nuevo
-                </span>
-            </button>
+
         </div>
     </div>
 
@@ -128,7 +124,7 @@
                 <span style="padding-right:1em;">
                     Finanzas
                 </span>                         
-                <a class="h3 font-w300 text-success animated flipInX" href="javascript:void(0)" data-toggle="tooltip" title="Saldo en contra">
+                <a class="h3 font-w300 text-success animated flipInX" href="javascript:void(0)" data-toggle="tooltip" title="Saldo a favor">
                     <i class="fa fa-arrow-up"></i> $ 12,400
                 </a>
                 <a class="h3 font-w300 text-danger animated flipInX" href="javascript:void(0)" data-toggle="tooltip" title="Saldo en contra">
@@ -170,14 +166,19 @@
                                         </div>
                                         <div class="block-content">
                                             <div class="row">
-                                                <div class="col-xs-6">
-                                                    <p>
-                                                        Costo total: <span class="text-danger">$ 2342</span>
+                                                <div class="col-xs-4">
+                                                    <p class="h4">
+                                                        Costo total:<br><span class="text-danger">$ 2,342.00</span>
                                                     </p>
                                                 </div>
-                                                <div class="col-xs-6">
-                                                    <p>
-                                                        Pagado: <span class="text-success">$ 2342</span>
+                                                <div class="col-xs-4">
+                                                    <p class="h4">
+                                                        Pagado:<br><span class="text-success">$ 2,342.00</span>
+                                                    </p>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <p class="h4">
+                                                        Balance:<br><span>$ 0.00</span>
                                                     </p>
                                                 </div>
                                             </div>
@@ -198,24 +199,31 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                            <h3 class="block-title">Pagos</h3>
+                                            <h3 class="block-title">Pagos Realizados</h3>
                                         </div>
                                         <div class="block-content">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    Ultimo pago realizado: <?php echo date('d/m/Y', time()); ?>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    Cantidad: $500
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <a href="#">Descargar comprobante</a>
-                                                </div>
-                                                <div class="col-sm-12 text-center" style="margin-top:1em">
-                                                    <a href="#">
-                                                        <i class="fa fa-search"></i> Ver todos los pagos
-                                                    </a>
-                                                </div>
+                                            <?php 
+                                                for ($i=0; $i < 3; $i++) { 
+                                                ?>
+                                                    
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            Fecha de pago: <?php echo date('d/m/Y', time()); ?>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            Cantidad: $500
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <a href="#">Descargar comprobante</a>
+                                                        </div>
+                                                    </div>
+                                                <?php
+                                                }
+                                            ?>
+                                            <div class="col-sm-12 text-center" style="margin-top:1em">
+                                                <a href="#" data-toggle="modal" data-target="#modal-tabla-pagos">
+                                                    <i class="fa fa-search"></i> Ver todos los pagos
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -675,6 +683,68 @@
     </div>
 </div>
 <!-- END FRM Registrar Proveedor -->
+
+
+<!-- Tabla de pagos -->
+<div class="modal fade" id="modal-tabla-pagos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-popout">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Registro Proveedor</h3>
+                </div>
+                <div class="block-content" style="margin-bottom: 4em;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Fecha pago
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Comprobante
+                                </th>
+                                <th>
+                                    Balance
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <?= date('d/m/Y', time()); ?>
+                                </td>
+                                <td>
+                                    $ 540.00
+                                </td>
+                                <td>
+                                    <a href="#">
+                                        Descargar
+                                    </a>
+                                </td>
+                                <td class="text-danger">
+                                    $ 2,450.00
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Tabla de pagos -->
+
 
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <!-- Page JS Plugins -->

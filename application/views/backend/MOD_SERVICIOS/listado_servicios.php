@@ -12,7 +12,7 @@
             </h3>
         </div>
         <div class="col-sm-5 text-right hidden-xs">
-            <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
+            <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
             <!--<button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">

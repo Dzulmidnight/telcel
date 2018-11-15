@@ -113,6 +113,57 @@
         </div>
         <!-- END Apps Modal -->
 
+<script>
+    function eliminar(){
+        swal({
+            title: "Eliminar",
+            text: "¿Desear eliminar la información?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                swal("La información ha sido eliminada", {
+                  icon: "success",
+                });
+            } /*else {
+                swal("Your imaginary file is safe!");
+            }*/
+        });
+    }
+
+    function registrarServicio(){
+        swal({
+            title: "Operacion exitosa",
+            text: "Se ha registrado la información correctamente",
+            icon: "success",
+            buttons:{
+                imprimir:{
+                    text: "Imprimir nota",
+                },
+                nuevo:{
+                    text: "Nuevo registro",
+                },
+                confirm: true,
+            },
+
+        })
+        .then((value) => {
+            switch(value){
+                case "imprimir":
+                    swal('Mandaste a imprimir');
+                    break;
+                case "nuevo":
+                    swal('Nuevo registro');
+                    break;
+            }    
+        })
+        ;
+
+    }
+</script>
+    
         <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
         <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>

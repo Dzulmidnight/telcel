@@ -8,7 +8,7 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
-            <button class="btn btn-sm btn-round btn-primary" onclick="history.back(-1)">
+            <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
         </div>
@@ -48,6 +48,9 @@
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <div class="input-group">
+                                        <p class="h4">
+                                            1.- Selecciona un tipo de servicio *
+                                        </p>
                                         <div class="form-material">
                                             <select class="form-control" id="material-select" name="material-select" size="1" required="" onchange="tipoServicio(this.value)">
                                                 <option>...</option>
@@ -59,7 +62,6 @@
                                                 <option value="4">Servicio Tecnico</option>
 
                                             </select>
-                                            <label for="material-select">Listado de servicios *</label>
                                         </div>
                                         <span class="input-group-btn">
                                             <button id="btn_nuevo_servicio" class="btn btn-sm btn-default" type="button" value="mostrar" onclick="nuevoServicio(this.id, this.value)">
@@ -80,7 +82,7 @@
                                         <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
                                     </div>
                                     <label class="css-input switch switch-sm switch-success">
-                                        <input type="checkbox" checked=""><span></span> Necesita registrar usuario?
+                                        <input type="checkbox"><span></span> Necesita registrar usuario?
                                     </label>
                                     <br>
                                     <button class="btn btn-sm btn-success" style="margin-top:2em;">
@@ -95,7 +97,7 @@
                                 <hr>
 
                                 <!-- Registrar nuevo cliente -->
-                                <div class="col-md-6 block">
+                                <div id="frm_cliente" class="col-md-6 block" style="display:none">
                                     <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
                                         <h3 class="h4">
                                             Información del cliente
@@ -619,178 +621,6 @@
 
 
 </div>
-<!-- FRM Registrar Proveedor -->
-<div class="modal fade" id="modal-popout2" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-popout">
-        <div class="modal-content">
-            <div class="block block-themed block-transparent remove-margin-b">
-                <div class="block-header bg-primary-dark">
-                    <ul class="block-options">
-                        <li>
-                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
-                        </li>
-                    </ul>
-                    <h3 class="block-title">Registro Proveedor</h3>
-                </div>
-                <div class="block-content" style="margin-bottom: 4em;">
-                    <div class="row text-justify">
-                        <!-- Formulario de registro de usuario -->
-                        <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
-                            <h3 class="">
-                                Información Proveedor
-                            </h3>
-                            <hr>
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Nombre proveedor *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Nº Telefono *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional"></textarea>
-                                        <label for="material-textarea-small">Dirección</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional"></textarea>
-                                        <label for="material-textarea-small">Información extra</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-
-							
-                            <div class="form-group">
-                            	<div class="col-sm-12">
-                            		<h4 style="margin-bottom:1em;">Persona de contacto</h4>
-                            	</div>
-                                <div class="col-sm-4">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Nombre *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Apellido Paterno</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Apellido Materno</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- END Formulario de registro de cliente -->
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                <button class="btn btn-sm btn-success" type="button">Registrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END FRM Registrar Proveedor -->
-<!-- Registrar cliente -->
-<div class="modal fade" id="modal-popout2" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-popout">
-        <div class="modal-content">
-            <div class="block block-themed block-transparent remove-margin-b">
-                <div class="block-header bg-primary-dark">
-                    <ul class="block-options">
-                        <li>
-                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
-                        </li>
-                    </ul>
-                    <h3 class="block-title">Registro cliente</h3>
-                </div>
-                <div class="block-content" style="margin-bottom: 4em;">
-                    <div class="row text-justify">
-                        <!-- Formulario de registro de usuario -->
-                        <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
-                            <h3 class="">
-                                Información del cliente
-                            </h3>
-                            <hr>
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Nombre *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Nº Telefono *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Apellido Paterno *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Apellido Materno</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-12">
-                                    <div class="form-material form-material-primary input-group">
-                                        <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: Información complementaria del cliente"></textarea>
-                                        <label for="material-textarea-small">Información extra</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <!-- END Formulario de registro de cliente -->
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                <button class="btn btn-sm btn-success" type="button">Registrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END Registrar cliente -->
 
 
 
@@ -873,6 +703,9 @@
             var div_id = hijos[i].id;
 
             if(tipo == i ){
+                if(i != 0){
+                    document.getElementById('frm_cliente').style.display = 'block';
+                }
                 document.getElementById(div_id).style.display = 'block';
             }else{
                 document.getElementById(div_id).style.display = 'none';
