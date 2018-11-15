@@ -132,13 +132,13 @@
                                         <div class="block-content block-content-full">
                                             <div class="h1 font-w700 text-success"><i class="fa fa-plus"></i></div>
                                         </div>
-                                        <div class="block-content block-content-full block-content-mini bg-gray-lighter text-success font-w600">Venta Express</div>
+                                        <div class="block-content block-content-full block-content-mini bg-gray-lighter text-success font-w600">Venta</div>
                                     </a>                                    
                                 </div>
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 explicacion">
                                     <div class="block block-rounded">
                                         <div class="block-header bg-gray-lighter">
-                                            <h4 class="block-title">Venta Express</h4>
+                                            <h4 class="block-title">Venta</h4>
                                         </div>
                                         <div class="block-content">
                                             <p>
@@ -160,7 +160,7 @@
                                         <div class="block-content block-content-full block-content-mini bg-gray-lighter text-success font-w600">Venta Detallada</div>
                                     </a>                                    
                                 </div>
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 explicacion">
                                     <div class="block block-rounded">
                                         <div class="block-header bg-gray-lighter">
                                             <h4 class="block-title">Venta Detallada</h4>
@@ -185,7 +185,7 @@
                                         <div class="block-content block-content-full block-content-mini bg-gray-lighter text-warning font-w600">Pago Interno</div>
                                     </a>                                    
                                 </div>
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 explicacion">
                                     <div class="block block-rounded">
                                         <div class="block-header bg-gray-lighter">
                                             <h4 class="block-title">Pago Interno</h4>
@@ -210,7 +210,7 @@
                                         <div class="block-content block-content-full block-content-mini bg-gray-lighter text-info font-w600">Listado</div>
                                     </a>                                    
                                 </div>
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 explicacion">
                                     <div class="block block-rounded">
                                         
                                         <div class="block-content">
@@ -222,53 +222,131 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- Div frm_venta -->
+                    <div class="row">
 
 
 
                         <!-- Div servicio_express -->
-                        <div class="col-md-8" id="frm_servicio_express" style="display: none">
+                        <div class="col-md-12" id="frm_servicio_express" style="">
                             <form class="form-horizontal push-10-t" action="base_forms_elements.html" method="post" onsubmit="return false;">
                                 <h3 >
-                                    Registrar Servicio Express
+                                    REGISTRAR SERVICIO
                                 </h3>
                                 <hr>
+                                <!-- Lista de servicios -->
                                 <div class="form-group">
-                                    <div class="col-xs-6">
-                                        <div class="form-material">
-                                            <select class="form-control" id="material-select" name="material-select" size="1" required="">
-                                                <option>...</option>
-                                                <option value="1">Instalar whatsapp</option>
-                                                <option value="2">Instalar facebook</option>
-                                                <option value="3">Realizar recarga</option>
-                                            </select>
-                                            <label for="material-select">Servicios recurrentes *</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="Nuevo servicio">
-                                            <label for="material-color-primary">Otro servicio</label>
+                                    <div class="col-md-12">
+                                        <div class="input-group">
+                                            <div class="form-material">
+                                                <select class="form-control" id="material-select" name="material-select" size="1" required="">
+                                                    <option>...</option>
+                                                    <option value="1">Instalar whatsapp</option>
+                                                    <option value="2">Instalar facebook</option>
+                                                    <option value="3">Realizar recarga</option>
+                                                </select>
+                                                <label for="material-select">Listado de servicios *</label>
+                                            </div>
+                                            <span class="input-group-btn">
+                                                <button id="btn_nuevo_servicio" class="btn btn-sm btn-default" type="button" value="mostrar" onclick="nuevoServicio(this.id, this.value)">
+                                                    <i class="fa fa-plus"></i> Nuevo
+                                                </button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- END Lista de servicios -->
+                                
+                                <!-- FRM Nuevo servicio -->
+                                <div id="frm_nuevo_servicio" class="well" style="display:none">
+                                    <div class="form-group">
+                                        <div class="col-sm-8">
+                                            <div class="form-material input-group">
+                                                <input class="form-control" type="password" id="register5-password" name="register5-password" placeholder="Escribre el nuevo servicio">
+                                                <label for="register5-password">Nuevo Servicio</label>
+                                                <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="css-input switch switch-sm switch-success">
+                                                <input type="checkbox" checked=""><span></span> Necesita registrar usuario?
+                                            </label>
+                                        </div>
 
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="number" step="0.01" id="material-color-primary" name="material-color-primary" placeholder="Ej: 150.50" required>
-                                            <label for="material-color-primary">Monto del servicio *</label>
-                                        </div>
                                     </div>
                                 </div>
+                                <!-- END FRM Nuevo servicio -->
 
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <div class="form-material">
-                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
-                                            <label for="material-textarea-small">Detalles del servicio</label>
-                                        </div>
+                                <!-- DIV contenedor servicio -->
+                                <div id="contendor_servicio" class="row">
+                                    <hr>
+
+                                    <!-- Registrar nuevo cliente -->
+                                    <div class="col-md-6 block">
+                                        <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
+                                            <h3 class="">
+                                                Información del cliente
+                                            </h3>
+                                            <hr>
+                                            <div class="form-group">
+                                                <div class="col-xs-12">
+                                                    <b class="text-success">Buscar cliente</b>
+                                                    <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
+                                                        </span>
+                                                        <input class="form-control" type="text" id="example-input1-group2" name="example-input1-group2" placeholder="Nombre y apellido, Nº Telefono">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+
+                                            <h4 style="margin-bottom: 1em;">Nuevo cliente</h4>
+                                            <div class="form-group">
+                                                <div class="col-sm-6">
+                                                    <div class="form-material form-material-primary">
+                                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                        <label for="material-color-primary">Nombre *</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-material form-material-primary">
+                                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                        <label for="material-color-primary">Nº Telefono *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-6">
+                                                    <div class="form-material form-material-primary">
+                                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                        <label for="material-color-primary">Apellido Paterno *</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6">
+                                                    <div class="form-material form-material-primary">
+                                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                                        <label for="material-color-primary">Apellido Materno *</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-xs-12">
+                                                    <div class="form-material">
+                                                        <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
+                                                        <label for="material-textarea-small">Información extra</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
+                                    <!-- END Registrar nuevo cliente -->
+
                                 </div>
+                                <!-- END DIV contenedor servicio -->
 
                                 <div class="form-group text-right">
                                     <div class="col-sm-12">
@@ -285,8 +363,11 @@
                         </div>
                         <!-- End div_servicio_express -->
 
+
+
+
                         <!-- Div servicio_interno -->
-                        <div class="col-md-8" id="frm_servicio_interno" style="display: none">
+                        <div class="col-md-12" id="frm_servicio_interno" style="display: block">
                             <form class="form-horizontal push-10-t" action="base_forms_elements.html" method="post" onsubmit="return false;">
                                 <h3 class="text-warning">
                                     Registrar Servicio Interno
@@ -353,9 +434,8 @@
                         <!-- End Div servicio_interno -->
 
 
-
-
                     </div>
+                    <!-- END Div frm_venta -->
                 </div>
             </div>
             <div class="modal-footer">
@@ -367,6 +447,18 @@
 <!-- END Pop Out Modal -->
 
 <script>
+    function nuevoServicio(id_btn, valor){
+        if(valor == 'mostrar'){
+            document.getElementById('frm_nuevo_servicio').style.display = 'block';
+            document.getElementById(id_btn).value = 'cancelar';
+            document.getElementById(id_btn).innerHTML = 'Cancelar';
+        }else{
+            document.getElementById('frm_nuevo_servicio').style.display = 'none';
+            document.getElementById(id_btn).value = 'mostrar';
+            document.getElementById(id_btn).innerHTML = 'Nuevo';
+        }
+    }
+
     function mostrarServicio(accion, servicio){
         var frm = 'frm_'+servicio;
         var div = '';
@@ -377,7 +469,13 @@
             div = 'div_servicio_express';
         }
 
-        if(accion == 'mostrar'){
+        var elementos = document.getElementsByClassName('explicacion');
+
+        for(var i = 0; i < elementos.length; i++){
+            elementos[i].style.display = 'none';
+        }
+
+        /*if(accion == 'mostrar'){
             document.getElementById('div_servicio_detallado').style.display = 'none';
             document.getElementById('div_listado_servicios').style.display = 'none';
             document.getElementById(div).style.display = 'none';
@@ -389,7 +487,7 @@
             document.getElementById('div_listado_servicios').style.display = 'block';
             document.getElementById(div).style.display = 'block';
             document.getElementById(frm).style.display = 'none';
-        }
+        }*/
 
     }
 </script>

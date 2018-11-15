@@ -22,7 +22,7 @@ class Servicios extends CI_Controller{
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');
 		$this->load->view('backend/template/header');
-			$this->load->view('backend/MOD_SERVICIOS/'.$servicio);
+			$this->load->view('backend/MOD_SERVICIOS/dashboard_servicios');
 		$this->load->view('backend/template/footer');	
 	}
 
