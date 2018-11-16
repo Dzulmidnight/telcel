@@ -21,45 +21,6 @@
 <div class="content">
 
     <div class="row">
-                        <div class="col-sm-4">
-                            <!-- Tiles Slider 3 -->
-                            <div class="js-slider" data-slider-dots="true" data-slider-autoplay="true">
-                                <div>
-                                    <div class="block text-center remove-margin-b">
-                                        <div class="block-content block-content-full">
-                                            <div class="h1 font-w700">28.600</div>
-                                            <div class="h5 text-muted text-uppercase push-5-t">Downloads</div>
-                                        </div>
-                                        <div class="block-content block-content-full block-content-mini bg-danger text-white">
-                                            <i class="fa fa-arrow-down text-black-op"></i> -15% This week
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="block text-center remove-margin-b">
-                                        <div class="block-content block-content-full">
-                                            <div class="h1 font-w700"><span class="h2 text-muted">+</span> 245</div>
-                                            <div class="h5 text-muted text-uppercase push-5-t">Sales</div>
-                                        </div>
-                                        <div class="block-content block-content-full block-content-mini bg-warning text-white">
-                                            <i class="fa fa-chevron-up text-black-op"></i> +15% This week
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="block text-center remove-margin-b">
-                                        <div class="block-content block-content-full">
-                                            <div class="h1 font-w700"><span class="h2 text-muted">+</span> 750</div>
-                                            <div class="h5 text-muted text-uppercase push-5-t">Users</div>
-                                        </div>
-                                        <div class="block-content block-content-full block-content-mini bg-primary text-white">
-                                            <i class="fa fa-chevron-down text-black-op"></i> -2% This week
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Tiles Slider 3 -->
-                        </div>
         <div class="col-lg-12">
             <div class="row">
 
@@ -145,7 +106,7 @@
                         </div>
                         <div class="block-content block-content-full text-center">
                             <!-- Pie Chart Container -->
-                            <canvas class="js-chartjs2-pie"></canvas>
+                            <canvas id="myChart" width="400" height="400"></canvas>
                         </div>
                     </div>
                     <!-- END Pie Chart -->
@@ -305,9 +266,54 @@
 
 </div>
 
-
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <!-- Page JS Plugins -->
 <script src="<?php echo base_url(); ?>assets/js/plugins/chartjsv2/Chart.min.js"></script>
 <!-- Page JS Code -->
 <script src="<?php echo base_url(); ?>assets/js/pages/base_comp_chartjs_v2.js"></script>
+
+
+
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+</script>
+
+
+

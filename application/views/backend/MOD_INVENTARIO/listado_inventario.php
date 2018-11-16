@@ -124,7 +124,7 @@
                                     </td>
                                     <!-- Cantidad -->
                                     <td>
-                                        <b class="text-white bg-primary" style="padding:3px;">14</b><button type="button" class="btn btn-xs btn-success"  onclick="actualizarCantidad()"><i class="si si-refresh"></i></button>
+                                        14 <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad()"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
                                     </td>
                                     <!-- Nombre articulo -->
                                     <td>
@@ -409,25 +409,37 @@
                             <div id="formularios_inventario">
                                 <div class="col-sm-6">
                                     <div class="row has-success">
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-12" style="margin-bottom: 1em;">
                                             <div class="form-material form-material-primary input-group">
                                                 <input class="form-control" type="number" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" placeholder="" value="" required onkeyup="actualizarPiezas(this.value)">
                                                 <label for="num_piezas_nuevas">Nº de piezas nuevas *</label>
                                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-6">
                                             <div class="form-material form-material-primary input-group">
                                                 <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="" required>
                                                 <label for="material-color-primary">Precio interno *</label>
                                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+                                        <div class="col-sm-6">
                                             <div class="form-material form-material-primary input-group">
                                                 <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="" required>
                                                 <label for="material-color-primary">Precio al publico *</label>
                                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12" style="margin-top: 1em;">
+                                            <div class="form-material">
+                                                <select class="form-control" id="id_tipo_accesorio" name="id_tipo_accesorio" size="1">
+                                                    <option>...</option>
+                                                <option value="1">Sucursal #1</option>
+                                                <option value="telefono">Sucursal #2</option>
+                                                <option value="3">Sucursal #3</option>
+
+                                                </select>
+                                                <label for="id_tipo_accesorio">Asignar a sucursal *</label>
                                             </div>
                                         </div>
                                     </div>
