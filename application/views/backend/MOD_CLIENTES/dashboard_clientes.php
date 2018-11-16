@@ -1,9 +1,21 @@
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+
+
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                DASHBOARD CLIENTES
+                DASHBOARD CLIENTES: <span class="text-danger">4</span>
             </h3>
         </div>
 
@@ -26,6 +38,14 @@
 <div class="content">
 
 	<div class="row">
+        <div class="col-lg-3" style="margin-bottom:1em;">
+            <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width: 100%;" data-placeholder="Sucursales" multiple>
+                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                <option value="1">Sucursal 1</option>
+                <option value="2">Sucursal 2</option>
+                <option value="3">Sucursal 3</option>
+            </select>
+        </div>
 		<!-- Listado de proveedores -->
     	<div class="col-lg-12">
     		<div class="block block-content">
@@ -69,9 +89,9 @@
                         </tr>
 
                         <tr>
-                            <td class="text-center">1</td>
+                            <td class="text-center">2</td>
                             <td>
-                                <i class="fa fa-home"></i> Sucursal 1
+                                <i class="fa fa-home"></i> Sucursal 2
                             </td>
                             <td class="">
                                 <span class="text-primary">Nombre</span> ApellidoP ApellidoM
@@ -94,9 +114,9 @@
                         </tr>
 
                         <tr>
-                            <td class="text-center">1</td>
+                            <td class="text-center">3</td>
                             <td>
-                                <i class="fa fa-home"></i> Sucursal 1
+                                <i class="fa fa-home"></i> Sucursal 3
                             </td>
                             <td class="">
                                 <span class="text-primary">Nombre</span> ApellidoP ApellidoM
@@ -119,9 +139,9 @@
                         </tr>
 
                         <tr>
-                            <td class="text-center">1</td>
+                            <td class="text-center">4</td>
                             <td>
-                                <i class="fa fa-home"></i> Sucursal 1
+                                <i class="fa fa-home"></i> Sucursal 4
                             </td>
                             <td class="">
                                 <span class="text-primary">Nombre</span> ApellidoP ApellidoM

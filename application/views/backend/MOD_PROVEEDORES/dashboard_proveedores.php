@@ -36,7 +36,7 @@
                             <th>Proveedor</th>
                             <th class="hidden-xs">Telefono</th>
                             <th>Stock</th>
-                            <th>Saldos</th>
+                            <th>Balance</th>
                             <th>
                                 Extra
                             </th>
@@ -74,7 +74,9 @@
                                     <a  class="btn btn-sm btn-primary" href="<?php echo base_url('backend/MOD_PROVEEDORES/Proveedores/detalle'); ?>" data-toggle="tooltip" title="Consultar perfil">
                                         <i class="glyphicon glyphicon-folder-open"></i>
                                     </a>
-                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Editar proveedor" ><i class="fa fa-pencil"></i></button>
+                                    <button class="btn btn-sm btn-default" type="button" data-toggle="modal" data-target="#modal-editar-proveedor">
+                                        <i class="fa fa-pencil" data-toggle="tooltip" title="Editar proveedor"></i>
+                                    </button>
                                     <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminar()"><i class="fa fa-times"></i></button>
                                 </div>
                             </td>
@@ -223,17 +225,17 @@
 
 
 <!-- Editar proveedor -->
-<div class="modal fade" id="modal-popout2" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-editar-proveedor" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-popout">
         <div class="modal-content">
             <div class="block block-themed block-transparent remove-margin-b">
-                <div class="block-header bg-primary-dark">
+                <div class="block-header bg-warning">
                     <ul class="block-options">
                         <li>
                             <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
                         </li>
                     </ul>
-                    <h3 class="block-title">Registro Proveedor</h3>
+                    <h3 class="block-title">Editar proveedor</h3>
                 </div>
                 <div class="block-content" style="margin-bottom: 4em;">
                     <div class="row text-justify">

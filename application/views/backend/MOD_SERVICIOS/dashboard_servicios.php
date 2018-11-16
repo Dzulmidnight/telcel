@@ -29,9 +29,9 @@
             <li class="">
                 <a href="#btabs-alt-static-profile">Historial de servicios</a>
             </li>
-            <li class="pull-right">
+            <!--<li class="pull-right">
                 <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="" data-original-title="Settings"><i class="si si-settings"></i></a>
-            </li>
+            </li>-->
         </ul>
         <div class="block-content tab-content">
             
@@ -445,7 +445,7 @@
                                         <div id="acciones_servicio" class="col-md-12" style="display:none">
                                             <div class="form-group text-right">
                                                 <div class="col-sm-12">
-                                                    <button type="button" class="btn btn-default" onclick="mostrarServicio('cancelar', 'servicio_interno')">
+                                                    <button type="button" class="btn btn-default">
                                                         Cancelar
                                                     </button>
                                                     <button class="btn btn-success" onclick="registrarServicio()">
@@ -705,9 +705,12 @@
             if(tipo == i ){
                 if(i != 0){
                     document.getElementById('frm_cliente').style.display = 'block';
+                }else{
+                    document.getElementById('frm_cliente').style.display = 'none';
                 }
                 document.getElementById(div_id).style.display = 'block';
             }else{
+
                 document.getElementById(div_id).style.display = 'none';
             }
        

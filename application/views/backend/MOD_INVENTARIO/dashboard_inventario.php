@@ -1,3 +1,15 @@
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+
+
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
     <div class="row items-push">
@@ -22,26 +34,73 @@
 <div class="content">
 
 	<div class="row">
+        <div class="col-lg-12" style="margin-bottom:1em;">
+            <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width:20%" data-placeholder="Filtrar por sucursales" multiple>
+                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                <option value="1">Sucursal 1</option>
+                <option value="2">Sucursal 2</option>
+                <option value="3">Sucursal 3</option>
+            </select>
+        </div>
+
 		<div class="col-lg-5">
 			<div class="row">
+
 				<div class="col-md-12">
-			        <!-- Pie Chart -->
-			        <div class="block">
-			            <div class="block-header">
-			                <ul class="block-options">
-			                    <li>
-			                        <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
-			                    </li>
-			                </ul>
-			                <h3 class="block-title">Stock sucursales</h3>
-			            </div>
-			            <div class="block-content block-content-full text-center">
-			                <!-- Pie Chart Container -->
-			                <canvas class="js-chartjs2-pie"></canvas>
-			            </div>
-			        </div>
-			        <!-- END Pie Chart -->
+                            <div>
+					            <div class="block-header">
+					                <ul class="block-options">
+					                    <li>
+					                        <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+					                    </li>
+					                </ul>
+					                <h3 class="block-title">Stock sucursales</h3>
+					            </div>
+					            <div class="block-content block-content-full text-center">
+					                <!-- Pie Chart Container -->
+					                <canvas class="js-chartjs2-pie"></canvas>
+					            </div>
+                            </div>
 				</div>
+				<!--
+				<div class="col-md-12">
+                    <div class="block-content">
+                        <!-- Slider with Multiple Slides/Avatars -->
+                    <!--    <div class="js-slider text-center" data-slider-autoplay="true" data-slider-dots="true" data-slider-arrows="true" data-slider-num="1">
+                            <div>
+					            <div class="block-header">
+					                <ul class="block-options">
+					                    <li>
+					                        <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+					                    </li>
+					                </ul>
+					                <h3 class="block-title">Stock sucursales</h3>
+					            </div>
+					            <div class="block-content block-content-full text-center">
+					                <!-- Pie Chart Container -->
+					     <!--           <canvas class="js-chartjs2-pie"></canvas>
+					            </div>
+                            </div>
+                            <div>
+					            <div class="block-header">
+					                <ul class="block-options">
+					                    <li>
+					                        <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+					                    </li>
+					                </ul>
+					                <h3 class="block-title">Stock Telefonos</h3>
+					            </div>
+					            <div class="block-content block-content-full text-center">
+					                <!-- Pie Chart Container -->
+					        <!--        <canvas id="otro" class="js-chartjs2-pie"></canvas>
+					            </div>
+                            </div>
+
+                        </div>
+                        <!-- END Slider with Multiple Slides/Avatars -->
+                    <!--</div>
+				</div>
+			-->
 			</div>
 		</div>
 		<div class="col-lg-7">

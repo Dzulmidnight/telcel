@@ -27,9 +27,6 @@
             <a href="#btabs-perfil">Perfil</a>
         </li>
         <li>
-            <a href="#tab_finanzas">Finanzas</a>
-        </li>
-        <li>
             <a href="#btabs-garantia">Garantia</a>
         </li>
         <li class="pull-right">
@@ -39,10 +36,10 @@
     <div class="block-content tab-content">
         <!-- Perfil del proveedor -->
         <div class="tab-pane active" id="btabs-perfil">
-            <h4 class="font-w300 push-15">Perfil</h4>
+            <p class="h3">Perfil</p>
             <!-- Main Content -->
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-md-6">
                     <!-- About -->
                     <div class="block">
                         <div class="block-content">
@@ -68,18 +65,16 @@
                         </div>
                     </div>
                     <!-- END About -->
-                </div>
 
-                <div class="col-sm-6">
                     <!-- Products -->
                     <div class="block block-opt-refresh-icon6">
-                        <div class="block-header">
+                        <div class="block-header block-header bg-amethyst-dark">
                             <ul class="block-options">
                                 <li>
                                     <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
                                 </li>
                             </ul>
-                            <h3 class="block-title"><i class="fa fa-fw fa-briefcase"></i> Productos</h3>
+                            <h3 class="block-title text-white"><i class="fa fa-fw fa-briefcase"></i> Productos</h3>
                         </div>
                         <div class="block-content">
                             <table class="table table-striped">
@@ -97,151 +92,160 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            Tipo de producto
-                                        </td>
-                                        <td>
-                                            Nombre del producto
-                                        </td>
-                                        <td>
-                                            23
-                                        </td>
-                                    </tr>
+                                    <?php 
+                                    for ($i=1; $i <= 10 ; $i++) { 
+                                    ?>
+                                        <tr>
+                                            <td>
+                                                Tipo de producto
+                                            </td>
+                                            <td>
+                                                Nombre del producto
+                                            </td>
+                                            <td>
+                                                23
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    }
+                                     ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <!-- END Products -->
+
                 </div>
+
+                <!-- Sección de finanzas -->
+                <div class="col-md-6">
+                    <h4 class="font-w300 push-15">
+                        <span style="padding-right:1em;">
+                            Finanzas
+                        </span>                         
+                        <a class="h3 font-w300 text-success animated flipInX" href="javascript:void(0)" data-toggle="tooltip" title="Saldo a favor">
+                            <i class="fa fa-arrow-up"></i> $ 12,400
+                        </a>
+                        <a class="h3 font-w300 text-danger animated flipInX" href="javascript:void(0)" data-toggle="tooltip" title="Saldo en contra">
+                            <i class="fa fa-arrow-down"></i> $ 12,400
+                        </a>
+                    </h4>
+
+                    <div class="row">
+                        <!-- Historial de compras -->
+                        <div class="col-sm-12">
+                            <!-- Timeline -->
+                            <div class="block block-opt-refresh-icon6">
+                                <div class="block-header">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button type="button" data-toggle="block-option" data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
+                                        </li>
+                                        <li>
+                                            <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title"><i class="fa fa-newspaper-o"></i> Historial de compras</h3>
+                                </div>
+                                <div class="block-content">
+                                    <!-- Detalle compras -->
+                                    <div class="block block-transparent pull-r-l">
+                                        <div class="row">
+                                            <!-- Productos comprados -->
+                                            <div class="col-md-12">
+                                                <div class="block-header bg-gray-lighter">
+                                                    <ul class="block-options">
+                                                        <li>
+                                                            <span><em class="text-muted"><?= date('d/m/Y', time()) ?></em></span>
+                                                        </li>
+                                                        <li>
+                                                            <span><i class="fa fa-facebook text-primary"></i></span>
+                                                        </li>
+                                                    </ul>
+                                                    <h3 class="block-title">+ 290 Productos</h3>
+                                                </div>
+                                                <div class="block-content">
+                                                    <div class="row">
+                                                        <div class="col-xs-4">
+                                                            <p class="h4">
+                                                                Costo total:<br><span class="text-danger">$ 2,342.00</span>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <p class="h4">
+                                                                Pagado:<br><span class="text-success">$ 2,342.00</span>
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <p class="h4">
+                                                                Balance:<br><span>$ 0.00</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END Productos Comprados -->
+
+                                            <!-- Historial de pagos -->
+                                            <div class="col-md-12">
+                                                <div class="block-header bg-gray-lighter">
+                                                    <ul class="block-options">
+                                                        <li>
+                                                            <span><em class="text-muted"><?= date('d/m/Y', time()) ?></em></span>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">
+                                                                <i class="fa fa-plus text-success"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                    <h3 class="block-title">Pagos Realizados</h3>
+                                                </div>
+                                                <div class="block-content">
+                                                    <?php 
+                                                        for ($i=0; $i < 3; $i++) { 
+                                                        ?>
+                                                            
+                                                            <div class="row">
+                                                                <div class="col-sm-4">
+                                                                    Fecha de pago: <?php echo date('d/m/Y', time()); ?>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    Cantidad: $500
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <a href="#">Descargar comprobante</a>
+                                                                </div>
+                                                            </div>
+                                                        <?php
+                                                        }
+                                                    ?>
+                                                    <div class="col-sm-12 text-center" style="margin-top:1em">
+                                                        <a href="#" data-toggle="modal" data-target="#modal-tabla-pagos">
+                                                            <i class="fa fa-search"></i> Ver todos los pagos
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END Historial de pagos -->
+                                        </div>
+                                    </div>
+                                    <!-- END Detalle compras -->
+
+                                </div>
+                            </div>
+                            <!-- END Timeline -->
+                        </div>
+                        <!-- END Historial de compras -->
+                    </div>
+
+                </div>
+                <!-- END Sección de finanzas -->
+
             </div>
         </div>
         <!-- END Perfil del proveedor -->
-        
-        <!-- Sección Finanzas -->
-        <div class="tab-pane" id="tab_finanzas">
-            <h4 class="font-w300 push-15">
-                <span style="padding-right:1em;">
-                    Finanzas
-                </span>                         
-                <a class="h3 font-w300 text-success animated flipInX" href="javascript:void(0)" data-toggle="tooltip" title="Saldo a favor">
-                    <i class="fa fa-arrow-up"></i> $ 12,400
-                </a>
-                <a class="h3 font-w300 text-danger animated flipInX" href="javascript:void(0)" data-toggle="tooltip" title="Saldo en contra">
-                    <i class="fa fa-arrow-down"></i> $ 12,400
-                </a>
-            </h4>
-            <div class="row">
-                <!-- Historial de compras -->
-                <div class="col-sm-12">
-                    <!-- Timeline -->
-                    <div class="block block-opt-refresh-icon6">
-                        <div class="block-header">
-                            <ul class="block-options">
-                                <li>
-                                    <button type="button" data-toggle="block-option" data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
-                                </li>
-                                <li>
-                                    <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
-                                </li>
-                            </ul>
-                            <h3 class="block-title"><i class="fa fa-newspaper-o"></i> Historial de compras</h3>
-                        </div>
-                        <div class="block-content">
-                            <!-- Detalle compras -->
-                            <div class="block block-transparent pull-r-l">
-                                <div class="row">
-                                    <!-- Productos comprados -->
-                                    <div class="col-md-6">
-                                        <div class="block-header bg-gray-lighter">
-                                            <ul class="block-options">
-                                                <li>
-                                                    <span><em class="text-muted"><?= date('d/m/Y', time()) ?></em></span>
-                                                </li>
-                                                <li>
-                                                    <span><i class="fa fa-facebook text-primary"></i></span>
-                                                </li>
-                                            </ul>
-                                            <h3 class="block-title">+ 290 Productos</h3>
-                                        </div>
-                                        <div class="block-content">
-                                            <div class="row">
-                                                <div class="col-xs-4">
-                                                    <p class="h4">
-                                                        Costo total:<br><span class="text-danger">$ 2,342.00</span>
-                                                    </p>
-                                                </div>
-                                                <div class="col-xs-4">
-                                                    <p class="h4">
-                                                        Pagado:<br><span class="text-success">$ 2,342.00</span>
-                                                    </p>
-                                                </div>
-                                                <div class="col-xs-4">
-                                                    <p class="h4">
-                                                        Balance:<br><span>$ 0.00</span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- END Productos Comprados -->
 
-                                    <!-- Historial de pagos -->
-                                    <div class="col-md-6">
-                                        <div class="block-header bg-gray-lighter">
-                                            <ul class="block-options">
-                                                <li>
-                                                    <span><em class="text-muted"><?= date('d/m/Y', time()) ?></em></span>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fa fa-plus text-success"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <h3 class="block-title">Pagos Realizados</h3>
-                                        </div>
-                                        <div class="block-content">
-                                            <?php 
-                                                for ($i=0; $i < 3; $i++) { 
-                                                ?>
-                                                    
-                                                    <div class="row">
-                                                        <div class="col-sm-4">
-                                                            Fecha de pago: <?php echo date('d/m/Y', time()); ?>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            Cantidad: $500
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#">Descargar comprobante</a>
-                                                        </div>
-                                                    </div>
-                                                <?php
-                                                }
-                                            ?>
-                                            <div class="col-sm-12 text-center" style="margin-top:1em">
-                                                <a href="#" data-toggle="modal" data-target="#modal-tabla-pagos">
-                                                    <i class="fa fa-search"></i> Ver todos los pagos
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- END Historial de pagos -->
-                                </div>
-                            </div>
-                            <!-- END Detalle compras -->
-
-                        </div>
-                    </div>
-                    <!-- END Timeline -->
-                </div>
-                <!-- END Historial de compras -->
-
-
-            </div>
-        </div>
-        <!-- END Sección Finanzas -->
 
         <!-- Sección garantia -->
         <div class="tab-pane" id="btabs-garantia">
