@@ -108,6 +108,9 @@
                                 <th class="encabezado">
                                     Estatus
                                 </th>
+                                <th class="encabezado">
+                                    Monto
+                                </th>
                                 </th>
                                 <th class="encabezado">
                                     Fecha
@@ -141,6 +144,10 @@
                                         <span class="text-success">
                                             <i class="fa fa-check"></i> Completo
                                         </span>
+                                    </td>
+                                    <!-- Monto del servicio -->
+                                    <td>
+                                        $ <?= number_format(rand(700, 1500)) ?>
                                     </td>
                                     <!-- Fecha -->
                                     <td>

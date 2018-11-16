@@ -3,17 +3,17 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                DASHBOARD SERVICIO TECNICO
+                DASHBOARD SERVICIO TÉCNICO
             </h3>
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
-            <button class="btn btn-sm btn-round btn-primary" onclick="history.back(-1)">
+            <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
-            <button type="button" class="btn btn-sm btn-round btn-success" data-toggle="modal" data-target="#modal-popout2">
-                <span data-toggle="tooltip" title="Agregar nuevo cliente">
-                    <i class="fa fa-user-plus"></i> Nuevo
+            <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-popout2">
+                <span data-toggle="tooltip" title="Registrar nuevo servicio tecnico">
+                    <i class="fa fa-briefcase"></i> Nuevo Servicio
                 </span>
             </button>
         </div>
@@ -66,20 +66,23 @@
                         <!-- Equipos en proceso de garantia -->
                         <div class="tab-pane active" id="btabs-alt-static-justified-home">
                             <h4 class="font-w300 push-15">En proceso</h4>
-                            <table class="js-table-sections table table-hover">
-                                <thead>
+                            <table class="js-table-sections table table-condensed table-hover">
+                                <thead style="font-size:13px;">
                                     <tr>
-                                        <th>
+                                        <th class="danger">
                                             #ID
                                         </th>
                                         <th>
-                                            Nº Telefono
-                                        </th>
-                                        <th>
-                                            EQUIPO
+                                            Sucursal
                                         </th>
                                         <th>
                                             Cliente
+                                        </th>
+                                        <th style="width:20%;">
+                                            Detalle Equipo
+                                        </th>
+                                        <th>
+                                            Técnico
                                         </th>
                                         <th>
                                             Entrega aprox
@@ -95,26 +98,35 @@
                                 
                                 <tbody class="js-table-sections-header">
                                 <!--<tbody class="js-table-sections-header open">-->
-                                    <tr>
+                                    <tr class="font-size:12px;">
                                         <!-- ID general -->
                                         <td>
-                                            <i class="fa fa-angle-right"></i> 342
+                                            <i class="fa fa-angle-right"></i> <span class="text-danger">342</span>
                                         </td>
-                                        <!-- Nº DE TELEFONO -->
+                                        <!-- Nombre de la sucursal -->
                                         <td>
-                                            951 199 9723
+                                            Nom. Sucursal
+                                        </td>
+                                        <!-- Información del cliente -->
+                                        <td>
+                                            Cliente: <a href="#">Nombre del cliente</a>
+                                            <br>
+                                            Tel: <span class="text-primary">951 199 9723</span>
                                         </td>
                                         <!-- EQUIPO -->
                                         <td>
                                             <a href="#">
                                                 Nombre del equipo
                                             </a>
+                                            <p>
+                                                Descripción: <span class="text-city">El equipo presenta falla en la pantalla, necesita ser reemplazada</span>
+                                            </p>
                                         </td>
-                                        <!-- CLIENTE -->
+                                        <!-- Nombre del tecnico -->
                                         <td>
-                                            <a href="#">Nombre del cliente</a>
+                                            Nom Tecnico
                                         </td>
-                                        <!-- ENTREGA APROXIMADA -->
+                                        <!-- Fecha de entrega aprox -->
                                         <td>
                                             <span class="text-danger">
                                                 <?= date('d/m/Y', time()) ?>
@@ -133,6 +145,9 @@
                                         </td>
                                         <!-- Acciones -->
                                         <td>
+                                            <button class="btn btn-xs btn-success">
+                                                <i class="fa fa-check"></i>
+                                            </button>
                                             <button class="btn btn-xs btn-danger">
                                                 <i class="fa fa-trash"></i>
                                             </button>
@@ -140,18 +155,43 @@
 
                                     </tr>
                                 </tbody>
-                                <tbody>
+                                <tbody style="font-size:12px;border: 2px solid #ee5253;">
+                                    <tr style="margin:0px;padding:0px;">
+                                        <td colspan="7" style="padding:0px;padding-top:10px;">
+                                            <p class="h4">Historial de acciones</p>
+                                        </td>
+                                    </tr>
                                     <tr>
-                                        <td class="text-center"></td>
-                                        <td class="font-w600 text-success">+ $31,00</td>
-                                        <td>
-                                            <small>Paypal</small>
+                                        <td colspan="3">
+                                            <b>Fecha</b>
                                         </td>
-                                        <td class="hidden-xs">
-                                            <small class="text-muted">June 27, 2015 12:16</small>
+                                        <td colspan="4">
+                                            <b>Actualización</b>
                                         </td>
-                                        <td></td>
-                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <?= date('d/m/Y', time()) ?>
+                                        </td>
+                                        <td colspan="4">
+                                            Reemplazo de pieza solicitado
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <?= date('d/m/Y', time()) ?>
+                                        </td>
+                                        <td colspan="4">
+                                            Equipo revisado por el tecnico
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <?= date('d/m/Y', time()) ?>
+                                        </td>
+                                        <td colspan="4">
+                                            En espera de entrar a revisión
+                                        </td>
                                     </tr>
 
                                 </tbody>
@@ -162,20 +202,23 @@
                         <!-- Equipos finalizados -->
                         <div class="tab-pane" id="btabs-alt-static-justified-profile">
                             <h4 class="font-w300 push-15">Finalizados</h4>
-                            <table class="js-table-sections table table-hover">
-                                <thead>
+                            <table class="js-table-sections table table-condensed table-hover">
+                                <thead style="font-size:13px;">
                                     <tr>
-                                        <th>
+                                        <th class="danger">
                                             #ID
                                         </th>
                                         <th>
-                                            Nº Telefono
-                                        </th>
-                                        <th>
-                                            EQUIPO
+                                            Sucursal
                                         </th>
                                         <th>
                                             Cliente
+                                        </th>
+                                        <th style="width:20%;">
+                                            Detalle Equipo
+                                        </th>
+                                        <th>
+                                            Técnico
                                         </th>
                                         <th>
                                             Entrega aprox
@@ -191,26 +234,35 @@
                                 
                                 <tbody class="js-table-sections-header">
                                 <!--<tbody class="js-table-sections-header open">-->
-                                    <tr>
+                                    <tr class="font-size:12px;">
                                         <!-- ID general -->
                                         <td>
-                                            <i class="fa fa-angle-right"></i> 342
+                                            <i class="fa fa-angle-right"></i> <span class="text-danger">342</span>
                                         </td>
-                                        <!-- Nº DE TELEFONO -->
+                                        <!-- Nombre de la sucursal -->
                                         <td>
-                                            951 199 9723
+                                            Nom. Sucursal
+                                        </td>
+                                        <!-- Información del cliente -->
+                                        <td>
+                                            Cliente: <a href="#">Nombre del cliente</a>
+                                            <br>
+                                            Tel: <span class="text-primary">951 199 9723</span>
                                         </td>
                                         <!-- EQUIPO -->
                                         <td>
                                             <a href="#">
                                                 Nombre del equipo
                                             </a>
+                                            <p>
+                                                Descripción: <span class="text-city">El equipo presenta falla en la pantalla, necesita ser reemplazada</span>
+                                            </p>
                                         </td>
-                                        <!-- CLIENTE -->
+                                        <!-- Nombre del tecnico -->
                                         <td>
-                                            <a href="#">Nombre del cliente</a>
+                                            Nom Tecnico
                                         </td>
-                                        <!-- ENTREGA APROXIMADA -->
+                                        <!-- Fecha de entrega aprox -->
                                         <td>
                                             <span class="text-danger">
                                                 <?= date('d/m/Y', time()) ?>
@@ -236,18 +288,43 @@
 
                                     </tr>
                                 </tbody>
-                                <tbody>
+                                <tbody style="font-size:12px;border: 2px solid #ee5253;">
+                                    <tr style="margin:0px;padding:0px;">
+                                        <td colspan="7" style="padding:0px;padding-top:10px;">
+                                            <p class="h4">Historial de acciones</p>
+                                        </td>
+                                    </tr>
                                     <tr>
-                                        <td class="text-center"></td>
-                                        <td class="font-w600 text-success">+ $31,00</td>
-                                        <td>
-                                            <small>Paypal</small>
+                                        <td colspan="3">
+                                            <b>Fecha</b>
                                         </td>
-                                        <td class="hidden-xs">
-                                            <small class="text-muted">June 27, 2015 12:16</small>
+                                        <td colspan="4">
+                                            <b>Actualización</b>
                                         </td>
-                                        <td></td>
-                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <?= date('d/m/Y', time()) ?>
+                                        </td>
+                                        <td colspan="4">
+                                            Reemplazo de pieza solicitado
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <?= date('d/m/Y', time()) ?>
+                                        </td>
+                                        <td colspan="4">
+                                            Equipo revisado por el tecnico
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <?= date('d/m/Y', time()) ?>
+                                        </td>
+                                        <td colspan="4">
+                                            En espera de entrar a revisión
+                                        </td>
                                     </tr>
 
                                 </tbody>
@@ -258,23 +335,23 @@
                         <!-- Total de equipos -->
                         <div class="tab-pane" id="btabs-alt-static-justified-settings">
                             <h4 class="font-w300 push-15">Listado de equipos</h4>
-                            <table class="js-table-sections table table-hover">
-                                <thead>
+                            <table class="js-table-sections table table-condensed table-hover">
+                                <thead style="font-size:13px;">
                                     <tr>
-                                        <th>
+                                        <th class="danger">
                                             #ID
                                         </th>
                                         <th>
-                                            IMEI
-                                        </th>
-                                        <th>
-                                            Nº Telefono
-                                        </th>
-                                        <th>
-                                            EQUIPO
+                                            Sucursal
                                         </th>
                                         <th>
                                             Cliente
+                                        </th>
+                                        <th style="width:20%;">
+                                            Detalle Equipo
+                                        </th>
+                                        <th>
+                                            Técnico
                                         </th>
                                         <th>
                                             Entrega aprox
@@ -290,30 +367,35 @@
                                 
                                 <tbody class="js-table-sections-header">
                                 <!--<tbody class="js-table-sections-header open">-->
-                                    <tr>
+                                    <tr class="font-size:12px;">
                                         <!-- ID general -->
                                         <td>
-                                            <i class="fa fa-angle-right"></i> 342
+                                            <i class="fa fa-angle-right"></i> <span class="text-danger">342</span>
                                         </td>
-                                        <!-- IMEI -->
+                                        <!-- Nombre de la sucursal -->
                                         <td>
-                                            2234SDF22
+                                            Nom. Sucursal
                                         </td>
-                                        <!-- Nº DE TELEFONO -->
+                                        <!-- Información del cliente -->
                                         <td>
-                                            951 199 9723
+                                            Cliente: <a href="#">Nombre del cliente</a>
+                                            <br>
+                                            Tel: <span class="text-primary">951 199 9723</span>
                                         </td>
                                         <!-- EQUIPO -->
                                         <td>
                                             <a href="#">
                                                 Nombre del equipo
                                             </a>
+                                            <p>
+                                                Descripción: <span class="text-city">El equipo presenta falla en la pantalla, necesita ser reemplazada</span>
+                                            </p>
                                         </td>
-                                        <!-- CLIENTE -->
+                                        <!-- Nombre del tecnico -->
                                         <td>
-                                            <a href="#">Nombre del cliente</a>
+                                            Nom Tecnico
                                         </td>
-                                        <!-- ENTREGA APROXIMADA -->
+                                        <!-- Fecha de entrega aprox -->
                                         <td>
                                             <span class="text-danger">
                                                 <?= date('d/m/Y', time()) ?>
@@ -332,28 +414,53 @@
                                         </td>
                                         <!-- Acciones -->
                                         <td>
-                                            <button class="btn btn-xs btn-default">
+                                            <button class="btn btn-xs btn-success">
                                                 <i class="fa fa-check"></i>
                                             </button>
-                                            <button class="btn btn-xs btn-default">
-                                                <i class="fa fa-close"></i>
+                                            <button class="btn btn-xs btn-danger">
+                                                <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
 
                                     </tr>
                                 </tbody>
-                                <tbody>
+                                <tbody style="font-size:12px;border: 2px solid #ee5253;">
+                                    <tr style="margin:0px;padding:0px;">
+                                        <td colspan="7" style="padding:0px;padding-top:10px;">
+                                            <p class="h4">Historial de acciones</p>
+                                        </td>
+                                    </tr>
                                     <tr>
-                                        <td class="text-center"></td>
-                                        <td class="font-w600 text-success">+ $31,00</td>
-                                        <td>
-                                            <small>Paypal</small>
+                                        <td colspan="3">
+                                            <b>Fecha</b>
                                         </td>
-                                        <td class="hidden-xs">
-                                            <small class="text-muted">June 27, 2015 12:16</small>
+                                        <td colspan="4">
+                                            <b>Actualización</b>
                                         </td>
-                                        <td></td>
-                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <?= date('d/m/Y', time()) ?>
+                                        </td>
+                                        <td colspan="4">
+                                            Reemplazo de pieza solicitado
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <?= date('d/m/Y', time()) ?>
+                                        </td>
+                                        <td colspan="4">
+                                            Equipo revisado por el tecnico
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <?= date('d/m/Y', time()) ?>
+                                        </td>
+                                        <td colspan="4">
+                                            En espera de entrar a revisión
+                                        </td>
                                     </tr>
 
                                 </tbody>
@@ -380,79 +487,165 @@
                             <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
                         </li>
                     </ul>
-                    <h3 class="block-title">Registro Proveedor</h3>
+                    <h3 class="block-title">Registrar nuevo ingreso</h3>
                 </div>
-                <div class="block-content" style="margin-bottom: 4em;">
+                <div class="block-content">
                     <div class="row text-justify">
-                        <!-- Formulario de registro de usuario -->
-                        <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
-                            <h3 class="">
-                                Información Proveedor
-                            </h3>
-                            <hr>
-                            <div class="form-group">
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Nombre proveedor *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Nº Telefono *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional"></textarea>
-                                        <label for="material-textarea-small">Dirección</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="form-material form-material-primary input-group">
-                                        <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional"></textarea>
-                                        <label for="material-textarea-small">Información extra</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                    </div>
-                                </div>
-                            </div>
 
-                            
-                            <div class="form-group">
-                                <div class="col-sm-12">
-                                    <h4 style="margin-bottom:1em;">Persona de contacto</h4>
+                        <!-- Registrar nuevo cliente -->
+                        <div class="col-md-5">
+                               <h3 class="h4">
+                                    Información del cliente
+                                </h3>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="">
+                                        <b class="text-success" style="margin-bottom:1em;">Buscar cliente</b>
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
+                                            </span>
+                                            <input class="form-control" type="text" id="example-input1-group2" name="example-input1-group2" placeholder="Nombre y apellido, Nº Telefono">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Nombre *</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <hr>
+
+                                <h4 style="margin-bottom: 1em;">Nuevo cliente</h4>
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <div class="form-material form-material-primary">
+                                            <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                            <label for="material-color-primary">Nombre *</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-material form-material-primary">
+                                            <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                            <label for="material-color-primary">Nº Telefono *</label>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-sm-4">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Apellido Paterno</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <div class="form-material form-material-primary">
+                                            <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                            <label for="material-color-primary">Apellido Paterno *</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-material form-material-primary">
+                                            <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                            <label for="material-color-primary">Apellido Materno *</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                        <label for="material-color-primary">Apellido Materno</label>
-                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <div class="form-material">
+                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
+                                            <label for="material-textarea-small">Información extra</label>
+                                        </div>
                                     </div>
                                 </div>
+
+                        </div>
+                        <!-- END Registrar nuevo cliente -->
+                        <div class="col-md-7">
+                            <!-- Div servicio_tecnico -->
+                            <div id="div_servicio_tecnico">
+                                <p class="text-danger h3" >
+                                    Servicio Técnico
+                                </p>
+
+                                <div class="form-group" style="padding-bottom:4em;">
+                                    <div class="col-sm-6">
+                                        <label for="fecha_ingreso">FECHA DE INGRESO</label>
+                                        <input type="date" class="form-control" id="fecha_ingreso" value="<?= date('Y-m-d', time()) ?>" readonly>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="fecha_entrega">FECHA ESTIMADA DE ENTREGA *</label>
+                                        <input type="date" class="form-control" id="fecha_entrega" value="">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="padding-bottom:4em;">
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-material form-material-primary">
+                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="IMEI del equipo" required>
+                                            <label for="material-color-primary">IMEI *</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-material form-material-primary">
+                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Telefono" required>
+                                            <label for="material-color-primary">Nº Telefono *</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" style="padding-bottom:4em;">
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-material form-material-primary">
+                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="IMEI del equipo" required>
+                                            <label for="material-color-primary">Marca *</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                        <div class="form-material form-material-primary">
+                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Telefono" required>
+                                            <label for="material-color-primary">Modelo *</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" style="padding-bottom:4em;">
+                                    <div class="col-sm-6">
+                                        <label for="material-select">Estado fisico del equipo *</label>
+                                        <select class="form-control" id="material-select" name="material-select" size="1" required="" onchange="tipoServicio()">
+                                            <option>...</option>
+                                               <option value="1">Excenlente</option>
+                                            <option value="2">Bueno</option>
+                                            <option value="3">Regular</option>
+                                            <option value="4">Malo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-material">
+                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="2" placeholder="Opcional: detalles del servicio"></textarea>
+                                            <label for="material-textarea-small">Falla reportada por el usuario *</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <div class="form-material">
+                                            <label for="evidencias">Evidencias</label>
+                                            <input type="file" class="form-control" id="evidencias" name="evidencias">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-material">
+                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
+                                            <label for="material-textarea-small">Detalles Extra</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label class="css-input css-checkbox css-checkbox-success">
+                                            <input type="checkbox"><span></span> <b>Patron de bloqueo</b>
+                                        </label>
+                                    </div>
+                                </div>
+
                             </div>
-                        </form>
-                        <!-- END Formulario de registro de cliente -->
+                            <!-- END Div servicio_tecnico -->  
+                        </div>
                     </div>
                 </div>
             </div>

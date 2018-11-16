@@ -35,10 +35,10 @@ var BaseCompChartJSv2 = function() {
 
         // Lines/Bar/Radar Chart Data
         var $chart2LinesBarsRadarData = {
-            labels: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+            labels: ['LU', 'MA', 'MI', 'JU', 'VI', 'SA', 'DO'],
             datasets: [
                 {
-                    label: 'Last Week',
+                    label: 'Semana pasada',
                     fill: true,
                     backgroundColor: 'rgba(220,220,220,.3)',
                     borderColor: 'rgba(220,220,220,1)',
@@ -49,7 +49,7 @@ var BaseCompChartJSv2 = function() {
                     data: [30, 32, 40, 45, 43, 38, 55]
                 },
                 {
-                    label: 'This Week',
+                    label: 'Esta semana',
                     fill: true,
                     backgroundColor: 'rgba(171, 227, 125, .3)',
                     borderColor: 'rgba(171, 227, 125, 1)',
@@ -65,9 +65,9 @@ var BaseCompChartJSv2 = function() {
         // Polar/Pie/Donut Data
         var $chart2PolarPieDonutData = {
             labels: [
-                'Earnings',
-                'Sales',
-                'Tickets'
+                'Ventas',
+                'Servicios',
+                'Stock'
             ],
             datasets: [{
                 data: [

@@ -78,7 +78,7 @@
         <li class="js-header-search header-search">
             <form class="form-horizontal" action="base_pages_search.html" method="post">
                 <div class="form-material form-material-primary input-group remove-margin-t remove-margin-b">
-                    <input class="form-control" type="text" id="base-material-text" name="base-material-text" placeholder="Search..">
+                    <input class="form-control" type="text" id="base-material-text" name="base-material-text" placeholder="Buscar ...">
                     <span class="input-group-addon"><i class="si si-magnifier"></i></span>
                 </div>
             </form>

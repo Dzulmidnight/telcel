@@ -20,7 +20,7 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
-		    <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
+		    <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
 		        <i class="fa fa-arrow-left"></i> Regresar
 		    </button>
         </div>
@@ -47,7 +47,7 @@
 			<div class="row">
 
 				<div class="col-md-12">
-                            <div>
+                            <div class="block">
 					            <div class="block-header">
 					                <ul class="block-options">
 					                    <li>
@@ -58,7 +58,7 @@
 					            </div>
 					            <div class="block-content block-content-full text-center">
 					                <!-- Pie Chart Container -->
-					                <canvas class="js-chartjs2-pie"></canvas>
+					                <canvas class="js-chartjs2-bars"></canvas>
 					            </div>
                             </div>
 				</div>
@@ -109,7 +109,7 @@
 					<h3 style="margin-bottom:1em">Resumen general</h3>
 				</div>
 				<div class="col-xs-6 col-md-6">
-			        <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>">
+			        <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>" data-toggle="tooltip" title="Consultar información">
 			            <div class="block-content block-content-full clearfix">
 			                <div class="pull-right push-15-t push-15">
 			                    <i class="fa fa-search fa-2x text-primary"></i>
@@ -120,7 +120,7 @@
 			        </a>
 				</div>
 			    <div class="col-xs-6 col-md-6">
-			        <a class="block block-link-hover1" href="javascript:void(0)">
+			        <a class="block block-link-hover1" href="javascript:void(0)" data-toggle="tooltip" title="Consultar información">
 			            <div class="block-content block-content-full clearfix">
 			                <div class="pull-right push-15-t push-15">
 			                    <i class="fa fa-search fa-2x text-smooth"></i>
@@ -131,7 +131,7 @@
 			        </a>
 			    </div>
 			    <div class="col-xs-6 col-md-6">
-			        <a class="block block-link-hover1" href="javascript:void(0)">
+			        <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>" data-toggle="tooltip" title="Consultar información">
 			            <div class="block-content block-content-full clearfix">
 			                <div class="pull-right push-15-t push-15">
 			                    <i class="fa fa-search fa-2x text-success"></i>
@@ -142,7 +142,7 @@
 			        </a>
 			    </div>
 			    <div class="col-xs-6 col-md-6">
-			        <a class="block block-link-hover1" href="javascript:void(0)">
+			        <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_PROVEEDORES/proveedores'); ?>" data-toggle="tooltip" title="Consultar información">
 			            <div class="block-content block-content-full clearfix">
 			                <div class="pull-right push-15-t push-15">
 			                    <i class="fa fa-search fa-2x text-amethyst"></i>

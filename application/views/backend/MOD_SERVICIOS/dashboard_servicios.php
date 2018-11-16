@@ -1,3 +1,15 @@
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+
+
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
     <div class="row items-push">
@@ -82,7 +94,7 @@
                                         <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
                                     </div>
                                     <label class="css-input switch switch-sm switch-success">
-                                        <input type="checkbox"><span></span> Necesita registrar usuario?
+                                        <input type="checkbox"><span></span> Necesitaras registrar usuario?
                                     </label>
                                     <br>
                                     <button class="btn btn-sm btn-success" style="margin-top:2em;">
@@ -402,8 +414,10 @@
                                                         <label for="material-select">Estado fisico del equipo *</label>
                                                         <select class="form-control" id="material-select" name="material-select" size="1" required="" onchange="tipoServicio()">
                                                             <option>...</option>
-                                                            <option value="1">Venta de equipo telefonico</option>
-                                                            <option value="2">Servicio Tecnico</option>
+                                                            <option value="1">Excenlente</option>
+                                                            <option value="2">Bueno</option>
+                                                            <option value="3">Regular</option>
+                                                            <option value="4">Malo</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-6">
@@ -474,6 +488,15 @@
                 <h4 class="font-w300 push-15">Historial de servicios</h4>
 
                 <div class="row">
+                    <div class="col-lg-12" style="margin-bottom:1em;">
+                        <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width:20%" data-placeholder="Filtrar por sucursales" multiple>
+                            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                            <option value="1">Sucursal 1</option>
+                            <option value="2">Sucursal 2</option>
+                            <option value="3">Sucursal 3</option>
+                        </select>
+                    </div>
+
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-xs-6 col-md-3">
@@ -543,6 +566,9 @@
                                             ID
                                         </th>
                                         <th class="encabezado">
+                                            Sucursal
+                                        </th>
+                                        <th class="encabezado">
                                             Tipo
                                         </th>
                                         <th class="encabezado">
@@ -550,6 +576,9 @@
                                         </th>
                                         <th class="encabezado">
                                             Estatus
+                                        </th>
+                                        <th class="encabezado">
+                                            Monto
                                         </th>
                                         </th>
                                         <th class="encabezado">
@@ -560,16 +589,20 @@
                                 </thead>
                                 <tbody>
                                     <?php 
-                                    for ($i=0; $i < 10; $i++) { 
+                                    for ($i=1; $i < 10; $i++) { 
                                     ?>
                                         <tr>
                                             <!-- Nº -->
                                             <td>
-                                                1
+                                                <?= $i ?>
                                             </td>
                                             <!-- ID -->
                                             <td>
                                                 #342
+                                            </td>
+                                            <!-- Nombre de la sucursal -->
+                                            <td>
+                                                Nom. Sucursal
                                             </td>
                                             <!-- Categoria -->
                                             <td>
@@ -585,6 +618,10 @@
                                                     <i class="fa fa-check"></i> Completo
                                                 </span>
                                             </td>
+                                            <!-- Monto del servico -->
+                                            <td>
+                                                $ <?= number_format(rand(700, 1500)) ?>
+                                            </td>
                                             <!-- Fecha -->
                                             <td>
                                                 <?= date('d/m/Y', time()); ?>
@@ -592,9 +629,9 @@
                                             <!-- Acciones -->
                                             <td class="text-center">
                                                 <div class="btn-group">
-                                                    <button class="btn btn-xs btn-default">
+                                                    <!--<button class="btn btn-xs btn-default">
                                                         <i class="si si-settings"></i>
-                                                    </button>
+                                                    </button>-->
                                                     <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Consultar detalles"><i class="fa fa-search"></i></button>
                                                 </div>
                                             </td>

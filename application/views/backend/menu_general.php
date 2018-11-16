@@ -15,7 +15,7 @@
                 </a>
             </div>
             <div class="col-xs-6 col-sm-4 col-lg-4">
-                <a class="block block-link-hover2 text-center" href="javascript:void(0)">
+                <a class="block block-link-hover2 text-center" href="<?php echo base_url('backend/MOD_PERSONAL/personal'); ?>">
                     <div class="block-content block-content-full bg-primary-dark">
                         <i class="si si-film fa-4x text-white"></i>
                         <div class="font-w600 text-white-op push-15-t">Personal</div>
@@ -55,7 +55,7 @@
                 </a>
             </div>
             <div class="col-xs-6 col-sm-4 col-lg-4">
-                <a class="block block-link-hover3 text-center" href="javascript:void(0)">
+                <a class="block block-link-hover3 text-center" href="<?php echo base_url('backend/MOD_SUCURSALES/sucursales'); ?>">
                     <div class="block-content block-content-full">
                         <i class="si si-speedometer fa-4x text-danger"></i>
                         <div class="font-w600 push-15-t">Sucursales</div>

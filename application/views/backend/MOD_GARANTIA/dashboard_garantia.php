@@ -8,12 +8,12 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
-            <button class="btn btn-sm btn-primary" onclick="history.back(-1)">
+            <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
-            <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-popout2">
+            <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-popout2">
                 <span data-toggle="tooltip" title="Agregar nuevo cliente">
-                    <i class="fa fa-user-plus"></i> Nuevo
+                    <i class="si si-badge"></i> Nuevo
                 </span>
             </button>
         </div>
@@ -71,7 +71,7 @@
 
                 You can also add the class .open in your tbody.js-table-sections-header to make the next tbody section visible by default
                 -->
-                <table class="js-table-sections table table-hover">
+                <table class="js-table-sections table table-condensed table-hover">
                     <thead>
                         <tr>
                             <th>
@@ -95,6 +95,9 @@
                         </tr>
                     </thead>
                     
+                    <?php 
+                    for ($i=0; $i < 5; $i++) { 
+                    ?>
                     <tbody class="js-table-sections-header">
                     <!--<tbody class="js-table-sections-header open">-->
                         <tr>
@@ -121,36 +124,62 @@
                                 <a href="#">Nombre del cliente</a>
                             </td>
                             <!-- FECHA DE INGRESO -->
-                            <td>
-                                <p class="alert alert-danger">
-                                    <?php 
-                                        $validez = 2.592e+6; // 30 dias
-                                        $fin_garantia = date('d/m/Y', time()+$validez);
-                                     ?>
-                                    <?= date('d/m/Y', time()); ?>
-                                    -
-                                    <?= $fin_garantia ?>
-                                </p>
-
+                            <td class="danger">
+                                <?php 
+                                    $validez = 2.592e+6; // 30 dias
+                                    $fin_garantia = date('d/m/Y', time()+$validez);
+                                 ?>
+                                <?= date('d/m/Y', time()); ?>
+                                -
+                                <?= $fin_garantia ?>
                             </td>
 
                         </tr>
                     </tbody>
-                    <tbody>
+                    <tbody style="font-size:12px;border: 2px solid #ee5253;">
+                        <tr style="margin:0px;padding:0px;">
+                            <td colspan="6" style="padding:0px;padding-top:10px;">
+                                <p class="h4">Historial de acciones</p>
+                            </td>
+                        </tr>
                         <tr>
-                            <td class="text-center"></td>
-                            <td class="font-w600 text-success">+ $31,00</td>
-                            <td>
-                                <small>Paypal</small>
+                            <td colspan="3">
+                                <b>Fecha</b>
                             </td>
-                            <td class="hidden-xs">
-                                <small class="text-muted">June 27, 2015 12:16</small>
+                            <td colspan="3">
+                                <b>Actualización</b>
                             </td>
-                            <td></td>
-                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <?= date('d/m/Y', time()) ?>
+                            </td>
+                            <td colspan="3">
+                                Reemplazo de pieza solicitado
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <?= date('d/m/Y', time()) ?>
+                            </td>
+                            <td colspan="3">
+                                Equipo revisado por el tecnico
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <?= date('d/m/Y', time()) ?>
+                            </td>
+                            <td colspan="3">
+                                En espera de entrar a revisión
+                            </td>
                         </tr>
 
                     </tbody>
+
+                    <?php
+                    }
+                     ?>
                    
                 </table>
             </div>
