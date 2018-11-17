@@ -1,16 +1,4 @@
-<!-- Page Header -->
-<div class="content bg-gray-lighter">
-    <div class="row items-push">
-        <div class="col-sm-7">
-            <h1 class="page-heading">
-                Dashboard
-            </h1>
-        </div>
-        <div class="col-sm-5 hidden-xs">
-        </div>
-    </div>
-</div>
-<!-- END Page Header -->
+
 
 <!-- Page Content -->
 <div class="content">

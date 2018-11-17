@@ -11,11 +11,6 @@
             <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
-            <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-popout2">
-                <span data-toggle="tooltip" title="Agregar nuevo cliente">
-                    <i class="si si-badge"></i> Nuevo
-                </span>
-            </button>
         </div>
     </div>
 

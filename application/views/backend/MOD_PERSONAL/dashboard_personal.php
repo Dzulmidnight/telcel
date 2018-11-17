@@ -182,7 +182,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
-                                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-check push-5-r"></i> Actualizar contacto</button>
+                                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
                             </div>
                         </div>
                     </form>
