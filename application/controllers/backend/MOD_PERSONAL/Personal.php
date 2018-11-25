@@ -1,23 +1,14 @@
 <?php
 class Personal extends CI_Controller{
-
-	public function index($tipo = false)
+	public function __construct()
 	{
-		switch ($tipo) {
-			case 'express':
-				$servicio = 'servicio_express';
-				break;
-			case 'detallado':
-				$servicio = 'servicio_detallado';
-				break;
+		parent::__construct();
+		$this->load->model('add_model');
+	}
 
-			case 'interno':
-				$servicio = 'servicio_interno';
-				break;
-			default:
-				# code...
-				break;
-		}
+	public function index()
+	{
+
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
@@ -37,4 +28,30 @@ class Personal extends CI_Controller{
 			$this->load->view('backend/MOD_PERSONAL/listado_sucursales', $data);
 		$this->load->view('backend/template/footer');
 	}
+
+	public function agregar(){
+		header("Content-Type: application/json; charset=UTF-8");
+
+		$obj = json_decode($_POST["x"], false);
+
+
+		$salida = json_encode($obj->nombre);
+
+		echo $salida;
+		/*$data = array(
+			'nombre' => $this->input->post('nombre'),
+			'ap_paterno' => $this->input->post('ap_paterno'),
+			'ap_materno' => $this->input->post('ap_materno'),
+			'telefono' => $this->input->post('telefono'),
+			'email' => $this->input->post('email'),
+			'password' => $this->input->post('password'),
+			'fecha_registro' => $this->input->post('fecha_registro'),
+			'id_sucursal' => $this->input->post('id_sucursal')
+		);
+		// agregar nuevo usuario
+		$this->add_model->insertar($data, 'usuarios');
+
+		redirect(base_url('backend/MOD_PERSONAL/personal'), "refresh");*/
+	}
+
 }

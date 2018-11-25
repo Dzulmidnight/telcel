@@ -17,6 +17,9 @@
             <h3 class="page-heading">
                 DASHBOARD PERSONAL: <span class="text-city">7</span>
             </h3>
+            <h4>
+                SALIDA : <span id="mostrarSalida"></span>
+            </h4>
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
@@ -118,7 +121,11 @@
                     <h3 class="block-title"><i class="fa fa-user-circle push-5-r"></i> Nuevo Personal</h3>
                 </div>
                 <div class="block-content">
-                    <form class="form-horizontal push-10-t push-10" action="base_pages_contacts.html" method="post" onsubmit="return false;">
+                    <?php 
+                    $atributos = 'class="form-horizontal push-10-t push-10"';
+                    
+                    echo form_open('backend/MOD_PERSONAL/personal/agregar', $atributos);
+                     ?>
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="push">
@@ -128,52 +135,78 @@
                                 <input type="file" id="contact-avatar" name="contact-avatar">
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
+                            <div class="col-sm-6">
                                 <div class="form-material">
-                                    <select class="form-control" id="material-select" name="material-select" size="1">
+                                    <select class="form-control" id="id_sucursal" name="id_sucursal" size="1" style="margin-top: 1.5em;">
                                         <option>...</option>
                                         <option value="1">Sucursal #1</option>
                                         <option value="2">Sucursal #2</option>
                                         <option value="3">Sucursal #3</option>
                                     </select>
-                                    <label for="material-select">Asignar sucursal</label>
+                                    <label for="id_sucursal">Asignar sucursal</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group push-50-t">
-                            <div class="col-sm-8 col-sm-offset-2">
+                            <div class="col-sm-6">
                                 <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="contact-name" name="contact-name" value="">
-                                    <label for="contact-name">Nombre</label>
+                                    <input class="form-control" type="text" id="nombre" name="nombre" value="">
+                                    <label for="nombre">Nombre</label>
                                     <span class="input-group-addon"><i class="si si-user"></i></span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
+                            <div class="col-sm-6">
                                 <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="contact-email" name="contact-email" value="">
-                                    <label for="contact-email">Apellido Paterno</label>
+                                    <input class="form-control" type="text" id="usuario" name="usuario" value="">
+                                    <label for="usuario">Usuario</label>
+                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-material form-material-primary floating input-group">
+                                    <input class="form-control" type="text" id="password" name="password" value="">
+                                    <label for="password">Contraseña</label>
+                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-material form-material-primary floating input-group">
+                                    <input class="form-control" type="text" id="ap_paterno" name="ap_paterno" value="">
+                                    <label for="ap_paterno">Apellido Paterno</label>
                                     <span class="input-group-addon"><i class="si si-plus"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
+                            <div class="col-sm-12">
                                 <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="contact-email" name="contact-email" value="">
-                                    <label for="contact-email">Apellido Materno</label>
+                                    <input class="form-control" type="text" id="ap_materno" name="ap_materno" value="">
+                                    <label for="ap_materno">Apellido Materno</label>
                                     <span class="input-group-addon"><i class="si si-plus"></i></span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
+                            <div class="col-sm-12">
                                 <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="contact-phone" name="contact-phone" value="">
-                                    <label for="contact-phone">Teléfono</label>
+                                    <input class="form-control" type="text" id="telefono" name="telefono" value="">
+                                    <label for="telefono">Teléfono</label>
+                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-material form-material-primary floating input-group">
+                                    <input class="form-control" type="text" id="email" name="email" value="">
+                                    <label for="email">Email</label>
                                     <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
                                 </div>
                             </div>
@@ -181,8 +214,9 @@
 
 
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
+                            <div class="col-sm-12">
+                                <input type="text" name="fecha_registro" value="<?= time() ?>">
+                                <button class="btn btn-sm btn-primary" type="button" onclick="llamadaAjax('<?php echo base_url(); ?>')"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
                             </div>
                         </div>
                     </form>
@@ -402,12 +436,7 @@
     }
 </style>
 
+<script src="<?= base_url('assets/js/propios/funciones.js') ?>"></script>
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
-
-<!-- Page JS Plugins -->
-<script src="<?php echo base_url(); ?>assets/js/plugins/chartjsv2/Chart.min.js"></script>
-
-<!-- Page JS Code -->
-<script src="<?php echo base_url(); ?>assets/js/pages/base_comp_chartjs_v2.js"></script>
