@@ -25,6 +25,9 @@
 	        <!-- Section Content -->
 	        <div class="row">
 	            <div class="col-sm-8 col-sm-offset-2">
+                    <p class="text-primary" style="margin:0px;">
+                        <i class="si si-info"></i> Consultar la garantia de un equipo
+                    </p>
 	                <form action="base_pages_support.html" method="post">
 	                    <div class="input-group input-group-lg">
 	                        <input class="form-control" type="text" placeholder="Busqueda de equipo (Telefono, IMEI, ID Soporte)">

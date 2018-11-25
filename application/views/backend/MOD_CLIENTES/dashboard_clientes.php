@@ -258,10 +258,10 @@
 
 <!-- Editar cliente -->
 <div class="modal fade" id="modal-editar" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-popout">
+    <div class="modal-dialog modal-md modal-dialog-popout">
         <div class="modal-content">
             <div class="block block-themed block-transparent remove-margin-b">
-                <div class="block-header bg-primary-dark">
+                <div class="block-header bg-warning">
                     <ul class="block-options">
                         <li>
                             <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
@@ -273,10 +273,6 @@
                     <div class="row text-justify">
                         <!-- Formulario de registro de usuario -->
                         <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
-                            <h3 class="">
-                                Información del cliente
-                            </h3>
-                            <hr>
                             <div class="form-group">
                                 <div class="col-sm-6">
                                     <div class="form-material form-material-primary input-group">
@@ -327,7 +323,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                <button class="btn btn-sm btn-success" type="button">Registrar</button>
+                <button class="btn btn-sm btn-success" type="button">Actualizar</button>
             </div>
         </div>
     </div>

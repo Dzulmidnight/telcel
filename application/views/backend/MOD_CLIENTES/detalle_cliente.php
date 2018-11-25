@@ -28,8 +28,8 @@
                 <!-- About -->
                 <div class="block">
                     <div class="block-content">
-                        <p>
-                            <span class="text-primary">
+                        <p class="h4 text-city">
+                            <span>
                                 Nombre del cliente
                             </span>
                         </p>
@@ -92,14 +92,14 @@
                 <!-- Timeline -->
                 <div class="block block-opt-refresh-icon6">
                     <div class="block-header">
-                        <ul class="block-options">
+                        <!--<ul class="block-options">
                             <li>
                                 <button type="button" data-toggle="block-option" data-action="fullscreen_toggle"></button>
                             </li>
                             <li>
                                 <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
                             </li>
-                        </ul>
+                        </ul>-->
                         <h3 class="block-title"><i class="fa fa-newspaper-o"></i> Actualizaciones</h3>
                     </div>
                     <div class="block-content">

@@ -7,7 +7,7 @@
                     <!-- Login Title -->
                     <div class="text-center">
                         <i class="fa fa-2x fa-circle-o-notch text-primary"></i>
-                        <p class="text-muted push-15-t">E - MOVILE</p>
+                        <p class="text-muted push-15-t">MOVIL EXPERT</p>
                     </div>
                     <!-- END Login Title -->
 

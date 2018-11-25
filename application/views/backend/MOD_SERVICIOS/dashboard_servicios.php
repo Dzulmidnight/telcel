@@ -122,7 +122,7 @@
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
                                                     </span>
-                                                    <input class="form-control" type="text" id="example-input1-group2" name="example-input1-group2" placeholder="Nombre y apellido, Nº Telefono">
+                                                    <input class="form-control" type="text" id="example-input1-group2" name="example-input1-group2" placeholder="Nº Teléfono">
                                                 </div>
                                             </div>
                                         </div>
@@ -229,18 +229,18 @@
                                                 </p class="text-danger h3">
 
                                                 <div class="form-group">
-                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                         <div class="form-material form-material-primary">
                                                             <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Codigo del accesorio" required>
                                                             <label for="material-color-primary">CODIGO *</label>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                         <div class="row">
                                                             <div class="col-xs-6">
                                                                 <div class="form-material form-material-primary">
                                                                     <input class="form-control" type="number" step="0.01" min="0" id="costo_accesorio" name="costo_accesorio" placeholder="Ej: 150.50" required>
-                                                                    <label id="label_costo" for="costo_accesorio">Costo *</label>
+                                                                    <label style="padding-bottom: 4em;" id="label_costo" for="costo_accesorio">Costo *</label>
                                                                 </div>  
                                                             </div>
                                                             <div class="col-xs-6">

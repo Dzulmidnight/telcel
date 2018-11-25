@@ -1,5 +1,5 @@
             <div class="col-xs-6 col-sm-4 col-lg-4">
-                <a class="block block-link-hover2 text-center" href="#" data-toggle="modal" data-target="#modal-popout">
+                <a class="block block-link-hover2 text-center" href="#" onclick="modalVentas()">
                     <div class="block-content block-content-full bg-primary">
                         <i class="si si-basket-loaded fa-4x text-white"></i>
                         <div class="font-w600 text-white-op push-15-t">Ventas</div>
