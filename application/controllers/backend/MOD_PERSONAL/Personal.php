@@ -29,15 +29,45 @@ class Personal extends CI_Controller{
 		$this->load->view('backend/template/footer');
 	}
 
+	/*public function agregar(){
+		$data = array(
+			'nombre' => $this->input->post('nombre'),
+			'ap_paterno' => $this->input->post('ap_paterno'),
+			'ap_materno' => $this->input->post('ap_materno'),
+			'telefono' => $this->input->post('telefono'),
+			'email' => $this->input->post('email'),
+			'password' => $this->input->post('password'),
+			'fecha_registro' => $this->input->post('fecha_registro'),
+			'id_sucursal' => $this->input->post('id_sucursal')
+		);
+		// agregar nuevo usuario
+		$this->add_model->insertar($data, 'usuarios');
+
+		redirect(base_url('backend/MOD_PERSONAL/personal'), "refresh");
+	}*/
+
 	public function agregar(){
 		header("Content-Type: application/json; charset=UTF-8");
 
 		$obj = json_decode($_POST["x"], false);
 
+		/*$data = array(
+			'nombre' => $this->input->post('nombre'),
+			'ap_paterno' => $this->input->post('ap_paterno'),
+			'ap_materno' => $this->input->post('ap_materno'),
+			'telefono' => $this->input->post('telefono'),
+			'email' => $this->input->post('email'),
+			'password' => $this->input->post('password'),
+			'fecha_registro' => $this->input->post('fecha_registro'),
+			'id_sucursal' => $this->input->post('id_sucursal')
+		);
+		// agregar nuevo usuario
+		$this->add_model->insertar($data, 'usuarios');
+*/
 
-		$salida = json_encode($obj->nombre);
+		echo  json_encode($obj->nombre);
 
-		echo $salida;
+		
 		/*$data = array(
 			'nombre' => $this->input->post('nombre'),
 			'ap_paterno' => $this->input->post('ap_paterno'),

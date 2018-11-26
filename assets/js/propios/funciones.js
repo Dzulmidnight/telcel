@@ -1,12 +1,28 @@
 function llamadaAjax(direccion)
 {
-	var datos = '', parametros = {};
+	var i = 0; datos = '', parametros = {}, formulario = '';
 	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function(){
+	xmlhttp.onreadystatechange = function() {
 		if(this.readyState == 4 && this.status == 200){
-			myObj = JSON.parse(this.responseText);
-			console.log(myObj);
-			document.getElementById('mostrarSalida').innerHTML = myObj;
+
+			document.getElementById('mostrarSalida').innerHTML = 'asdf';
+
+			// acceder a los datos del formulario
+			formulario = document.getElementById('frm-nuevo-personal').elements;
+			console.log(formulario);
+
+			for(i = 0; i < formulario.length; i++){
+				console.log(formulario[i].type+' -- valor: '+formulario[i].value);
+			}
+			/*$('#modal-nuevo-personal').modal('toggle');
+			$('.modal-backdrop').remove();
+
+			swal({
+				text: "Registrado corectamente",
+				icon: "success",
+				buttons: true,
+			});*/
+
 		}
 	}
 

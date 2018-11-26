@@ -121,11 +121,7 @@
                     <h3 class="block-title"><i class="fa fa-user-circle push-5-r"></i> Nuevo Personal</h3>
                 </div>
                 <div class="block-content">
-                    <?php 
-                    $atributos = 'class="form-horizontal push-10-t push-10"';
-                    
-                    echo form_open('backend/MOD_PERSONAL/personal/agregar', $atributos);
-                     ?>
+                    <form id="frm-nuevo-personal" class="form-horizontal push-10-t push-10">
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="push">
@@ -215,8 +211,8 @@
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <input type="text" name="fecha_registro" value="<?= time() ?>">
-                                <button class="btn btn-sm btn-primary" type="button" onclick="llamadaAjax('<?php echo base_url(); ?>')"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
+                                <input type="hidden" name="fecha_registro" value="<?= time() ?>">
+                                <button id="btn-nuevo-personal" class="btn btn-sm btn-primary" type="button" onclick="llamadaAjax('<?php echo base_url(); ?>')"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
                             </div>
                         </div>
                     </form>
