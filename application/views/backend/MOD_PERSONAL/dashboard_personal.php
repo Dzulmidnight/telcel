@@ -23,7 +23,7 @@
             <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
-            <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-nuevo-personal">
+            <button id="btn_nuevo_personal" type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-nuevo-personal">
                 <span data-toggle="tooltip" title="Agregar nuevo personal">
                     <i class="fa fa-user"></i> Nuevo
                 </span>
@@ -48,12 +48,6 @@
 <!-- Page Content -->
 <div class="content">
     
-    <div class="block">
-        <div id="cargar_contenido" class="row">
-            
-        </div>
-    </div>
-    
     <div id="" class="block">
         <div id="tarjetasPersonal" class="row">
             <?php foreach ($row_usuarios as $usuario): ?>
@@ -63,7 +57,7 @@
                         <div class="block-header">
                             <ul class="block-options">
                                 <li>
-                                    <button type="button" data-toggle="modal" data-target="#modal-editar-contacto">
+                                    <button type="button" onclick="consultaAjax('<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/listar/<?= $usuario->id_usuario ?>')">
                                         <i class="si si-pencil"></i>
                                     </button>
                                 </li>
@@ -106,7 +100,7 @@
 
 
 <!-- Nuevo Contacto -->
-<div class="modal fade" id="modal-nuevo-personal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" id="modal-nuevo-personal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-popout">
         <div class="modal-content">
             <div class="block block-themed block-transparent remove-margin-b">
@@ -210,7 +204,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="hidden" name="fecha_registro" value="<?= time() ?>">
-                                <button id="btn-nuevo-personal" class="btn btn-sm btn-primary" type="button" onclick="llamadaAjax('<?php echo base_url(); ?>')"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
+                                <button id="btn-nuevo-personal" class="btn btn-sm btn-primary" type="button" onclick="insertAjax('frm-nuevo-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/agregar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
                             </div>
                         </div>
                     </form>
@@ -299,8 +293,13 @@
 
 <script>
 
+function editarContacto(id){
+    $('#modal-editar-contacto').modal('show');
+    console.log('editar el contacto'+id);
+}
+
 document.addEventListener("DOMContentLoaded", function(event) { 
-  cargarContenido('<?php echo base_url(); ?>');
+  //cargarContenido('<?php echo base_url(); ?>');
 });
 
 function mostrarAlerta(){
