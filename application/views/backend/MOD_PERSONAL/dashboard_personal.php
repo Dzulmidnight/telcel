@@ -11,15 +11,12 @@
 
 
 <!-- Page Header -->
-<div class="content bg-gray-lighter">
+<div id="contenido_principal" class="content bg-gray-lighter">
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                DASHBOARD PERSONAL: <span class="text-city">7</span>
+                DASHBOARD PERSONAL: <span id="spanResultados" class="text-city"><?= $num_resultados ?></span>
             </h3>
-            <h4>
-                SALIDA : <span id="mostrarSalida"></span>
-            </h4>
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
@@ -50,13 +47,16 @@
 </div>
 <!-- Page Content -->
 <div class="content">
-
-
+    
     <div class="block">
-        <div class="row">
-            <?php 
-            for ($i=1; $i <= 7 ; $i++) { 
-            ?>
+        <div id="cargar_contenido" class="row">
+            
+        </div>
+    </div>
+    
+    <div id="" class="block">
+        <div id="tarjetasPersonal" class="row">
+            <?php foreach ($row_usuarios as $usuario): ?>
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <!-- Contact -->
                     <div class="block block-rounded">
@@ -68,7 +68,7 @@
                                     </button>
                                 </li>
                             </ul>
-                            <div class="block-title">Nombre de la persona</div>
+                            <div class="block-title"><?= $usuario->nombre.' '.$usuario->ap_paterno ?></div>
                         </div>
                         <div class="block-content block-content-full bg-primary text-center">
                             <img class="img-avatar img-avatar-thumb" src="<?php echo base_url(); ?>assets/img/avatars/avatar7.jpg" alt="">
@@ -80,11 +80,11 @@
                                 <tbody>
                                     <tr>
                                         <td class="font-w600" style="width: 30%;">Sucursal</td>
-                                        <td>Nom. Sucursal #<?= $i ?></td>
+                                        <td>Nom. Sucursal #<?= $usuario->id_sucursal; ?></td>
                                     </tr>
                                     <tr>
                                         <td class="font-w600">Telefono</td>
-                                        <td>951 19932347</td>
+                                        <td><?= $usuario->telefono ?></td>
                                     </tr>
                                     <!--<tr>
                                         <td class="font-w600">Email</td>
@@ -97,9 +97,7 @@
                     <!-- END Contact -->
                 </div>
 
-            <?php
-            }
-             ?>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -300,6 +298,14 @@
 <!-- END Contact Edit Modal -->
 
 <script>
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+  cargarContenido('<?php echo base_url(); ?>');
+});
+
+function mostrarAlerta(){
+    console.log('asdf');
+}
     function nuevoServicio(id_btn, valor){
         if(valor == 'mostrar'){
             document.getElementById('frm_nuevo_servicio').style.display = 'block';
