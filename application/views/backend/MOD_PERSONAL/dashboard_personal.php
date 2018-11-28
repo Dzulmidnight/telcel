@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
 
+<script>var base_url = '<?php echo base_url() ?>';</script>
 
 <!-- Page Header -->
 <div id="contenido_principal" class="content bg-gray-lighter">
@@ -57,7 +58,7 @@
                         <div class="block-header">
                             <ul class="block-options">
                                 <li>
-                                    <button type="button" onclick="consultaAjax('<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/listar/<?= $usuario->id_usuario ?>')">
+                                    <button type="button" onclick="consultaAjax('<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/listar/usuarios/<?= $usuario->id_usuario ?>')">
                                         <i class="si si-pencil"></i>
                                     </button>
                                 </li>
@@ -229,49 +230,88 @@
                     <h3 class="block-title"><i class="fa fa-user-circle push-5-r"></i> Editar Personal</h3>
                 </div>
                 <div class="block-content">
-                    <form class="form-horizontal push-10-t push-10" action="base_pages_contacts.html" method="post" onsubmit="return false;">
+                    <form id="frm-nuevo-personal" class="form-horizontal push-10-t push-10">
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="push">
                                     <img class="img-avatar" src="<?php echo base_url(); ?>assets/img/avatars/avatar15.jpg" alt="">
                                 </div>
-                                <label for="contact-avatar">Selecciona nueva imagen</label>
+                                <label for="contact-avatar">Selecciona una imagen</label>
                                 <input type="file" id="contact-avatar" name="contact-avatar">
                             </div>
                         </div>
-                        <div class="form-group push-50-t">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="contact-name" name="contact-name" value="Nombre">
-                                    <label for="contact-name">Nombre</label>
+
+                        <div class="form-group">
+                            <div class="col-sm-6">
+                                <div class="form-material">
+                                    <select class="form-control" id="editar_sucursal" name="editar_sucursal" size="1" style="margin-top: 1.5em;">
+                                        <option>...</option>
+                                        <option value="1">Sucursal #1</option>
+                                        <option value="2">Sucursal #2</option>
+                                        <option value="3">Sucursal #3</option>
+                                    </select>
+                                    <label for="editar_sucursal">Asignar sucursal</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-material form-material-primary input-group">
+                                    <input class="form-control" type="text" id="editar_nombre" name="editar_nombre" value="">
+                                    <label for="editar_nombre">Nombre</label>
                                     <span class="input-group-addon"><i class="si si-user"></i></span>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="contact-email" name="contact-email" value="Apellido Paterno">
-                                    <label for="contact-email">Apellido Paterno</label>
+                            <div class="col-sm-6">
+                                <div class="form-material form-material-primary input-group">
+                                    <input class="form-control" type="text" id="editar_usuario" name="editar_usuario" value="">
+                                    <label for="editar_usuario">Usuario</label>
+                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-material form-material-primary input-group">
+                                    <input class="form-control" type="text" id="editar_password" name="editar_password" value="">
+                                    <label for="editar_password">Contraseña</label>
+                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-material form-material-primary input-group">
+                                    <input class="form-control" type="text" id="editar_ap_paterno" name="editar_ap_paterno" value="">
+                                    <label for="editar_ap_paterno">Apellido Paterno</label>
                                     <span class="input-group-addon"><i class="si si-plus"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="contact-email" name="contact-email" value="Apellido Materno">
-                                    <label for="contact-email">Apellido Materno</label>
+                            <div class="col-sm-12">
+                                <div class="form-material form-material-primary input-group">
+                                    <input class="form-control" type="text" id="editar_ap_materno" name="editar_ap_materno" value="">
+                                    <label for="editar_ap_materno">Apellido Materno</label>
                                     <span class="input-group-addon"><i class="si si-plus"></i></span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="contact-phone" name="contact-phone" value="951 9923493">
-                                    <label for="contact-phone">Teléfono</label>
+                            <div class="col-sm-12">
+                                <div class="form-material form-material-primary input-group">
+                                    <input class="form-control" type="text" id="editar_telefono" name="editar_telefono" value="">
+                                    <label for="editar_telefono">Teléfono</label>
+                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-material form-material-primary input-group">
+                                    <input class="form-control" type="text" id="editar_email" name="editar_email" value="">
+                                    <label for="editar_email">Email</label>
                                     <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
                                 </div>
                             </div>
@@ -279,8 +319,9 @@
 
 
                         <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-check push-5-r"></i> Actualizar contacto</button>
+                            <div class="col-sm-12">
+                                <input type="hidden" name="fecha_registro" value="<?= time() ?>">
+                                <button id="btn-nuevo-personal" class="btn btn-sm btn-primary" type="button" onclick="insertAjax('frm-nuevo-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/agregar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
                             </div>
                         </div>
                     </form>
@@ -293,18 +334,6 @@
 
 <script>
 
-function editarContacto(id){
-    $('#modal-editar-contacto').modal('show');
-    console.log('editar el contacto'+id);
-}
-
-document.addEventListener("DOMContentLoaded", function(event) { 
-  //cargarContenido('<?php echo base_url(); ?>');
-});
-
-function mostrarAlerta(){
-    console.log('asdf');
-}
     function nuevoServicio(id_btn, valor){
         if(valor == 'mostrar'){
             document.getElementById('frm_nuevo_servicio').style.display = 'block';

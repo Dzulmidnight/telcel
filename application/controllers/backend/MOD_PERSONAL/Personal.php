@@ -51,13 +51,13 @@ class Personal extends CI_Controller{
 
 		redirect(base_url('backend/MOD_PERSONAL/personal'), "refresh");
 	}*/
-	public function listar($id){
+	public function listar($tabla = false, $id = false){
 		header("Content-Type: application/json; charset=UTF-8");
 		//$objeto = json_decode($_POST["x"], false);
 
 		//echo json_encode($this->consultar_model->listado('usuarios'));
-		$data['row_usuarios'] = $this->consultar_model->listado('usuarios');
-		echo json_encode($data['row_usuarios'] = $this->consultar_model->listado('usuarios'));
+		//$data['row_usuarios'] = $this->consultar_model->listado($tabla, $id);
+		echo json_encode($data['row_usuarios'] = $this->consultar_model->listado($tabla, $id));
 		//echo json_encode($row_usuarios);
 
 	}
