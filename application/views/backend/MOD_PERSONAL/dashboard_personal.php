@@ -9,8 +9,6 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
 
-<script>var base_url = '<?php echo base_url() ?>';</script>
-
 <!-- Page Header -->
 <div id="contenido_principal" class="content bg-gray-lighter">
     <div class="row items-push">
@@ -48,7 +46,13 @@
 </div>
 <!-- Page Content -->
 <div class="content">
-    
+    <script>
+        function prueba3(x){
+            console.log(x);
+        }
+    </script>
+
+    <button type="button" onclick="prueba3(base_url)">asdf</button>
     <div id="" class="block">
         <div id="tarjetasPersonal" class="row">
             <?php foreach ($row_usuarios as $usuario): ?>
@@ -58,7 +62,7 @@
                         <div class="block-header">
                             <ul class="block-options">
                                 <li>
-                                    <button type="button" onclick="consultaAjax('<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/listar/usuarios/<?= $usuario->id_usuario ?>')">
+                                    <button type="button" onclick="consultaAjax('/listar/usuarios/','<?= $usuario->id_usuario ?>')">
                                         <i class="si si-pencil"></i>
                                     </button>
                                 </li>

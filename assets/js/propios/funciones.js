@@ -1,48 +1,48 @@
-var base_url = '<?php echo base_url() ?>';
+var base_url = window.location.href;
 
 function insertAjax(frm, direccion, cFunction)
 {
-	var x = 0, i = 0, datos = [], parametros = '', formulario = '', objetoJson, respuesta, numRows, contenido = '';
+    var x = 0, i = 0, datos = [], parametros = '', formulario = '', objetoJson, respuesta, numRows, contenido = '';
 
-	// acceder a los datos del formulario
-	formulario = document.getElementById(frm).elements;
+    // acceder a los datos del formulario
+    formulario = document.getElementById(frm).elements;
 
-	for(i = 0; i < formulario.length; i++){
-		if(formulario[i].type !== 'button' && formulario[i].type !== 'file'){
-			console.log(formulario[i].type);
-			datos[x] = formulario[i].name+' : '+formulario[i].value;
-			x++;
-		}
-	}
+    for(i = 0; i < formulario.length; i++){
+        if(formulario[i].type !== 'button' && formulario[i].type !== 'file'){
+            console.log(formulario[i].type);
+            datos[x] = formulario[i].name+' : '+formulario[i].value;
+            x++;
+        }
+    }
 
-	var objetoJson = JSON.stringify(datos);
-
-
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-		if(this.readyState == 4 && this.status == 200){
-
-			//document.getElementById('mostrarSalida').innerHTML = 'asdf';
-			/*respuesta = JSON.parse(this.responseText);
-
-			for(x in respuesta){
-				console.log(respuesta[x]);
-			}
-			numRows = respuesta.length;
-
-			document.getElementById('tarjetasPersonal').innerHTML = contenido;
+    var objetoJson = JSON.stringify(datos);
 
 
-			$('#modal-nuevo-personal').modal('toggle');
-			$('.modal-backdrop').remove();
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
 
-			swal({
-				text: "Registrado corectamente",
-				icon: "success",
-				buttons: true,
-			});
+            //document.getElementById('mostrarSalida').innerHTML = 'asdf';
+            /*respuesta = JSON.parse(this.responseText);
 
-			numResultados(numRows);*/
+            for(x in respuesta){
+                console.log(respuesta[x]);
+            }
+            numRows = respuesta.length;
+
+            document.getElementById('tarjetasPersonal').innerHTML = contenido;
+
+
+            $('#modal-nuevo-personal').modal('toggle');
+            $('.modal-backdrop').remove();
+
+            swal({
+                text: "Registrado corectamente",
+                icon: "success",
+                buttons: true,
+            });
+
+            numResultados(numRows);*/
             if(cFunction !== ''){
                 cFunction(JSON.parse(this.responseText));
             }else{
@@ -60,21 +60,21 @@ function insertAjax(frm, direccion, cFunction)
                 buttons: true,
             });
 
-		}
-	}
+        }
+    }
 
-	var objetoJson = JSON.stringify(datos);
+    var objetoJson = JSON.stringify(datos);
 
-	ruta = direccion;
+    ruta = direccion;
 
-	xmlhttp.open("POST", ruta, true);
-	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xmlhttp.send("x=" + objetoJson);
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=" + objetoJson);
 }
 
-function consultaAjax(ruta){
+function consultaAjax(ruta, id){
 
-    var parametros = '';
+    var parametros = '', ruta = base_url+ruta+id;
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function(){
@@ -132,7 +132,7 @@ function funcionMostrar(xhttp){
                 contenido += "<div class='block-header'>";
                     contenido += "<ul class='block-options'>";
                         contenido += "<li>";
-                            contenido += "<button type='button' onclick='funcionMostrar('<?php echo base_url(); '/sdfgsdfgsfg)'>";
+                            contenido += "<button type='button' onclick='consultaAjax("+'"/listar/usuarios/"'+","+xhttp[x].id_usuario+")'>";
                                 contenido += "<i class='si si-pencil'></i>";
                             contenido += "</button>";
                         contenido += "</li>";
@@ -169,6 +169,30 @@ function funcionMostrar(xhttp){
 
 }
 
+function editarInformacion(id){
+    var ruta = base_url+'backend/MOD_PERSONAL/personal/listar/usuarios/'+id;
+    var otra_ruta = window.location.href;
+    var nueva_ruta = otra_ruta+'/listar/usuarios/'+id;
+
+    console.log('EL ID ES: '+id);
+    console.log('VARIABLE GLOBAL: '+base_url);
+    console.log(ruta);
+
+    var parametros = '';
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            //console.log(this.responseText);
+            var objetoJson = JSON.parse(this.responseText);
+            console.log(objetoJson);
+        }
+    }
+    xmlhttp.open("POST", nueva_ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=" + parametros);
+
+}
 
 function cargarContenido(direccion){
 	var contenido = '', ruta = '', parametros = 'usuario';
