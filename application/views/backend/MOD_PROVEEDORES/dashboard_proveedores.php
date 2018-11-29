@@ -26,6 +26,9 @@
 <div class="content">
 
 	<div class="row">
+        <h3>
+<button class="js-notify btn btn-sm btn-success" data-notify-type="success" data-notify-icon="fa fa-check" data-notify-message="App was updated successfully to 1.2 version">Success</button>
+        </h3>
 		<!-- Listado de proveedores -->
     	<div class="col-lg-12">
     		<div class="block block-content">
@@ -201,7 +204,7 @@
 
                                 <div class="col-sm-4">
                                     <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" 
+                                        <input class="form-control" type="text" id="ap_paterno" name="ap_paterno" placeholder="" 
                                         >
                                         <label for="material-color-primary">Apellido Paterno</label>
                                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
@@ -209,7 +212,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" 
+                                        <input class="form-control" type="text" id="ap_materno" name="ap_materno" placeholder="" 
                                         >
                                         <label for="material-color-primary">Apellido Materno</label>
                                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
