@@ -68,11 +68,34 @@ class Personal extends CI_Controller{
 		$objeto = json_decode($_POST["x"], false);
 
 		foreach ($objeto as $value) {
+			//explode nos crea el array del nombre y valor y lo asigno a las variables de list $nombre, $valor
 			list($nombre, $valor) = explode(" : ", $value);
 			$data[$nombre] = $valor;
 		}
 
 		$this->add_model->insertar($data, 'usuarios');
+
+	}
+
+	public function actualizar(){
+		header("Content-Type: application/json; charset=UTF-8");
+
+		$id = '';
+		$objeto = json_decode($_POST["x"], false);
+
+		foreach ($objeto as $value) {
+			list($nombre, $valor) = explode(" : ", $value);
+			$data[$nombre] = $valor;
+			if($nombre == 'id_usuario'){
+				$id = $valor;
+			}
+		}
+
+		if($this->add_model->actualizar($data, 'usuarios', $id)){
+			echo json_encode($data['row_usuarios'] = $this->consultar_model->listado('usuarios'));
+		}else{
+			echo 0;
+		}
 
 	}
 

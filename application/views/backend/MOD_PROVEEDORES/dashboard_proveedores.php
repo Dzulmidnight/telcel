@@ -11,7 +11,7 @@
             <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
-            <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-popout2">
+            <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-nuevo-proveedor">
                 <span data-toggle="tooltip" title="Agregar nuevo proveedor">
                     <i class="fa fa-user-plus"></i> Nuevo
                 </span>
@@ -128,22 +128,26 @@
 
 </div>
 <!-- FRM Registrar Proveedor -->
-<div class="modal fade" id="modal-popout2" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-nuevo-proveedor" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-popout">
         <div class="modal-content">
-            <div class="block block-themed block-transparent remove-margin-b">
-                <div class="block-header bg-primary-dark">
-                    <ul class="block-options">
-                        <li>
-                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
-                        </li>
-                    </ul>
-                    <h3 class="block-title">Registro Proveedor</h3>
-                </div>
-                <div class="block-content" style="margin-bottom: 4em;">
-                    <div class="row text-justify">
-                        <!-- Formulario de registro de usuario -->
-                        <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
+            <?php 
+            $atributos = array('class' => 'form-horizontal push-10-t block-content');
+            echo form_open('backend/MOD_PROVEEDORES/proveedores/agregar'); 
+            ?>
+            <form action="">
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Registro Proveedor</h3>
+                    </div>
+                    <div class="block-content" style="margin-bottom: 4em;">
+                        <div class="row text-justify">
+                            <!-- Formulario de registro de usuario -->
                             <h3 class="">
                                 Información Proveedor
                             </h3>
@@ -151,14 +155,14 @@
                             <div class="form-group">
                                 <div class="col-sm-6">
                                     <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                        <input class="form-control" type="text" id="nombre" name="nombre" placeholder="" required>
                                         <label for="material-color-primary">Nombre proveedor *</label>
                                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                        <input class="form-control" type="text" id="telefono" name="telefono" placeholder="" required>
                                         <label for="material-color-primary">Nº Telefono *</label>
                                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                     </div>
@@ -167,28 +171,29 @@
                             <div class="form-group">
                                 <div class="col-xs-6">
                                     <div class="form-material form-material-primary input-group">
-                                        <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional"></textarea>
+                                        <textarea class="form-control" id="email" name="email" rows="3" placeholder="Opcional"></textarea>
                                         <label for="material-textarea-small">Dirección</label>
                                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-6">
                                     <div class="form-material form-material-primary input-group">
-                                        <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional"></textarea>
+                                        <textarea class="form-control" id="informacion_extra" name="informacion_extra" rows="3" placeholder="Opcional"></textarea>
                                         <label for="material-textarea-small">Información extra</label>
                                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                     </div>
                                 </div>
                             </div>
 
-							
+                            
                             <div class="form-group">
-                            	<div class="col-sm-12">
-                            		<h4 style="margin-bottom:1em;">Persona de contacto</h4>
-                            	</div>
+                                <div class="col-sm-12">
+                                    <h4 style="margin-bottom:1em;">Persona de contacto</h4>
+                                </div>
                                 <div class="col-sm-4">
                                     <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" 
+                                        >
                                         <label for="material-color-primary">Nombre *</label>
                                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                     </div>
@@ -196,28 +201,46 @@
 
                                 <div class="col-sm-4">
                                     <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" 
+                                        >
                                         <label for="material-color-primary">Apellido Paterno</label>
                                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-material form-material-primary input-group">
-                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
+                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" 
+                                        >
                                         <label for="material-color-primary">Apellido Materno</label>
                                         <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                     </div>
                                 </div>
+                                <div class="col-sm-4">
+                                    <div class="form-material form-material-primary input-group">
+                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" 
+                                        >
+                                        <label for="material-color-primary">Teléfono</label>
+                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-material form-material-primary input-group">
+                                        <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" 
+                                        >
+                                        <label for="material-color-primary">Email</label>
+                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
-                        <!-- END Formulario de registro de cliente -->
+                            <!-- END Formulario de registro de cliente -->
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                <button class="btn btn-sm btn-success" type="button">Registrar</button>
-            </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-sm btn-success" type="submit">Registrar proveedor</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -322,6 +345,3 @@
 
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <!-- Page JS Plugins -->
-<script src="<?php echo base_url(); ?>assets/js/plugins/chartjsv2/Chart.min.js"></script>
-<!-- Page JS Code -->
-<script src="<?php echo base_url(); ?>assets/js/pages/base_comp_chartjs_v2.js"></script>

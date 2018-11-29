@@ -52,7 +52,6 @@
         }
     </script>
 
-    <button type="button" onclick="prueba3(base_url)">asdf</button>
     <div id="" class="block">
         <div id="tarjetasPersonal" class="row">
             <?php foreach ($row_usuarios as $usuario): ?>
@@ -64,6 +63,11 @@
                                 <li>
                                     <button type="button" onclick="consultaAjax('/listar/usuarios/','<?= $usuario->id_usuario ?>')">
                                         <i class="si si-pencil"></i>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" onclick="eli">
+                                        <i class="si si-trash"></i>
                                     </button>
                                 </li>
                             </ul>
@@ -221,7 +225,7 @@
 <!-- END Nuevo Contacto -->
 
 <!-- Contact Edit Modal -->
-<div class="modal fade" id="modal-editar-contacto" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-editar-personal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-popout">
         <div class="modal-content">
             <div class="block block-themed block-transparent remove-margin-b">
@@ -234,7 +238,8 @@
                     <h3 class="block-title"><i class="fa fa-user-circle push-5-r"></i> Editar Personal</h3>
                 </div>
                 <div class="block-content">
-                    <form id="frm-nuevo-personal" class="form-horizontal push-10-t push-10">
+                    <form id="frm-editar-personal" class="form-horizontal push-10-t push-10">
+                        <input type="hidden" id="editar_id_usuario" name="id_usuario" value="">
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="push">
@@ -248,7 +253,7 @@
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <div class="form-material">
-                                    <select class="form-control" id="editar_sucursal" name="editar_sucursal" size="1" style="margin-top: 1.5em;">
+                                    <select class="form-control" id="editar_sucursal" name="id_sucursal" size="1" style="margin-top: 1.5em;">
                                         <option>...</option>
                                         <option value="1">Sucursal #1</option>
                                         <option value="2">Sucursal #2</option>
@@ -259,7 +264,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_nombre" name="editar_nombre" value="">
+                                    <input class="form-control" type="text" id="editar_nombre" name="nombre" value="">
                                     <label for="editar_nombre">Nombre</label>
                                     <span class="input-group-addon"><i class="si si-user"></i></span>
                                 </div>
@@ -269,14 +274,14 @@
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_usuario" name="editar_usuario" value="">
+                                    <input class="form-control" type="text" id="editar_usuario" name="usuario" value="">
                                     <label for="editar_usuario">Usuario</label>
                                     <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_password" name="editar_password" value="">
+                                    <input class="form-control" type="text" id="editar_password" name="password" value="">
                                     <label for="editar_password">Contraseña</label>
                                     <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
                                 </div>
@@ -286,7 +291,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_ap_paterno" name="editar_ap_paterno" value="">
+                                    <input class="form-control" type="text" id="editar_ap_paterno" name="ap_paterno" value="">
                                     <label for="editar_ap_paterno">Apellido Paterno</label>
                                     <span class="input-group-addon"><i class="si si-plus"></i></span>
                                 </div>
@@ -295,7 +300,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_ap_materno" name="editar_ap_materno" value="">
+                                    <input class="form-control" type="text" id="editar_ap_materno" name="ap_materno" value="">
                                     <label for="editar_ap_materno">Apellido Materno</label>
                                     <span class="input-group-addon"><i class="si si-plus"></i></span>
                                 </div>
@@ -305,7 +310,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_telefono" name="editar_telefono" value="">
+                                    <input class="form-control" type="text" id="editar_telefono" name="telefono" value="">
                                     <label for="editar_telefono">Teléfono</label>
                                     <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
                                 </div>
@@ -314,7 +319,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_email" name="editar_email" value="">
+                                    <input class="form-control" type="text" id="editar_email" name="email" value="">
                                     <label for="editar_email">Email</label>
                                     <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
                                 </div>
@@ -325,7 +330,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="hidden" name="fecha_registro" value="<?= time() ?>">
-                                <button id="btn-nuevo-personal" class="btn btn-sm btn-primary" type="button" onclick="insertAjax('frm-nuevo-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/agregar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
+                                <button id="btn-editar-personal" class="btn btn-sm btn-primary" type="button" onclick="actualizarAjax('frm-editar-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/actualizar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Actualizar usuario</button>
                             </div>
                         </div>
                     </form>
@@ -337,7 +342,7 @@
 <!-- END Contact Edit Modal -->
 
 <script>
-
+    
     function nuevoServicio(id_btn, valor){
         if(valor == 'mostrar'){
             document.getElementById('frm_nuevo_servicio').style.display = 'block';
