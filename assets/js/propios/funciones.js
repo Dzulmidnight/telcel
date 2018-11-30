@@ -1,5 +1,41 @@
 var base_url = window.location.href;
 
+function reemplazar(){
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            var vista = this.responseText;
+            document.getElementById('listadoProveedores').innerHTML = vista;
+        }
+    }
+    xmlhttp.open("POST", base_url+'/listado', true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send();
+    //var vista = '$this->load->view("backend/MOD_PROVEEDORES/listadoProveedores", ,TRUE)';
+}
+
+
+function eliminar(){
+    swal({
+        title: "Eliminar",
+        text: "¿Desear eliminar la información?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            swal("La información ha sido eliminada", {
+              icon: "success",
+            });
+        } /*else {
+            swal("Your imaginary file is safe!");
+        }*/
+    });
+}
+
+
 function insertAjax(frm, direccion, cFunction)
 {
     var x = 0, i = 0, datos = [], parametros = '', formulario = '', objetoJson, respuesta, numRows, contenido = '';
@@ -40,8 +76,6 @@ function insertAjax(frm, direccion, cFunction)
             });
         }
     }
-
-    var objetoJson = JSON.stringify(datos);
 
     ruta = direccion;
 
@@ -318,4 +352,46 @@ function cargarContenido(direccion){
 	xmlhttp.open("POST", ruta, true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send("x=" + parametros);
+}
+
+function editarProveedor(id){
+    var ruta = base_url+'backend/MOD_PROVEEDORES/proveedores/editar/'+id;
+
+    var infoProveedor = {};
+    var infoContacto = {};
+    var jsonProveedor = '', jsonContacto = '';
+
+    infoProveedor = {
+        nombre : document.getElementById("editar_nombre_proveedor").value,
+        telefono : document.getElementById("editar_telefono_proveedor").value,
+        direccion : document.getElementById("editar_direccion").value,
+        informacion_extra : document.getElementById("editar_informacion_extra").value
+    }
+    infoContacto = {
+        nombre : document.getElementById("editar_nombre_contacto").value,
+        ap_paterno : document.getElementById("editar_ap_paterno").value,
+        ap_materno : document.getElementById("editar_ap_materno").value,
+        telefono : document.getElementById("editar_telefono_contacto").value,
+        email : document.getElementById("editar_email_contacto").value
+    }
+
+
+    jsonProveedor = JSON.stringify(infoProveedor);
+    jsonContacto = JSON.stringify(infoContacto);
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+
+        }
+    }
+    xlmhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("proveedor=" + jsonProveedor +"&contacto=" + jsonContacto);
+
+    console.log(infoProveedor);
+    console.log(objetoJson);
+
+
 }
