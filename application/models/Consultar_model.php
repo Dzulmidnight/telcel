@@ -17,7 +17,7 @@ class Consultar_model extends CI_Model{
                 return $result;
 	}
 
-        public function listadoProveedores()
+        public function listadoProveedores($id = false)
         {
                 $this->db->select('proveedores.*, 
                         contacto.id_contacto, 
@@ -25,6 +25,9 @@ class Consultar_model extends CI_Model{
                         contacto.telefono as telefonoContacto');
                 $this->db->from('proveedores');
                 $this->db->join('contacto', 'contacto.fk_id_proveedor = proveedores.id_proveedor', 'left');
+                if($id != false){
+                        $this->db->where('proveedores.id_proveedor', $id);
+                }
                 $query = $this->db->get();
                 $result = $query->result();
 

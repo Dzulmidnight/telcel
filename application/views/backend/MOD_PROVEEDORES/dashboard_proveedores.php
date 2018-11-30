@@ -107,7 +107,7 @@
                                             <a  class="btn btn-sm btn-primary" href="<?php echo base_url('backend/MOD_PROVEEDORES/Proveedores/detalle'); ?>" data-toggle="tooltip" title="Consultar perfil">
                                                 <i class="glyphicon glyphicon-folder-open"></i>
                                             </a>
-                                            <button class="btn btn-sm btn-default" type="button" data-toggle="modal" data-target="#modal-editar-proveedor">
+                                            <button class="btn btn-sm btn-default" type="button" onclick="consultarProveedor('/detalleProveedor/proveedores/','<?= $proveedor->id_proveedor ?>')">
                                                 <i class="fa fa-pencil" data-toggle="tooltip" title="Editar proveedor"></i>
                                             </button>
                                             <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminar()"><i class="fa fa-times"></i></button>
@@ -352,7 +352,7 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                            <button class="btn btn-sm btn-success" type="button" onclick="editarProveedor(3)"> Guardar cambios</button>
+                            <button class="btn btn-sm btn-success" type="button" onclick="actualizarAjax('frm-editar-personal','<?php echo base_url(); ?>backend/MOD_PROVEEDORES/personal/actualizar', funcionMostrar)"> Guardar cambios</button>
                         </div>
                     </form>
                 </div>

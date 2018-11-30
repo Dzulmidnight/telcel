@@ -189,6 +189,40 @@ function consultaAjax(ruta, id){
     xmlhttp.send("x=" + parametros);
 }
 
+function consultarProveedor(ruta, id){
+
+    var parametros = '', ruta = base_url+ruta+id;
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            //console.log(this.responseText);
+            var objetoJson = JSON.parse(this.responseText);
+      
+
+            console.log(objetoJson);
+
+            document.getElementById('editar_nombre_proveedor').value = objetoJson[0].nombre;
+            document.getElementById('editar_telefono_proveedor').value = objetoJson[0].telefono;
+            document.getElementById('editar_direccion').value = objetoJson[0].direccion;
+            document.getElementById('editar_informacion_extra').value = objetoJson[0].informacion_extra;
+
+            /*document.getElementById('editar_nombre_contacto').value = objetoJson[0].ap_paterno;
+            document.getElementById('editar_ap_paterno').value = objetoJson[0].ap_materno;
+            document.getElementById('editar_ap_materno').value = objetoJson[0].telefono;
+            document.getElementById('editar_telefono_contacto').value = objetoJson[0].email;
+            document.getElementById('editar_email_contacto').value = objetoJson[0].id_usuario;*/
+
+            $('#modal-editar-proveedor').modal('show');
+
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=" + parametros);
+}
+
+
 function consultaAjax_back(ruta){
 
     var parametros = '';

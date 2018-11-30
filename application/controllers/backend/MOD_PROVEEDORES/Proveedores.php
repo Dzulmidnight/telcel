@@ -38,6 +38,19 @@ class Proveedores extends CI_Controller{
 		$this->load->view('backend/template/footer');
 	}
 
+
+	public function detalleProveedor($tabla = false, $id = false){
+		header("Content-Type: application/json; charset=UTF-8");
+		//$objeto = json_decode($_POST["x"], false);
+
+		//echo json_encode($this->consultar_model->listado('usuarios'));
+		//$data['row_usuarios'] = $this->consultar_model->listado($tabla, $id);
+		echo json_encode($data['row_proveedores'] = $this->consultar_model->listadoProveedores($id));
+		//echo json_encode($row_usuarios);
+
+	}
+
+
 	public function agregar()
 	{
 		$data = array(
@@ -72,7 +85,7 @@ class Proveedores extends CI_Controller{
 		}
 	}
 
-	public function editar($id = false)
+	public function actualizar($id = false)
 	{
 		
 	}

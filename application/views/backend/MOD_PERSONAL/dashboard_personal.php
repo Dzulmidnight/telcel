@@ -330,7 +330,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="hidden" name="fecha_registro" value="<?= time() ?>">
-                                <button id="btn-editar-personal" class="btn btn-sm btn-primary" type="button" onclick="actualizarAjax('frm-editar-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/actualizar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Actualizar usuario</button>
+                                <button id="btn-editar-personal" class="btn btn-sm btn-primary" type="button" onclick="actualizarAjax('frm-editar-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/proveedores/actualizar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Actualizar usuario</button>
                             </div>
                         </div>
                     </form>
