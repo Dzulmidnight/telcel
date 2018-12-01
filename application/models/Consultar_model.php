@@ -22,7 +22,10 @@ class Consultar_model extends CI_Model{
                 $this->db->select('proveedores.*, 
                         contacto.id_contacto, 
                         contacto.nombre as nombreContacto, 
-                        contacto.telefono as telefonoContacto');
+                        contacto.telefono as telefonoContacto,
+                        contacto.ap_paterno,
+                        contacto.ap_materno,
+                        contacto.email as emailContacto');
                 $this->db->from('proveedores');
                 $this->db->join('contacto', 'contacto.fk_id_proveedor = proveedores.id_proveedor', 'left');
                 if($id != false){

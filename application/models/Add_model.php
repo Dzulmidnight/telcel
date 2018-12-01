@@ -27,14 +27,20 @@ class Add_model extends CI_Model{
 		//echo 'EL TOTAL ES: '.$this->db->count_all($tabla);
 	}
 
-	public function actualizar($data, $tabla, $id)
+	public function actualizar($data, $tabla, $id_nombre, $id_valor)
 	{
 		//echo "EL MODELO";
 		/*$this->db->replace($tabla, $data);
 		return true;
 		*/
-		$this->db->where('id_usuario', $id);
+		$this->db->where($id_nombre, $id_valor);
 		$this->db->update($tabla, $data);
 		return true;
+
+	}
+
+	public function eliminar($tabla, $id)
+	{
+
 	}
 }

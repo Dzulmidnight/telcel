@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
 
-
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
     <div class="row items-push">
@@ -38,15 +37,28 @@
     <div class="content">
 
         <div class="row">
-            <h3>
-                <?php 
-                    if($this->session->flashdata('success')){
-                        echo $this->session->flashdata('success');
-                    }
-                 ?>
-            </h3>
             <!-- Listado de proveedores -->
             <div class="col-lg-12">
+                <?php 
+                if($this->session->flashdata('success')){
+                    $mensaje = $this->session->flashdata('success');
+                ?>
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
+                    </div>
+                <?php
+                }else if($this->session->flashdata('error')){
+                    $mensaje = $this->session->flashdata('error');
+                ?>
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
+                    </div>
+                <?php
+                }
+                 ?>
+
                 <div class="block block-content">
                     <table class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
                         <thead>
@@ -107,13 +119,137 @@
                                             <a  class="btn btn-sm btn-primary" href="<?php echo base_url('backend/MOD_PROVEEDORES/Proveedores/detalle'); ?>" data-toggle="tooltip" title="Consultar perfil">
                                                 <i class="glyphicon glyphicon-folder-open"></i>
                                             </a>
-                                            <button class="btn btn-sm btn-default" type="button" onclick="consultarProveedor('/detalleProveedor/proveedores/','<?= $proveedor->id_proveedor ?>')">
+                                            <button class="btn btn-sm btn-default" type="button" data-toggle="modal" data-target="#modal-editar-proveedor<?= $proveedor->id_proveedor ?>">
                                                 <i class="fa fa-pencil" data-toggle="tooltip" title="Editar proveedor"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminar()"><i class="fa fa-times"></i></button>
+                          
+                                            <form id="frm_eliminar_proveedor" style="display:inline" action="<?= base_url(); ?>/backend/MOD_PROVEEDORES/proveedores/eliminar/<?= $proveedor->id_proveedor?>">
+                                                <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminarDatos('frm_eliminar_proveedor');"><i class="fa fa-times"></i></button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- Editar proveedor -->
+                                <div class="modal fade" id="modal-editar-proveedor<?= $proveedor->id_proveedor ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg modal-dialog-popout">
+                                        <div class="modal-content">
+                                            <?php 
+                                            $atributos = array('class' => 'form-horizontal push-10-t block-content');
+                                            echo form_open('backend/MOD_PROVEEDORES/proveedores/actualizar/'.$proveedor->id_proveedor); 
+                                            ?>
+                                                <div class="block block-themed block-transparent remove-margin-b">
+                                                    <div class="block-header bg-warning">
+                                                        <ul class="block-options">
+                                                            <li>
+                                                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                                                            </li>
+                                                        </ul>
+                                                        <h3 class="block-title">Editar proveedor</h3>
+                                                    </div>
+                                                    <div class="block-content" style="margin-bottom: 4em;">
+                                                        <div class="row text-justify">
+                                                            <!-- Formulario de registro de usuario -->
+                                                            <h3 class="">
+                                                                Información Proveedor
+                                                            </h3>
+                                                            <hr>
+                                                            <div id="informacionProveedor">
+                                                            <div class="form-group">
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-material form-material-primary input-group">
+                                                                        <input class="form-control" type="text" id="editar_nombre_proveedor" name="editar_nombre_proveedor" placeholder="" value="<?= $proveedor->nombre ?>" required>
+                                                                        <label for="editar_nombre_proveedor">Nombre proveedor *</label>
+                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="form-material form-material-primary input-group">
+                                                                        <input class="form-control" type="text" id="editar_telefono_proveedor" name="editar_telefono_proveedor" placeholder="" value="<?= $proveedor->telefono ?>" required>
+                                                                        <label for="editar_telefono_proveedor">Nº Telefono *</label>
+                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-xs-6">
+                                                                    <div class="form-material form-material-primary input-group">
+                                                                        <textarea class="form-control" id="editar_direccion" name="editar_direccion" rows="3" placeholder="Opcional"><?= $proveedor->direccion ?></textarea>
+                                                                        <label for="editar_direccion">Dirección</label>
+                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xs-6">
+                                                                    <div class="form-material form-material-primary input-group">
+                                                                        <textarea class="form-control" id="editar_informacion_extra" name="editar_informacion_extra" rows="3" placeholder="Opcional"><?= $proveedor->informacion_extra ?></textarea>
+                                                                        <label for="editar_informacion_extra">Información extra</label>
+                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            </div>
+
+                                                            
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12">
+                                                                    <h4 style="margin-bottom:1em;">Persona de contacto</h4>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-material form-material-primary input-group">
+                                                                        <input class="form-control" type="text" id="editar_nombre_contacto" name="editar_nombre_contacto" placeholder="" value="<?= $proveedor->nombreContacto ?>" required>
+                                                                        <label for="editar_nombre_contacto">Nombre *</label>
+                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-material form-material-primary input-group">
+                                                                        <input class="form-control" type="text" id="editar_ap_paterno_contacto" name="editar_ap_paterno_contacto" placeholder="" value="<?= $proveedor->ap_paterno ?>">
+                                                                        <label for="editar_ap_paterno_contacto">Apellido Paterno</label>
+                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-material form-material-primary input-group">
+                                                                        <input class="form-control" type="text" id="editar_ap_materno_contacto" name="editar_ap_materno_contacto" placeholder="" value="<?= $proveedor->ap_materno ?>" >
+                                                                        <label for="editar_ap_materno_contacto">Apellido Materno</label>
+                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-material form-material-primary input-group">
+                                                                        <input class="form-control" type="text" id="editar_telefono_contacto" name="editar_telefono_contacto" placeholder="" value="<?= $proveedor->telefonoContacto ?>">
+                                                                        <label for="editar_telefono_contacto">Telefono</label>
+                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <div class="form-material form-material-primary input-group">
+                                                                        <input class="form-control" type="text" id="editar_email_contacto" name="editar_email_contacto" placeholder="" value="<?= $proveedor->emailContacto ?>">
+                                                                        <label for="editar_email_contacto">Email</label>
+                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- END Formulario de registro de cliente -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="hidden" name="id_proveedor" value="<?= $proveedor->id_proveedor ?>">
+                                                    <input type="hidden" name="id_contacto" value="<?= $proveedor->id_contacto ?>">
+                                                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                                                    <button class="btn btn-sm btn-success" type="submit"> Guardar cambios</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END Editar proveedor -->
+
+
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -167,7 +303,7 @@
                                     <div class="form-group">
                                         <div class="col-xs-6">
                                             <div class="form-material form-material-primary input-group">
-                                                <textarea class="form-control" id="email" name="email" rows="3" placeholder="Opcional"></textarea>
+                                                <textarea class="form-control" id="direccion" name="direccion" rows="3" placeholder="Opcional"></textarea>
                                                 <label for="material-textarea-small">Dirección</label>
                                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                             </div>
@@ -242,123 +378,6 @@
             </div>
         </div>
         <!-- END FRM Registrar Proveedor -->
-
-        <!-- Editar proveedor -->
-        <div class="modal fade" id="modal-editar-proveedor" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-popout">
-                <div class="modal-content">
-                    <?php 
-                    $atributos = array('class' => 'form-horizontal push-10-t block-content');
-                    echo form_open('backend/MOD_PROVEEDORES/proveedores/editar'); 
-                    ?>
-                        <div class="block block-themed block-transparent remove-margin-b">
-                            <div class="block-header bg-warning">
-                                <ul class="block-options">
-                                    <li>
-                                        <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
-                                    </li>
-                                </ul>
-                                <h3 class="block-title">Editar proveedor</h3>
-                            </div>
-                            <div class="block-content" style="margin-bottom: 4em;">
-                                <div class="row text-justify">
-                                    <!-- Formulario de registro de usuario -->
-                                    <h3 class="">
-                                        Información Proveedor
-                                    </h3>
-                                    <hr>
-                                    <div id="informacionProveedor">
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="editar_nombre_proveedor" name="editar_nombre_proveedor" placeholder="" required>
-                                                <label for="editar_nombre_proveedor">Nombre proveedor *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="editar_telefono_proveedor" name="editar_telefono_proveedor" placeholder="" required>
-                                                <label for="editar_telefono_proveedor">Nº Telefono *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-xs-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <textarea class="form-control" id="editar_direccion" name="editar_direccion" rows="3" placeholder="Opcional"></textarea>
-                                                <label for="editar_direccion">Dirección</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <textarea class="form-control" id="editar_informacion_extra" name="editar_informacion_extra" rows="3" placeholder="Opcional"></textarea>
-                                                <label for="editar_informacion_extra">Información extra</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-
-                                    
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <h4 style="margin-bottom:1em;">Persona de contacto</h4>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="editar_nombre_contacto" name="editar_nombre_contacto" placeholder="" required>
-                                                <label for="editar_nombre_contacto">Nombre *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="editar_ap_paterno_contacto" name="editar_ap_paterno_contacto" placeholder="" required>
-                                                <label for="editar_ap_paterno_contacto">Apellido Paterno</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="editar_ap_materno_contacto" name="editar_ap_materno_contacto" placeholder="" required>
-                                                <label for="editar_ap_materno_contacto">Apellido Materno</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="editar_telefono_contacto" name="editar_telefono_contacto" placeholder="" required>
-                                                <label for="editar_telefono_contacto">Telefono</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="editar_email_contacto" name="editar_email_contacto" placeholder="" required>
-                                                <label for="editar_email_contacto">Email</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <!-- END Formulario de registro de cliente -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                            <button class="btn btn-sm btn-success" type="button" onclick="actualizarAjax('frm-editar-personal','<?php echo base_url(); ?>backend/MOD_PROVEEDORES/personal/actualizar', funcionMostrar)"> Guardar cambios</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- END Editar proveedor -->
     </div>
 </div>
 

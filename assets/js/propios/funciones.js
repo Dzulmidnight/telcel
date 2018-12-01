@@ -16,7 +16,7 @@ function reemplazar(){
 }
 
 
-function eliminar(){
+function eliminarDatos(id){
     swal({
         title: "Eliminar",
         text: "¿Desear eliminar la información?",
@@ -26,9 +26,9 @@ function eliminar(){
     })
     .then((willDelete) => {
         if (willDelete) {
-            swal("La información ha sido eliminada", {
-              icon: "success",
-            });
+            //console.log(this.form);
+            document.getElementById(id).submit();
+            //console.log(id);
         } /*else {
             swal("Your imaginary file is safe!");
         }*/

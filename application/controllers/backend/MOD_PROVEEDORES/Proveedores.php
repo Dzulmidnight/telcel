@@ -87,6 +87,66 @@ class Proveedores extends CI_Controller{
 
 	public function actualizar($id = false)
 	{
+		// datos del proveedor
+		$id_proveedor = $this->input->post('id_proveedor');
+		$datos_proveedor = array(
+			'nombre' => $this->input->post('editar_nombre_proveedor'),
+			'telefono' => $this->input->post('editar_telefono_proveedor'),
+			'direccion' => $this->input->post('editar_direccion'),
+			'informacion_extra' => $this->input->post('editar_informacion_extra'),
+			'fecha_registro' => $this->input->post('editar_fecha_registro')
+		);
+
+		// datos del contacto
+		$id_contacto = $this->input->post('id_contacto');
+		$datos_contacto = array(
+			'nombre' => $this->input->post('editar_nombre_contacto'),
+			'ap_paterno' => $this->input->post('editar_ap_paterno_contacto'),
+			'ap_materno' => $this->input->post('editar_ap_materno_contacto'),
+			'telefono' => $this->input->post('editar_telefono_contacto'),
+			'email' => $this->input->post('editar_email_contacto'),
+		);
+
+		$this->add_model->actualizar($datos_proveedor, 'proveedores', 'id_proveedor', $id_proveedor);
+
+		if($this->add_model->actualizar($datos_proveedor, 'proveedores', 'id_proveedor', $id_proveedor) && $this->add_model->actualizar($datos_contacto, 'contacto', 'id_contacto', $id_contacto)){
+
+			$this->session->set_flashdata('success', "Datos actualizados");
+		}else{
+			$this->session->set_flashdata('error', "No se pudieron actualizar los datos");
+		}
 		
+		redirect('backend/MOD_PROVEEDORES/Proveedores', 'refresh');
+
+		/*if($this->add_model->agregar($data, 'proveedores')){
+			$fk_id_proveedor = $this->db->insert_id();
+			// insertamos los contactos
+			if($this->input->post('editar_nombre')){
+				$data = array(
+					'nombre' => $this->input->post('editar_nombre'),
+					'ap_paterno' => $this->input->post('editar_ap_paterno'),
+					'ap_materno' => $this->input->post('editar_ap_materno'),
+					'telefono' => $this->input->post('editar_telefono'),
+					'email' => $this->input->post('editar_email'),
+					'fk_id_proveedor' => $fk_id_proveedor
+				);
+				$this->add_model->agregar($data, 'contacto');
+
+				$this->session->set_flashdata('success', "Proveedor agregado"); 
+
+				redirect('backend/MOD_PROVEEDORES/Proveedores', 'refresh');
+			}
+		}else{
+			// cuando no se realizo la inserción
+		}*/
+	}
+
+	public function eliminar($id)
+	{
+		$this->load->model('eliminar_model');
+		$this->eliminar_model->eliminar('proveedores', 'id_proveedor', $id);
+		$this->eliminar_model->eliminar('contacto', 'fk_id_proveedor', $id);
+
+		redirect('backend/MOD_PROVEEDORES/Proveedores', 'refresh');
 	}
 }

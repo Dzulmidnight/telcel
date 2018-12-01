@@ -20,6 +20,9 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
+		    <button class="btn btn-rounded btn-success" onclick="history.back(-1)">
+		        <i class="fa fa-plus"></i> Nuevo
+		    </button>
 		    <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
 		        <i class="fa fa-arrow-left"></i> Regresar
 		    </button>

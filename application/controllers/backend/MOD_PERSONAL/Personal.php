@@ -51,7 +51,8 @@ class Personal extends CI_Controller{
 
 		redirect(base_url('backend/MOD_PERSONAL/personal'), "refresh");
 	}*/
-	public function listar($tabla = false, $id = false){
+	public function listar($tabla = false, $id = false)
+	{
 		header("Content-Type: application/json; charset=UTF-8");
 		//$objeto = json_decode($_POST["x"], false);
 
@@ -62,7 +63,8 @@ class Personal extends CI_Controller{
 
 	}
 
-	public function agregar(){
+	public function agregar()
+	{
 		header("Content-Type: application/json; charset=UTF-8");
 
 		$objeto = json_decode($_POST["x"], false);
@@ -77,7 +79,8 @@ class Personal extends CI_Controller{
 
 	}
 
-	public function actualizar(){
+	public function actualizar()
+	{
 		header("Content-Type: application/json; charset=UTF-8");
 
 		$id = '';
@@ -97,6 +100,11 @@ class Personal extends CI_Controller{
 			echo 0;
 		}
 
+	}
+
+	public function eliminar($id)
+	{
+		echo "ESTAMOS EN ELIMINAR";
 	}
 
 }
