@@ -104,7 +104,10 @@ class Personal extends CI_Controller{
 
 	public function eliminar($id)
 	{
-		echo "ESTAMOS EN ELIMINAR";
+		$this->load->model('eliminar_model');
+		$this->eliminar_model->eliminar('usuarios', 'id_usuario', $id);
+
+		redirect('backend/MOD_PERSONAL/personal', 'refresh');
 	}
 
 }

@@ -20,13 +20,13 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
-            <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
-                <i class="fa fa-arrow-left"></i> Regresar
-            </button>
             <button type="button" class="btn btn-rounded btn-round btn-success" data-toggle="modal" data-target="#modal-popout2">
                 <span data-toggle="tooltip" title="Agregar nuevo cliente">
                     <i class="fa fa-user-plus"></i> Nuevo
                 </span>
+            </button>
+            <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
+                <i class="fa fa-arrow-left"></i> Regresar
             </button>
         </div>
     </div>

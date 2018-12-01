@@ -20,14 +20,15 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
+            <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
+                <i class="fa fa-arrow-left"></i> Regresar
+            </button>
             <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-nueva-sucursal">
                 <span data-toggle="tooltip" title="Agregar nueva sucursal">
                     <i class="fa fa-home"></i> Nuevo
                 </span>
             </button>
-            <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
-                <i class="fa fa-arrow-left"></i> Regresar
-            </button>
+
         </div>
     </div>
 
@@ -95,7 +96,7 @@
                                                         Stock
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2, 15) ?>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -103,7 +104,7 @@
                                                         Apartados
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2, 15) ?>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -111,7 +112,7 @@
                                                         Por agotar
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2, 15) ?>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -119,7 +120,7 @@
                                                         Agotados
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2, 15) ?>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -140,10 +141,10 @@
                                                         Ventas
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2, 15) ?>
                                                     </td>
                                                     <td>
-                                                        $ 0
+                                                        $ <?= number_format(rand(700, 1500)) ?>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -151,10 +152,10 @@
                                                         Apartados
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2, 15) ?>
                                                     </td>
                                                     <td>
-                                                        $ 0
+                                                        $ <?= number_format(rand(700, 1500)) ?>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -162,10 +163,10 @@
                                                         Telefonos
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2, 15) ?>
                                                     </td>
                                                     <td>
-                                                        $ 0
+                                                        $ <?= number_format(rand(700, 1500)) ?>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -173,10 +174,10 @@
                                                         Reparaciones
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2, 15) ?>
                                                     </td>
                                                     <td>
-                                                        $ 0
+                                                        $ <?= number_format(rand(700, 1500)) ?>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -197,7 +198,7 @@
                                                         EN PROCESO
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2,7) ?>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -205,7 +206,7 @@
                                                         FINALIZADAS
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(2,7) ?>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -213,7 +214,7 @@
                                                         CANCELADAS
                                                     </td>
                                                     <td>
-                                                        0
+                                                        <?= rand(0,7) ?>
                                                     </td>
                                                 </tr>
                                             </tbody>

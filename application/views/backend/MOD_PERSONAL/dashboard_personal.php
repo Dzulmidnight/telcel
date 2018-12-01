@@ -19,15 +19,14 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
-            <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
-                <i class="fa fa-arrow-left"></i> Regresar
-            </button>
             <button id="btn_nuevo_personal" type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-nuevo-personal">
                 <span data-toggle="tooltip" title="Agregar nuevo personal">
                     <i class="fa fa-user"></i> Nuevo
                 </span>
             </button>
-
+            <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
+                <i class="fa fa-arrow-left"></i> Regresar
+            </button>
         </div>
     </div>
 
@@ -66,9 +65,9 @@
                                     </button>
                                 </li>
                                 <li>
-                                    <button type="button" onclick="eli">
-                                        <i class="si si-trash"></i>
-                                    </button>
+                                    <form id="frm_eliminar_usuario" style="display:inline" action="<?= base_url(); ?>/backend/MOD_PERSONAL/personal/eliminar/<?= $usuario->id_usuario?>">
+                                        <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar usuario" onclick="eliminarDatos('frm_eliminar_usuario');"><i class="si si-trash"></i></button>
+                                    </form>
                                 </li>
                             </ul>
                             <div class="block-title"><?= $usuario->nombre.' '.$usuario->ap_paterno ?></div>
@@ -128,8 +127,8 @@
                                 <div class="push">
                                     <img class="img-avatar" src="<?php echo base_url(); ?>assets/img/avatars/avatar15.jpg" alt="">
                                 </div>
-                                <label for="contact-avatar">Selecciona una imagen</label>
-                                <input type="file" id="contact-avatar" name="contact-avatar">
+                                <!--<label for="contact-avatar">Selecciona una imagen</label>
+                                <input type="file" id="contact-avatar" name="contact-avatar">-->
                             </div>
                         </div>
 
@@ -330,7 +329,7 @@
                         <div class="form-group">
                             <div class="col-sm-12">
                                 <input type="hidden" name="fecha_registro" value="<?= time() ?>">
-                                <button id="btn-editar-personal" class="btn btn-sm btn-primary" type="button" onclick="actualizarAjax('frm-editar-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/proveedores/actualizar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Actualizar usuario</button>
+                                <button id="btn-editar-personal" class="btn btn-sm btn-primary" type="button" onclick="actualizarAjax('frm-editar-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/actualizar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Actualizar usuario</button>
                             </div>
                         </div>
                     </form>

@@ -135,7 +135,7 @@ function actualizarAjax(frm, direccion, cFunction)
             }else{
                 console.log('FALSE');
             }
-            /*console.log(this.responseText);
+            console.log(this.responseText);
             $('#modal-editar-personal').modal('toggle');
             $('.modal-backdrop').remove();
 
@@ -145,7 +145,7 @@ function actualizarAjax(frm, direccion, cFunction)
                 text: "Registrado corectamente",
                 icon: "success",
                 buttons: true,
-            });*/
+            });
         }
     }
 

@@ -20,7 +20,7 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                LISTADO STOCK ACTUAL: <span class="text-primary"><?= count($row_productos) ?></span>
+                LISTADO STOCK ACTUAL: <span class="text-primary">10</span>
             </h3>
         </div>
         <div class="col-sm-5 text-right hidden-xs">
@@ -68,9 +68,9 @@
             <div class="col-lg-3" style="margin-bottom:1em;">
                 <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width: 100%;" data-placeholder="Filtrar por sucursales" multiple>
                     <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                    <?php foreach($row_sucursales as $sucursal): ?>
-                        <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
-                    <?php endforeach; ?>
+                    <option value="1">Sucursal 1</option>
+                    <option value="2">Sucursal 2</option>
+                    <option value="3">Sucursal 3</option>
                 </select>
             </div>
             <div class="col-md-12 block">
@@ -109,11 +109,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($row_productos as $producto): ?>
+                            <?php 
+                            for ($i=1; $i <= 10; $i++) { 
+                            ?>
                                 <tr>
                                     <!-- Nº -->
                                     <td>
-                                        <?= $producto->id_producto ?>
+                                        <?= $i ?>
                                     </td>
                                     <!-- Sucursal -->
                                     <td>
@@ -135,34 +137,34 @@
                                     </td>
                                     <!-- Codigo -->
                                     <td>
-                                        <?= $producto->codigo_barras ?>
+                                        3345234534
                                     </td>
                                     <!-- Tipo -->
                                     <td>
-                                        <?= $producto->nombre_categoria_producto ?>
+                                        Funda
                                     </td>
                                     <!-- Cantidad -->
                                     <td>
-                                        <?= $producto->piezas ?> <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad()"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
+                                        14 <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad()"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
                                     </td>
                                     <!-- Nombre articulo -->
                                     <td>
-                                        <?= $producto->nombre_sub_producto ?>
+                                        Funda de telefono
                                     </td>
                                     <!-- Precio al publico -->
                                     <td>
-                                        $ <?= $producto->precio_publico ?> 
+                                        $ 450.00
                                     </td>
                                     <!-- Detalles -->
                                     <td>
-                                       
-                                        Modelo: <span class="text-primary"><?= $producto->modelo ?></span> ,
-                                        Color: <span class="text-primary"><?= $producto->color ?></span> ,
+                                        Proveedor: <span class="text-primary">Nom. Provee</span>
+                                        Modelo: <span class="text-primary">XR20</span> ,
+                                        Color: <span class="text-primary">Azul</span> ,
                                         Capacidad:
                                     </td>
                                     <!-- Fecha -->
                                     <td>
-                                        <?= date('d/m/Y', $producto->fecha_registro); ?>
+                                        <?= date('d/m/Y', time()); ?>
                                     </td>
                                     <!-- Acciones -->
                                     <td class="text-center">
@@ -175,7 +177,10 @@
                                         </div>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+
+                            <?php
+                            }
+                             ?>
                         </tbody>
                     </table>
                 </div>

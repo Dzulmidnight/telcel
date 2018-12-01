@@ -118,7 +118,7 @@ class Proveedores extends CI_Controller{
 		
 		redirect('backend/MOD_PROVEEDORES/Proveedores', 'refresh');
 
-		/*if($this->add_model->agregar($data, 'proveedores')){
+		if($this->add_model->agregar($data, 'proveedores')){
 			$fk_id_proveedor = $this->db->insert_id();
 			// insertamos los contactos
 			if($this->input->post('editar_nombre')){
@@ -138,7 +138,7 @@ class Proveedores extends CI_Controller{
 			}
 		}else{
 			// cuando no se realizo la inserción
-		}*/
+		}
 	}
 
 	public function eliminar($id)
