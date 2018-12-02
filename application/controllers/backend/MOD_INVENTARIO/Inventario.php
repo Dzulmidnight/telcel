@@ -6,6 +6,7 @@ class Inventario extends CI_Controller{
 		$this->load->model('add_model');
 		$this->load->model('count_model');
 		$this->load->model('consultar_model');
+		$this->load->model('update_model');
 	}
 
 
@@ -64,12 +65,17 @@ class Inventario extends CI_Controller{
 			'capacidad' => $this->input->post('capacidad'),
 			'precio_interno' => $this->input->post('precio_interno'),
 			'precio_publico' => $this->input->post('precio_publico'),
-			'codigo_barras' => $fecha_registro,
 			'fecha_registro' => $fecha_registro
 		);
 
-
 		if($this->add_model->agregar($data, 'producto')){
+			$id_producto = $this->db->insert_id();
+			$codigo_barras = time().str_pad($id_producto, 3, "0", STR_PAD_LEFT);
+			$data = array(
+				'codigo_barras' => $codigo_barras
+			);
+			$this->update_model->update('producto', 'id_producto', $id_producto, $data);
+
 			$this->session->set_flashdata('success', "Producto agregado");
 		}
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');

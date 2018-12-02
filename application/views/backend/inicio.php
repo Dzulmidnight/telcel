@@ -14,16 +14,8 @@
 	<h3>EL CODIGO DE BARRAS</h3>
 	<svg id="barcode"></svg>
 
-	<button type="button" onclick="llamarBar()">
+	<button type="button" onclick='otraFuncion();'>
 		Generar codigo
 	</button>
 
 </div>
-
-<script>
-	function llamarbar(){
-		JsBarcode("#barcode", "Hi world!",{
-			displayValue: true
-		});
-	}
-</script>

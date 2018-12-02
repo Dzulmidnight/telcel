@@ -254,7 +254,13 @@
 </div>
 <!-- END Modal servicios -->
 
+
 <script>
+    function otraFuncion(){
+        JsBarcode("#barcode", "1233213123",{
+            displayValue: true
+        });
+    }
 
     function mostrarServicio(accion, servicio){
         var frm = 'frm_'+servicio;

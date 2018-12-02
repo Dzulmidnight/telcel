@@ -1,5 +1,10 @@
 var base_url = window.location.href;
 
+function generarCodigo(){
+    JSBarcode('#barcode', '23423423434');
+}
+
+
 function reemplazar(){
     var xmlhttp = new XMLHttpRequest();
 
