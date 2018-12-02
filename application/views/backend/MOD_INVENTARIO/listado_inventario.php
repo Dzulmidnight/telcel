@@ -117,7 +117,7 @@
                                     </td>
                                     <!-- Sucursal -->
                                     <td>
-                                        <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Nom. Sucur">
+                                        <!--<button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Nom. Sucur">
                                             <i class="si si-home "></i> 4
                                         </button>
                                         <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Nom. Sucur">
@@ -128,10 +128,7 @@
                                         </button>
                                         <button class="btn btn-xs btn-default" data-toggle="tooltip" title="Nom. Sucur">
                                             <i class="si si-home"></i> 0
-                                        </button>
-
-
-
+                                        </button>-->
                                     </td>
                                     <!-- Codigo -->
                                     <td>
@@ -155,7 +152,17 @@
                                     </td>
                                     <!-- Detalles -->
                                     <td>
-                                       
+                                       <?php 
+                                       if(!empty($producto->modelo)){
+                                        echo 'Modelo: <span class="text-primary">'.$producto->modelo.'</span>';
+                                       }
+                                       if(!empty($producto->color)){
+                                        echo 'Color: <span class="text-primary">'.$producto->color.'</span>';
+                                       }
+                                       if(!empty($producto->capacidad)){
+                                        echo 'Capacidad: <span class="text-primary">'.$producto->capacidad.'</span>';
+                                       }
+                                        ?>
                                         Modelo: <span class="text-primary"><?= $producto->modelo ?></span> ,
                                         Color: <span class="text-primary"><?= $producto->color ?></span> ,
                                         Capacidad:

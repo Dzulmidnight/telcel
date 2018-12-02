@@ -20,9 +20,9 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
-		    <!--<button class="btn btn-rounded btn-success" onclick="history.back(-1)">
+		    <button class="btn btn-rounded btn-success" onclick="history.back(-1)">
 		        <i class="fa fa-plus"></i> Nuevo
-		    </button>-->
+		    </button>
 		    <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
 		        <i class="fa fa-arrow-left"></i> Regresar
 		    </button>
@@ -40,9 +40,9 @@
         <div class="col-lg-12" style="margin-bottom:1em;">
             <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width:20%" data-placeholder="Filtrar por sucursales" multiple>
                 <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                <option value="1">Sucursal 1</option>
-                <option value="2">Sucursal 2</option>
-                <option value="3">Sucursal 3</option>
+                <?php foreach($row_sucursales as $sucursal): ?>
+                	<option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+               	<?php endforeach; ?>
             </select>
         </div>
 
@@ -117,7 +117,11 @@
 			                <div class="pull-right push-15-t push-15">
 			                    <i class="fa fa-search fa-2x text-primary"></i>
 			                </div>
-			                <div class="h2 text-primary" data-toggle="countTo" data-to="36300">540</div>
+			                <div class="h2 text-primary" data-toggle="countTo" data-to="36300">
+			                	<?php 
+			                	echo $total_inventario;
+			                	 ?>
+			                </div>
 			                <div class="text-uppercase font-w600 font-s12 text-muted">Stock actual (accesorios)</div>
 			            </div>
 			        </a>
@@ -128,7 +132,7 @@
 			                <div class="pull-right push-15-t push-15">
 			                    <i class="fa fa-search fa-2x text-smooth"></i>
 			                </div>
-			                <div class="h2 text-smooth" data-toggle="countTo" data-to="360">$ 34,600</div>
+			                <div class="h2 text-smooth" data-toggle="countTo" data-to="360">$ <?= $total_precio_interno ?></div>
 			                <div class="text-uppercase font-w600 font-s12 text-muted">Valor stock actual ($)</div>
 			            </div>
 			        </a>

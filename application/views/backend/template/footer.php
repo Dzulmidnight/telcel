@@ -331,7 +331,7 @@
 
     }
 </script>
-    
+        <script src="<?php echo base_url(); ?>assets/js/propios/barcode.js"></script>
         <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
         <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>

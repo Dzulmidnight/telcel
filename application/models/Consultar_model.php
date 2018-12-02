@@ -66,7 +66,7 @@ class Consultar_model extends CI_Model{
                 return $result;
         }
 
-        public function productos($id = false){
+        public function productos($id = false, $id_sucursal = false){
                 $this->db->select('producto.*,
                         sub_categoria_producto.nombre as nombre_sub_producto,
                         categoria_producto.nombre as nombre_categoria_producto,'

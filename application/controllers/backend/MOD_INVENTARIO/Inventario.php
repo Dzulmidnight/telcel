@@ -11,8 +11,21 @@ class Inventario extends CI_Controller{
 
 	public function index()
 	{
+		$data['row_sucursales'] = $this->consultar_model->sucursales();
 		$data['row_productos'] = $this->consultar_model->productos();
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
+	
+		// total de inventario
+		$inventario = 0;
+		$precio_interno = 0;
+		foreach ($data['row_productos'] as $producto) {
+			$inventario += $producto->piezas;
+			$precio_interno += $producto->precio_interno;
+		}
+
+		$data['total_inventario'] = $inventario;
+		$data['total_precio_interno'] = $precio_interno;
+
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');
