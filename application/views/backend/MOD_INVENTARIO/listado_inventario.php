@@ -26,7 +26,7 @@
         <div class="col-sm-5 text-right hidden-xs">
             <!-- Modulos -->
             <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-popout2">
-                <span data-toggle="tooltip" title="Agregar nuevo cliente">
+                <span data-toggle="tooltip" title="Agregar nuevo producto">
                     <i class="fa fa-user-plus"></i> Nuevo
                 </span>
             </button>
@@ -132,7 +132,9 @@
                                     </td>
                                     <!-- Codigo -->
                                     <td>
-                                        <?= $producto->codigo_barras ?>
+                                        <button type="button" class="btn btn-default">
+                                            <i class="si si-doc"></i>
+                                        </button> <?= $producto->codigo_barras ?>
                                     </td>
                                     <!-- Tipo -->
                                     <td>

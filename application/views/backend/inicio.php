@@ -7,7 +7,9 @@
         </div>
     </div>
     <!-- END Modulos -->
-
+    <a href="<?php echo base_url('backend/createpdf/'); ?>" class="btn btn-default">
+        Generar pdf
+    </a>
 </div>
 <!-- END Page Content -->
 <div class="col-md-12">
