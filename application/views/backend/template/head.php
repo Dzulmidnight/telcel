@@ -54,7 +54,9 @@
         <!-- Sweet alert -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-
+        <script>
+            var base_url2 = window.location.href;
+        </script>
 
     </head>
     <body>

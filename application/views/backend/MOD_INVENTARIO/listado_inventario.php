@@ -130,9 +130,9 @@
                                             <i class="si si-home"></i> 0
                                         </button>-->
                                     </td>
-                                    <!-- Codigo -->
+                                    <!-- Codigo de barras del producto -->
                                     <td>
-                                        <button type="button" class="btn btn-default">
+                                        <button type="button" class="btn btn-default" onclick="mostrarCodigo('<?= base_url(); ?>','<?= $producto->codigo_barras ?>');">
                                             <i class="si si-doc"></i>
                                         </button> <?= $producto->codigo_barras ?>
                                     </td>
@@ -193,6 +193,85 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal mostrar codigo de barras -->
+<div class="modal fade" id="modalCodigoBarras" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-popout">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Codigo de barras</h3>
+                </div>
+                <div class="block-content" style="margin-bottom: 4em;">
+                    <div class="row text-justify">
+                        <!-- Formulario de registro de usuario -->
+                        <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
+
+                            <!-- Formularios invetario -->
+                            <div id="formularios_inventario">
+                                <div class="col-sm-6">
+                                    <div class="block block-themed">
+                                        <div class="block-header bg-info">
+                                            <h3 class="block-title">Detalle del articulo</h3>
+                                        </div>
+                                        <div class="block-content">
+                                            <p>
+                                                Tipo: <span class="text-primary">Tipo del articulo</span>
+                                            </p>
+                                            <p>
+                                                Articulo: <span class="text-primary">Nombre del articulo</span>
+                                            </p>
+                                            <p>
+                                                Cantidad actual: <span id="spanCantidadActual" class="text-primary">14</span>
+                                                <input type="hidden" id="cantidad_actual" value="14">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- sección para mostrar el codigo de barras -->
+                                <div class="col-sm-6">
+                                    <svg id="barcode2"></svg>
+
+                                    <label for="numCodigos">
+                                        Número de codigos
+                                    </label>
+
+                                    <input type="number" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>')">
+                                    <input type="text" id="codigoBarras" name="codigoBarras" value="">
+                                    <br>
+
+
+                                    <div id="btnCodigo">
+                                        
+                                    </div>
+                                    <a class="btn btn-info" id="linkPdf" href="<?= base_url('backend/crearPdf/generarPDF/1'); ?>" target="_new">
+                                        Imprimir codigo
+                                    </a>
+                                    <!--<button id="btn_guardar" class="btn btn-sm btn-success" type="button" onclick="descargarPdf('numCodigos', '<?= base_url('backend/crearPdf/generarPDF/'); ?>')">
+                                        <i class="glyph-icon icon-printer"></i> Imprimir codigo
+                                    </button>-->
+                                </div>
+                            </div>
+                            <!-- END Formularios inventario -->
+
+                        </form>
+                        <!-- END Formulario de registro de cliente -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal mostrar codigo de barras -->
 
 <!-- Modal registrar producto -->
 <div class="modal fade" id="modal-popout2" tabindex="-1" role="dialog" aria-hidden="true">
@@ -641,6 +720,7 @@
         ;
 
     }
+
 </script>
 <style>
     .swal-button--imprimir {
@@ -652,6 +732,7 @@
 </style>
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<script src="<?php echo base_url(); ?>assets/js/propios/barcode.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.slimscroll.min.js"></script>
@@ -661,4 +742,7 @@
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.placeholder.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/app.js"></script>
+
+<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
+
 <!-- Page JS Code -->

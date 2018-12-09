@@ -7,7 +7,7 @@
         </div>
     </div>
     <!-- END Modulos -->
-    <a href="<?php echo base_url('backend/createpdf/'); ?>" class="btn btn-default">
+    <a href="<?php echo base_url('backend/crearPdf/generarPDF'); ?>" class="btn btn-default">
         Generar pdf
     </a>
 </div>
@@ -21,3 +21,4 @@
 	</button>
 
 </div>
+img

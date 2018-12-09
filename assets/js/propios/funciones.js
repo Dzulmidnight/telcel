@@ -4,6 +4,54 @@ function generarCodigo(){
     JSBarcode('#barcode', '23423423434');
 }
 
+function mostrarCodigo(direccion, codigo){
+    var codigo = codigo;
+    console.log(codigo);
+    $('#modalCodigoBarras').modal('show');
+    JsBarcode("#barcode2", codigo,{
+        displayValue: true
+    });
+    document.getElementById('codigoBarras').value = codigo;
+    document.getElementById('linkPdf').href = direccion+'backend/crearPdf/generarPDF/1/'+codigo;
+
+}
+
+/*function descargarPdf(id, direccion){
+    var cantidad, ruta, codigo;
+    var xmlhttp = new XMLHttpRequest();
+    
+    cantidad = document.getElementById(id).value;
+    codigo = document.getElementById('codigoBarras').value;
+    console.log(cantidad);
+
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+
+            var otra = JSON.parse(this.responseText);
+
+            console.log();
+
+        }
+    }
+
+
+    ruta = direccion+cantidad+'/'+codigo;
+
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("codigo="+codigo+"&cantidad="+cantidad);
+}*/
+
+function descargarPdf(id, direccion, cantidad){
+    //document.getElementById('btnCodigo').innerHTML = 'LOASDFASF';
+    var cantidad, codigo;
+
+    cantidad = document.getElementById(id).value;
+    codigo = document.getElementById('codigoBarras').value;
+
+
+    document.getElementById('linkPdf').href = direccion+'backend/crearPdf/generarPDF/'+cantidad+'/'+codigo+'';
+}
 
 function reemplazar(){
     var xmlhttp = new XMLHttpRequest();
