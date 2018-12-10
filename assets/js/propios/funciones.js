@@ -12,8 +12,71 @@ function mostrarCodigo(direccion, codigo){
         displayValue: true
     });
     document.getElementById('codigoBarras').value = codigo;
-    document.getElementById('linkPdf').href = direccion+'backend/crearPdf/generarPDF/1/'+codigo;
+    document.getElementById('linkPdf').href = direccion+'backend/createPdf/index/1/'+codigo;
 
+}
+function guardarImg(ruta){
+    var cantidad, ruta, codigo;
+    var xmlhttp = new XMLHttpRequest();
+    
+    codigo = document.getElementById('codigoBarras').value;
+
+    console.log(codigo);
+
+
+
+    var canvas = document.getElementById('barcode2');
+    var context = canvas.getContext('2d');
+
+
+
+    var dataURL = canvas.toDataURL('image/png');
+
+    var objetoJson = JSON.stringify(dataURL);
+
+    //console.log(objetoJson);
+    xmlhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200){
+
+            //var otra = JSON.parse(this.responseText);
+
+            console.log(this.responseText);
+
+        }
+    }
+
+
+    ruta = ruta+'backend/GuardarImg/index';
+
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x="+objetoJson);
+}
+
+function consultarCodigo(valor, ruta){
+    console.log(valor);
+    var codigoBarras, objetoJson, ruta;
+
+    console.log(ruta);
+    ruta = ruta+'backend/InformacionProducto';
+    codigoBarras = valor;
+
+    objetoJson = JSON.stringify(codigoBarras);
+    var xmlhttp = new XMLHttpRequest();
+
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            //console.log(this.responseText);
+            var vista = this.responseText;
+            console.log(this.responseText);
+            document.getElementById('div_informacion_producto').innerHTML = vista;
+        }
+    }
+
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("codigo="+objetoJson);
 }
 
 /*function descargarPdf(id, direccion){
@@ -51,6 +114,7 @@ function descargarPdf(id, direccion, cantidad){
 
 
     document.getElementById('linkPdf').href = direccion+'backend/crearPdf/generarPDF/'+cantidad+'/'+codigo+'';
+    JsBarcode("#barcodepdf", "Hi world!");
 }
 
 function reemplazar(){

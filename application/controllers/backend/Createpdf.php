@@ -6,53 +6,55 @@ class Createpdf extends CI_Controller{
 		$this->load->helper('pdf_helper');
 	}
 
-	public function index($numero = false)
+	public function index($numero = false, $codigo = false)
 	{
 		header("Content-Type: application/json; charset=UTF-8");
-
-	    echo 'el numero que enviaron es:'.$numero;
 	    /*
 	        ---- ---- ---- ----
 	        your code here
 	        ---- ---- ---- ----
 	    */
-
-
 		tcpdf();
-		$pdf = new TCPDF('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-		$pdf->SetCreator(PDF_CREATOR);
-		$title = "Lista de codigos";
-		$pdf->SetTitle($title);
+		// create new PDF document
+		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
-		// default header data
-		$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, $title, PDF_HEADER_STRING);
 
-		// header and footer fonts
-		$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-		$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+		// remove default header/footer
+		$pdf->setPrintHeader(false);
+		$pdf->setPrintFooter(false);
 
-		// fuente monospaced
-		$pdf->SetDefaultMonospacedFont('helvetica');
+		// set default monospaced font
+		$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
-		// asignamos margenes
-		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-
-		// saltos de pagina
+		// set auto page breaks
 		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
-		// fuente y tamaño
-		$pdf->SetFont('helvetica', '', 9);
+
+		// ---------------------------------------------------------
+
+		// set font
+		$pdf->SetFont('times', 'BI', 20);
 
 		//$pdf->setFontSubsetting(false);
 
 		// añadir pagina
 		$pdf->AddPage();
+		//$params = $pdf->serializeTCPDFtagParameters(array('0123456789', 'C128C', '', '', '', 18, 0.4, '', 'N'));
 
-		$html = $this->load->view('backend/pdfreport');
 
+		$params = $pdf->serializeTCPDFtagParameters(array($codigo, 'C128', '', '', 40, 20, 0.4, array('position'=>'S', 'border'=>true, 'padding'=>4, 'fgcolor'=>array(0,0,0), 'bgcolor'=>array(255,255,255), 'text'=>true, 'font'=>'helvetica', 'fontsize'=>8, 'stretchtext'=>4), 'N'));
 
+		//$html .= '<tcpdf method="write1DBarcode" params="'.$params.'" />';
+		$html = '';
+		$html .= '<table>';
+			if($numero <= 4){
+				$html .= '<tr>';
+					for ($i=0; $i < $numero; $i++) { 
+					 	$html .= '<td><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
+					 }
+				$html .= '</tr>';
+			}
+		$html .= '</table>';
 
 
 		// output the HTML content
@@ -65,9 +67,6 @@ class Createpdf extends CI_Controller{
 		//Close and output PDF document
 		$pdf->Output('example_049.pdf', 'I');
 
-
 	}
-
-
 
 }

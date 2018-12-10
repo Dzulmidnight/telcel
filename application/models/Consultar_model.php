@@ -77,9 +77,29 @@ class Consultar_model extends CI_Model{
                 if($id != false){
                         $this->db->where('producto.id_producto', $id);
                 }
+
                 $query = $this->db->get();
                 $result = $query->result();
 
                 return $result;
         }
+
+        public function detalle_producto($codigo = false){
+                $this->db->select('producto.*,
+                        sub_categoria_producto.nombre as nombre_sub_producto,
+                        categoria_producto.nombre as nombre_categoria_producto,'
+                );
+                $this->db->from('producto');
+                $this->db->join('categoria_producto', 'categoria_producto.id_categoria_producto = producto.fk_id_categoria_producto', 'left');
+                $this->db->join('sub_categoria_producto', 'sub_categoria_producto.id_sub_categoria_producto = producto.fk_id_sub_categoria_producto', 'left');
+
+                $this->db->where('producto.codigo_barras', $codigo);
+
+                $query = $this->db->get();
+                $result = $query->row();
+
+                return $result;
+        }
+
+
 }

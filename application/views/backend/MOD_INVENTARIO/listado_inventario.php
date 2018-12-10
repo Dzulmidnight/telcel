@@ -133,8 +133,8 @@
                                     <!-- Codigo de barras del producto -->
                                     <td>
                                         <button type="button" class="btn btn-default" onclick="mostrarCodigo('<?= base_url(); ?>','<?= $producto->codigo_barras ?>');">
-                                            <i class="si si-doc"></i>
-                                        </button> <?= $producto->codigo_barras ?>
+                                            <i class="si si-printer"></i> <?= $producto->codigo_barras ?>
+                                        </button>
                                     </td>
                                     <!-- Tipo -->
                                     <td>
@@ -236,23 +236,31 @@
                                 </div>
                                 <!-- sección para mostrar el codigo de barras -->
                                 <div class="col-sm-6">
-                                    <svg id="barcode2"></svg>
+                                    <canvas id="barcode2"></canvas>
 
                                     <label for="numCodigos">
-                                        Número de codigos
+                                        Número de codigos a imprimir
                                     </label>
 
                                     <input type="number" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>')">
-                                    <input type="text" id="codigoBarras" name="codigoBarras" value="">
+                                    <input type="hidden" id="codigoBarras" name="codigoBarras" value="">
                                     <br>
 
 
                                     <div id="btnCodigo">
                                         
                                     </div>
-                                    <a class="btn btn-info" id="linkPdf" href="<?= base_url('backend/crearPdf/generarPDF/1'); ?>" target="_new">
+                                    <a class="btn btn-success" id="linkPdf" href="" target="_new">
                                         Imprimir codigo
                                     </a>
+
+
+                                    <!--<button class="btn btn-success" onclick="guardarImg('<?= base_url(); ?>')">
+                                        Imprimir codigo 2
+                                    </button>-->
+                                    <!--<a href="<?= base_url('backend/Createpdf'); ?>" target="_new">
+                                        Imprimir
+                                    </a>-->
                                     <!--<button id="btn_guardar" class="btn btn-sm btn-success" type="button" onclick="descargarPdf('numCodigos', '<?= base_url('backend/crearPdf/generarPDF/'); ?>')">
                                         <i class="glyph-icon icon-printer"></i> Imprimir codigo
                                     </button>-->
