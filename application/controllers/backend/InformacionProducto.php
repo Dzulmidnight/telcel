@@ -7,15 +7,16 @@ class InformacionProducto extends CI_Controller{
 	{
 		$this->load->model('consultar_model');
 
-		$objeto = json_decode($_POST['codigo']);
-		$data['row_info_producto'] = $this->consultar_model->detalle_producto('1543689119');
-	
+		$codigo = json_decode($_POST['codigo']);
 
+		if($this->consultar_model->detalle_producto($codigo)){
+			$data['info_producto'] = $this->consultar_model->detalle_producto($codigo);
+			$vista = $this->load->view('backend/detalle_producto', $data, true);
+			echo $vista;			
+		}else{
+			echo 'Articulo no encontrado';
+		}
 		//echo $this->consultar_model->detalle_producto('1543689119');
 		//echo $this->consultar_model->detalle_producto();
-		$vista = $this->load->view('backend/detalle_producto', $data, true);
-		echo $vista;
-
-
 	}
-}
+}//1543689119

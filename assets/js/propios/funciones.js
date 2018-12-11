@@ -55,7 +55,7 @@ function guardarImg(ruta){
 
 function consultarCodigo(valor, ruta){
     console.log(valor);
-    var codigoBarras, objetoJson, ruta;
+    var codigoBarras, objetoJson, ruta, precio_establecido;
 
     console.log(ruta);
     ruta = ruta+'backend/InformacionProducto';
@@ -69,14 +69,86 @@ function consultarCodigo(valor, ruta){
         if(this.readyState == 4 && this.status == 200){
             //console.log(this.responseText);
             var vista = this.responseText;
-            console.log(this.responseText);
+            console.log(this.response);
             document.getElementById('div_informacion_producto').innerHTML = vista;
+            if(this.responseText == 'Articulo no encontrado'){
+                console.log('no se muestra tabla');
+            }else{
+                document.getElementById('piezas_venta').disabled = false;
+                document.getElementById('btn_agregar_producto').disabled = false;
+
+                precio_establecido = document.getElementById('precio_establecido').innerHTML;
+                document.getElementById('precio_unitario_venta').disabled = false;
+                document.getElementById('precio_unitario_venta').value = precio_establecido;
+            }
+
         }
     }
 
     xmlhttp.open("POST", ruta, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("codigo="+objetoJson);
+}
+
+function carritoCompras(){
+    var tabla, numFilas, filaActual, producto, marca, precio, cantidad, total;
+
+
+    tabla = document.getElementById("tablaDetalleCompra");
+    producto = document.getElementById('spanProducto').innerHTML;
+    marca = document.getElementById('spanMarca').innerHTML;
+    precio = document.getElementById('precio_unitario_venta').value;
+    cantidad = document.getElementById('piezas_venta').value;
+    
+    numFilas = tabla.rows.length;
+    filaActual = numFilas - 1;
+ 
+    total = precio * cantidad;
+
+    var row = tabla.insertRow(filaActual);
+    var celda1 = row.insertCell(0);
+    var celda2 = row.insertCell(1);
+    var celda3 = row.insertCell(2);
+    var celda4 = row.insertCell(3);
+    var celda5 = row.insertCell(4);
+    var celda6 = row.insertCell(5);
+
+    celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
+    celda2.innerHTML = producto;
+    celda3.innerHTML = marca;
+    celda4.innerHTML = precio;
+    celda5.innerHTML = cantidad;
+    celda6.innerHTML = '$ '+total.toFixed(2);
+
+    // limpiamos los campos despues de agregar el producto
+    document.getElementById('codigoCapturado').value = '';
+    document.getElementById('piezas_venta').value = '';
+    document.getElementById('precio_unitario_venta').value = '';
+}
+
+
+
+function upTo(elemento, tagName) {
+  tagName = tagName.toLowerCase();
+
+  while (elemento && elemento.parentNode) {
+    elemento = elemento.parentNode;
+    if (elemento.tagName && elemento.tagName.toLowerCase() == tagName) {
+      return elemento;
+    }
+  }
+  return null;
+} 
+
+function eliminarFila(fila){
+    var row = upTo(fila, 'tr')
+    if (row) row.parentNode.removeChild(row);
+}
+
+function limpiar(){
+    document.getElementById('codigoCapturado').value = '';
+    document.getElementById('piezas_venta').value = '';
+    document.getElementById('precio_unitario_venta').value = '';
 }
 
 /*function descargarPdf(id, direccion){

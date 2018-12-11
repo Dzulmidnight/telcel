@@ -54,6 +54,7 @@ class Inventario extends CI_Controller{
 			$fk_id_sub_categoria_producto = $this->input->post('fk_id_sub_categoria_producto');
 		}
 
+		// agregar producto
 		$data = array(
 			'fk_id_categoria_producto' => $this->input->post('fk_id_categoria_producto'),
 			'fk_id_sub_categoria_producto' => $fk_id_sub_categoria_producto,
@@ -76,8 +77,20 @@ class Inventario extends CI_Controller{
 			);
 			$this->update_model->update('producto', 'id_producto', $id_producto, $data);
 
+
+			// agregamos datos producto_entrada
+			$data = array(
+				'piezas' => $this->input->post('piezas'),
+				'fk_id_producto' => $id_producto,
+				'precio_unitario' => $this->input->post('precio_interno'),
+				'fecha_registro' => $fecha_registro
+			);
+			$this->add_model->agregar($data, 'producto_entrada');
+
 			$this->session->set_flashdata('success', "Producto agregado");
 		}
+		// END agregar producto
+
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}
 
