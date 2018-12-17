@@ -3,6 +3,7 @@ class Inventario extends CI_Controller{
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->helper(array('form', 'url'));
 		$this->load->model('add_model');
 		$this->load->model('count_model');
 		$this->load->model('consultar_model');
@@ -35,9 +36,25 @@ class Inventario extends CI_Controller{
 		$this->load->view('backend/template/footer');	
 	}
 
+	/*public function agregar(){
+				$array_color = $this->input->post('array_color');
+		$array_piezas_color = $this->input->post('array_piezas_color');
+
+
+		if(is_array($array_color)){
+			foreach ($array_color as $key => $color) {
+				echo '<br>El color es: '.$color;
+				echo '<br> La llave es: '.$key;
+				echo '<br> las piezas: '.$array_piezas_color[$key];
+			}
+		}
+
+	}*/
+
 	public function agregar()
 	{
 		$fecha_registro = time();
+		$id_producto = 0;
 
 		if($this->input->post('nuevo_sub_accesorio')){
 			$nombre_accesorio = $this->input->post();
@@ -62,7 +79,6 @@ class Inventario extends CI_Controller{
 			'piezas' => $this->input->post('piezas'),
 			'nombre' => $this->input->post('nombre'),
 			'modelo' => $this->input->post('modelo'),
-			'color' => $this->input->post('color'),
 			'capacidad' => $this->input->post('capacidad'),
 			'precio_interno' => $this->input->post('precio_interno'),
 			'precio_publico' => $this->input->post('precio_publico'),
@@ -76,23 +92,69 @@ class Inventario extends CI_Controller{
 				'codigo_barras' => $codigo_barras
 			);
 			$this->update_model->update('producto', 'id_producto', $id_producto, $data);
+		}
+		/* cargar img del producto */
+			$ruta_de_carga = 'assets/img/productos/';
+			$nombreArchivo = strtolower('img_producto'.$fecha_registro.'_'.$id_producto);
 
+		   	$img_producto = 'img_producto';
+		    $config['upload_path'] = $ruta_de_carga;
+		    $config['file_name'] = $nombreArchivo;
+		    $config['allowed_types'] = "*";
+		    $config['max_size'] = 0;
+		    $config['remove_spaces'] = true;
 
-			// agregamos datos producto_entrada
-			$data = array(
+		    $this->load->library('upload', $config);
+
+		    if (!$this->upload->do_upload($img_producto)) {
+		        //*** ocurrio un error
+		        $data['uploadError'] = $this->upload->display_errors();
+		        echo $this->upload->display_errors();
+		        return;
+		    }else{
+		    	$nombre_archivo = $this->upload->data('file_name');
+		    	$ruta_definida = $ruta_de_carga.$nombre_archivo;
+
+		    	$array_img = array(
+		    		'imagen' => $ruta_definida
+		    	);
+		    	$this->update_model->update('producto', 'id_producto', $id_producto, $array_img);
+		    }
+	    /* END cargar img del producto */
+
+		// Colores y num de piezas
+			$array_color = $this->input->post('array_color');
+			$array_piezas_color = $this->input->post('array_piezas_color');
+			if(is_array($array_color)){
+				foreach ($array_color as $key => $color) {
+					$datos_colores = array(
+						'fk_id_producto' => $id_producto,
+						'color' => $color,
+						'piezas' => $array_piezas_color[$key]
+					);
+
+					$this->add_model->agregar($datos_colores, 'color_producto');
+				}
+			}
+			
+		// END Colores y num de piezas
+
+		// agregamos datos producto_entrada
+			$array_producto_entrada = array(
 				'piezas' => $this->input->post('piezas'),
 				'fk_id_producto' => $id_producto,
 				'precio_unitario' => $this->input->post('precio_interno'),
 				'fecha_registro' => $fecha_registro
 			);
-			$this->add_model->agregar($data, 'producto_entrada');
+			$this->add_model->agregar($array_producto_entrada , 'producto_entrada');
 
 			$this->session->set_flashdata('success', "Producto agregado");
-		}
+		
 		// END agregar producto
 
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}
+
 
 	public function listado()
 	{

@@ -140,6 +140,7 @@ function upTo(elemento, tagName) {
   return null;
 } 
 
+
 function eliminarFila(fila){
     var row = upTo(fila, 'tr')
     if (row) row.parentNode.removeChild(row);
@@ -185,8 +186,7 @@ function descargarPdf(id, direccion, cantidad){
     codigo = document.getElementById('codigoBarras').value;
 
 
-    document.getElementById('linkPdf').href = direccion+'backend/crearPdf/generarPDF/'+cantidad+'/'+codigo+'';
-    JsBarcode("#barcodepdf", "Hi world!");
+    document.getElementById('linkPdf').href = direccion+'backend/Createpdf/index/'+cantidad+'/'+codigo+'';
 }
 
 function reemplazar(){

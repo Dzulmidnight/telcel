@@ -94,6 +94,7 @@ class Consultar_model extends CI_Model{
                 $this->db->join('sub_categoria_producto', 'sub_categoria_producto.id_sub_categoria_producto = producto.fk_id_sub_categoria_producto', 'left');
 
                 $this->db->where('producto.codigo_barras', $codigo);
+                //$this->db->like('producto.codigo_barras', $codigo);
 
                 $query = $this->db->get();
                 $result = $query->row();

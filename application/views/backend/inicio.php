@@ -45,7 +45,7 @@
 
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario">
-                                <div class="col-md-4">
+                                <div class="col-md-4" style="background: #e67e22; color: #fff">
                                     <label for="codigoCapturado">Codigo del producto</label>
                                     <input type="text" class="form-control" id="codigoCapturado" name="codigoCapturado" onkeyup="consultarCodigo(this.value, '<?= base_url(); ?>')" placeholder="Introduce el codigo del producto" value="">
                                 </div>

@@ -19,7 +19,7 @@ class Count_model extends CI_Model{
 	
 	public function restaInventario(){
 		$this->db->select_sum('producto_salida');
-		$query = $this->db->get('');
+		$query = $this->db->get('historial_inventario');
 	}
 
 	public function contarInventario(){

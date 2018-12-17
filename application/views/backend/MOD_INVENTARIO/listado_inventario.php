@@ -242,7 +242,7 @@
                                         Número de codigos a imprimir
                                     </label>
 
-                                    <input type="number" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>')">
+                                    <input type="number" class="form-control" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>','')">
                                     <input type="hidden" id="codigoBarras" name="codigoBarras" value="">
                                     <br>
 
@@ -284,11 +284,12 @@
 <!-- Modal registrar producto -->
 <div class="modal fade" id="modal-popout2" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-popout">
-        <div class="modal-content">
+        <div class="modal-content" style="padding:30px;">
             <?php 
             $atributos = array('class="form-horizontal push-10-t block-content"');
-            echo form_open('backend/MOD_INVENTARIO/inventario/agregar'); 
+            echo form_open_multipart('backend/MOD_INVENTARIO/inventario/agregar'); 
             ?>
+
                 <div class="block block-themed block-transparent remove-margin-b">
                     <div class="block-header bg-primary-dark">
                         <ul class="block-options">
@@ -303,131 +304,121 @@
                             <p class="h4">
                                 1.- Selecciona las caracteristicas
                             </p>
-                            <div id="select_general" class="form-group bg-city text-white" style="padding:1em;">
-                                <!-- Categoria producto -->
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <div class="col-xs-12">
-                                            <div class="form-material">
-                                                <select class="form-control" id="fk_id_categoria_producto" name="fk_id_categoria_producto" size="1" onchange="siguienteEtapa()">
-                                                    <option value="">...</option>
-                                                    <?php foreach($row_categoria_producto as $categoria_producto): ?>
-                                                        <option value="<?= $categoria_producto->id_categoria_producto ?>"><?= $categoria_producto->nombre ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                                <label for="fk_id_categoria_producto">Categoria producto</label>
-                                            </div>
-                                        </div>
+                            <div class="col-md-12" id="select_general" style="background:#ff8f8f;color:#fff;padding-bottom:10px;">
+                                <div class="row">
+                                    <!-- Categoria producto -->
+                                    <div class="col-sm-4">
+                                        <label for="fk_id_categoria_producto">Categoria del producto</label>
+                                        <select class="form-control" name="fk_id_categoria_producto" id="fk_id_categoria_producto" onchange="siguienteEtapa()">
+                                            <option value="">...</option>
+                                            <?php foreach($row_categoria_producto as $categoria_producto): ?>
+                                                <option value="<?= $categoria_producto->id_categoria_producto ?>"><?= $categoria_producto->nombre ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
-                                </div>
-                                <!-- END Categoria producto -->
+                                    <!-- END Categoria producto -->
 
-                                <!-- Sucursales disponibles -->
-                                <div class="col-sm-4">
-                                    <div class="form-material">
-                                        <select class="form-control" id="fk_id_sucursal" name="fk_id_sucursal" size="1" onchange="siguienteEtapa()">
+                                    <!-- Sucursales disponibles -->
+                                    <div class="col-sm-4">
+                                        <label for="fk_id_sucursal">
+                                            Sucursal *
+                                        </label>
+                                        <select class="form-control" name="fk_id_sucursal" id="fk_id_sucursal" onchange="siguienteEtapa()">
                                             <option value="">...</option>
                                             <?php foreach($row_sucursales as $sucursal): ?>
                                                 <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
                                             <?php endforeach; ?>
                                         </select>
-                                        <label for="fk_id_sucursal">Sucursal *</label>
                                     </div>
-                                </div>
-                                <!-- END Sucursales disponibles -->
+                                    <!-- END Sucursales disponibles -->
 
-                                <!-- Proveedores -->
-                                <div class="col-sm-4">
-                                    <div class="form-material">
-                                        <select class="form-control" id="fk_id_proveedor" name="fk_id_proveedor" size="1" onchange="siguienteEtapa()">
+                                    <!-- Proveedores -->
+                                    <div class="col-sm-4">
+                                        <label for="fk_id_proveedor">
+                                            Proveedor *
+                                        </label>
+                                        <select class="form-control" name="fk_id_proveedor" id="fk_id_proveedor" onchange="siguienteEtapa()">
                                             <option value="">...</option>
                                             <?php foreach($row_proveedores as $proveedor): ?>
                                                 <option value="<?= $proveedor->id_proveedor ?>"><?= $proveedor->nombre ?></option>
                                             <?php endforeach; ?>
                                         </select>
-                                        <label for="fk_id_proveedor">Proveedor *</label>
                                     </div>
+                                    <!-- END Proveedores -->
                                 </div>
-                                <!-- END Proveedores -->
-
                             </div>
 
                             <hr>
                             <!-- Formularios invetario -->
-                            <div id="formularios_inventario">
+                            <div id="formularios_inventario" style="margin-top:10px;">
                                 <!-- Frm accesorio -->
-                                <div id="frm_detalle_producto" style="display:none">
-                                    <p class="h4" style="background:#ff8f8f;color:#fff;padding:10px;">
-                                        2.- Ingresa los detalles del producto
+                                <div id="frm_detalle_producto" style="display:block">
+                                    <p class="h4">
+                                        2.- Información del producto
                                     </p>
-                                    <div class="form-group bg-">
-                                        <div class="col-sm-4">
-                                            <div class="form-material">
-                                                <div class="input-group" id="sub_categoria_producto" style="display:none">
-                                                    <div class="row">
-                                                        <div class="col-xs-8">
-                                                            <div class="form-material">
-                                                                <select class="form-control" id="fk_id_sub_categoria_producto" name="fk_id_sub_categoria_producto" size="1">
-                                                                    <option>...</option>
-                                                                    <?php foreach($row_sub_categoria_producto as $sub_categoria_producto): ?>
-                                                                        <option value="<?= $sub_categoria_producto->id_sub_categoria_producto ?>"><?= $sub_categoria_producto->nombre ?></option>
-                                                                    <?php endforeach;?>
-                                                                </select>
-                                                                <label for="fk_id_sub_categoria_producto">Categoria de accesorios *</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4">
-                                                            <span class="input-group-btn">
-                                                                <button id="btn_accion" class="btn btn-sm btn-default" type="button" value="mostrar" onclick="mostrar(this.id, 'div_nuevo_accesorio', this.value, )" value="mostrar">
-                                                                    <i id="icono_btn" class="fa fa-plus" data-toggle="tooltip" title="Nuevo tipo de accesorio"></i> <span id="texto-btn">Nuevo</span>
-                                                                </button>
-                                                            </span>
-                                                        </div>
+                                    <!--  -->
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-xs-8">
+                                                    <div id="div_lista_categoria">
+                                                        <label for="fk_id_sub_categoria_producto" style="color:red">Categoria *</label>
+                                                        <select class="form-control" name="fk_id_sub_categoria_producto" id="fk_id_sub_categoria_producto">
+                                                            <option>...</option>
+                                                            <?php foreach($row_sub_categoria_producto as $sub_categoria_producto): ?>
+                                                                <option value="<?= $sub_categoria_producto->id_sub_categoria_producto ?>"><?= $sub_categoria_producto->nombre ?></option>
+                                                            <?php endforeach;?>
+                                                        </select>
                                                     </div>
+
+                                                    <div id="div_nuevo_accesorio" class="form-group has-success" style="display:none">
+                                                        <label for="nuevo_sub_accesorio">Nuevo tipo</label>
+                                                        <input type="text" class="form-control" id="nuevo_sub_accesorio" name="nuevo_sub_accesorio" placeholder="Escribe el nuevo tipo">
+
+                                                        <input id="estado" type="hidden" value="oculto">
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <button type="button" id="btn_accion" class="btn btn-sm btn-default" style="margin-top:2em;" value="mostrar" onclick="mostrar(this.id, 'div_nuevo_accesorio', this.value, )" value="mostrar">
+                                                        <span data-toggle="tooltip" title="Nuevo tipo de accesorio">
+                                                            <i id="icono_btn" class="fa fa-plus" ></i> <span id="texto-btn">Nuevo</span>
+                                                        </span>
+                                                    </button>
                                                 </div>
                                             </div>
-
-                                            <div id="div_nuevo_accesorio" class="form-group has-success" style="display:none">
-                                                <div class="form-material form-material-success input-group">
-                                                    <input class="form-control" type="text" id="nuevo_sub_accesorio" name="nuevo_sub_accesorio" placeholder="Escribe el nuevo tipo">
-                                                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                                </div>
-                                                <input id="estado" type="hidden" value="oculto">
-                                            </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="number" min="0" id="piezas" name="piezas" placeholder="" required>
-                                                <label for="piezas">Nº de piezas *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <label style="color:red" for="piezas">Nº de Piezas</label>
+                                            <input class="form-control" type="number" min="0" id="piezas" name="piezas">
                                         </div>
-                                        <div class="col-sm-4">                         
-                                            <div class="form-material">
-                                                <input class="js-autonumeric-dollar form-control" type="text" id="precio_interno" name="precio_interno" placeholder="$ 0.00" required>
-                                                <label for="precio_interno">Precio de proveedor (unidad) *</label>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <label style="color:red" for="precio_interno">Precio Proveedor (unidad)</label>
+                                            <input type="number" class="form-control" step=".01" min="1" id="precio_interno" name="precio_interno" placeholder="$ 0.00">
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <div class="form-material">
-                                                <input class="js-autonumeric-dollar form-control" type="text" id="precio_publico" name="precio_publico" placeholder="$ 0.00" required>
-                                                <label for="precio_publico">Precio Publico *</label>
-                                            </div>
+                                        <div class="col-md-12">
+                                            <hr>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="nombre" name="nombre" placeholder="" required>
-                                                <label for="nombre">Nombre *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
+                                            
+                                        <div class="col-md-6">
+                                            <label style="color:red" for="precio_publico">Precio Publico (unidad)</label>
+                                            <input type="number" class="form-control" step=".01" min="1" id="precio_publico" name="precio_publico" placeholder="$ 0.00">
                                         </div>
-                                    </div>
+                                        <div class="col-md-6">
+                                            <label for="nombre">Nombre</label>
+                                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="">
+                                        </div>
+                                    <!--  -->
                                     <!-- INFORMACIÓN DEL TELEFONO -->
                                         <div id="datos_telefono" class="form-group has-error">
-                                            <div class="col-sm-6">
+                                            <div class="col-md-6">
+                                                <label for="imei">IMEI</label>
+                                                <input type="text" id="imei" name="imei" class="form-control" placeholder="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="codigo">CODIGO</label>
+                                                <input type="text" id="codigo" name="codigo" class="form-control" placeholder="">
+                                            </div>
+                                            <!--<div class="col-sm-6">
                                                 <div class="form-material form-material-primary input-group">
                                                     <input class="form-control" type="text" id="imei" name="imei" placeholder="" >
                                                     <label for="imei">IMEI *</label>
@@ -440,44 +431,62 @@
                                                     <label for="codigo_telefono">CODIGO *</label>
                                                     <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                                 </div>
-                                            </div>
-
+                                            </div>-->
                                         </div>
                                     <!-- END INFORMACIÓN DEL TELEFONO -->
+                                        <div class="col-md-6">
+                                            <label for="marca">Marca</label>
+                                            <input type="text" class="form-control" id="marca" name="marca" placeholder="">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="modelo">Modelo</label>
+                                            <input type="text" class="form-control" id="modelo" name="modelo" placeholder="">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="capacidad">Capacidad</label>
+                                            <input type="text" class="form-control" id="capacidad" name="capacidad" placeholder="">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="img_producto">Imagen del producto</label>
+                                            <input type="file" class="form-control" id="img_producto" name="img_producto">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2">Colores</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="encabezado">Color</th>
+                                                        <th class="encabezado">Piezas</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tabla-colores">
+                                                    <tr class="encabezado">
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <span class="input-group-btn">
+                                                                    <button class="btn btn-success" type="button" onclick="guardarColor();"><i class="fa fa-save"></i></button>
+                                                                </span>
+                                                                <input class="form-control" type="text" id="color" name="color" placeholder="">
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" min="0" class="form-control" id="num_color_piezas" name="num_color_piezas" placeholder="Ej: 3">
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <input type="hidden" id="input-piezas" value="0">
+                                            <!--<label for="color">Color</label>
+                                            <input type="text" class="form-control" id="color" name="color" placeholder="">-->
+                                        </div>
+                                        <div class="col-md-6 well text-center" style="margin-top:3em;">
+                                            <button id="btn_guardar" class="btn btn-success" type="submit">
+                                                <i class="fa fa-check"></i>Registrar producto
+                                            </button>
+                                        </div>
 
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="marca" name="marca" placeholder="" required>
-                                                <label for="marca">Marca *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="modelo" name="modelo" placeholder="">
-                                                <label for="modelo">Modelo</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="color" name="color" placeholder="">
-                                                <label for="color">Color</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="text" id="capacidad" name="capacidad" placeholder="">
-                                                <label for="capacidad">Capacidad *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <!-- END Frm accesorio -->
                             </div>
@@ -486,8 +495,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button id="btn_guardar" class="btn btn-sm btn-success" type="submit">Registrar</button>
+                    <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
                 </div>
             </form>
 
@@ -573,7 +581,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            
                             </div>
                             <!-- END Formularios inventario -->
 
@@ -592,6 +599,58 @@
 <!-- END Modal actualizar cantidad -->
 
 <script>
+    function guardarColor(){
+        var tabla, color, piezas, totalPiezas, suma = 0, inputPiezas = 0, tempPiezas;
+
+        totalPiezas = document.getElementById('piezas').value;
+        tabla = document.getElementById('tabla-colores');
+        color = document.getElementById('color');
+        piezas = document.getElementById('num_color_piezas');
+        tempPiezas = document.getElementById('num_color_piezas').value;
+
+        inputPiezas = document.getElementById('input-piezas').value;
+
+        if(color.value !== '' && piezas.value !== ''){
+
+            suma = parseInt(inputPiezas) + parseInt(tempPiezas);
+
+            if(suma > totalPiezas){
+                alert('Verifica que el número de piezas sea correcto');
+                document.getElementById('piezas').focus();
+            }else{
+                var row = tabla.insertRow(1);
+                var celda1 = row.insertCell(0);
+                var celda2 = row.insertCell(1);
+
+                celda1.innerHTML = '<div class="input-group"><span class="input-group-btn"><button class="btn btn-danger" type="button" onclick="eliminarColor(this, '+piezas.value+')"><i class="fa fa-close"></i></button></span><input class="form-control" type="text" readonly id="array_color[]" name="array_color[]" value="'+color.value+'"></div>';
+
+                //celda1.innerHTML = "<button type='button' class='btn btn-xs btn-danger' onclick='eliminarColor(this, "+piezas.value+")'><i class='fa fa-close'></i></button> "+color.value;
+                celda2.innerHTML = '<input class="form-control" readonly id="array_piezas_color[]" name="array_piezas_color[]" value="'+piezas.value+'">';
+                document.getElementById('input-piezas').value = suma;
+            }
+            color.value = '';
+            piezas.value = '';
+        }
+    
+
+        console.log('Total piezas: '+totalPiezas);
+        console.log('La suma: '+suma);
+    }
+
+    function eliminarColor(fila, piezas){
+        var row = upTo(fila, 'tr');
+
+        if (row) row.parentNode.removeChild(row);
+
+
+        var inputPiezas = document.getElementById('input-piezas').value;
+        var resta =  parseInt(inputPiezas) - parseInt(piezas);
+        document.getElementById('input-piezas').value = resta; 
+
+
+    }
+
+
     function actualizarPiezas(valor){
         var cantidadActual = document.getElementById('cantidad_actual').value;
         if(valor == ''){
@@ -647,6 +706,7 @@
             elemento_padre.value = "ocultar";
             document.getElementById('texto-btn').innerHTML = 'Cancelar';
             document.getElementById('id_tipo_accesorio').style.display = 'none';
+            document.getElementById('div_lista_categoria').style.display = 'none';
         }else{
             document.getElementById(elemento).style.display = 'none';
             document.getElementById('icono_btn').classList.add('text-success','fa-plus');
@@ -654,6 +714,7 @@
             document.getElementById('texto-btn').innerHTML = 'Nuevo';
             elemento_padre.value = "mostrar";
             document.getElementById('id_tipo_accesorio').style.display = 'block';
+            document.getElementById('div_lista_categoria').style.display = 'block';
         }
         /*if(bandera.value == 'oculto'){
             estado = 'mostrar';
