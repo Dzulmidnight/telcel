@@ -1,5 +1,7 @@
 var base_url = window.location.href;
 
+
+
 function generarCodigo(){
     JSBarcode('#barcode', '23423423434');
 }

@@ -82,19 +82,22 @@
                                     Nº
                                 </th>
                                 <th class="encabezado">
+                                    Tipo
+                                </th>
+
+                                <th class="encabezado">
+                                    Articulo
+                                </th>
+
+                                <th class="encabezado">
                                     Sucursal
                                 </th>
                                 <th class="encabezado">
                                     Codigo
                                 </th>
-                                <th class="encabezado">
-                                    Tipo
-                                </th>
+
                                 <th class="encabezado">
                                     Cant
-                                </th>
-                                <th class="encabezado">
-                                    Articulo
                                 </th>
                                 <th class="encabezado">
                                     Precio Public
@@ -113,10 +116,28 @@
                                 <tr>
                                     <!-- Nº -->
                                     <td>
-                                        <?= $producto->id_producto ?>
+                                        <?= $producto->id_producto; ?>
                                     </td>
+                                    <!-- Tipo -->
+                                    <td>
+                                        <?= $producto->nombre_categoria_producto; ?>
+                                    </td>
+
+                                    <!-- Nombre articulo -->
+                                    <td>
+                                        <?= $producto->nombre; ?>
+                                    </td>
+
                                     <!-- Sucursal -->
                                     <td>
+                                        <?php
+                                        foreach ($row_sucursal_piezas[$producto->id_producto] as $sucursal) {
+                                            echo '<button class="btn btn-xs btn-warning" data-toggle="tooltip" title="'.$sucursal->nombre.'">
+                                            <i class="si si-home "></i> '.$sucursal->piezas.'
+                                        </button>';
+                                        }
+                                        //echo $row_sucursal_piezas[$producto->id_producto]->id_sucursal;
+                                         ?>
                                         <!--<button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Nom. Sucur">
                                             <i class="si si-home "></i> 4
                                         </button>
@@ -136,17 +157,9 @@
                                             <i class="si si-printer"></i> <?= $producto->codigo_barras ?>
                                         </button>
                                     </td>
-                                    <!-- Tipo -->
-                                    <td>
-                                        <?= $producto->nombre_categoria_producto ?>
-                                    </td>
                                     <!-- Cantidad -->
                                     <td>
-                                        <?= $producto->piezas ?> <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad()"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
-                                    </td>
-                                    <!-- Nombre articulo -->
-                                    <td>
-                                        <?= $producto->nombre_sub_producto ?>
+                                        <?= $producto->piezas ?> <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>')"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
                                     </td>
                                     <!-- Precio al publico -->
                                     <td>
@@ -508,92 +521,121 @@
 <!-- Modal actualizar cantidad -->
 <div class="modal fade" id="modal-actualizar-cantidad" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-popout">
-        <div class="modal-content">
-            <div class="block block-themed block-transparent remove-margin-b">
-                <div class="block-header bg-primary-dark">
-                    <ul class="block-options">
-                        <li>
-                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
-                        </li>
-                    </ul>
-                    <h3 class="block-title">Actualizar cantidad inventario</h3>
-                </div>
-                <div class="block-content" style="margin-bottom: 4em;">
-                    <div class="row text-justify">
-                        <!-- Formulario de registro de usuario -->
-                        <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
+        <?= form_open_multipart('backend/MOD_INVENTARIO/inventario/actualizar'); ?>
+            <div class="modal-content">
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Actualizar cantidad inventario</h3>
+                    </div>
+                    <div class="block-content" style="margin-bottom: 4em;">
+                        <div class="row text-justify">
+                            <!-- Formulario de registro de usuario -->
 
-                            <!-- Formularios invetario -->
-                            <div id="formularios_inventario">
-                                <div class="col-sm-6">
-                                    <div class="row has-success">
-                                        <div class="col-sm-12" style="margin-bottom: 1em;">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="number" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" placeholder="" value="" required onkeyup="actualizarPiezas(this.value)">
-                                                <label for="num_piezas_nuevas">Nº de piezas nuevas *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                                <label for="material-color-primary">Precio interno *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-material form-material-primary input-group">
-                                                <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                                <label for="material-color-primary">Precio al publico *</label>
-                                                <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12" style="margin-top: 1em;">
-                                            <div class="form-material">
-                                                <select class="form-control" id="id_tipo_accesorio" name="id_tipo_accesorio" size="1">
-                                                    <option>...</option>
-                                                <option value="1">Sucursal #1</option>
-                                                <option value="telefono">Sucursal #2</option>
-                                                <option value="3">Sucursal #3</option>
+                            <div class="block">
+                                <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
+                                    <li class="active">
+                                        <a href="#btabs-alt-static-home">Nuevo</a>
+                                    </li>
+                                    <li>
+                                        <a href="#btabs-alt-static-profile">Traspasar</a>
+                                    </li>
 
-                                                </select>
-                                                <label for="id_tipo_accesorio">Asignar a sucursal *</label>
+                                </ul>
+                                <div class="block-content tab-content">
+                                    <!-- agregar nueva mercancia de lo mismo -->
+                                    <div class="tab-pane active" id="btabs-alt-static-home">
+                                        <!-- Formularios invetario -->
+                                        <div id="formularios_inventario">
+                                            <div class="col-sm-6">
+                                                <div class="row has-success">
+                                                    <div class="col-sm-12" style="margin-bottom: 1em;">
+                                                        <label for="id_sucursal">
+                                                            Asignar a sucursal
+                                                        </label>
+                                                        <select class="form-control" name="id_sucursal" id="id_sucursal">
+                                                            <option value="">...</option>
+                                                            <?php foreach($row_sucursales as $sucursal): ?>
+                                                                <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-sm-12" style="margin-bottom: 1em;">
+                                                            <label for="num_piezas_nuevas">
+                                                                Nº de piezas nuevas
+                                                            </label>
+                                                            <input type="number" class="form-control" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" value="" required onkeyup="actualizarPiezas(this.value)">
+                                                            <!--<input class="form-control" type="number" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" placeholder="" value="" required onkeyup="actualizarPiezas(this.value)">
+                                                            <label for="num_piezas_nuevas">Nº de piezas nuevas *</label>
+                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>-->
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label for="precio_interno">
+                                                            Precio interno
+                                                        </label>
+                                                        <input type="number" class="form-control" id="precio_interno_actualizar" name="precio_interno_actualizar" step=".01" min="1" placeholder="$ 00.00">
+
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label for="precio_publico">
+                                                            Precio al publico
+                                                        </label>
+                                                        <input type="number" class="form-control" id="precio_publico_actualizar" name="precio_publico_actualizar" step=".01" min="1" placeholder="$ 00.00">
+                                                    </div>
+
+                                                </div>
                                             </div>
+                                            <div class="col-sm-6">
+                                                <div class="block block-themed">
+                                                    <div class="block-header bg-info">
+                                                        <h3 class="block-title">Detalle del articulo</h3>
+                                                    </div>
+                                                    <div class="block-content">
+                                                        <p>
+                                                            Tipo: <span id="spanTipoArticulo" class="text-primary"></span>
+                                                        </p>
+                                                        <p>
+                                                            Articulo: <span id="spanArticulo" class="text-primary"></span>
+                                                        </p>
+                                                        <p>
+                                                            Producto: <span id="spanProductoActualizar" class="text-primary"></span>
+                                                        </p>
+                                                        <p>
+                                                            Cantidad actual: <span id="spanActualizarCantidad" class="text-primary"></span>
+                                                            <input type="text" id="cantidad_actual_actualizar" value="">
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END Formularios inventario -->
+                                    </div>
+                                    
+                                    <!-- Traspasar mercancia de sucursales -->
+                                    <div class="tab-pane" id="btabs-alt-static-profile">
+                                        <div>
+                                            
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="block block-themed">
-                                        <div class="block-header bg-info">
-                                            <h3 class="block-title">Detalle del articulo</h3>
-                                        </div>
-                                        <div class="block-content">
-                                            <p>
-                                                Tipo: <span class="text-primary">Tipo del articulo</span>
-                                            </p>
-                                            <p>
-                                                Articulo: <span class="text-primary">Nombre del articulo</span>
-                                            </p>
-                                            <p>
-                                                Cantidad actual: <span id="spanCantidadActual" class="text-primary">14</span>
-                                                <input type="hidden" id="cantidad_actual" value="14">
-                                            </p>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
-                            <!-- END Formularios inventario -->
-
-                        </form>
-                        <!-- END Formulario de registro de cliente -->
+                            <!-- END Formulario de registro de cliente -->
+                        </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                    <button id="btn_guardar" class="btn btn-sm btn-success" type="button">Actualizar cantidad</button>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                <button id="btn_guardar" class="btn btn-sm btn-success" type="button">Actualizar cantidad</button>
-            </div>
-        </div>
+
+        </form>
     </div>
 </div>
 <!-- END Modal actualizar cantidad -->
@@ -652,19 +694,48 @@
 
 
     function actualizarPiezas(valor){
-        var cantidadActual = document.getElementById('cantidad_actual').value;
+        var cantidadActual = document.getElementById('cantidad_actual_actualizar').value;
         if(valor == ''){
             valor = 0;
         }
         var nuevaCantidad = valor;
         var suma = parseInt(cantidadActual) + parseInt(nuevaCantidad);
-        document.getElementById('spanCantidadActual').innerHTML = suma;
+        document.getElementById('spanActualizarCantidad').innerHTML = suma;
     }
 
-    function actualizarCantidad(){
+    /*function actualizarCantidad(){
         console.log('modificando cantidad');
+
         $('#modal-actualizar-cantidad').modal('show');
+    }*/
+    function actualizarCantidad(codigo, url){
+        $('#modal-actualizar-cantidad').modal('show');
+        var ruta, objetoJson;
+        var xmlhttp = new XMLHttpRequest();
+
+        ruta = url+'backend/MOD_INVENTARIO/inventario/consultar';
+        objetoJson = JSON.stringify(codigo);
+
+        xmlhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                console.log(this.responseText);
+                var respuesta = JSON.parse(this.responseText);
+
+                console.log(respuesta.marca);
+                document.getElementById('spanTipoArticulo').innerHTML = respuesta.nombre_categoria_producto;
+                document.getElementById('spanArticulo').innerHTML = respuesta.nombre_sub_producto;
+                document.getElementById('spanProductoActualizar').innerHTML = respuesta.nombre;
+                document.getElementById('spanActualizarCantidad').innerHTML = respuesta.piezas;
+                document.getElementById('cantidad_actual_actualizar').value = respuesta.piezas;
+            }
+        }
+        xmlhttp.open("POST", ruta, true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("codigo="+objetoJson);
+
+
     }
+
 
     function siguienteEtapa(){
         var categoria_producto = document.getElementById('fk_id_categoria_producto').value;

@@ -1,21 +1,21 @@
 <?php
 class Consultar_model extends CI_Model{
-	function __construct()
-	{
-		parent::__construct();
-	}
+        function __construct()
+        {
+                parent::__construct();
+        }
 
-	public function listado($tabla = false, $id = false)
-	{
+        public function listado($tabla = false, $id = false)
+        {
                 $this->db->select('*');
                 $this->db->from($tabla);
                 if($id != false){
-                	$this->db->where('usuarios.id_usuario', $id);
+                        $this->db->where('usuarios.id_usuario', $id);
                 }
                 $query = $this->db->get();
                 $result = $query->result();
                 return $result;
-	}
+        }
 
         public function listadoProveedores($id = false)
         {
@@ -65,11 +65,29 @@ class Consultar_model extends CI_Model{
 
                 return $result;
         }
+        public function sucursal_producto($id_producto = false)
+        {
+                $this->db->select('
+                        sucursal.id_sucursal,
+                        sucursal.nombre,
+                        sucursal_producto.piezas
+
+                ');
+                $this->db->from('sucursal_producto');
+                $this->db->join('sucursal', 'sucursal.id_sucursal = sucursal_producto.fk_id_sucursal');
+                if($id_producto != false){
+                        $this->db->where('sucursal_producto.fk_id_producto', $id_producto);
+                }
+                $query = $this->db->get();
+                $result = $query->result();
+
+                return $result;
+        }
 
         public function productos($id = false, $id_sucursal = false){
                 $this->db->select('producto.*,
                         sub_categoria_producto.nombre as nombre_sub_producto,
-                        categoria_producto.nombre as nombre_categoria_producto,'
+                        categoria_producto.nombre as nombre_categoria_producto'
                 );
                 $this->db->from('producto');
                 $this->db->join('categoria_producto', 'categoria_producto.id_categoria_producto = producto.fk_id_categoria_producto', 'left');
