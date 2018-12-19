@@ -83,6 +83,28 @@ class Consultar_model extends CI_Model{
 
                 return $result;
         }
+        public function sucursal_cantidad($id_producto = false, $id_sucursal = false)
+        {
+                $this->db->select('
+                        sucursal.id_sucursal,
+                        sucursal.nombre,
+                        sucursal_producto.piezas
+
+                ');
+                $this->db->from('sucursal_producto');
+                $this->db->join('sucursal', 'sucursal.id_sucursal = sucursal_producto.fk_id_sucursal');
+                if($id_producto != false){
+                        $this->db->where('sucursal_producto.fk_id_producto', $id_producto);
+                }
+                if($id_sucursal != false){
+                        $this->db->where('sucursal_producto.fk_id_sucursal', $id_sucursal);
+                }
+                $query = $this->db->get();
+                $result = $query->row();
+
+                return $result;
+        }
+
 
         public function productos($id = false, $id_sucursal = false){
                 $this->db->select('producto.*,

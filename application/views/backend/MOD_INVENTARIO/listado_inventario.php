@@ -159,7 +159,7 @@
                                     </td>
                                     <!-- Cantidad -->
                                     <td>
-                                        <?= $producto->piezas ?> <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>')"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
+                                        <?= $producto->piezas ?> <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
                                     </td>
                                     <!-- Precio al publico -->
                                     <td>
@@ -255,7 +255,7 @@
                                         Número de codigos a imprimir
                                     </label>
 
-                                    <input type="number" class="form-control" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>','')">
+                                    <input type="number" class="form-control" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>','');">
                                     <input type="hidden" id="codigoBarras" name="codigoBarras" value="">
                                     <br>
 
@@ -535,7 +535,8 @@
                     <div class="block-content" style="margin-bottom: 4em;">
                         <div class="row text-justify">
                             <!-- Formulario de registro de usuario -->
-
+                            <input type="hidden" id="id_producto_actualizar" name="id_producto_actualizar" value="">
+                            
                             <div class="block">
                                 <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
                                     <li class="active">
@@ -618,9 +619,90 @@
                                     
                                     <!-- Traspasar mercancia de sucursales -->
                                     <div class="tab-pane" id="btabs-alt-static-profile">
-                                        <div>
-                                            
+                                        <!-- Formularios invetario -->
+                                        <div id="formularios_inventario">
+                                            <div class="col-sm-6">
+                                                <div class="row has-error">
+                                                    <div class="col-sm-12" style="margin-bottom: 1em;">
+                                                        <label for="id_sucursal">
+                                                            Sucursal origen
+                                                        </label>
+                                                        <select class="form-control" name="id_sucursal_origen" id="id_sucursal_origen" onchange="sucursalOrigen('<?= base_url(); ?>');">
+                                                            <option value="">...</option>
+                                                            <?php foreach($row_sucursales as $sucursal): ?>
+                                                                <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-sm-12" style="margin-bottom: 1em;">
+                                                            <label for="piezas_sucursal_origen">
+                                                                Total de productos
+                                                            </label>
+                                                            <input type="number" class="form-control" min="1" id="piezas_sucursal_origen" name="piezas_sucursal_origen" value="" required onkeyup="actualizarPiezas(this.value)" readonly="">
+                                                            <!--<input class="form-control" type="number" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" placeholder="" value="" required onkeyup="actualizarPiezas(this.value)">
+                                                            <label for="num_piezas_nuevas">Nº de piezas nuevas *</label>
+                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>-->
+                                                    </div>
+                                                    <!--<div class="col-sm-12">
+                                                        <label for="precio_interno">
+                                                            Precio interno
+                                                        </label>
+                                                        <input type="number" class="form-control" id="precio_interno_actualizar" name="precio_interno_actualizar" step=".01" min="1" placeholder="$ 00.00">
+
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label for="precio_publico">
+                                                            Precio al publico
+                                                        </label>
+                                                        <input type="number" class="form-control" id="precio_publico_actualizar" name="precio_publico_actualizar" step=".01" min="1" placeholder="$ 00.00">
+                                                    </div>-->
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="row has-success">
+                                                    <div class="col-sm-12" style="margin-bottom: 1em;">
+                                                        <label for="id_sucursal">
+                                                            Sucursal destino
+                                                        </label>
+                                                        <select class="form-control" name="id_sucursal" id="id_sucursal">
+                                                            <option value="">...</option>
+                                                            <?php foreach($row_sucursales as $sucursal): ?>
+                                                                <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-sm-12" style="margin-bottom: 1em;">
+                                                            <label for="num_piezas_nuevas">
+                                                                Cantidad a traspasar
+                                                            </label>
+                                                            <input type="number" class="form-control" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" value="" required onkeyup="actualizarPiezas(this.value)">
+                                                            <!--<input class="form-control" type="number" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" placeholder="" value="" required onkeyup="actualizarPiezas(this.value)">
+                                                            <label for="num_piezas_nuevas">Nº de piezas nuevas *</label>
+                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>-->
+                                                    </div>
+                                                    <!--<div class="col-sm-12">
+                                                        <label for="precio_interno">
+                                                            Precio interno
+                                                        </label>
+                                                        <input type="number" class="form-control" id="precio_interno_actualizar" name="precio_interno_actualizar" step=".01" min="1" placeholder="$ 00.00">
+
+                                                    </div>
+                                                    <div class="col-sm-12">
+                                                        <label for="precio_publico">
+                                                            Precio al publico
+                                                        </label>
+                                                        <input type="number" class="form-control" id="precio_publico_actualizar" name="precio_publico_actualizar" step=".01" min="1" placeholder="$ 00.00">
+                                                    </div>-->
+
+                                                </div>
+                                            </div>
+
                                         </div>
+                                        <!-- END Formularios inventario -->
                                     </div>
 
                                 </div>
@@ -708,33 +790,7 @@
 
         $('#modal-actualizar-cantidad').modal('show');
     }*/
-    function actualizarCantidad(codigo, url){
-        $('#modal-actualizar-cantidad').modal('show');
-        var ruta, objetoJson;
-        var xmlhttp = new XMLHttpRequest();
 
-        ruta = url+'backend/MOD_INVENTARIO/inventario/consultar';
-        objetoJson = JSON.stringify(codigo);
-
-        xmlhttp.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                console.log(this.responseText);
-                var respuesta = JSON.parse(this.responseText);
-
-                console.log(respuesta.marca);
-                document.getElementById('spanTipoArticulo').innerHTML = respuesta.nombre_categoria_producto;
-                document.getElementById('spanArticulo').innerHTML = respuesta.nombre_sub_producto;
-                document.getElementById('spanProductoActualizar').innerHTML = respuesta.nombre;
-                document.getElementById('spanActualizarCantidad').innerHTML = respuesta.piezas;
-                document.getElementById('cantidad_actual_actualizar').value = respuesta.piezas;
-            }
-        }
-        xmlhttp.open("POST", ruta, true);
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("codigo="+objetoJson);
-
-
-    }
 
 
     function siguienteEtapa(){
@@ -872,6 +928,7 @@
 </style>
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/barcode.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
@@ -883,6 +940,6 @@
 <script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/app.js"></script>
 
-<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
+
 
 <!-- Page JS Code -->

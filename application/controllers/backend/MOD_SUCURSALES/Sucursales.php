@@ -63,4 +63,23 @@ class Sucursales extends CI_Controller{
 			$this->load->view('backend/MOD_SUCURSALES/listado_sucursales', $data);
 		$this->load->view('backend/template/footer');
 	}
+
+	public function consultar()
+	{
+		$id_producto = json_decode($_POST['id']);
+		$id_sucursal = json_decode($_POST['id_sucursal']);
+
+		//echo $id_producto;
+		if($this->consultar_model->sucursal_cantidad($id_producto, $id_sucursal)){
+			//$data['row_piezas_sucursal'] = $this->consultar_model->sucursal_cantidad($id_producto);
+
+			//$vista = $this->load->view('backend/detalle_producto', $data, true);
+			$respuesta_json = json_encode($this->consultar_model->sucursal_cantidad($id_producto, $id_sucursal));
+			echo $respuesta_json;
+
+		}else{
+			echo 'Articulo no encontrado';
+		}
+
+	}
 }
