@@ -621,34 +621,64 @@ function editarProveedor(id){
 
 }
 
-    function actualizarCantidad(codigo, url){
-        $('#modal-actualizar-cantidad').modal('show');
-        var ruta, objetoJson;
-        var xmlhttp = new XMLHttpRequest();
+function actualizarCantidad(codigo, url){
+    $('#modal-actualizar-cantidad').modal('show');
+    var ruta, objetoJson;
+    var xmlhttp = new XMLHttpRequest();
 
-        ruta = url+'backend/MOD_INVENTARIO/inventario/consultar';
-        objetoJson = JSON.stringify(codigo);
+    ruta = url+'backend/MOD_INVENTARIO/inventario/consultar';
+    objetoJson = JSON.stringify(codigo);
 
-        xmlhttp.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-                console.log(this.responseText);
-                var respuesta = JSON.parse(this.responseText);
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            var respuesta = JSON.parse(this.responseText);
 
-                console.log(respuesta.marca);
-                document.getElementById('id_producto_actualizar').value = respuesta.id_producto;
-                document.getElementById('spanTipoArticulo').innerHTML = respuesta.nombre_categoria_producto;
-                document.getElementById('spanArticulo').innerHTML = respuesta.nombre_sub_producto;
-                document.getElementById('spanProductoActualizar').innerHTML = respuesta.nombre;
-                document.getElementById('spanActualizarCantidad').innerHTML = respuesta.piezas;
-                document.getElementById('cantidad_actual_actualizar').value = respuesta.piezas;
-            }
+            console.log(respuesta.marca);
+            document.getElementById('id_producto_actualizar').value = respuesta.id_producto;
+            document.getElementById('spanTipoArticulo').innerHTML = respuesta.nombre_categoria_producto;
+            document.getElementById('spanArticulo').innerHTML = respuesta.nombre_sub_producto;
+            document.getElementById('spanProductoActualizar').innerHTML = respuesta.nombre;
+            document.getElementById('spanActualizarCantidad').innerHTML = respuesta.piezas;
+            document.getElementById('cantidad_actual_actualizar').value = respuesta.piezas;
         }
-        xmlhttp.open("POST", ruta, true);
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("codigo="+objetoJson);
-
-
     }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("codigo="+objetoJson);
+
+
+}
+
+function consultarCantidad(codigo, url){
+    $('#modal-actualizar-cantidad').modal('show');
+    var ruta, objetoJson;
+    var xmlhttp = new XMLHttpRequest();
+
+    ruta = url+'backend/MOD_INVENTARIO/inventario/consultar';
+    objetoJson = JSON.stringify(codigo);
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            var respuesta = JSON.parse(this.responseText);
+
+            console.log(respuesta.marca);
+            document.getElementById('id_producto_actualizar').value = respuesta.id_producto;
+            document.getElementById('spanTipoArticulo').innerHTML = respuesta.nombre_categoria_producto;
+            document.getElementById('spanArticulo').innerHTML = respuesta.nombre_sub_producto;
+            document.getElementById('spanProductoActualizar').innerHTML = respuesta.nombre;
+            document.getElementById('spanActualizarCantidad').innerHTML = respuesta.piezas;
+            document.getElementById('cantidad_actual_actualizar').value = respuesta.piezas;
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("codigo="+objetoJson);
+
+
+}
+
 
 function sucursalOrigen(url){
     var idProducto, idSucursal, objetoJson;
@@ -669,6 +699,38 @@ function sucursalOrigen(url){
             var respuesta = JSON.parse(this.responseText);
 
             document.getElementById('piezas_sucursal_origen').value = respuesta.piezas;
+            document.getElementById('total_piezas_origen').value = respuesta.piezas;
+            console.log(respuesta.piezas);
+            console.log(respuesta);
+        }
+    }
+
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("id="+objetoJson+"&id_sucursal="+jsonIdSucursal);
+
+}
+
+function sucursalDestino(url){
+    var idProducto, idSucursal, objetoJson;
+
+    ruta = url+'backend/MOD_SUCURSALES/sucursales/consultar'
+    idProducto = document.getElementById('id_producto_actualizar').value;
+    idSucursal = document.getElementById('id_sucursal_destino').value;
+    objetoJson = JSON.stringify(idProducto);
+    jsonIdSucursal = JSON.stringify(idSucursal);
+
+    console.log('clic en traspasar'+idProducto);
+    console.log('La sucursal'+idSucursal);
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            var respuesta = JSON.parse(this.responseText);
+
+            //document.getElementById('piezas_sucursal_origen').value = respuesta.piezas;
+            document.getElementById('cantidad-sucursal-destino').innerHTML = respuesta.piezas;
             console.log(respuesta.piezas);
             console.log(respuesta);
         }
