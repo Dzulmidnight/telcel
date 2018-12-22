@@ -640,24 +640,11 @@
                                                                 Total de productos
                                                             </label>
                                                             <input type="number" class="form-control" min="1" id="piezas_sucursal_origen" name="piezas_sucursal_origen" value="" required onkeyup="actualizarPiezas(this.value)" readonly="">
+
                                                             <input type="text" id="total_piezas_origen" name="total_piezas_origen">
-                                                            <!--<input class="form-control" type="number" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" placeholder="" value="" required onkeyup="actualizarPiezas(this.value)">
-                                                            <label for="num_piezas_nuevas">Nº de piezas nuevas *</label>
-                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>-->
-                                                    </div>
-                                                    <!--<div class="col-sm-12">
-                                                        <label for="precio_interno">
-                                                            Precio interno
-                                                        </label>
-                                                        <input type="number" class="form-control" id="precio_interno_actualizar" name="precio_interno_actualizar" step=".01" min="1" placeholder="$ 00.00">
 
                                                     </div>
-                                                    <div class="col-sm-12">
-                                                        <label for="precio_publico">
-                                                            Precio al publico
-                                                        </label>
-                                                        <input type="number" class="form-control" id="precio_publico_actualizar" name="precio_publico_actualizar" step=".01" min="1" placeholder="$ 00.00">
-                                                    </div>-->
+        
 
                                                 </div>
                                             </div>
@@ -676,30 +663,17 @@
                                                         </select>
                                                     </div>
 
-                                                    <div class="col-sm-12" style="margin-bottom: 1em;">
-                                                            <span id="cantidad-sucursal-destino"></span>
+                                                    <div class="col-sm-8" style="margin-bottom: 1em;">
                                                             <label for="num_piezas_traspasar">
                                                                 Cantidad a traspasar
                                                             </label>
                                                             <input type="number" class="form-control" min="1" id="num_piezas_traspasar" name="num_piezas_traspasar" value="" required onkeyup="actualizarCantidadTraspaso(this.value)">
-                                                            <!--<input class="form-control" type="number" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" placeholder="" value="" required onkeyup="actualizarPiezas(this.value)">
-                                                            <label for="num_piezas_nuevas">Nº de piezas nuevas *</label>
-                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>-->
                                                     </div>
-                                                    <!--<div class="col-sm-12">
-                                                        <label for="precio_interno">
-                                                            Precio interno
-                                                        </label>
-                                                        <input type="number" class="form-control" id="precio_interno_actualizar" name="precio_interno_actualizar" step=".01" min="1" placeholder="$ 00.00">
-
+                                                    <div class="col-sm-4">
+                                                        <b>Total</b>
+                                                        <br>
+                                                        <b style="color: #2980b9; font-size:14px;" id="cantidad-sucursal-destino"></b>
                                                     </div>
-                                                    <div class="col-sm-12">
-                                                        <label for="precio_publico">
-                                                            Precio al publico
-                                                        </label>
-                                                        <input type="number" class="form-control" id="precio_publico_actualizar" name="precio_publico_actualizar" step=".01" min="1" placeholder="$ 00.00">
-                                                    </div>-->
-
                                                 </div>
                                             </div>
 
@@ -787,24 +761,41 @@
         document.getElementById('spanActualizarCantidad').innerHTML = suma;
     }
     function actualizarCantidadTraspaso(){
-        var totalOrigen, cantidadOrigen, cantidadTraspaso, resta;
+        var totalOrigen, cantidadOrigen, cantidadTraspaso, cantidadEnDestino, resta, total;
+
+
+        cantidadEnDestino = document.getElementById('cantidad-sucursal-destino').value;
+        totalOrigen = document.getElementById('total_piezas_origen').value;
+
+        document.getElementById('piezas_sucursal_origen').value = totalOrigen;
+
 
         totalOrigen = parseInt(document.getElementById('total_piezas_origen').value);
+
         cantidadOrigen = parseInt(document.getElementById('piezas_sucursal_origen').value);
         cantidadTraspaso = parseInt(document.getElementById('num_piezas_traspasar').value);
 
-        console.log(cantidadOrigen);
-        console.log(cantidadTraspaso);
 
-        if(cantidadTraspaso < (cantidadOrigen+1) && cantidadTraspaso != ''){
-            resta = parseInt(totalOrigen) - parseInt(cantidadTraspaso);
+        resta = cantidadOrigen - cantidadTraspaso;
 
-            document.getElementById('piezas_sucursal_origen').value = resta;
-            console.log(resta);
-        }else{
-            console.log('No puedes traspasar esa cantidad de productos');
+        if(cantidadTraspaso > cantidadOrigen){
+            console.log('se paso');
             document.getElementById('piezas_sucursal_origen').value = totalOrigen;
+        }else{
+            console.log(resta);
+            if(Number.isInteger(resta)){
+                document.getElementById('piezas_sucursal_origen').value = resta;
+            }else{
+                document.getElementById('piezas_sucursal_origen').value = totalOrigen;
+            }
+            
         }
+        console.log(cantidadEnDestino);
+        //total = cantidadTraspaso
+        //document.getElementById('cantidad-sucursal-destino').innerHTML = ;
+        
+
+
     
     }
 
