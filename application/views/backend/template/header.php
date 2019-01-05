@@ -9,7 +9,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li class="dropdown-header">Perfil</li>
+                    <li class="dropdown-header">Perfil: <?= $this->session->userdata('username')?> </li>
                     <!--<li>
                         <a tabindex="-1" href="base_pages_inbox.html">
                             <i class="si si-envelope-open pull-right"></i>
@@ -33,7 +33,8 @@
                         </a>
                     </li>-->
                     <li>
-                        <a tabindex="-1" href="base_pages_login.html">
+
+                        <a tabindex="-1" href="<?= base_url('login/logout_ci'); ?>">
                             <i class="si si-logout pull-right"></i>Cerrar sesión
                         </a>
                     </li>

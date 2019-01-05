@@ -84,7 +84,9 @@
                                 <th class="encabezado">
                                     Tipo
                                 </th>
-
+                                <th class="encabezado">
+                                    Img
+                                </th>
                                 <th class="encabezado">
                                     Articulo
                                 </th>
@@ -122,7 +124,10 @@
                                     <td>
                                         <?= $producto->nombre_categoria_producto; ?>
                                     </td>
-
+                                    <!-- Img del producto -->
+                                    <td>
+                                        <img src="<?= base_url($producto->imagen); ?>" width="60px;" alt="">
+                                    </td>
                                     <!-- Nombre articulo -->
                                     <td>
                                         <?= $producto->nombre; ?>
