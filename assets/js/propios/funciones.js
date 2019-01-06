@@ -730,7 +730,8 @@ function sucursalDestino(url){
             var respuesta = JSON.parse(this.responseText);
 
             //document.getElementById('piezas_sucursal_origen').value = respuesta.piezas;
-            document.getElementById('cantidad-sucursal-destino').innerHTML = respuesta.piezas;
+            document.getElementById('nueva_cantidad_destino').value = respuesta.piezas;
+            document.getElementById('input_cantidad_sucursal_destino').value = respuesta.piezas;
             console.log(respuesta.piezas);
             console.log(respuesta);
         }
@@ -741,3 +742,63 @@ function sucursalDestino(url){
     xmlhttp.send("id="+objetoJson+"&id_sucursal="+jsonIdSucursal);
 
 }
+
+
+
+
+    function actualizarPiezas(valor){
+        var cantidadActual = document.getElementById('cantidad_actual_actualizar').value;
+        if(valor == ''){
+            valor = 0;
+        }
+        var nuevaCantidad = valor;
+        var suma = parseInt(cantidadActual) + parseInt(nuevaCantidad);
+        document.getElementById('spanActualizarCantidad').innerHTML = suma;
+    }
+    function actualizarCantidadTraspaso(){
+        var totalOrigen, cantidadOrigen, cantidadTraspaso, cantidadEnDestino, resta, total;
+
+
+        cantidadEnDestino = document.getElementById('input_cantidad_sucursal_destino').value;
+        totalOrigen = document.getElementById('total_piezas_origen').value;
+
+        document.getElementById('piezas_sucursal_origen').value = totalOrigen;
+
+
+        totalOrigen = parseInt(document.getElementById('total_piezas_origen').value);
+
+        cantidadOrigen = parseInt(document.getElementById('piezas_sucursal_origen').value);
+        cantidadTraspaso = parseInt(document.getElementById('num_piezas_traspasar').value);
+
+
+        resta = cantidadOrigen - cantidadTraspaso;
+
+        if(cantidadTraspaso > cantidadOrigen){
+            console.log('se paso');
+            document.getElementById('piezas_sucursal_origen').value = totalOrigen;
+        }else{
+            console.log(resta);
+            if(Number.isInteger(resta)){
+                document.getElementById('piezas_sucursal_origen').value = resta;
+            }else{
+                document.getElementById('piezas_sucursal_origen').value = totalOrigen;
+            }
+            total = parseInt(cantidadEnDestino)+parseInt(cantidadTraspaso);
+            if(isNaN(total)){
+                document.getElementById('nueva_cantidad_destino').value = cantidadEnDestino; 
+            }else{
+                document.getElementById('nueva_cantidad_destino').value = total;
+            }
+               
+        
+        }
+        
+
+        console.log('La cantidad destino: '+total);
+        //total = cantidadTraspaso
+        //document.getElementById('nueva_cantidad_destino').innerHTML = ;
+        
+
+
+    
+    }

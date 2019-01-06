@@ -126,7 +126,7 @@
                                     </td>
                                     <!-- Img del producto -->
                                     <td>
-                                        <img src="<?= base_url($producto->imagen); ?>" width="60px;" alt="">
+                                        <img src="<?= base_url($producto->imagen); ?>" width="60px;" height="60px;" alt="">
                                     </td>
                                     <!-- Nombre articulo -->
                                     <td>
@@ -575,7 +575,7 @@
                                                             <label for="num_piezas_nuevas">
                                                                 Nº de piezas nuevas
                                                             </label>
-                                                            <input type="number" class="form-control" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" value="" required onkeyup="actualizarPiezas(this.value)">
+                                                            <input type="number" class="form-control" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" value="" required onkeyup="actualizarPiezas(this.value);">
                                                             <!--<input class="form-control" type="number" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" placeholder="" value="" required onkeyup="actualizarPiezas(this.value)">
                                                             <label for="num_piezas_nuevas">Nº de piezas nuevas *</label>
                                                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>-->
@@ -672,12 +672,14 @@
                                                             <label for="num_piezas_traspasar">
                                                                 Cantidad a traspasar
                                                             </label>
-                                                            <input type="number" class="form-control" min="1" id="num_piezas_traspasar" name="num_piezas_traspasar" value="" required onkeyup="actualizarCantidadTraspaso(this.value)">
+                                                            <input type="number" class="form-control" min="1" id="num_piezas_traspasar" name="num_piezas_traspasar" value="" required onkeyup="actualizarCantidadTraspaso(this.value);">
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <b>Total</b>
                                                         <br>
+                                                        <input type="text" class="form-control" id="nueva_cantidad_destino" name="nueva_cantidad_destino" readonly>
                                                         <b style="color: #2980b9; font-size:14px;" id="cantidad-sucursal-destino"></b>
+                                                        <input type="text" id="input_cantidad_sucursal_destino">
                                                     </div>
                                                 </div>
                                             </div>
@@ -756,53 +758,7 @@
     }
 
 
-    function actualizarPiezas(valor){
-        var cantidadActual = document.getElementById('cantidad_actual_actualizar').value;
-        if(valor == ''){
-            valor = 0;
-        }
-        var nuevaCantidad = valor;
-        var suma = parseInt(cantidadActual) + parseInt(nuevaCantidad);
-        document.getElementById('spanActualizarCantidad').innerHTML = suma;
-    }
-    function actualizarCantidadTraspaso(){
-        var totalOrigen, cantidadOrigen, cantidadTraspaso, cantidadEnDestino, resta, total;
 
-
-        cantidadEnDestino = document.getElementById('cantidad-sucursal-destino').value;
-        totalOrigen = document.getElementById('total_piezas_origen').value;
-
-        document.getElementById('piezas_sucursal_origen').value = totalOrigen;
-
-
-        totalOrigen = parseInt(document.getElementById('total_piezas_origen').value);
-
-        cantidadOrigen = parseInt(document.getElementById('piezas_sucursal_origen').value);
-        cantidadTraspaso = parseInt(document.getElementById('num_piezas_traspasar').value);
-
-
-        resta = cantidadOrigen - cantidadTraspaso;
-
-        if(cantidadTraspaso > cantidadOrigen){
-            console.log('se paso');
-            document.getElementById('piezas_sucursal_origen').value = totalOrigen;
-        }else{
-            console.log(resta);
-            if(Number.isInteger(resta)){
-                document.getElementById('piezas_sucursal_origen').value = resta;
-            }else{
-                document.getElementById('piezas_sucursal_origen').value = totalOrigen;
-            }
-            
-        }
-        console.log(cantidadEnDestino);
-        //total = cantidadTraspaso
-        //document.getElementById('cantidad-sucursal-destino').innerHTML = ;
-        
-
-
-    
-    }
 
     /*function actualizarCantidad(){
         console.log('modificando cantidad');
