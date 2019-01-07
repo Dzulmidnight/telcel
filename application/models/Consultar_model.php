@@ -88,6 +88,7 @@ class Consultar_model extends CI_Model{
                 $this->db->select('
                         sucursal.id_sucursal,
                         sucursal.nombre,
+                        sucursal_producto.id_sucursal_producto,
                         sucursal_producto.piezas
 
                 ');

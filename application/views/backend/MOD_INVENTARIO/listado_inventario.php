@@ -197,7 +197,7 @@
                                             <button class="btn btn-xs btn-default">
                                                 <i class="si si-settings"></i>
                                             </button>
-                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar articulo"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
                                             <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar()"><i class="fa fa-times"></i></button>
                                         </div>
                                     </td>
@@ -247,8 +247,9 @@
                                             </p>
                                             <p>
                                                 Cantidad actual: <span id="spanCantidadActual" class="text-primary">14</span>
-                                                <input type="hidden" id="cantidad_actual" value="14">
+                                                <input type="hidden" id="cantidad_actual" value="">
                                             </p>
+
                                         </div>
                                     </div>
                                 </div>
@@ -523,10 +524,72 @@
 <!-- END Modal registrar producto -->
 
 
+
+<!-- Modal Editar Producto -->
+<div class="modal fade" id="modal-editar-articulo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-popout">
+        <div class="modal-content" style="padding:30px;">
+            <?php 
+            $atributos = array('class="form-horizontal push-10-t block-content"');
+            echo form_open_multipart('backend/MOD_INVENTARIO/inventario/agregar'); 
+            ?>
+
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Editar articulo</h3>
+                    </div>
+                    <div class="block-content" style="margin-bottom: 4em;">
+                        <div class="row text-justify">
+                            <div class="col-md-6">
+                                <label for="precio_publico">Precio Publico</label>
+                                <input type="text" class="form-control" id="precio_publico" name="precio_publico">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="precio_proveedor">Precio Proveedor</label>
+                                <input type="text" class="form-control" id="precio_proveedor" name="precio_proveedor">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="marca">Marca</label>
+                                <input type="text" class="form-control" id="marca" name="marca">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="marca">Modelo</label>
+                                <input type="text" class="form-control" id="marca" name="marca">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="capacidad">Capacidad</label>
+                                <input type="text" class="form-control" id="capacidad" name="capacidad">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- END Modal Editar Producto -->
+
+
 <!-- Modal actualizar cantidad -->
 <div class="modal fade" id="modal-actualizar-cantidad" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-popout">
-        <?= form_open_multipart('backend/MOD_INVENTARIO/inventario/actualizar'); ?>
+        <?php 
+            $attributes = array('id' => 'id_formulario_inventario');
+            echo form_open_multipart('backend/MOD_INVENTARIO/inventario/actualizar', $attributes);
+         ?>
             <div class="modal-content">
                 <div class="block block-themed block-transparent remove-margin-b">
                     <div class="block-header bg-primary-dark">
@@ -563,7 +626,7 @@
                                                         <label for="id_sucursal">
                                                             Asignar a sucursal
                                                         </label>
-                                                        <select class="form-control" name="id_sucursal" id="id_sucursal">
+                                                        <select class="form-control" onchange="sucursalOrigen('<?= base_url(); ?>', 'si');" name="id_sucursal" id="id_sucursal">
                                                             <option value="">...</option>
                                                             <?php foreach($row_sucursales as $sucursal): ?>
                                                                 <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
@@ -575,7 +638,7 @@
                                                             <label for="num_piezas_nuevas">
                                                                 Nº de piezas nuevas
                                                             </label>
-                                                            <input type="number" class="form-control" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" value="" required onkeyup="actualizarPiezas(this.value);">
+                                                            <input type="number" class="form-control" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" value=""  onkeyup="actualizarPiezas(this.value);">
                                                             <!--<input class="form-control" type="number" min="1" id="num_piezas_nuevas" name="num_piezas_nuevas" placeholder="" value="" required onkeyup="actualizarPiezas(this.value)">
                                                             <label for="num_piezas_nuevas">Nº de piezas nuevas *</label>
                                                             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>-->
@@ -611,10 +674,25 @@
                                                         <p>
                                                             Producto: <span id="spanProductoActualizar" class="text-primary"></span>
                                                         </p>
-                                                        <p>
-                                                            Cantidad actual: <span id="spanActualizarCantidad" class="text-primary"></span>
-                                                            <input type="text" id="cantidad_actual_actualizar" value="">
-                                                        </p>
+                                                        <div class="row">
+                                                            <div class="col-xs-6">
+                                                                <label for="spanActualizarCantidad">
+                                                                    Total
+                                                                </label>
+                                                                <input type="text" class="form-control" id="spanActualizarCantidad" name="spanActualizarCantidad" readonly="">
+
+                                                                <input type="hidden" id="cantidad_actual_actualizar" name="cantidad_actual_actualizar" value="">
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <label for="producto_en_sucursal">
+                                                                    En sucursal
+                                                                </label>
+                                                                <input class="form-control" type="text" id="producto_en_sucursal" name="producto_en_sucursal" placeholder="" readonly="">
+
+                                                                <input type="hidden" id="producto_en_sucursal_original" name="producto_en_sucursal_original" placeholder="">
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -632,7 +710,7 @@
                                                         <label for="id_sucursal">
                                                             Sucursal origen
                                                         </label>
-                                                        <select class="form-control" name="id_sucursal_origen" id="id_sucursal_origen" onchange="sucursalOrigen('<?= base_url(); ?>');">
+                                                        <select class="form-control" name="id_sucursal_origen" id="id_sucursal_origen" onchange="sucursalOrigen('<?= base_url(); ?>', 'no');">
                                                             <option value="">...</option>
                                                             <?php foreach($row_sucursales as $sucursal): ?>
                                                                 <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
@@ -644,9 +722,11 @@
                                                             <label for="piezas_sucursal_origen">
                                                                 Total de productos
                                                             </label>
-                                                            <input type="number" class="form-control" min="1" id="piezas_sucursal_origen" name="piezas_sucursal_origen" value="" required onkeyup="actualizarPiezas(this.value)" readonly="">
+                                                            <input type="number" class="form-control" min="1" id="piezas_sucursal_origen" name="piezas_sucursal_origen" value="" onkeyup="actualizarPiezas(this.value)" readonly="">
 
-                                                            <input type="text" id="total_piezas_origen" name="total_piezas_origen">
+                                                            <input type="hidden" id="total_piezas_origen" name="total_piezas_origen">
+
+                                                            <input type="hidden" id="id_sucursal_producto_origen" name="id_sucursal_producto_origen" placeholder="">
 
                                                     </div>
         
@@ -672,15 +752,18 @@
                                                             <label for="num_piezas_traspasar">
                                                                 Cantidad a traspasar
                                                             </label>
-                                                            <input type="number" class="form-control" min="1" id="num_piezas_traspasar" name="num_piezas_traspasar" value="" required onkeyup="actualizarCantidadTraspaso(this.value);">
+                                                            <input type="number" class="form-control" min="1" id="num_piezas_traspasar" name="num_piezas_traspasar" value="" onkeyup="actualizarCantidadTraspaso(this.value);">
                                                     </div>
                                                     <div class="col-sm-4">
-                                                        <b>Total</b>
-                                                        <br>
+                                                        <label for="nueva_cantidad_destino">
+                                                            Total
+                                                        </label>
                                                         <input type="text" class="form-control" id="nueva_cantidad_destino" name="nueva_cantidad_destino" readonly>
                                                         <b style="color: #2980b9; font-size:14px;" id="cantidad-sucursal-destino"></b>
-                                                        <input type="text" id="input_cantidad_sucursal_destino">
+                                                        <input type="hidden" id="input_cantidad_sucursal_destino">
+                                                        <input type="hidden" id="id_sucursal_producto_destino" name="id_sucursal_producto_destino" placeholder="">
                                                     </div>
+                                                    
                                                 </div>
                                             </div>
 
@@ -696,7 +779,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button id="btn_guardar" class="btn btn-sm btn-success" type="button">Actualizar cantidad</button>
+                    <button id="" class="btn btn-sm btn-success" type="submit">Actualizar cantidad</button>
                 </div>
             </div>
 

@@ -11,6 +11,16 @@ class Update_model extends CI_Model{
 
                 return true;
         }
+        public function updateCompuesto($tabla = false, $parametros, $data){
+                $this->db->where($parametros);
+                $this->db->update($tabla, $data);
+
+                return true;
+        }
+
+
+
+
 
         
 }

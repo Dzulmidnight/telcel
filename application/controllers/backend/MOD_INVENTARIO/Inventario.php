@@ -215,4 +215,76 @@ class Inventario extends CI_Controller{
 			$this->load->view('backend/MOD_INVENTARIO/listado_inventario', $data);
 		$this->load->view('backend/template/footer');
 	}
+
+	public function actualizar()
+	{
+		if(empty($this->input->post('num_piezas_nuevas'))){
+			$id_producto = $this->input->post('id_producto_actualizar');
+			$sucursal_origen = $this->input->post('id_sucursal_origen');
+			$sucursal_destino = $this->input->post('id_sucursal_destino');
+			$productos_origen = $this->input->post('piezas_sucursal_origen');
+			$productos_destino = $this->input->post('nueva_cantidad_destino');
+			$id_sucursal_producto_destino = $this->input->post('id_sucursal_producto_destino');
+			$id_sucursal_producto_origen = $this->input->post('id_sucursal_producto_origen');
+
+			/*echo '<br>suc_origen '.$sucursal_origen;
+			echo '<br>produc_origen: '.$productos_origen;
+			echo '<br>id_sucursal_producto_origen '.$id_sucursal_producto_origen;
+			echo '<br>suc_destino '.$sucursal_destino;
+			echo '<br>produc_destino '.$productos_destino;
+			echo '<br>id_sucursal_producto_destino: '.$id_sucursal_producto_destino;*/
+			/// update sucursal_origen
+			$data = array(
+				'piezas' => $productos_origen,
+				'fecha_actualizacion' => time()
+			);
+
+			$this->update_model->update('sucursal_producto', 'id_sucursal_producto', $id_sucursal_producto_origen, $data);
+
+			/// update sucursal_destino
+			$data = array(
+				'piezas' => $productos_destino,
+				'fecha_actualizacion' => time()
+			);
+
+			$this->update_model->update('sucursal_producto', 'id_sucursal_producto', $id_sucursal_producto_destino, $data);
+		}else{
+
+			$total_piezas = $this->input->post('spanActualizarCantidad');
+			$id_producto = $this->input->post('id_producto_actualizar');
+			$id_sucursal = $this->input->post('id_sucursal');
+			$piezas_sucursal = $this->input->post('producto_en_sucursal');
+
+
+			/*echo '<br>suc_origen '.$sucursal_origen;
+			echo '<br>produc_origen: '.$productos_origen;
+			echo '<br>id_sucursal_producto_origen '.$id_sucursal_producto_origen;
+			echo '<br>suc_destino '.$sucursal_destino;
+			echo '<br>produc_destino '.$productos_destino;
+			echo '<br>id_sucursal_producto_destino: '.$id_sucursal_producto_destino;*/
+			/// update sucursal_origen
+			$data = array(
+				'piezas' => $total_piezas,
+				'fecha_actualizacion' => time()
+			);
+			$this->update_model->update('producto', 'id_producto', $id_producto, $data);
+
+			$data = array(
+				'piezas' => $piezas_sucursal,
+				'fecha_actualizacion' => time()
+			);
+
+			$parametros = array(
+				'fk_id_sucursal' => $id_sucursal,
+				'fk_id_producto' => $id_producto
+			);
+
+			$this->update_model->updateCompuesto('sucursal_producto', $parametros, $data);
+
+
+		}
+
+
+		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
+	}
 }

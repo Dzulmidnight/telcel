@@ -620,9 +620,13 @@ function editarProveedor(id){
 
 
 }
+function editarArticulo(){
+    $('#modal-editar-articulo').modal('show');
+}
 
 function actualizarCantidad(codigo, url){
     $('#modal-actualizar-cantidad').modal('show');
+    $('#id_formulario_inventario')[0].reset();
     var ruta, objetoJson;
     var xmlhttp = new XMLHttpRequest();
 
@@ -639,8 +643,11 @@ function actualizarCantidad(codigo, url){
             document.getElementById('spanTipoArticulo').innerHTML = respuesta.nombre_categoria_producto;
             document.getElementById('spanArticulo').innerHTML = respuesta.nombre_sub_producto;
             document.getElementById('spanProductoActualizar').innerHTML = respuesta.nombre;
-            document.getElementById('spanActualizarCantidad').innerHTML = respuesta.piezas;
+            document.getElementById('spanActualizarCantidad').value = respuesta.piezas;
             document.getElementById('cantidad_actual_actualizar').value = respuesta.piezas;
+            document.getElementById('precio_publico_actualizar').value = respuesta.precio_publico;
+            document.getElementById('precio_interno_actualizar').value = respuesta.precio_interno;
+
         }
     }
     xmlhttp.open("POST", ruta, true);
@@ -668,7 +675,7 @@ function consultarCantidad(codigo, url){
             document.getElementById('spanTipoArticulo').innerHTML = respuesta.nombre_categoria_producto;
             document.getElementById('spanArticulo').innerHTML = respuesta.nombre_sub_producto;
             document.getElementById('spanProductoActualizar').innerHTML = respuesta.nombre;
-            document.getElementById('spanActualizarCantidad').innerHTML = respuesta.piezas;
+            document.getElementById('spanActualizarCantidad').value = respuesta.piezas;
             document.getElementById('cantidad_actual_actualizar').value = respuesta.piezas;
         }
     }
@@ -680,12 +687,17 @@ function consultarCantidad(codigo, url){
 }
 
 
-function sucursalOrigen(url){
+function sucursalOrigen(url, nuevo){
     var idProducto, idSucursal, objetoJson;
 
     ruta = url+'backend/MOD_SUCURSALES/sucursales/consultar'
     idProducto = document.getElementById('id_producto_actualizar').value;
-    idSucursal = document.getElementById('id_sucursal_origen').value;
+    if(nuevo == 'si'){
+        idSucursal = document.getElementById('id_sucursal').value;
+    }else{
+        idSucursal = document.getElementById('id_sucursal_origen').value;
+    }
+    
     objetoJson = JSON.stringify(idProducto);
     jsonIdSucursal = JSON.stringify(idSucursal);
 
@@ -698,10 +710,18 @@ function sucursalOrigen(url){
         if(this.readyState == 4 && this.status == 200){
             var respuesta = JSON.parse(this.responseText);
 
-            document.getElementById('piezas_sucursal_origen').value = respuesta.piezas;
-            document.getElementById('total_piezas_origen').value = respuesta.piezas;
-            console.log(respuesta.piezas);
-            console.log(respuesta);
+            if(nuevo == 'si'){
+                document.getElementById('producto_en_sucursal_original').value = respuesta.piezas;
+                document.getElementById('producto_en_sucursal').value = respuesta.piezas;
+                //document.getElementById('total_piezas_origen').value = respuesta.piezas;
+                document.getElementById('id_sucursal_producto_origen').value = respuesta.id_sucursal_producto;
+            }else{
+                document.getElementById('piezas_sucursal_origen').value = respuesta.piezas;
+                document.getElementById('total_piezas_origen').value = respuesta.piezas;
+                document.getElementById('id_sucursal_producto_origen').value = respuesta.id_sucursal_producto;
+                console.log(respuesta.piezas);
+                console.log(respuesta);
+            }
         }
     }
 
@@ -732,6 +752,7 @@ function sucursalDestino(url){
             //document.getElementById('piezas_sucursal_origen').value = respuesta.piezas;
             document.getElementById('nueva_cantidad_destino').value = respuesta.piezas;
             document.getElementById('input_cantidad_sucursal_destino').value = respuesta.piezas;
+            document.getElementById('id_sucursal_producto_destino').value = respuesta.id_sucursal_producto;
             console.log(respuesta.piezas);
             console.log(respuesta);
         }
@@ -747,15 +768,20 @@ function sucursalDestino(url){
 
 
     function actualizarPiezas(valor){
+        console.log('actualizarPiezas');
         var cantidadActual = document.getElementById('cantidad_actual_actualizar').value;
+        var cantidadActualSucursal = document.getElementById('producto_en_sucursal_original').value;
         if(valor == ''){
             valor = 0;
         }
         var nuevaCantidad = valor;
         var suma = parseInt(cantidadActual) + parseInt(nuevaCantidad);
-        document.getElementById('spanActualizarCantidad').innerHTML = suma;
+        var suma2 = parseInt(cantidadActualSucursal) + parseInt(nuevaCantidad);
+        document.getElementById('spanActualizarCantidad').value = suma;
+        document.getElementById('producto_en_sucursal').value = suma2;
     }
     function actualizarCantidadTraspaso(){
+        console.log('actualizarCantidadTraspaso');
         var totalOrigen, cantidadOrigen, cantidadTraspaso, cantidadEnDestino, resta, total;
 
 
