@@ -60,14 +60,16 @@
                         <div class="block-header">
                             <ul class="block-options">
                                 <li>
-                                    <button type="button" onclick="consultaAjax('/listar/usuarios/','<?= $usuario->id_usuario ?>')">
+                                    <button type="button" onclick="consultaAjax('/listar/users/','<?= $usuario->id ?>')">
                                         <i class="si si-pencil"></i>
                                     </button>
                                 </li>
                                 <li>
-                                    <form id="frm_eliminar_usuario" style="display:inline" action="<?= base_url(); ?>/backend/MOD_PERSONAL/personal/eliminar/<?= $usuario->id_usuario?>">
+                                    <!--<form id="frm_eliminar_usuario" style="display:inline" action="<?= base_url(); ?>/backend/MOD_PERSONAL/personal/eliminar/<?= $usuario->id?>">
                                         <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar usuario" onclick="eliminarDatos('frm_eliminar_usuario');"><i class="si si-trash"></i></button>
-                                    </form>
+                                    </form>-->
+                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar usuario" onclick="eliminar_informacion('id_personal',<?= $usuario->id; ?>, 'frm_eliminar_personal');"><i class="si si-trash"></i></button>
+                                    
                                 </li>
                             </ul>
                             <div class="block-title"><?= $usuario->nombre.' '.$usuario->ap_paterno ?></div>
@@ -100,6 +102,12 @@
                 </div>
 
             <?php endforeach; ?>
+
+            <div id="div_eliminar_personal">
+                <form id="frm_eliminar_personal" action="<?= base_url(); ?>/backend/General/eliminar/users/id_personal/id" method="POST">
+                    <input type="text" id="id_personal" name="id_personal">
+                </form>
+            </div>
         </div>
     </div>
 
@@ -137,11 +145,21 @@
                                 <div class="form-material">
                                     <select class="form-control" id="id_sucursal" name="id_sucursal" size="1" style="margin-top: 1.5em;">
                                         <option>...</option>
-                                        <option value="1">Sucursal #1</option>
-                                        <option value="2">Sucursal #2</option>
-                                        <option value="3">Sucursal #3</option>
+                                        <?php foreach($row_sucursales as $sucursal): ?>
+                                            <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <label for="id_sucursal">Asignar sucursal</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-material">
+                                    <select class="form-control" id="perfil" name="perfil" size="1" style="margin-top: 1.5em;">
+                                        <option>Lista de perfiles</option>
+                                        <option value="administrador">Administrador</option>
+                                        <option value="usuario">Usuario</option>
+                                    </select>
+                                    <label for="perfil">Perfil de usuario</label>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -156,8 +174,8 @@
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="usuario" name="usuario" value="">
-                                    <label for="usuario">Usuario</label>
+                                    <input class="form-control" type="text" id="username" name="username" value="">
+                                    <label for="username">Usuario</label>
                                     <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
                                 </div>
                             </div>

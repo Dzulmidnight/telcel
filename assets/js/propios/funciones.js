@@ -2,6 +2,29 @@ var base_url = window.location.href;
 
 
 
+function eliminar_informacion(nombre_id, valor_id, frm){
+    document.getElementById(nombre_id).value = valor_id;
+    
+    swal({
+        title: "Eliminar",
+        text: "¿Desear eliminar la información?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            swal("La información ha sido eliminada", {
+              icon: "success",
+            });
+                document.getElementById(frm).submit();
+        } /*else {
+            swal("Your imaginary file is safe!");
+        }*/
+    });
+}
+
+
 function generarCodigo(){
     JSBarcode('#barcode', '23423423434');
 }

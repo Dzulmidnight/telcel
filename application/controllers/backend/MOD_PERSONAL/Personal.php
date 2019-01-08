@@ -13,8 +13,8 @@ class Personal extends CI_Controller{
 
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
 		$data['num_resultados'] = $this->count_model->count('usuarios');
-		$data['row_usuarios'] = $this->consultar_model->listado('usuarios');
-
+		$data['row_usuarios'] = $this->consultar_model->listado('users');
+		$data['row_sucursales'] = $this->consultar_model->sucursales();
 
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
@@ -75,7 +75,7 @@ class Personal extends CI_Controller{
 			$data[$nombre] = $valor;
 		}
 
-		$this->add_model->insertar($data, 'usuarios');
+		$this->add_model->insertar($data, 'users');
 
 	}
 
@@ -95,7 +95,7 @@ class Personal extends CI_Controller{
 		}
 
 		if($this->add_model->actualizar($data, 'usuarios', $id)){
-			echo json_encode($data['row_usuarios'] = $this->consultar_model->listado('usuarios'));
+			echo json_encode($data['row_usuarios'] = $this->consultar_model->listado('users'));
 		}else{
 			echo 0;
 		}

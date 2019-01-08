@@ -288,7 +288,7 @@
         $('#modal-servicios').modal('show');
     }
 
-    function eliminar(id){
+    function eliminar(id, frm){
         document.getElementById('id_eliminar').value = id;
         
         swal({
@@ -303,7 +303,7 @@
                 swal("La información ha sido eliminada", {
                   icon: "success",
                 });
-                    document.getElementById('frm_eliminar_articulo').submit();
+                    document.getElementById(frm).submit();
             } /*else {
                 swal("Your imaginary file is safe!");
             }*/
