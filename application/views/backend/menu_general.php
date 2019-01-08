@@ -31,7 +31,9 @@
                 </a>
             </div>
             <div class="col-xs-6 col-sm-4 col-lg-4">
-                <a class="block block-link-hover2 text-center" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario'); ?>">
+                <!--<a class="block block-link-hover2 text-center" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario'); ?>">-->
+
+                <a class="block block-link-hover2 text-center" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>">
                     <div class="block-content block-content-full bg-amethyst">
                         <i class="si si-tag fa-4x text-white"></i>
                         <div class="font-w600 text-white-op push-15-t">Inventario</div>

@@ -8,6 +8,7 @@ class Inventario extends CI_Controller{
 		$this->load->model('count_model');
 		$this->load->model('consultar_model');
 		$this->load->model('update_model');
+		$this->load->model('eliminar_model');
 	}
 
 
@@ -285,6 +286,37 @@ class Inventario extends CI_Controller{
 		}
 
 
+		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
+	}
+
+	public function editar()
+	{
+		$id_producto = $this->input->post('edit_id_producto');
+
+		$data = array(
+			'precio_publico' => $this->input->post('edit_precio_publico'),
+			'precio_interno' => $this->input->post('edit_precio_proveedor'),
+			'nombre' => $this->input->post('edit_nombre'),
+			'marca' => $this->input->post('edit_marca'),
+			'modelo' => $this->input->post('edit_modelo'),
+			'capacidad' => $this->input->post('edit_capacidad'),
+			'fecha_actualizacion' => time()
+		);
+		
+		if($this->update_model->update('producto', 'id_producto', $id_producto, $data)){
+			$this->session->set_flashdata('success', "Información editada");
+		}
+
+		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
+	}
+
+	public function eliminar()
+	{
+		$id = $this->input->post('id_eliminar');
+		
+		if($this->eliminar_model->eliminar('producto', 'id_producto', $id)){
+			$this->session->set_flashdata('error', "Información eliminada");
+		}
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}
 }

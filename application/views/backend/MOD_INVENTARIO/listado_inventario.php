@@ -191,20 +191,25 @@
                                     <td>
                                         <?= date('d/m/Y', $producto->fecha_registro); ?>
                                     </td>
-                                    <!-- Acciones -->
+                                    <!-- Acciones -->                                    
                                     <td class="text-center">
                                         <div class="btn-group">
                                             <button class="btn btn-xs btn-default">
                                                 <i class="si si-settings"></i>
                                             </button>
-                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar()"><i class="fa fa-times"></i></button>
+                                            <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar(<?= $producto->id_producto; ?>);"><i class="fa fa-times"></i></button>
                                         </div>
                                     </td>
+
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+
+                    <form id="frm_eliminar_articulo" action="<?= base_url(); ?>/backend/MOD_INVENTARIO/inventario/eliminar" method="POST">
+                        <input type="hidden" id="id_eliminar" name="id_eliminar" placeholder="id que se va a eliminar">
+                    </form>
                 </div>
             </div>
 
@@ -531,7 +536,7 @@
         <div class="modal-content" style="padding:30px;">
             <?php 
             $atributos = array('class="form-horizontal push-10-t block-content"');
-            echo form_open_multipart('backend/MOD_INVENTARIO/inventario/agregar'); 
+            echo form_open_multipart('backend/MOD_INVENTARIO/inventario/editar'); 
             ?>
 
                 <div class="block block-themed block-transparent remove-margin-b">
@@ -546,34 +551,49 @@
                     <div class="block-content" style="margin-bottom: 4em;">
                         <div class="row text-justify">
                             <div class="col-md-6">
-                                <label for="precio_publico">Precio Publico</label>
-                                <input type="text" class="form-control" id="precio_publico" name="precio_publico">
+                                <img id="edit_img_actual" width="80px;" height="80px;" src="" alt="">
                             </div>
                             <div class="col-md-6">
-                                <label for="precio_proveedor">Precio Proveedor</label>
-                                <input type="text" class="form-control" id="precio_proveedor" name="precio_proveedor">
+                                <label for="img_nueva">Reemplazar Img</label>
+                                <input type="file" class="form-control" id="img_nueva" name="img_nueva">
+                            </div> 
+                            <div class="col-md-12">
+                                <hr>
                             </div>
                             <div class="col-md-6">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre">
+                                <label for="edit_precio_publico">Precio Publico</label>
+                                <input type="text" class="form-control" id="edit_precio_publico" name="edit_precio_publico">
                             </div>
                             <div class="col-md-6">
-                                <label for="marca">Marca</label>
-                                <input type="text" class="form-control" id="marca" name="marca">
+                                <label for="edit_precio_proveedor">Precio Proveedor</label>
+                                <input type="text" class="form-control" id="edit_precio_proveedor" name="edit_precio_proveedor">
                             </div>
                             <div class="col-md-6">
-                                <label for="marca">Modelo</label>
-                                <input type="text" class="form-control" id="marca" name="marca">
+                                <label for="edit_nombre">Nombre</label>
+                                <input type="text" class="form-control" id="edit_nombre" name="edit_nombre">
                             </div>
                             <div class="col-md-6">
-                                <label for="capacidad">Capacidad</label>
-                                <input type="text" class="form-control" id="capacidad" name="capacidad">
+                                <label for="edit_marca">Marca</label>
+                                <input type="text" class="form-control" id="edit_marca" name="edit_marca">
                             </div>
+                            <div class="col-md-6">
+                                <label for="edit_modelo">Modelo</label>
+                                <input type="text" class="form-control" id="edit_modelo" name="edit_modelo">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_capacidad">Capacidad</label>
+                                <input type="text" class="form-control" id="edit_capacidad" name="edit_capacidad">
+                            </div>
+
+                            <input type="hidden" id="edit_id_producto" name="edit_id_producto">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-success" type="submit">
+                        Actualizar
+                    </button>
                 </div>
             </form>
 

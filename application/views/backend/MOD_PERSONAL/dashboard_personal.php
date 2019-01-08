@@ -36,9 +36,9 @@
     <div class="col-xs-3" style="margin-bottom:1em;">
         <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width: 100%;" data-placeholder="Filtrar por sucursales" multiple>
             <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-            <option value="1">Sucursal 1</option>
-            <option value="2">Sucursal 2</option>
-            <option value="3">Sucursal 3</option>
+            <?php foreach($row_sucursales as $sucursal): ?>
+                <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
 

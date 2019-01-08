@@ -620,8 +620,46 @@ function editarProveedor(id){
 
 
 }
-function editarArticulo(){
+function editarArticulo(id, url){
     $('#modal-editar-articulo').modal('show');
+
+    var ruta, objetoJson;
+    var xmlhttp = new XMLHttpRequest();
+
+    ruta = url+'backend/MOD_INVENTARIO/inventario/consultar';
+    objetoJson = JSON.stringify(id);
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            var respuesta = JSON.parse(this.responseText);
+
+            document.getElementById('edit_img_actual').src = url+respuesta.imagen;
+            document.getElementById('edit_id_producto').value = respuesta.id_producto;
+            document.getElementById('edit_precio_publico').value = respuesta.precio_publico;
+            document.getElementById('edit_precio_proveedor').value = respuesta.precio_interno;
+            document.getElementById('edit_nombre').value = respuesta.nombre;
+            document.getElementById('edit_marca').value = respuesta.marca;
+            document.getElementById('edit_modelo').value = respuesta.modelo;
+            document.getElementById('edit_capacidad').value = respuesta.capacidad;
+            /*
+            console.log(respuesta.marca);
+            document.getElementById('id_producto_actualizar').value = respuesta.id_producto;
+            document.getElementById('spanTipoArticulo').innerHTML = respuesta.nombre_categoria_producto;
+            document.getElementById('spanArticulo').innerHTML = respuesta.nombre_sub_producto;
+            document.getElementById('spanProductoActualizar').innerHTML = respuesta.nombre;
+            document.getElementById('spanActualizarCantidad').value = respuesta.piezas;
+            document.getElementById('cantidad_actual_actualizar').value = respuesta.piezas;
+            document.getElementById('precio_publico_actualizar').value = respuesta.precio_publico;
+            document.getElementById('precio_interno_actualizar').value = respuesta.precio_interno;*/
+
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("codigo="+objetoJson);
+
+
 }
 
 function actualizarCantidad(codigo, url){
