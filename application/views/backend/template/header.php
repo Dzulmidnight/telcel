@@ -9,7 +9,7 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-right">
-                    <li class="dropdown-header">Perfil: <?= $this->session->userdata('username')?> </li>
+                    <li class="dropdown-header">Perfil: <?= $this->session->userdata('username'); ?> </li>
                     <!--<li>
                         <a tabindex="-1" href="base_pages_inbox.html">
                             <i class="si si-envelope-open pull-right"></i>
@@ -91,3 +91,23 @@
 
 <!-- Main Container -->
 <main id="main-container">
+
+<?php 
+    if($this->session->flashdata('success')){
+        $mensaje = $this->session->flashdata('success');
+    ?>
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
+        </div>
+    <?php
+    }else if($this->session->flashdata('error')){
+        $mensaje = $this->session->flashdata('error');
+    ?>
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
+        </div>
+<?php
+    }
+     ?>

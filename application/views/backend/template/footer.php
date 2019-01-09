@@ -288,8 +288,8 @@
         $('#modal-servicios').modal('show');
     }
 
-    function eliminar(id, frm){
-        document.getElementById('id_eliminar').value = id;
+    function eliminar(nombreCampoId, id, frm){
+        document.getElementById(nombreCampoId).value = id;
         
         swal({
             title: "Eliminar",
@@ -303,7 +303,8 @@
                 swal("La información ha sido eliminada", {
                   icon: "success",
                 });
-                    document.getElementById(frm).submit();
+                console.log(frm);
+                document.getElementById(frm).submit();
             } /*else {
                 swal("Your imaginary file is safe!");
             }*/

@@ -12,7 +12,7 @@ class Personal extends CI_Controller{
 	{
 
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
-		$data['num_resultados'] = $this->count_model->count('usuarios');
+		$data['num_resultados'] = $this->count_model->count('users');
 		$data['row_usuarios'] = $this->consultar_model->listado('users');
 		$data['row_sucursales'] = $this->consultar_model->sucursales();
 
@@ -82,19 +82,19 @@ class Personal extends CI_Controller{
 	public function actualizar()
 	{
 		header("Content-Type: application/json; charset=UTF-8");
-
+		$id_nombre = 'id_user';
 		$id = '';
 		$objeto = json_decode($_POST["x"], false);
 
 		foreach ($objeto as $value) {
 			list($nombre, $valor) = explode(" : ", $value);
 			$data[$nombre] = $valor;
-			if($nombre == 'id_usuario'){
+			if($nombre == 'id_user'){
 				$id = $valor;
 			}
 		}
 
-		if($this->add_model->actualizar($data, 'usuarios', $id)){
+		if($this->add_model->actualizar($data, 'users', $id_nombre, $id)){
 			echo json_encode($data['row_usuarios'] = $this->consultar_model->listado('users'));
 		}else{
 			echo 0;
@@ -105,7 +105,7 @@ class Personal extends CI_Controller{
 	public function eliminar($id)
 	{
 		$this->load->model('eliminar_model');
-		$this->eliminar_model->eliminar('usuarios', 'id_usuario', $id);
+		$this->eliminar_model->eliminar('users', 'id_user', $id);
 
 		redirect('backend/MOD_PERSONAL/personal', 'refresh');
 	}

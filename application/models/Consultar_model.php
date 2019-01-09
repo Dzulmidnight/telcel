@@ -10,7 +10,7 @@ class Consultar_model extends CI_Model{
                 $this->db->select('*');
                 $this->db->from($tabla);
                 if($id != false){
-                        $this->db->where('usuarios.id_usuario', $id);
+                        $this->db->where('users.id_user', $id);
                 }
                 $query = $this->db->get();
                 $result = $query->result();
@@ -36,6 +36,29 @@ class Consultar_model extends CI_Model{
 
                 return $result;
         }
+        //// CLIENTES ////
+        public function clientes()
+        {
+                $this->db->select('*');
+                $this->db->from('clientes');
+                $query = $this->db->get();
+                $result = $query->result();
+
+                return $result;
+        }
+        public function detalle_cliente($id = false){
+                $this->db->select('*');
+                $this->db->from('clientes');
+                $this->db->where('clientes.id_cliente', $id);
+                //$this->db->like('producto.codigo_barras', $codigo);
+
+                $query = $this->db->get();
+                $result = $query->row();
+
+                return $result;
+        }
+
+        //// END CLIENTES ////
 
         public function categoriaProductos()
         {
@@ -106,7 +129,7 @@ class Consultar_model extends CI_Model{
                 return $result;
         }
 
-
+        //// PRODUCTOS ////
         public function productos($id = false, $id_sucursal = false){
                 $this->db->select('producto.*,
                         sub_categoria_producto.nombre as nombre_sub_producto,
@@ -142,6 +165,7 @@ class Consultar_model extends CI_Model{
 
                 return $result;
         }
+        //// END PRODUCTOS ////
 
 
 }

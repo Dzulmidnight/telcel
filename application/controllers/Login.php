@@ -6,10 +6,10 @@ class Login extends CI_Controller
     public function __construct()
     {
         parent::__construct();
- $this->load->model('login_model');
- $this->load->library(array('session','form_validation'));
- $this->load->helper(array('url','form'));
- $this->load->database('default');
+		$this->load->model('login_model');
+		$this->load->library(array('session','form_validation'));
+		$this->load->helper(array('url','form'));
+		$this->load->database('default');
     }
 	
 	public function index()
@@ -61,9 +61,10 @@ class Login extends CI_Controller
 				{
 					$data = array(
 	                'is_logued_in' 	=> 		TRUE,
-	                'id_usuario' 	=> 		$check_user->id,
+	                'id_usuario' 	=> 		$check_user->id_user,
 	                'perfil'		=>		$check_user->perfil,
-	                'username' 		=> 		$check_user->username
+	                'username' 		=> 		$check_user->username,
+	                'id_sucursal'	=>		$check_user->id_sucursal
 	        		);		
 					$this->session->set_userdata($data);
 					$this->index();

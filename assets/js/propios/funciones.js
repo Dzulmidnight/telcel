@@ -1,7 +1,6 @@
 var base_url = window.location.href;
 
 
-
 function eliminar_informacion(nombre_id, valor_id, frm){
     document.getElementById(nombre_id).value = valor_id;
     
@@ -17,13 +16,49 @@ function eliminar_informacion(nombre_id, valor_id, frm){
             swal("La información ha sido eliminada", {
               icon: "success",
             });
-                document.getElementById(frm).submit();
+            document.getElementById(frm).submit();
         } /*else {
             swal("Your imaginary file is safe!");
         }*/
     });
 }
+ function editarCliente(ruta, id){
+    console.log(ruta);
+    console.log(id);
 
+    var parametros = '', ruta = ruta+id;
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            //console.log(this.responseText);
+
+            var objetoJson = JSON.parse(this.responseText);
+      
+
+            console.log(objetoJson);
+
+            document.getElementById('edit_nombre').value = objetoJson.nombre;
+            document.getElementById('edit_telefono').value = objetoJson.telefono;
+            document.getElementById('edit_ap_paterno').value = objetoJson.ap_paterno;
+            document.getElementById('edit_ap_materno').value = objetoJson.ap_materno;
+            document.getElementById('edit_email').value = objetoJson.email;
+            document.getElementById('edit_informacion_extra').value = objetoJson.informacion_extra;
+            document.getElementById('id_cliente').value = objetoJson.id_cliente;
+            /*document.getElementById('editar_nombre_contacto').value = objetoJson[0].ap_paterno;
+            document.getElementById('editar_ap_paterno').value = objetoJson[0].ap_materno;
+            document.getElementById('editar_ap_materno').value = objetoJson[0].telefono;
+            document.getElementById('editar_telefono_contacto').value = objetoJson[0].email;
+            document.getElementById('editar_email_contacto').value = objetoJson[0].id_usuario;*/
+
+           
+
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=" + parametros);
+ }
 
 function generarCodigo(){
     JSBarcode('#barcode', '23423423434');
@@ -315,18 +350,12 @@ function actualizarAjax(frm, direccion, cFunction)
     }
 
     var objetoJson = JSON.stringify(datos);
-
+    console.log(objetoJson);
 
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200){
-/*
-            if(cFunction !== ''){
-                cFunction(JSON.parse(this.responseText));
-            }else{
-                JSON.parse(this.responseText);
-            }
-*/
+
             console.log(this.responseText);
 
             if(this.responseText != 0){
@@ -334,8 +363,8 @@ function actualizarAjax(frm, direccion, cFunction)
                 cFunction(JSON.parse(this.responseText));
     
                 console.log(this.responseText);
-                $('#modal-editar-personal').modal('toggle');
-                $('.modal-backdrop').remove();
+                $('#modal-editar-personal2').modal('toggle');
+                //$('.modal-backdrop').remove();
 
                 document.getElementById(frm).reset();
 
@@ -343,22 +372,29 @@ function actualizarAjax(frm, direccion, cFunction)
                     text: "Actualizado corectamente",
                     icon: "success",
                     buttons: true,
+                })
+                .then((value) => {
+                    swal('The returned value is: ${value}');
                 });
+
 
 
             }else{
                 console.log('FALSE');
             }
             console.log(this.responseText);
-            $('#modal-editar-personal').modal('toggle');
-            $('.modal-backdrop').remove();
 
-            document.getElementById(frm).reset();
+            //$('.modal-backdrop').remove();
 
             swal({
                 text: "Registrado corectamente",
                 icon: "success",
                 buttons: true,
+            })
+            .then((value) => {
+                $('#modal-editar-personal2').modal('toggle');
+                document.getElementById(frm).reset();
+                console.log('se deberia cerrar');
             });
         }
     }
@@ -385,16 +421,16 @@ function consultaAjax(ruta, id){
       
 
             document.getElementById('editar_sucursal').value = objetoJson[0].id_sucursal;
-            document.getElementById('editar_usuario').value = objetoJson[0].usuario;
+            document.getElementById('editar_usuario').value = objetoJson[0].username;
             document.getElementById('editar_password').value = objetoJson[0].password;
             document.getElementById('editar_nombre').value = objetoJson[0].nombre;
             document.getElementById('editar_ap_paterno').value = objetoJson[0].ap_paterno;
             document.getElementById('editar_ap_materno').value = objetoJson[0].ap_materno;
             document.getElementById('editar_telefono').value = objetoJson[0].telefono;
             document.getElementById('editar_email').value = objetoJson[0].email;
-            document.getElementById('editar_id_usuario').value = objetoJson[0].id_usuario;
+            document.getElementById('editar_id_usuario').value = objetoJson[0].id_user;
 
-            $('#modal-editar-personal').modal('show');
+            $('#modal-editar-personal2').modal('show');
 
         }
     }

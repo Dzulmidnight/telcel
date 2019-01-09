@@ -60,15 +60,15 @@
                         <div class="block-header">
                             <ul class="block-options">
                                 <li>
-                                    <button type="button" onclick="consultaAjax('/listar/users/','<?= $usuario->id ?>')">
+                                    <button type="button" onclick="consultaAjax('/listar/users/','<?= $usuario->id_user ?>')">
                                         <i class="si si-pencil"></i>
                                     </button>
                                 </li>
                                 <li>
-                                    <!--<form id="frm_eliminar_usuario" style="display:inline" action="<?= base_url(); ?>/backend/MOD_PERSONAL/personal/eliminar/<?= $usuario->id?>">
+                                    <!--<form id="frm_eliminar_usuario" style="display:inline" action="<?= base_url(); ?>/backend/MOD_PERSONAL/personal/eliminar/<?= $usuario->id_user?>">
                                         <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar usuario" onclick="eliminarDatos('frm_eliminar_usuario');"><i class="si si-trash"></i></button>
                                     </form>-->
-                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar usuario" onclick="eliminar_informacion('id_personal',<?= $usuario->id; ?>, 'frm_eliminar_personal');"><i class="si si-trash"></i></button>
+                                    <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar usuario" onclick="eliminar_informacion('id_personal',<?= $usuario->id_user; ?>, 'frm_eliminar_personal');"><i class="si si-trash"></i></button>
                                     
                                 </li>
                             </ul>
@@ -104,8 +104,8 @@
             <?php endforeach; ?>
 
             <div id="div_eliminar_personal">
-                <form id="frm_eliminar_personal" action="<?= base_url(); ?>/backend/General/eliminar/users/id_personal/id" method="POST">
-                    <input type="text" id="id_personal" name="id_personal">
+                <form id="frm_eliminar_personal" action="<?= base_url(); ?>/backend/General/eliminar/users/id_personal/id_user" method="POST">
+                    <input type="hidden" id="id_personal" name="id_personal">
                 </form>
             </div>
         </div>
@@ -242,7 +242,7 @@
 <!-- END Nuevo Contacto -->
 
 <!-- Contact Edit Modal -->
-<div class="modal fade" id="modal-editar-personal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" id="modal-editar-personal2" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-popout">
         <div class="modal-content">
             <div class="block block-themed block-transparent remove-margin-b">
@@ -256,7 +256,7 @@
                 </div>
                 <div class="block-content">
                     <form id="frm-editar-personal" class="form-horizontal push-10-t push-10">
-                        <input type="hidden" id="editar_id_usuario" name="id_usuario" value="">
+                        <input type="text" id="editar_id_usuario" name="id_user" value="">
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="push">
@@ -272,9 +272,9 @@
                                 <div class="form-material">
                                     <select class="form-control" id="editar_sucursal" name="id_sucursal" size="1" style="margin-top: 1.5em;">
                                         <option>...</option>
-                                        <option value="1">Sucursal #1</option>
-                                        <option value="2">Sucursal #2</option>
-                                        <option value="3">Sucursal #3</option>
+                                        <?php foreach($row_sucursales as $sucursal): ?>
+                                            <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                     <label for="editar_sucursal">Asignar sucursal</label>
                                 </div>
@@ -291,7 +291,7 @@
                         <div class="form-group">
                             <div class="col-sm-6">
                                 <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_usuario" name="usuario" value="">
+                                    <input class="form-control" type="text" id="editar_usuario" name="username" value="">
                                     <label for="editar_usuario">Usuario</label>
                                     <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
                                 </div>
@@ -346,7 +346,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <input type="hidden" name="fecha_registro" value="<?= time() ?>">
+                                <input type="hidden" name="fecha_actualizacion" value="<?= time() ?>">
                                 <button id="btn-editar-personal" class="btn btn-sm btn-primary" type="button" onclick="actualizarAjax('frm-editar-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/actualizar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Actualizar usuario</button>
                             </div>
                         </div>
