@@ -39,8 +39,11 @@ class Consultar_model extends CI_Model{
         //// CLIENTES ////
         public function clientes()
         {
-                $this->db->select('*');
+                $this->db->select('clientes.*,
+                        sucursal.nombre as nombreSucursal'
+                );
                 $this->db->from('clientes');
+                $this->db->join('sucursal', 'sucursal.id_sucursal = clientes.id_sucursal', 'left');
                 $query = $this->db->get();
                 $result = $query->result();
 

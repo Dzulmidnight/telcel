@@ -21,7 +21,7 @@
         <div class="col-sm-5 text-right hidden-xs">
             <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-nuevo-proveedor">
                 <span data-toggle="tooltip" title="Agregar nuevo proveedor">
-                    <i class="fa fa-user-plus"></i> Nuevo
+                    <i class="fa fa-plus"></i> Nuevo
                 </span>
             </button>
             <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
@@ -39,26 +39,6 @@
         <div class="row">
             <!-- Listado de proveedores -->
             <div class="col-lg-12">
-                <?php 
-                if($this->session->flashdata('success')){
-                    $mensaje = $this->session->flashdata('success');
-                ?>
-                    <div class="alert alert-success alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
-                    </div>
-                <?php
-                }else if($this->session->flashdata('error')){
-                    $mensaje = $this->session->flashdata('error');
-                ?>
-                    <div class="alert alert-danger alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
-                    </div>
-                <?php
-                }
-                 ?>
-
                 <div class="block block-content">
                     <table class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
                         <thead>
@@ -116,15 +96,15 @@
                                     
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <a  class="btn btn-sm btn-primary" href="<?php echo base_url('backend/MOD_PROVEEDORES/Proveedores/detalle'); ?>" data-toggle="tooltip" title="Consultar perfil">
+                                            <a  class="disabled btn btn-sm btn-primary" href="<?php echo base_url('backend/MOD_PROVEEDORES/Proveedores/detalle'); ?>" data-toggle="tooltip" title="Consultar perfil">
                                                 <i class="glyphicon glyphicon-folder-open"></i>
                                             </a>
-                                            <button class="btn btn-sm btn-default" type="button" data-toggle="modal" data-target="#modal-editar-proveedor<?= $proveedor->id_proveedor ?>">
+                                            <button class="btn btn-sm btn-warning" type="button" data-toggle="modal" data-target="#modal-editar-proveedor<?= $proveedor->id_proveedor ?>">
                                                 <i class="fa fa-pencil" data-toggle="tooltip" title="Editar proveedor"></i>
                                             </button>
                           
                                             <form id="frm_eliminar_proveedor" style="display:inline" action="<?= base_url(); ?>/backend/MOD_PROVEEDORES/proveedores/eliminar/<?= $proveedor->id_proveedor?>">
-                                                <button class="btn btn-sm btn-default" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminarDatos('frm_eliminar_proveedor');"><i class="fa fa-times"></i></button>
+                                                <button class="btn btn-sm btn-danger" type="button" data-toggle="tooltip" title="Eliminar proveedor" onclick="eliminarDatos('frm_eliminar_proveedor');"><i class="fa fa-times"></i></button>
                                             </form>
                                         </div>
                                     </td>
@@ -150,43 +130,46 @@
                                                     <div class="block-content" style="margin-bottom: 4em;">
                                                         <div class="row text-justify">
                                                             <!-- Formulario de registro de usuario -->
-                                                            <h3 class="">
-                                                                Información Proveedor
-                                                            </h3>
-                                                            <hr>
+                                                            <div class="col-sm-12">
+                                                                <h3 class="">
+                                                                    Información Proveedor
+                                                                </h3>
+                                                                <hr>
+                                                            </div>
+
                                                             <div id="informacionProveedor">
-                                                            <div class="form-group">
-                                                                <div class="col-sm-6">
-                                                                    <div class="form-material form-material-primary input-group">
-                                                                        <input class="form-control" type="text" id="editar_nombre_proveedor" name="editar_nombre_proveedor" placeholder="" value="<?= $proveedor->nombre ?>" required>
-                                                                        <label for="editar_nombre_proveedor">Nombre proveedor *</label>
-                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-material form-material-primary input-group">
+                                                                            <input class="form-control" type="text" id="editar_nombre_proveedor" name="editar_nombre_proveedor" placeholder="" value="<?= $proveedor->nombre ?>" required>
+                                                                            <label for="editar_nombre_proveedor">Nombre proveedor *</label>
+                                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-material form-material-primary input-group">
+                                                                            <input class="form-control" type="text" id="editar_telefono_proveedor" name="editar_telefono_proveedor" placeholder="" value="<?= $proveedor->telefono ?>" required>
+                                                                            <label for="editar_telefono_proveedor">Nº Telefono *</label>
+                                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-sm-6">
-                                                                    <div class="form-material form-material-primary input-group">
-                                                                        <input class="form-control" type="text" id="editar_telefono_proveedor" name="editar_telefono_proveedor" placeholder="" value="<?= $proveedor->telefono ?>" required>
-                                                                        <label for="editar_telefono_proveedor">Nº Telefono *</label>
-                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                <div class="form-group">
+                                                                    <div class="col-xs-6">
+                                                                        <div class="form-material form-material-primary input-group">
+                                                                            <textarea class="form-control" id="editar_direccion" name="editar_direccion" rows="3" placeholder="Opcional"><?= $proveedor->direccion ?></textarea>
+                                                                            <label for="editar_direccion">Dirección</label>
+                                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-xs-6">
+                                                                        <div class="form-material form-material-primary input-group">
+                                                                            <textarea class="form-control" id="editar_informacion_extra" name="editar_informacion_extra" rows="3" placeholder="Opcional"><?= $proveedor->informacion_extra ?></textarea>
+                                                                            <label for="editar_informacion_extra">Información extra</label>
+                                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-xs-6">
-                                                                    <div class="form-material form-material-primary input-group">
-                                                                        <textarea class="form-control" id="editar_direccion" name="editar_direccion" rows="3" placeholder="Opcional"><?= $proveedor->direccion ?></textarea>
-                                                                        <label for="editar_direccion">Dirección</label>
-                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-xs-6">
-                                                                    <div class="form-material form-material-primary input-group">
-                                                                        <textarea class="form-control" id="editar_informacion_extra" name="editar_informacion_extra" rows="3" placeholder="Opcional"><?= $proveedor->informacion_extra ?></textarea>
-                                                                        <label for="editar_informacion_extra">Información extra</label>
-                                                                        <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                             </div>
 
                                                             

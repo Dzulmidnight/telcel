@@ -300,9 +300,7 @@
         })
         .then((willDelete) => {
             if (willDelete) {
-                swal("La información ha sido eliminada", {
-                  icon: "success",
-                });
+
                 console.log(frm);
                 document.getElementById(frm).submit();
             } /*else {

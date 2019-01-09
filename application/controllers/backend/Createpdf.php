@@ -47,13 +47,54 @@ class Createpdf extends CI_Controller{
 		//$html .= '<tcpdf method="write1DBarcode" params="'.$params.'" />';
 		$html = '';
 		$html .= '<table>';
-			if($numero <= 4){
+			$total_codigos = $numero;
+			$filas = round($total_codigos / 4);
+			$espacios_creados = 0;
+			$cont_temp = 0;
+			$restantes = $total_codigos;
+			$html .= '<tr><td>FILAS: '.$filas.'</td></tr>';
+			for ($i=0; $i < $filas; $i++) { 
+				$html .= '<tr>';
+					for ($x=0; $x < 4; $x++) {
+						$cont_temp++;
+						$html .= '<td>'.$cont_temp.'</td>';
+					}
+
+
+					if($restantes > 4){
+						for ($cont_temp=0; $cont_temp < 4; $cont_temp++) { 
+							$html .= '<td><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
+						}
+						$restantes = $restantes - $cont_temp;
+						/*if($cont_temp < 4){
+							$cont_temp++;
+							$html .= '<td><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
+						}else{
+							$espacios_creados += $cont_temp;
+				
+							$restantes = $restantes - $espacios_creados;
+							$cont_temp = 0;
+							$html .= '<td>oTRa</td>';
+						}*/
+					}else{
+						for ($cont_temp=0; $cont_temp < $restantes; $cont_temp++) { 
+							$html .= '<td><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
+						}
+						/*if($cont_temp < $restantes){
+							$cont_temp++;
+							$html .= '<td>'.$cont_temp.'</td>';
+						}*/
+					}
+				$html .= '</tr>';
+			}
+
+			/*if($numero <= 4){
 				$html .= '<tr>';
 					for ($i=0; $i < $numero; $i++) { 
 					 	$html .= '<td><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
 					 }
 				$html .= '</tr>';
-			}
+			}*/
 		$html .= '</table>';
 
 

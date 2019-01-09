@@ -22,7 +22,7 @@
         <div class="col-sm-5 text-right hidden-xs">
             <button type="button" class="btn btn-rounded btn-round btn-success" data-toggle="modal" data-target="#modal-popout2">
                 <span data-toggle="tooltip" title="Agregar nuevo cliente">
-                    <i class="fa fa-user-plus"></i> Nuevo
+                    <i class="fa fa-plus"></i> Nuevo
                 </span>
             </button>
             <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
@@ -67,7 +67,7 @@
                             <tr>
                                 <td class="text-center"><?= $cliente->id_cliente; ?></td>
                                 <td>
-                                    <i class="fa fa-home"></i> <?= $cliente->id_sucursal; ?>
+                                    <i class="fa fa-home"></i> <?= $cliente->nombreSucursal; ?>
                                 </td>
                                 <td class="">
                                     <span class="text-primary"><?= $cliente->nombre; ?></span> <?= $cliente->ap_paterno; ?> <?= $cliente->ap_materno; ?>
@@ -218,7 +218,7 @@
 
 <!-- Registrar cliente -->
 <div class="modal fade" id="modal-popout2" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-popout">
+    <div class="modal-dialog modal-md modal-dialog-popout">
         <div class="modal-content">
             <form class="form-horizontal push-10-t block-content" action="<?= base_url(); ?>/backend/MOD_CLIENTES/clientes/agregar" method="post">
                 <div class="block block-themed block-transparent remove-margin-b">

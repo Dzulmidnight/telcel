@@ -130,15 +130,13 @@
                 </div>
                 <div class="block-content">
                     <form id="frm-nuevo-personal" class="form-horizontal push-10-t push-10">
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="push">
                                     <img class="img-avatar" src="<?php echo base_url(); ?>assets/img/avatars/avatar15.jpg" alt="">
                                 </div>
-                                <!--<label for="contact-avatar">Selecciona una imagen</label>
-                                <input type="file" id="contact-avatar" name="contact-avatar">-->
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <div class="col-sm-6">
@@ -162,13 +160,6 @@
                                     <label for="perfil">Perfil de usuario</label>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="nombre" name="nombre" value="">
-                                    <label for="nombre">Nombre</label>
-                                    <span class="input-group-addon"><i class="si si-user"></i></span>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="form-group">
@@ -189,6 +180,14 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="form-material form-material-primary floating input-group">
+                                    <input class="form-control" type="text" id="nombre" name="nombre" value="">
+                                    <label for="nombre">Nombre</label>
+                                    <span class="input-group-addon"><i class="si si-user"></i></span>
+                                </div>
+                            </div>
+
                             <div class="col-sm-12">
                                 <div class="form-material form-material-primary floating input-group">
                                     <input class="form-control" type="text" id="ap_paterno" name="ap_paterno" value="">
@@ -256,8 +255,8 @@
                 </div>
                 <div class="block-content">
                     <form id="frm-editar-personal" class="form-horizontal push-10-t push-10">
-                        <input type="text" id="editar_id_usuario" name="id_user" value="">
-                        <div class="form-group">
+                        <input type="hidden" id="editar_id_usuario" name="id_user" value="">
+                        <!--<div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="push">
                                     <img class="img-avatar" src="<?php echo base_url(); ?>assets/img/avatars/avatar15.jpg" alt="">
@@ -265,7 +264,7 @@
                                 <label for="contact-avatar">Selecciona una imagen</label>
                                 <input type="file" id="contact-avatar" name="contact-avatar">
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                             <div class="col-sm-6">

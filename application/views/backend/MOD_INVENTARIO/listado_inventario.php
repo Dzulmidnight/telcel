@@ -27,7 +27,7 @@
             <!-- Modulos -->
             <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-popout2">
                 <span data-toggle="tooltip" title="Agregar nuevo producto">
-                    <i class="fa fa-user-plus"></i> Nuevo
+                    <i class="fa fa-plus"></i> Nuevo
                 </span>
             </button>
 
@@ -42,26 +42,6 @@
 
 <!-- Page Content -->
 <div class="content">
-    <?php 
-    if($this->session->flashdata('success')){
-        $mensaje = $this->session->flashdata('success');
-    ?>
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
-        </div>
-    <?php
-    }else if($this->session->flashdata('error')){
-        $mensaje = $this->session->flashdata('error');
-    ?>
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
-        </div>
-    <?php
-    }
-     ?>
-
 
     <div class="content-grid push-50">
         <div class="row">
@@ -79,7 +59,7 @@
                         <thead>
                             <tr>
                                 <th class="encabezado text-center">
-                                    Nº
+                                    Id
                                 </th>
                                 <th class="encabezado">
                                     Tipo
@@ -194,11 +174,11 @@
                                     <!-- Acciones -->                                    
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <button class="btn btn-xs btn-default">
+                                            <!--<button class="btn btn-xs btn-default">
                                                 <i class="si si-settings"></i>
-                                            </button>
+                                            </button>-->
                                             <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar(<?= $producto->id_producto; ?>, 'frm_eliminar_articulo');"><i class="fa fa-times"></i></button>
+                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar('id_eliminar', <?= $producto->id_producto; ?>, 'frm_eliminar_articulo');"><i class="fa fa-times"></i></button>
                                         </div>
                                     </td>
 
@@ -412,6 +392,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
+                                            para los telefonos
                                             <label style="color:red" for="piezas">Nº de Piezas</label>
                                             <input class="form-control" type="number" min="0" id="piezas" name="piezas">
                                         </div>
