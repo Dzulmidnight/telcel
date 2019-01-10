@@ -76,7 +76,7 @@
                         <a href="<?php echo base_url('backend/MOD_PROVEEDORES/proveedores'); ?>"><i class="si si-notebook"></i><span class="sidebar-mini-hide">Proveedores</span></a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url('backend/MOD_INVENTARIO/inventario'); ?>"><i class="si si-tag"></i><span class="sidebar-mini-hide">Inventario</span></a>
+                        <a href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>"><i class="si si-tag"></i><span class="sidebar-mini-hide">Inventario</span></a>
                     </li>
                     <li>
                         <a href="<?php echo base_url('backend/MOD_FINANZAS/finanzas'); ?>"><i class="fa fa-dollar"></i><span class="sidebar-mini-hide">Finanzas</span></a>

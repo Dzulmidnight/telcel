@@ -52,15 +52,9 @@ class Createpdf extends CI_Controller{
 			$espacios_creados = 0;
 			$cont_temp = 0;
 			$restantes = $total_codigos;
-			$html .= '<tr><td>FILAS: '.$filas.'</td></tr>';
+			//$html .= '<tr><td>FILAS: '.$filas.'</td></tr>';
 			for ($i=0; $i < $filas; $i++) { 
 				$html .= '<tr>';
-					for ($x=0; $x < 4; $x++) {
-						$cont_temp++;
-						$html .= '<td>'.$cont_temp.'</td>';
-					}
-
-
 					if($restantes > 4){
 						for ($cont_temp=0; $cont_temp < 4; $cont_temp++) { 
 							$html .= '<td><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';

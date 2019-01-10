@@ -67,12 +67,43 @@ function generarCodigo(){
 function mostrarCodigo(direccion, codigo){
     var codigo = codigo;
     console.log(codigo);
+
+
+    console.log(direccion);
+    ruta = direccion+'backend/InformacionProducto';
+    codigoBarras = codigo;
+
+    objetoJson = JSON.stringify(codigoBarras);
+    var xmlhttp = new XMLHttpRequest();
+
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            //console.log(this.responseText);
+            var vista = this.responseText;
+      
+            document.getElementById('div_informacion_producto').innerHTML = vista;
+            if(this.responseText == 'Articulo no encontrado'){
+                console.log('no se muestra tabla');
+            }
+
+        }
+    }
+
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("codigo="+objetoJson);
+    
+
+
     $('#modalCodigoBarras').modal('show');
     JsBarcode("#barcode2", codigo,{
         displayValue: true
     });
     document.getElementById('codigoBarras').value = codigo;
     document.getElementById('linkPdf').href = direccion+'backend/createPdf/index/1/'+codigo;
+
+
 
 }
 function guardarImg(ruta){
@@ -138,6 +169,7 @@ function consultarCodigo(valor, ruta){
                 document.getElementById('btn_agregar_producto').disabled = false;
 
                 precio_establecido = document.getElementById('precio_establecido').innerHTML;
+
                 document.getElementById('precio_unitario_venta').disabled = false;
                 document.getElementById('precio_unitario_venta').value = precio_establecido;
             }
@@ -920,8 +952,9 @@ function sucursalDestino(url){
         console.log('La cantidad destino: '+total);
         //total = cantidadTraspaso
         //document.getElementById('nueva_cantidad_destino').innerHTML = ;
-        
+    }
 
-
-    
+    function cancelarVenta(){
+        console.log('cancelar venta');
+        document.getElementById('tablaDetalleCompra').innerHTML = '';
     }

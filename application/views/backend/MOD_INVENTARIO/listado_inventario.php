@@ -218,32 +218,14 @@
 
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario">
-                                <div class="col-sm-6">
-                                    <div class="block block-themed">
-                                        <div class="block-header bg-info">
-                                            <h3 class="block-title">Detalle del articulo</h3>
-                                        </div>
-                                        <div class="block-content">
-                                            <p>
-                                                Tipo: <span class="text-primary">Tipo del articulo</span>
-                                            </p>
-                                            <p>
-                                                Articulo: <span class="text-primary">Nombre del articulo</span>
-                                            </p>
-                                            <p>
-                                                Cantidad actual: <span id="spanCantidadActual" class="text-primary">14</span>
-                                                <input type="hidden" id="cantidad_actual" value="">
-                                            </p>
-
-                                        </div>
-                                    </div>
+                                <div class="col-sm-6" id="div_informacion_producto">
                                 </div>
                                 <!-- sección para mostrar el codigo de barras -->
                                 <div class="col-sm-6">
                                     <canvas id="barcode2"></canvas>
 
                                     <label for="numCodigos">
-                                        Número de codigos a imprimir
+                                        Número de codigos a generar
                                     </label>
 
                                     <input type="number" class="form-control" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>','');">
@@ -255,7 +237,7 @@
                                         
                                     </div>
                                     <a class="btn btn-success" id="linkPdf" href="" target="_new">
-                                        Imprimir codigo
+                                        Generar codigos
                                     </a>
 
 

@@ -174,6 +174,12 @@
                                     </div>
                                 </td>
                             </tr>
+Razón social:
+Calle:
+Colonia:
+Municipio:
+Estado:
+
 
                             <tr>
                                 <td class="text-center">4</td>

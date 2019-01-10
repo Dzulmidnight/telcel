@@ -285,7 +285,7 @@
 
 <script>
     function modalVentas(){
-        $('#modal-servicios').modal('show');
+        $('#modalVenta').modal('show');
     }
 
     function eliminar(nombreCampoId, id, frm){

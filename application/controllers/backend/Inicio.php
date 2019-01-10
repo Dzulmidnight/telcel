@@ -20,6 +20,8 @@ class Inicio extends CI_Controller{
 		}
 		
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
+		$data['modal_ventas'] = $this->load->view('backend/modal_ventas','',true);
+
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');

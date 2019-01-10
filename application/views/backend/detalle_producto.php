@@ -8,8 +8,8 @@
 	</thead>
 	<tbody style="font-size:12px;">
 		<tr>
-			<td>Precio</td>
-			<td class="text-primary"><span id="precio_establecido"><?= $info_producto->precio_publico; ?></span></td>
+			<td>Precio Publico</td>
+			<td class="text-primary">$<span id="precio_establecido"><?= $info_producto->precio_publico; ?></span></td>
 		</tr>
 		<tr>
 			<td>Piezas</td>
@@ -49,7 +49,7 @@
 		</tr>
 		<tr>
 			<td>Imagen</td>
-			<td><img src="" alt="" style="width:30px;height:30px;"></td>
+			<td><img src="<?= base_url($info_producto->imagen); ?>" alt="" style="width:100px;height:100px;"></td>
 		</tr>
 	</tbody>
 </table>
