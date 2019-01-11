@@ -158,7 +158,8 @@ class Inventario extends CI_Controller{
 		// AGREGAR HISTORIAL_INVENTARIO
 			$array_historial = array(
 				'fk_id_producto' => $id_producto,
-				'producto_entrada' => $this->input->post('piezas')
+				'producto_entrada' => $this->input->post('piezas'),
+				'fecha_registro' => time()
  			);
  			$this->add_model->agregar($array_historial, 'historial_inventario');
 		// END AGREGAR HISTORIAL_INVENTARIO

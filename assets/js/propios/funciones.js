@@ -169,9 +169,10 @@ function consultarCodigo(valor, ruta){
                 document.getElementById('btn_agregar_producto').disabled = false;
 
                 precio_establecido = document.getElementById('precio_establecido').innerHTML;
-
+                precio_real = document.getElementById('precio_real').value;
                 document.getElementById('precio_unitario_venta').disabled = false;
                 document.getElementById('precio_unitario_venta').value = precio_establecido;
+                document.getElementById('precio_real_venta').value = precio_real;
             }
 
         }
@@ -183,19 +184,22 @@ function consultarCodigo(valor, ruta){
 }
 
 function carritoCompras(){
-    var tabla, numFilas, filaActual, producto, marca, precio, cantidad, total;
+    var tabla, numFilas, filaActual, producto, marca, precio, cantidad, total, totalReal;
 
 
     tabla = document.getElementById("tablaDetalleCompra");
+    idProductoVenta = document.getElementById('id_producto').value;
     producto = document.getElementById('spanProducto').innerHTML;
     marca = document.getElementById('spanMarca').innerHTML;
     precio = document.getElementById('precio_unitario_venta').value;
+    precioRealVenta = document.getElementById('precio_real_venta').value;
     cantidad = document.getElementById('piezas_venta').value;
     
     numFilas = tabla.rows.length;
     filaActual = numFilas - 1;
  
     total = precio * cantidad;
+    totalReal = precioRealVenta * cantidad;
 
     var row = tabla.insertRow(filaActual);
     var celda1 = row.insertCell(0);
@@ -204,13 +208,15 @@ function carritoCompras(){
     var celda4 = row.insertCell(3);
     var celda5 = row.insertCell(4);
     var celda6 = row.insertCell(5);
+    var celda7 = row.insertCell(6);
 
     celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
-    celda2.innerHTML = producto;
-    celda3.innerHTML = marca;
-    celda4.innerHTML = precio;
-    celda5.innerHTML = cantidad;
-    celda6.innerHTML = '$ '+total.toFixed(2);
+    celda2.innerHTML = idProductoVenta+"<input type='hidden' name='id_producto_carrito[]' value='"+idProductoVenta+"' readonly>";
+    celda3.innerHTML = producto;
+    celda4.innerHTML = marca;
+    celda5.innerHTML = "$ "+precio+"<input type='hidden' name='precio_carrito[]' value='"+precio+"' readonly><input type='hidden' name='precio_real_carrito[]' value='"+precioRealVenta+"'>";;
+    celda6.innerHTML = cantidad+"<input type='hidden' name='cantidad_carrito[]' value='"+cantidad+"' readonly>";;
+    celda7.innerHTML = '$ '+total.toFixed(2)+"<input type='hidden' name='total_carrito[]' value='"+total.toFixed(2)+"' readonly><input type='hidden' name='total_real_carrito[]' value='"+totalReal+"'>";
 
     // limpiamos los campos despues de agregar el producto
     document.getElementById('codigoCapturado').value = '';

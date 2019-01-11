@@ -20,7 +20,7 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                LISTADO STOCK ACTUAL: <span class="text-primary"><?= count($row_productos) ?></span>
+                LISTADO DE ARTICULOS: <span class="text-primary"><?= count($row_productos) ?></span>
             </h3>
         </div>
         <div class="col-sm-5 text-right hidden-xs">
@@ -374,7 +374,6 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            para los telefonos
                                             <label style="color:red" for="piezas">Nº de Piezas</label>
                                             <input class="form-control" type="number" min="0" id="piezas" name="piezas">
                                         </div>

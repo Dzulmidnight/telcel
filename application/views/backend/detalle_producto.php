@@ -9,7 +9,10 @@
 	<tbody style="font-size:12px;">
 		<tr>
 			<td>Precio Publico</td>
-			<td class="text-primary">$<span id="precio_establecido"><?= $info_producto->precio_publico; ?></span></td>
+			<td class="text-primary">
+				$<span id="precio_establecido"><?= $info_producto->precio_publico; ?></span>
+				<input type="hidden" id="precio_real" value="<?= $info_producto->precio_publico; ?>">
+			</td>
 		</tr>
 		<tr>
 			<td>Piezas</td>
@@ -21,6 +24,7 @@
 			</td>
 			<td class="text-primary">
 				<span id="spanProducto"><?= $info_producto->nombre; ?></span>
+				<input type="hidden" id="id_producto" value="<?= $info_producto->id_producto; ?>">
 			</td>
 		</tr>
 		<tr>

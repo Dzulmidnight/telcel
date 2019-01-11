@@ -14,7 +14,7 @@
                 <div class="block-content" style="margin-bottom: 4em;">
                     <div class="row text-justify">
                         <!-- Formulario de registro de usuario -->
-                        <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
+                        <form class="form-horizontal push-10-t block-content" action="<?= base_url(); ?>backend/MOD_SERVICIOS/Servicios/venta" method="post">
 
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario">
@@ -29,6 +29,7 @@
                                 <div class="col-md-3">
                                     <label for="precio_unitario_venta">Precio de venta</label>
                                     <input type="number" class="form-control" disabled id="precio_unitario_venta" name="precio_unitario_venta" placeholder="Precio">
+                                    <input type="hidden" id="precio_real_venta">
                                 </div>
                                 <div class="col-md-3">
                                     <button type="button" style="margin-top:2em;" class="btn btn-sm btn-info" disabled id="btn_agregar_producto" name="btn_agregar_producto" onclick="carritoCompras();">
@@ -40,12 +41,12 @@
                                 </div>
 
                                 <!-- Div Información del producto -->
-                                <div style="margin-top:2em;" class="col-md-6" id="div_informacion_producto">
+                                <div style="margin-top:2em;" class="col-md-5" id="div_informacion_producto">
                                 </div>
                                 <!-- END Div información del producto -->
 
                                 <!-- Div carro de compras -->
-                                <div style="margin-top:2em;" class="col-md-6 well" id="div_carro_compras">
+                                <div style="margin-top:2em;" class="col-md-7 well" id="div_carro_compras">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -53,6 +54,7 @@
                                             </tr>
                                             <tr >
                                                 <th></th>
+                                                <th style="font-size:11px">Id</th>
                                                 <th style="font-size:11px;">Producto</th>
                                                 <th style="font-size:11px;">Marca</th>
                                                 <th style="font-size:11px;">Precio</th>
@@ -68,6 +70,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -76,7 +79,7 @@
                                         <button type="button" class="btn btn-sm btn-default" onclick="cancelarVenta();">
                                             Cancelar
                                         </button>
-                                        <button class="btn btn-sm btn-primary">
+                                        <button type="submit" class="btn btn-sm btn-primary" onclick="">
                                             <i class="fa fa-save"></i> Realizar venta
                                         </button>
                                     </div>

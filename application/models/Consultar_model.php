@@ -5,6 +5,17 @@ class Consultar_model extends CI_Model{
                 parent::__construct();
         }
 
+        public function consulta($tabla = false, $nombre_campo = false, $id = false){
+                $this->db->select('*');
+                $this->db->from($tabla);
+                $this->db->where($nombre_campo, $id);
+
+                $query = $this->db->get();
+                $result = $query->row();
+
+                return $result;
+        }
+
         public function listado($tabla = false, $id = false)
         {
                 $this->db->select('*');
@@ -150,7 +161,23 @@ class Consultar_model extends CI_Model{
 
                 return $result;
         }
+        public function producto($id = false){
+                $this->db->select('producto.*,
+                        sub_categoria_producto.nombre as nombre_sub_producto,
+                        categoria_producto.nombre as nombre_categoria_producto,'
+                );
+                $this->db->from('producto');
+                $this->db->join('categoria_producto', 'categoria_producto.id_categoria_producto = producto.fk_id_categoria_producto', 'left');
+                $this->db->join('sub_categoria_producto', 'sub_categoria_producto.id_sub_categoria_producto = producto.fk_id_sub_categoria_producto', 'left');
 
+                $this->db->where('producto.id_producto', $id);
+                //$this->db->like('producto.codigo_barras', $codigo);
+
+                $query = $this->db->get();
+                $result = $query->row();
+
+                return $result;
+        }
         public function detalle_producto($codigo = false){
                 $this->db->select('producto.*,
                         sub_categoria_producto.nombre as nombre_sub_producto,
