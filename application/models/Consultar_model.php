@@ -198,4 +198,24 @@ class Consultar_model extends CI_Model{
         //// END PRODUCTOS ////
 
 
+        //// TICKETS /////
+        public function consultarTicket($id){
+SELECT ticket.piezas AS 'piezas_ticket', ticket.total AS 'ticket_total', ticket.fecha_registro, ticket_producto_venta.fk_id_producto_venta, producto_venta.piezas, producto_venta.precio_venta, producto_venta.fk_id_sucursal FROM ticket INNER JOIN ticket_producto_venta ON ticket.id_ticket = ticket_producto_venta.fk_id_ticket INNER JOIN producto_venta ON ticket_producto_venta.fk_id_producto_venta = producto_venta.id_producto_venta
+
+                $this->db->select(
+                        'tickets.piezas as piezas_ticket,
+                        ticket.total as ticket_total,
+                        ticket.fecha_registro as fecha_ticket,
+                        ticket_producto_venta.fk_id_producto_venta,
+                        producto_venta.piezas,
+                        producto_venta.precio_venta,
+                        producto_venta.fk_id_sucursal
+                        '
+                );
+                $this->db->from('ticket');
+                $this->db->join('ticket_producto_venta', 'ticket_producto_venta.fk_id_ticket = ticket.id_ticket');
+                $this->db->join('producto_venta', 'producto_venta.id_producto_venta = ticket_producto_venta.fk_id_producto_venta');
+        }
+
+
 }

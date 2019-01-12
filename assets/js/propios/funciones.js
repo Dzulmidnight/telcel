@@ -1002,11 +1002,32 @@ function sucursalDestino(url){
             if(this.readyState == 4 && this.status == 200){
                 //var respuesta = JSON.parse(this.responseText);
                 console.log(this.responseText);
+                fk_id_ticket = this.responseText;
 
-                if(this.responseText == 1){
-                    $('#modalVenta').modal('toggle');
-                    alert('se registro la venta');
-                }
+
+                $('#modalVenta').modal('toggle');
+            
+                swal({
+                    title: "Ticket",
+                    text: "¿Desea generar Ticket?",
+                    icon: "info",
+                    buttons: true,
+                    dangerMode: true,
+                    closeOnClickOutside: false,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("Se ha generado el ticket", {
+                          icon: "success",
+                        });
+                        crearTicket(url, fk_id_ticket);
+                        //document.getElementById(frm).submit();
+                    } /*else {
+                        swal("Your imaginary file is safe!");
+                    }*/
+                });
+
+                
 
             }
         }
@@ -1015,6 +1036,24 @@ function sucursalDestino(url){
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xmlhttp.send("parametros="+array_json);
 
+    }
 
+    function crearTicket(url, id){
+        var ruta = url+'backend/PdfTicket/'+id;
 
+        window.location.assign(ruta);
+        /*var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                //var respuesta = JSON.parse(this.responseText);
+                window.location.assign("https://www.w3schools.com")
+                //console.log(this.responseText);              
+
+            }
+        }
+
+        xmlhttp.open("POST", ruta, true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("parametros=123"); */
     }

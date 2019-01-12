@@ -75,7 +75,14 @@ class Servicios extends CI_Controller{
 		$insert_producto = 0;
 		$insert_historial_inventario = 0;
 
+		$piezas_ticket = 0;
+		$total_ticket = 0;
+		$array_producto_venta = array();
+
 		foreach ($objeto as $key => $value) {
+			$piezas_ticket += $value->cantidad_carrito;
+			$total_ticket += $value->precio_carrito;
+
 			// registramos la venta en tb -> producto_venta
 				$data_producto_venta = array(
 					'piezas' => $value->cantidad_carrito,
@@ -85,10 +92,9 @@ class Servicios extends CI_Controller{
 					'fk_id_usuario' => $this->session->userdata('id_usuario'),
 					'fecha_registro' => time()
 				);
-				if($this->add_model->agregar($data_producto_venta, 'producto_venta')){
-					$insert_producto_venta = 1;
-				}
+				$this->add_model->agregar($data_producto_venta, 'producto_venta');
 
+				$array_producto_venta[] = $this->db->insert_id();
 			//// actualizamos las piezas de la tb -> producto
 				$producto = $this->consultar_model->producto($value->id_producto_carrito);
 
@@ -98,9 +104,7 @@ class Servicios extends CI_Controller{
 					'piezas' => $piezas_restantes
 				);
 				
-				if($this->update_model->update('producto', 'id_producto', $value->id_producto_carrito, $data_piezas_producto)){
-					$insert_producto = 1;
-				}
+				$this->update_model->update('producto', 'id_producto', $value->id_producto_carrito, $data_piezas_producto);
 
 			// actualizamos las piezas de la TB -> historial_inventario
 				$detalle_historial = $this->consultar_model->consulta('historial_inventario', 'fk_id_producto', $value->id_producto_carrito);
@@ -116,22 +120,38 @@ class Servicios extends CI_Controller{
 					'fecha_actualizacion' => time()
 				);
 
-				if($this->update_model->update('historial_inventario', 'id_historial_inventario', $id_historial_inventario, $data_historial_inventario)){
-					$insert_historial_inventario = 1;
-				}
-
-				if($insert_producto_venta == 1 && $insert_producto == 1 && $insert_historial_inventario == 1){
-					echo 1;
-				}else{
-					echo 0;
-				}
-
+				$this->update_model->update('historial_inventario', 'id_historial_inventario', $id_historial_inventario, $data_historial_inventario);
 
 				//$this->session->set_flashdata('success', "Producto agregado");
 				//redirect('backend/Inicio/', 'refresh');
 
 
 		}
+
+		// creamos ticket de venta
+			$data_ticket = array(
+				'piezas' => $piezas_ticket,
+				'total' => $total_ticket,
+				'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
+				'fk_id_usuario' => $this->session->userdata('id_usuario'),
+				'fecha_registro' => time()
+			);
+			$this->add_model->agregar($data_ticket, 'ticket');
+
+			$fk_id_ticket = $this->db->insert_id();
+
+			foreach ($array_producto_venta as $value) {
+				$data_ticket_producto = array(
+					'fk_id_ticket' => $fk_id_ticket,
+					'fk_id_producto_venta' => $value,
+					'fecha_registro' => time()
+				);
+
+				$this->add_model->agregar($data_ticket_producto, 'ticket_producto_venta');
+			}
+
+			echo $fk_id_ticket;
+
 		/*foreach ($objeto as $key => $articulo) {
 
 			$piezas_restantes = 0;
