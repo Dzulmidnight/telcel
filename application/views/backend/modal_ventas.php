@@ -14,7 +14,7 @@
                 <div class="block-content" style="margin-bottom: 4em;">
                     <div class="row text-justify">
                         <!-- Formulario de registro de usuario -->
-                        <form class="form-horizontal push-10-t block-content" action="<?= base_url(); ?>backend/MOD_SERVICIOS/Servicios/venta" method="post">
+                        <form class="form-horizontal push-10-t block-content" action="#" method="post">
 
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario">
@@ -79,7 +79,7 @@
                                         <button type="button" class="btn btn-sm btn-default" onclick="cancelarVenta();">
                                             Cancelar
                                         </button>
-                                        <button type="submit" class="btn btn-sm btn-primary" onclick="">
+                                        <button type="button" class="btn btn-sm btn-primary" onclick="realizarVenta('<?= base_url(); ?>');">
                                             <i class="fa fa-save"></i> Realizar venta
                                         </button>
                                     </div>

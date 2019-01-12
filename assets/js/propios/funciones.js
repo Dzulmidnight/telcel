@@ -211,12 +211,12 @@ function carritoCompras(){
     var celda7 = row.insertCell(6);
 
     celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
-    celda2.innerHTML = idProductoVenta+"<input type='hidden' name='id_producto_carrito[]' value='"+idProductoVenta+"' readonly>";
+    celda2.innerHTML = idProductoVenta+"<input type='hidden' name='id_producto_carrito' value='"+idProductoVenta+"' readonly>";
     celda3.innerHTML = producto;
     celda4.innerHTML = marca;
-    celda5.innerHTML = "$ "+precio+"<input type='hidden' name='precio_carrito[]' value='"+precio+"' readonly><input type='hidden' name='precio_real_carrito[]' value='"+precioRealVenta+"'>";;
-    celda6.innerHTML = cantidad+"<input type='hidden' name='cantidad_carrito[]' value='"+cantidad+"' readonly>";;
-    celda7.innerHTML = '$ '+total.toFixed(2)+"<input type='hidden' name='total_carrito[]' value='"+total.toFixed(2)+"' readonly><input type='hidden' name='total_real_carrito[]' value='"+totalReal+"'>";
+    celda5.innerHTML = "$ "+precio+"<input type='hidden' name='precio_carrito' value='"+precio+"' readonly><input type='hidden' name='precio_real_carrito' value='"+precioRealVenta+"'>";;
+    celda6.innerHTML = cantidad+"<input type='hidden' name='cantidad_carrito' value='"+cantidad+"' readonly>";;
+    celda7.innerHTML = '$ '+total.toFixed(2)+"<input type='hidden' name='total_carrito' value='"+total.toFixed(2)+"' readonly><input type='hidden' name='total_real_carrito' value='"+totalReal+"'>";
 
     // limpiamos los campos despues de agregar el producto
     document.getElementById('codigoCapturado').value = '';
@@ -963,4 +963,58 @@ function sucursalDestino(url){
     function cancelarVenta(){
         console.log('cancelar venta');
         document.getElementById('tablaDetalleCompra').innerHTML = '';
+    }
+
+    function realizarVenta(url){
+        console.log('Boton realizar venta');
+        var array_id_producto = document.getElementsByName('id_producto_carrito');
+        var array_de_precio = document.getElementsByName('precio_carrito');
+        var array_precio_real_carrito = document.getElementsByName('precio_real_carrito');
+        var array_de_cantidad = document.getElementsByName('cantidad_carrito');
+        var array_total_carrito = document.getElementsByName('total_carrito');
+        var array_total_real_carrito = document.getElementsByName('total_real_carrito');
+        var ruta = url+'backend/MOD_SERVICIOS/Servicios/venta';
+
+        var array_general = [];
+
+        for (var i = 0; i < array_de_precio.length; i++) {
+
+            array_general.push(
+                {
+                    id_producto_carrito: array_id_producto[i].value, 
+                    precio_carrito: array_de_precio[i].value, 
+                    precio_real_carrito: array_precio_real_carrito[i].value,
+                    cantidad_carrito: array_de_cantidad[i].value,
+                    total_carrito: array_total_carrito[i].value,
+                    total_real_carrito: array_total_real_carrito[i].value
+                }
+            );
+        };
+
+        var array_json;
+        array_json = JSON.stringify(array_general);
+
+        console.log(array_json);
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                //var respuesta = JSON.parse(this.responseText);
+                console.log(this.responseText);
+
+                if(this.responseText == 1){
+                    $('#modalVenta').modal('toggle');
+                    alert('se registro la venta');
+                }
+
+            }
+        }
+
+        xmlhttp.open("POST", ruta, true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("parametros="+array_json);
+
+
+
     }

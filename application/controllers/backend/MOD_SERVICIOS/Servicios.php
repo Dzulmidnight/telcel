@@ -50,14 +50,89 @@ class Servicios extends CI_Controller{
 
 	public function venta()
 	{
-		$array_id_articulos = $this->input->post('id_producto_carrito');
+
+		header("Content-Type: application/json; charset=UTF-8");
+
+		$objeto = json_decode($_POST["parametros"], false);
+
+
+		/*if(is_array($objeto)){
+			echo 'si es array';
+			foreach ($objeto as $value) {
+				echo $value->precioCarrito;
+			}
+		}else{
+			echo 'no es';
+		}*/
+
+		/*$array_id_articulos = $this->input->post('id_producto_carrito');
 		$array_precio_articulos = $this->input->post('precio_carrito');
 		$array_precio_real_articulo = $this->input->post('precio_real_carrito');
 		$array_cantidad_articulos = $this->input->post('cantidad_carrito');
 		$array_total_venta = $this->input->post('total_carrito');
-		$array_total_venta_real = $this->input->post('total_real_carrito');
+		$array_total_venta_real = $this->input->post('total_real_carrito');*/
+		$insert_producto_venta = 0;
+		$insert_producto = 0;
+		$insert_historial_inventario = 0;
 
-		foreach ($array_id_articulos as $key => $articulo) {
+		foreach ($objeto as $key => $value) {
+			// registramos la venta en tb -> producto_venta
+				$data_producto_venta = array(
+					'piezas' => $value->cantidad_carrito,
+					'precio_venta' => $value->precio_carrito,
+					'precio_real_venta' => $value->precio_real_carrito,
+					'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
+					'fk_id_usuario' => $this->session->userdata('id_usuario'),
+					'fecha_registro' => time()
+				);
+				if($this->add_model->agregar($data_producto_venta, 'producto_venta')){
+					$insert_producto_venta = 1;
+				}
+
+			//// actualizamos las piezas de la tb -> producto
+				$producto = $this->consultar_model->producto($value->id_producto_carrito);
+
+				$piezas_restantes = ($producto->piezas) - ($value->cantidad_carrito);
+
+				$data_piezas_producto = array(
+					'piezas' => $piezas_restantes
+				);
+				
+				if($this->update_model->update('producto', 'id_producto', $value->id_producto_carrito, $data_piezas_producto)){
+					$insert_producto = 1;
+				}
+
+			// actualizamos las piezas de la TB -> historial_inventario
+				$detalle_historial = $this->consultar_model->consulta('historial_inventario', 'fk_id_producto', $value->id_producto_carrito);
+
+				$id_historial_inventario = $detalle_historial->id_historial_inventario;
+
+				$suma_salidas = 0;
+				//echo '<br> salidas anteriores: '.$suma_salidas;
+				$suma_salidas = ($detalle_historial->producto_salida) + ($value->cantidad_carrito);			
+
+				$data_historial_inventario = array(
+					'producto_salida' => $suma_salidas,
+					'fecha_actualizacion' => time()
+				);
+
+				if($this->update_model->update('historial_inventario', 'id_historial_inventario', $id_historial_inventario, $data_historial_inventario)){
+					$insert_historial_inventario = 1;
+				}
+
+				if($insert_producto_venta == 1 && $insert_producto == 1 && $insert_historial_inventario == 1){
+					echo 1;
+				}else{
+					echo 0;
+				}
+
+
+				//$this->session->set_flashdata('success', "Producto agregado");
+				//redirect('backend/Inicio/', 'refresh');
+
+
+		}
+		/*foreach ($objeto as $key => $articulo) {
 
 			$piezas_restantes = 0;
 			echo '<br>------ detalle del producto ------<br>';
@@ -117,11 +192,6 @@ class Servicios extends CI_Controller{
 				//$this->session->set_flashdata('success', "Producto agregado");
 				//redirect('backend/Inicio/', 'refresh');
 
-		}
-
-
-
-
-
+		}*/
 	}
 }
