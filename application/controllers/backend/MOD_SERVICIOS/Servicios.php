@@ -79,17 +79,30 @@ class Servicios extends CI_Controller{
 		$total_ticket = 0;
 		$array_producto_venta = array();
 
+		// creamos ticket de venta
+			$data_ticket = array(
+				'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
+				'fk_id_usuario' => $this->session->userdata('id_usuario'),
+				'fecha_registro' => time()
+			);
+			$this->add_model->agregar($data_ticket, 'ticket');
+
+			$fk_id_ticket = $this->db->insert_id();
+
 		foreach ($objeto as $key => $value) {
 			$piezas_ticket += $value->cantidad_carrito;
-			$total_ticket += $value->precio_carrito;
+			//$precio_pieza = $value->precio_carrito * $value->cantidad_carrito;
+			$total_ticket += ($value->precio_carrito * $value->cantidad_carrito);
 
 			// registramos la venta en tb -> producto_venta
 				$data_producto_venta = array(
 					'piezas' => $value->cantidad_carrito,
 					'precio_venta' => $value->precio_carrito,
 					'precio_real_venta' => $value->precio_real_carrito,
+					'fk_id_producto' => $value->id_producto_carrito,
 					'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
 					'fk_id_usuario' => $this->session->userdata('id_usuario'),
+					'fk_id_ticket' => $fk_id_ticket,
 					'fecha_registro' => time()
 				);
 				$this->add_model->agregar($data_producto_venta, 'producto_venta');
@@ -124,23 +137,18 @@ class Servicios extends CI_Controller{
 
 				//$this->session->set_flashdata('success', "Producto agregado");
 				//redirect('backend/Inicio/', 'refresh');
-
-
 		}
 
-		// creamos ticket de venta
-			$data_ticket = array(
+		// actualizamos ticket de venta
+			$data_ticket_update = array(
 				'piezas' => $piezas_ticket,
-				'total' => $total_ticket,
-				'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
-				'fk_id_usuario' => $this->session->userdata('id_usuario'),
-				'fecha_registro' => time()
+				'total' => $total_ticket
 			);
-			$this->add_model->agregar($data_ticket, 'ticket');
+			$this->update_model->update('ticket', 'id_ticket', $fk_id_ticket, $data_ticket_update);
 
-			$fk_id_ticket = $this->db->insert_id();
 
-			foreach ($array_producto_venta as $value) {
+			echo $fk_id_ticket;
+/*			foreach ($array_producto_venta as $value) {
 				$data_ticket_producto = array(
 					'fk_id_ticket' => $fk_id_ticket,
 					'fk_id_producto_venta' => $value,
@@ -148,9 +156,9 @@ class Servicios extends CI_Controller{
 				);
 
 				$this->add_model->agregar($data_ticket_producto, 'ticket_producto_venta');
-			}
+			}*/
 
-			echo $fk_id_ticket;
+			//echo $fk_id_ticket;
 
 		/*foreach ($objeto as $key => $articulo) {
 

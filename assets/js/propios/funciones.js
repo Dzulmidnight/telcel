@@ -1004,7 +1004,7 @@ function sucursalDestino(url){
                 console.log(this.responseText);
                 fk_id_ticket = this.responseText;
 
-
+                console.log('EL FK_ID_TICKET: '+fk_id_ticket);
                 $('#modalVenta').modal('toggle');
             
                 swal({
@@ -1039,7 +1039,7 @@ function sucursalDestino(url){
     }
 
     function crearTicket(url, id){
-        var ruta = url+'backend/PdfTicket/'+id;
+        var ruta = url+'backend/PdfTicket/index/'+id;
 
         window.location.assign(ruta);
         /*var xmlhttp = new XMLHttpRequest();
