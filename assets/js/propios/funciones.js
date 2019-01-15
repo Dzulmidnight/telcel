@@ -1040,7 +1040,7 @@ function sucursalDestino(url){
 
     function crearTicket(url, id){
         var ruta = url+'backend/PdfTicket/index/'+id;
-
+        //window.print(ruta);
         window.location.assign(ruta);
         /*var xmlhttp = new XMLHttpRequest();
 

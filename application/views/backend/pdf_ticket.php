@@ -1,15 +1,18 @@
 <style type="text/css">
-
+	.ticket {
+	  width: 155px;
+	  max-width: 155px;
+	}
 </style>
-	
 
-		<table width="20%" style="margin-top: 1em; font-size:10px;">
+<div class="ticket">
+		<table style="margin-top: 1em; font-size:10px;">
 
 			<tr>
 				<td colspan="4" style="text-align:center; font-size:14px;color: #2980b9">MOVIL EXPERT</td>
 			</tr>
 			<tr>
-				<td colspan="4" style="padding:10px;" colspan="2" >Sucursal: <?= $sucursal->nombre; ?></td>
+				<td colspan="4" style="padding:10px;">Sucursal: <?= $sucursal->nombre; ?></td>
 			</tr>
 			<tr>
 				<td colspan="4" style="text-align:center;padding-bottom: 1em;" >TICKET Nº: <?= str_pad($id_ticket, 2, "0", STR_PAD_LEFT).'-'.$fecha_registro; ?></td>
@@ -60,3 +63,4 @@
 			</tr>
 
 		</table>
+</div>
