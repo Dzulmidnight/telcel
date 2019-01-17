@@ -117,9 +117,10 @@
                                     <td>
                                         <?php
                                         foreach ($row_sucursal_piezas[$producto->id_producto] as $sucursal) {
-                                            echo '<button class="btn btn-xs btn-warning" data-toggle="tooltip" title="'.$sucursal->nombre.'">
-                                            <i class="si si-home "></i> '.$sucursal->piezas.'
-                                        </button>';
+                                            echo $sucursal->nombre.' (<span style="color:red">'.$sucursal->piezas.'</span>)';
+                                            //echo '<button class="btn btn-xs btn-warning" data-toggle="tooltip" title="'.$sucursal->nombre.'">
+                                            //<i class="si si-home "></i> '.$sucursal->piezas.'
+                                        //</button>';
                                         }
                                         //echo $row_sucursal_piezas[$producto->id_producto]->id_sucursal;
                                          ?>
@@ -163,9 +164,6 @@
                                         echo 'Capacidad: <span class="text-primary">'.$producto->capacidad.'</span>';
                                        }
                                         ?>
-                                        Modelo: <span class="text-primary"><?= $producto->modelo ?></span> ,
-                                        Color: <span class="text-primary"><?= $producto->color ?></span> ,
-                                        Capacidad:
                                     </td>
                                     <!-- Fecha -->
                                     <td>
@@ -338,7 +336,7 @@
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario" style="margin-top:10px;">
                                 <!-- Frm accesorio -->
-                                <div id="frm_detalle_producto" style="display:none">
+                                <div id="frm_detalle_producto" style="display:none; margin-top:2em;">
                                     <p class="h4">
                                         2.- Información del producto
                                     </p>
@@ -373,106 +371,163 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label style="color:red" for="piezas">Nº de Piezas</label>
-                                            <input class="form-control" type="number" min="0" id="piezas" name="piezas">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label style="color:red" for="precio_interno">Precio Proveedor (unidad)</label>
-                                            <input type="number" class="form-control" step=".01" min="1" id="precio_interno" name="precio_interno" placeholder="$ 0.00">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <hr>
-                                        </div>
-                                            
-                                        <div class="col-md-6">
-                                            <label style="color:red" for="precio_publico">Precio Publico (unidad)</label>
-                                            <input type="number" class="form-control" step=".01" min="1" id="precio_publico" name="precio_publico" placeholder="$ 0.00">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="nombre">Nombre</label>
-                                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="">
-                                        </div>
-                                    <!--  -->
-                                    <!-- INFORMACIÓN DEL TELEFONO -->
-                                        <div id="datos_telefono" class="form-group has-error">
-                                            <div class="col-md-6">
-                                                <label for="imei">IMEI</label>
-                                                <input type="text" id="imei" name="imei" class="form-control" placeholder="">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="codigo">CODIGO</label>
-                                                <input type="text" id="codigo" name="codigo" class="form-control" placeholder="">
-                                            </div>
-                                            <!--<div class="col-sm-6">
-                                                <div class="form-material form-material-primary input-group">
-                                                    <input class="form-control" type="text" id="imei" name="imei" placeholder="" >
-                                                    <label for="imei">IMEI *</label>
-                                                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-material form-material-primary input-group">
-                                                    <input class="form-control" type="text" id="codigo_telefono" name="codigo_telefono" placeholder="" >
-                                                    <label for="codigo_telefono">CODIGO *</label>
-                                                    <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                                </div>
-                                            </div>-->
-                                        </div>
-                                    <!-- END INFORMACIÓN DEL TELEFONO -->
-                                        <div class="col-md-6">
-                                            <label for="marca">Marca</label>
-                                            <input type="text" class="form-control" id="marca" name="marca" placeholder="">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="modelo">Modelo</label>
-                                            <input type="text" class="form-control" id="modelo" name="modelo" placeholder="">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="capacidad">Capacidad</label>
-                                            <input type="text" class="form-control" id="capacidad" name="capacidad" placeholder="">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="img_producto">Imagen del producto</label>
-                                            <input type="file" class="form-control" id="img_producto" name="img_producto">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="2">Colores</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="encabezado">Color</th>
-                                                        <th class="encabezado">Piezas</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="tabla-colores">
-                                                    <tr class="encabezado">
-                                                        <td>
-                                                            <div class="input-group">
-                                                                <span class="input-group-btn">
-                                                                    <button class="btn btn-success" type="button" onclick="guardarColor();"><i class="fa fa-save"></i></button>
-                                                                </span>
-                                                                <input class="form-control" type="text" id="color" name="color" placeholder="">
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <input type="number" min="0" class="form-control" id="num_color_piezas" name="num_color_piezas" placeholder="Ej: 3">
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <input type="hidden" id="input-piezas" value="0">
-                                            <!--<label for="color">Color</label>
-                                            <input type="text" class="form-control" id="color" name="color" placeholder="">-->
-                                        </div>
-                                        <div class="col-md-6 well text-center" style="margin-top:3em;">
-                                            <button id="btn_guardar" class="btn btn-success" type="submit">
-                                                <i class="fa fa-check"></i>Registrar producto
-                                            </button>
-                                        </div>
 
+                                        <!-- INICIA Información Accesorio -->
+                                        <div id="div-informacion-accesorio">
+                                            <div class="col-md-4">
+                                                <label style="color:red" for="piezas">Nº de Piezas</label>
+                                                <input class="form-control" type="number" min="0" id="piezas" name="piezas">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label style="color:red" for="precio_interno">Precio Proveedor (unidad)</label>
+                                                <input type="number" class="form-control" step=".01" min="1" id="precio_interno" name="precio_interno" placeholder="$ 0.00">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
+                                                
+                                            <div class="col-md-6">
+                                                <label style="color:red" for="precio_publico">Precio Publico (unidad)</label>
+                                                <input type="number" class="form-control" step=".01" min="1" id="precio_publico" name="precio_publico" placeholder="$ 0.00">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="nombre">Nombre</label>
+                                                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="">
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <label for="marca">Marca</label>
+                                                <input type="text" class="form-control" id="marca" name="marca" placeholder="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="modelo">Modelo</label>
+                                                <input type="text" class="form-control" id="modelo" name="modelo" placeholder="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="capacidad">Capacidad</label>
+                                                <input type="text" class="form-control" id="capacidad" name="capacidad" placeholder="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="img_producto">Imagen del producto</label>
+                                                <input type="file" class="form-control" id="img_producto" name="img_producto">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th colspan="2">Colores</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="encabezado">Color</th>
+                                                            <th class="encabezado">Piezas</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tabla-colores">
+                                                        <tr class="encabezado">
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-success" type="button" onclick="guardarColor();"><i class="fa fa-save"></i></button>
+                                                                    </span>
+                                                                    <input class="form-control" type="text" id="color" name="color" placeholder="">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" min="0" class="form-control" id="num_color_piezas" name="num_color_piezas" placeholder="Ej: 3">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <input type="hidden" id="input-piezas" value="0">
+                                                <!--<label for="color">Color</label>
+                                                <input type="text" class="form-control" id="color" name="color" placeholder="">-->
+                                            </div>
+                                            <div class="col-md-6 well text-center" style="margin-top:3em;">
+                                                <button id="btn_guardar" class="btn btn-success" type="submit">
+                                                    <i class="fa fa-check"></i>Registrar producto
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- END Información Accesorio -->
+
+                                        <!-- INICIA Información Telefono -->
+                                        <div id="div-informacion-telefono">
+                                            <div class="col-md-4">
+                                                <label style="color:red" for="piezas_telefono">Nº de Piezas</label>
+                                                <input class="form-control" type="number" min="1" id="piezas_telefono" name="piezas_telefono" value="1" onkeyup="numeroCelulares(this.value);">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label style="color:red" for="precio_interno_telefono">Precio Proveedor</label>
+                                                <input type="number" class="form-control" step=".01" min="1" id="precio_interno_telefono" name="precio_interno_telefono" placeholder="$ 0.00">
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <label for="precio_publico_telefono">
+                                                    Precio Público
+                                                </label>
+                                                <input type="number" class="form-control" step="0.1" min="1" id="precio_publico_telefono" name="precio_publico_telefono" placeholder="$ 0.00">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <hr>
+                                            </div>
+                                                
+                                            <div class="col-md-6">
+                                                <label for="nombre_telefono">Nombre</label>
+                                                <input type="text" id="nombre_telefono" name="nombre_telefono" class="form-control" placeholder="">
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <label for="marca_telefono">Marca</label>
+                                                <input type="text" class="form-control" id="marca_telefono" name="marca_telefono" placeholder="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="modelo_telefono">Modelo</label>
+                                                <input type="text" class="form-control" id="modelo_telefono" name="modelo_telefono" placeholder="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="capacidad_telefono">Capacidad</label>
+                                                <input type="text" class="form-control" id="capacidad_telefono" name="capacidad_telefono" placeholder="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="img_producto">Imagen del producto</label>
+                                                <input type="file" class="form-control" id="img_producto" name="img_producto">
+                                            </div>
+
+
+                                            <div class="col-md-12">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                CODIGO
+                                                            </th>
+                                                            <th>
+                                                                IMEI
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tabla-codigos-telefono">
+                                                        <tr>
+                                                            <td>
+                                                                <input class="form-control" type="text" id="" name="array_codigos[]" value="" placeholder="Codigo telefono">
+                                                            </td>
+                                                            <td>
+                                                                <input class="form-control" type="text" id="" name="array_imei[]" value="" placeholder="IMEI telefono">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="col-md-12 well text-center" style="margin-top:3em;">
+                                                <button id="btn_guardar" class="btn btn-success" type="submit">
+                                                    <i class="fa fa-check"></i>Registrar producto
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <!-- END Información Telefono -->
                                 </div>
                                 <!-- END Frm accesorio -->
                             </div>
@@ -481,6 +536,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <input type="text" id="tipo_registro" name="tipo_registro" value="">
                     <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
                 </div>
             </form>

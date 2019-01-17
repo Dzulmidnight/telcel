@@ -57,122 +57,306 @@ class Inventario extends CI_Controller{
 		$fecha_registro = time();
 		$id_producto = 0;
 
-		if($this->input->post('nuevo_sub_accesorio')){
-			$nombre_accesorio = $this->input->post();
 
-			$data = array(
-				'nombre' => $this->input->post('nuevo_sub_accesorio'),
-				'fecha_registro' => $fecha_registro
-			);
-
-			$this->add_model->agregar($data, 'sub_categoria_producto');
-
-			$fk_id_sub_categoria_producto = $this->db->insert_id();
-		}else{
-			$fk_id_sub_categoria_producto = $this->input->post('fk_id_sub_categoria_producto');
-		}
-
-		// AGREGAR PRODUCTO
-			$data = array(
-				'fk_id_categoria_producto' => $this->input->post('fk_id_categoria_producto'),
-				'fk_id_sub_categoria_producto' => $fk_id_sub_categoria_producto,
-				'marca' => $this->input->post('marca'),
-				'piezas' => $this->input->post('piezas'),
-				'nombre' => $this->input->post('nombre'),
-				'modelo' => $this->input->post('modelo'),
-				'capacidad' => $this->input->post('capacidad'),
-				'precio_interno' => $this->input->post('precio_interno'),
-				'precio_publico' => $this->input->post('precio_publico'),
-				'fecha_registro' => $fecha_registro
-			);
-
-			if($this->add_model->agregar($data, 'producto')){
-				$id_producto = $this->db->insert_id();
-				$codigo_barras = time().str_pad($id_producto, 3, "0", STR_PAD_LEFT);
-				$data = array(
-					'codigo_barras' => $codigo_barras
-				);
-				$this->update_model->update('producto', 'id_producto', $id_producto, $data);
-			}
-			/* cargar img del producto */
-				$ruta_de_carga = 'assets/img/productos/';
-				$nombreArchivo = strtolower('img_producto'.$fecha_registro.'_'.$id_producto);
-
-			   	$img_producto = 'img_producto';
-			    $config['upload_path'] = $ruta_de_carga;
-			    $config['file_name'] = $nombreArchivo;
-			    $config['allowed_types'] = "*";
-			    $config['max_size'] = 0;
-			    $config['remove_spaces'] = true;
-
-			    $this->load->library('upload', $config);
-
-			    if (!$this->upload->do_upload($img_producto)) {
-			        //*** ocurrio un error
-			        /*$data['uploadError'] = $this->upload->display_errors();
-			        echo $this->upload->display_errors();
-			        return;*/
-			    }else{
-			    	$nombre_archivo = $this->upload->data('file_name');
-			    	$ruta_definida = $ruta_de_carga.$nombre_archivo;
-
-			    	$array_img = array(
-			    		'imagen' => $ruta_definida
-			    	);
-			    	$this->update_model->update('producto', 'id_producto', $id_producto, $array_img);
-			    }
-		    /* END cargar img del producto */
-
+		if($this->input->post('tipo_registro') == 'telefono'){ /// información telefono
 			// color_producto
-				$array_color = $this->input->post('array_color');
-				$array_piezas_color = $this->input->post('array_piezas_color');
-				if(is_array($array_color)){
-					foreach ($array_color as $key => $color) {
-						$datos_colores = array(
-							'fk_id_producto' => $id_producto,
-							'color' => $color,
-							'piezas' => $array_piezas_color[$key]
-						);
-
-						$this->add_model->agregar($datos_colores, 'color_producto');
-					}
-				}
-				
+				$array_codigos = $this->input->post('array_codigos');
+				$array_imei = $this->input->post('array_imei');
 			// END color_producto
 
-		// END PRODUCTO
+			if(is_array($array_codigos)){
+				foreach ($array_codigos as $key => $codigo) {
+					$imei = $array_imei[$key];
 
-		// AGREGAR PRODUCTO_ENTRADA
-			$array_producto_entrada = array(
-				'piezas' => $this->input->post('piezas'),
-				'fk_id_producto' => $id_producto,
-				'precio_unitario' => $this->input->post('precio_interno'),
-				'fecha_registro' => $fecha_registro
-			);
-			$this->add_model->agregar($array_producto_entrada , 'producto_entrada');
+					// agregamos la información de los articulos con su color
+					$data = array(
+						'fk_id_categoria_producto' => $this->input->post('fk_id_categoria_producto'),
+						'fk_id_sub_categoria_producto' => $fk_id_sub_categoria_producto,
+						'marca' => $this->input->post('marca_telefono'),
+						'piezas' => 1,
+						'nombre' => $this->input->post('nombre_telefono'),
+						'modelo' => $this->input->post('modelo_telefono'),
+						'color' => $color,
+						'capacidad' => $this->input->post('capacidad_telefono'),
+						'imei' => $imei,
+						'codigo_barras' => $codigo,
+						'precio_interno' => $this->input->post('precio_interno_telefono'),
+						'precio_publico' => $this->input->post('precio_publico_telefono'),
+						'fecha_registro' => $fecha_registro
+					);
+					$this->add_model->agregar($data, 'producto');
 
-			$this->session->set_flashdata('success', "Producto agregado");
-		
-		// END AGREGAR PRODUCTO_ENTRADA
+					/* cargar img del producto */
+						$ruta_de_carga = 'assets/img/productos/';
+						$nombreArchivo = strtolower('img_producto'.$fecha_registro.'_'.$id_producto);
 
-		// AGREGAR HISTORIAL_INVENTARIO
-			$array_historial = array(
-				'fk_id_producto' => $id_producto,
-				'producto_entrada' => $this->input->post('piezas'),
-				'fecha_registro' => time()
- 			);
- 			$this->add_model->agregar($array_historial, 'historial_inventario');
-		// END AGREGAR HISTORIAL_INVENTARIO
+					   	$img_producto = 'img_producto';
+					    $config['upload_path'] = $ruta_de_carga;
+					    $config['file_name'] = $nombreArchivo;
+					    $config['allowed_types'] = "*";
+					    $config['max_size'] = 0;
+					    $config['remove_spaces'] = true;
 
- 		// AGREGAR SUCURSAL_PRODUCTO
- 			$array_suc_producto = array(
- 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal'),
- 				'fk_id_producto' => $id_producto,
- 				'piezas' => $this->input->post('piezas'),
- 				'fecha_registro' => $fecha_registro
- 			);
- 			$this->add_model->agregar($array_suc_producto, 'sucursal_producto');
- 		// END SUCURSAL_PRODUCTO
+					    $this->load->library('upload', $config);
+
+					    if (!$this->upload->do_upload($img_producto)) {
+					        //*** ocurrio un error
+					        /*$data['uploadError'] = $this->upload->display_errors();
+					        echo $this->upload->display_errors();
+					        return;*/
+					    }else{
+					    	$nombre_archivo = $this->upload->data('file_name');
+					    	$ruta_definida = $ruta_de_carga.$nombre_archivo;
+
+					    	$array_img = array(
+					    		'imagen' => $ruta_definida
+					    	);
+					    	$this->update_model->update('producto', 'id_producto', $id_producto, $array_img);
+					    }
+
+						// AGREGAR PRODUCTO_ENTRADA
+							$array_producto_entrada = array(
+								'piezas' => 1,
+								'fk_id_producto' => $id_producto,
+								'precio_unitario' => $this->input->post('precio_interno_telefono'),
+								'fecha_registro' => $fecha_registro
+							);
+							$this->add_model->agregar($array_producto_entrada , 'producto_entrada');
+
+							$this->session->set_flashdata('success', "Producto agregado");
+						
+						// END AGREGAR PRODUCTO_ENTRADA
+
+						// AGREGAR HISTORIAL_INVENTARIO
+							$array_historial = array(
+								'fk_id_producto' => $id_producto,
+								'producto_entrada' => 1,
+								'fecha_registro' => time()
+				 			);
+				 			$this->add_model->agregar($array_historial, 'historial_inventario');
+						// END AGREGAR HISTORIAL_INVENTARIO
+
+				 		// AGREGAR SUCURSAL_PRODUCTO
+				 			$array_suc_producto = array(
+				 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal'),
+				 				'fk_id_producto' => $id_producto,
+				 				'piezas' => 1,
+				 				'fecha_registro' => $fecha_registro
+				 			);
+				 			$this->add_model->agregar($array_suc_producto, 'sucursal_producto');
+				 		// END SUCURSAL_PRODUCTO
+				}
+			}
+		    /* END cargar img del producto */
+
+		}else{ //// else información accesorio
+			if($this->input->post('nuevo_sub_accesorio')){
+				$nombre_accesorio = $this->input->post();
+
+				$data = array(
+					'nombre' => $this->input->post('nuevo_sub_accesorio'),
+					'fecha_registro' => $fecha_registro
+				);
+
+				$this->add_model->agregar($data, 'sub_categoria_producto');
+
+				$fk_id_sub_categoria_producto = $this->db->insert_id();
+			}else{
+				$fk_id_sub_categoria_producto = $this->input->post('fk_id_sub_categoria_producto');
+			}
+
+			// AGREGAR PRODUCTO
+				// color_producto
+					$array_color = $this->input->post('array_color');
+					$numero_colores = count($array_color);
+					$array_piezas_color = $this->input->post('array_piezas_color');
+				// END color_producto
+
+				if($numero_colores != 0){
+					if(is_array($array_color)){
+						foreach ($array_color as $key => $color) {
+							$piezas = $array_piezas_color[$key];
+							/*$datos_colores = array(
+								'fk_id_producto' => $id_producto,
+								'color' => $color,
+								'piezas' => $array_piezas_color[$key]
+							);
+
+							$this->add_model->agregar($datos_colores, 'color_producto');*/
+
+							// agregamos la información de los articulos con su color
+							$data = array(
+								'fk_id_categoria_producto' => $this->input->post('fk_id_categoria_producto'),
+								'fk_id_sub_categoria_producto' => $fk_id_sub_categoria_producto,
+								'marca' => $this->input->post('marca'),
+								'piezas' => $piezas,
+								'nombre' => $this->input->post('nombre'),
+								'modelo' => $this->input->post('modelo'),
+								'color' => $color,
+								'capacidad' => $this->input->post('capacidad'),
+								'precio_interno' => $this->input->post('precio_interno'),
+								'precio_publico' => $this->input->post('precio_publico'),
+								'fecha_registro' => $fecha_registro
+							);
+							if($this->add_model->agregar($data, 'producto')){
+								$id_producto = $this->db->insert_id();
+								$codigo_barras = time().str_pad($id_producto, 3, "0", STR_PAD_LEFT);
+								$data = array(
+									'codigo_barras' => $codigo_barras
+								);
+								$this->update_model->update('producto', 'id_producto', $id_producto, $data);
+							}
+							/* cargar img del producto */
+								$ruta_de_carga = 'assets/img/productos/';
+								$nombreArchivo = strtolower('img_producto'.$fecha_registro.'_'.$id_producto);
+
+							   	$img_producto = 'img_producto';
+							    $config['upload_path'] = $ruta_de_carga;
+							    $config['file_name'] = $nombreArchivo;
+							    $config['allowed_types'] = "*";
+							    $config['max_size'] = 0;
+							    $config['remove_spaces'] = true;
+
+							    $this->load->library('upload', $config);
+
+							    if (!$this->upload->do_upload($img_producto)) {
+							        //*** ocurrio un error
+							        /*$data['uploadError'] = $this->upload->display_errors();
+							        echo $this->upload->display_errors();
+							        return;*/
+							    }else{
+							    	$nombre_archivo = $this->upload->data('file_name');
+							    	$ruta_definida = $ruta_de_carga.$nombre_archivo;
+
+							    	$array_img = array(
+							    		'imagen' => $ruta_definida
+							    	);
+							    	$this->update_model->update('producto', 'id_producto', $id_producto, $array_img);
+							    }
+
+								// AGREGAR PRODUCTO_ENTRADA
+									$array_producto_entrada = array(
+										'piezas' => $piezas,
+										'fk_id_producto' => $id_producto,
+										'precio_unitario' => $this->input->post('precio_interno'),
+										'fecha_registro' => $fecha_registro
+									);
+									$this->add_model->agregar($array_producto_entrada , 'producto_entrada');
+
+									$this->session->set_flashdata('success', "Producto agregado");
+								
+								// END AGREGAR PRODUCTO_ENTRADA
+
+								// AGREGAR HISTORIAL_INVENTARIO
+									$array_historial = array(
+										'fk_id_producto' => $id_producto,
+										'producto_entrada' => $piezas,
+										'fecha_registro' => time()
+						 			);
+						 			$this->add_model->agregar($array_historial, 'historial_inventario');
+								// END AGREGAR HISTORIAL_INVENTARIO
+
+						 		// AGREGAR SUCURSAL_PRODUCTO
+						 			$array_suc_producto = array(
+						 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal'),
+						 				'fk_id_producto' => $id_producto,
+						 				'piezas' => $piezas,
+						 				'fecha_registro' => $fecha_registro
+						 			);
+						 			$this->add_model->agregar($array_suc_producto, 'sucursal_producto');
+						 		// END SUCURSAL_PRODUCTO
+						}
+					}
+				}else{
+					// agregamos la información de los articulos con su color
+					$data = array(
+						'fk_id_categoria_producto' => $this->input->post('fk_id_categoria_producto'),
+						'fk_id_sub_categoria_producto' => $fk_id_sub_categoria_producto,
+						'marca' => $this->input->post('marca'),
+						'piezas' => $this->input->post('piezas'),
+						'nombre' => $this->input->post('nombre'),
+						'modelo' => $this->input->post('modelo'),
+						'capacidad' => $this->input->post('capacidad'),
+						'precio_interno' => $this->input->post('precio_interno'),
+						'precio_publico' => $this->input->post('precio_publico'),
+						'fecha_registro' => $fecha_registro
+					);
+					if($this->add_model->agregar($data, 'producto')){
+						$id_producto = $this->db->insert_id();
+						$codigo_barras = time().str_pad($id_producto, 3, "0", STR_PAD_LEFT);
+						$data = array(
+							'codigo_barras' => $codigo_barras
+						);
+						$this->update_model->update('producto', 'id_producto', $id_producto, $data);
+					}
+					/* cargar img del producto */
+						$ruta_de_carga = 'assets/img/productos/';
+						$nombreArchivo = strtolower('img_producto'.$fecha_registro.'_'.$id_producto);
+
+					   	$img_producto = 'img_producto';
+					    $config['upload_path'] = $ruta_de_carga;
+					    $config['file_name'] = $nombreArchivo;
+					    $config['allowed_types'] = "*";
+					    $config['max_size'] = 0;
+					    $config['remove_spaces'] = true;
+
+					    $this->load->library('upload', $config);
+
+					    if (!$this->upload->do_upload($img_producto)) {
+					        //*** ocurrio un error
+					        /*$data['uploadError'] = $this->upload->display_errors();
+					        echo $this->upload->display_errors();
+					        return;*/
+					    }else{
+					    	$nombre_archivo = $this->upload->data('file_name');
+					    	$ruta_definida = $ruta_de_carga.$nombre_archivo;
+
+					    	$array_img = array(
+					    		'imagen' => $ruta_definida
+					    	);
+					    	$this->update_model->update('producto', 'id_producto', $id_producto, $array_img);
+					    }
+
+						// AGREGAR PRODUCTO_ENTRADA
+							$array_producto_entrada = array(
+								'piezas' => $this->input->post('piezas'),
+								'fk_id_producto' => $id_producto,
+								'precio_unitario' => $this->input->post('precio_interno'),
+								'fecha_registro' => $fecha_registro
+							);
+							$this->add_model->agregar($array_producto_entrada , 'producto_entrada');
+
+							$this->session->set_flashdata('success', "Producto agregado");
+						
+						// END AGREGAR PRODUCTO_ENTRADA
+
+						// AGREGAR HISTORIAL_INVENTARIO
+							$array_historial = array(
+								'fk_id_producto' => $id_producto,
+								'producto_entrada' => $this->input->post('piezas'),
+								'fecha_registro' => time()
+				 			);
+				 			$this->add_model->agregar($array_historial, 'historial_inventario');
+						// END AGREGAR HISTORIAL_INVENTARIO
+
+				 		// AGREGAR SUCURSAL_PRODUCTO
+				 			$array_suc_producto = array(
+				 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal'),
+				 				'fk_id_producto' => $id_producto,
+				 				'piezas' => $this->input->post('piezas'),
+				 				'fecha_registro' => $fecha_registro
+				 			);
+				 			$this->add_model->agregar($array_suc_producto, 'sucursal_producto');
+				 		// END SUCURSAL_PRODUCTO
+
+				}
+			    /* END cargar img del producto */
+
+			// END PRODUCTO
+		}
+
+
+
 
 
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
