@@ -67,16 +67,14 @@ class Inventario extends CI_Controller{
 			if(is_array($array_codigos)){
 				foreach ($array_codigos as $key => $codigo) {
 					$imei = $array_imei[$key];
-
 					// agregamos la información de los articulos con su color
+				
 					$data = array(
 						'fk_id_categoria_producto' => $this->input->post('fk_id_categoria_producto'),
-						'fk_id_sub_categoria_producto' => $fk_id_sub_categoria_producto,
 						'marca' => $this->input->post('marca_telefono'),
 						'piezas' => 1,
 						'nombre' => $this->input->post('nombre_telefono'),
 						'modelo' => $this->input->post('modelo_telefono'),
-						'color' => $color,
 						'capacidad' => $this->input->post('capacidad_telefono'),
 						'imei' => $imei,
 						'codigo_barras' => $codigo,
@@ -85,12 +83,13 @@ class Inventario extends CI_Controller{
 						'fecha_registro' => $fecha_registro
 					);
 					$this->add_model->agregar($data, 'producto');
+					$id_producto = $this->db->insert_id();
 
 					/* cargar img del producto */
 						$ruta_de_carga = 'assets/img/productos/';
-						$nombreArchivo = strtolower('img_producto'.$fecha_registro.'_'.$id_producto);
+						$nombreArchivo = strtolower('img_telefono'.$fecha_registro.'_'.$id_producto);
 
-					   	$img_producto = 'img_producto';
+					   	$img_telefono = 'img_telefono';
 					    $config['upload_path'] = $ruta_de_carga;
 					    $config['file_name'] = $nombreArchivo;
 					    $config['allowed_types'] = "*";
@@ -99,7 +98,7 @@ class Inventario extends CI_Controller{
 
 					    $this->load->library('upload', $config);
 
-					    if (!$this->upload->do_upload($img_producto)) {
+					    if (!$this->upload->do_upload($img_telefono)) {
 					        //*** ocurrio un error
 					        /*$data['uploadError'] = $this->upload->display_errors();
 					        echo $this->upload->display_errors();
@@ -144,7 +143,7 @@ class Inventario extends CI_Controller{
 				 				'fecha_registro' => $fecha_registro
 				 			);
 				 			$this->add_model->agregar($array_suc_producto, 'sucursal_producto');
-				 		// END SUCURSAL_PRODUCTO
+				 		// END SUCURSAL_PRODUCTO*/
 				}
 			}
 		    /* END cargar img del producto */
@@ -355,10 +354,6 @@ class Inventario extends CI_Controller{
 			// END PRODUCTO
 		}
 
-
-
-
-
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}
 
@@ -498,10 +493,18 @@ class Inventario extends CI_Controller{
 	public function eliminar()
 	{
 		$id = $this->input->post('id_eliminar');
+
+		// eliminamos historial_inventario
+		$this->eliminar_model->eliminar('historial_inventario', 'fk_id_producto', $id);
+		// elinamos el producto
+		$this->eliminar_model->eliminar('producto', 'id_producto', $id);
+		// eliminamos producto_entrada
+		$this->eliminar_model->eliminar('producto_entrada', 'fk_id_producto', $id);
+		// eliminamos sucursal_producto
+		$this->eliminar_model->eliminar('sucursal_producto', 'fk_id_producto', $id);
 		
-		if($this->eliminar_model->eliminar('producto', 'id_producto', $id)){
-			$this->session->set_flashdata('error', "Información eliminada");
-		}
+		$this->session->set_flashdata('error', "Información eliminada");
+
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}
 }

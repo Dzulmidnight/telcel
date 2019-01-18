@@ -66,6 +66,70 @@
                         <!-- Equipos en proceso de garantia -->
                         <div class="tab-pane active" id="btabs-alt-static-justified-home">
                             <h4 class="font-w300 push-15">En proceso</h4>
+
+
+                            <table id="example" class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
+                                <thead style="font-size:13px;">
+                                    <tr>
+                                        <th class="danger">
+                                            #ID
+                                        </th>
+                                        <th>
+                                            Sucursal
+                                        </th>
+                                        <th>
+                                            Cliente
+                                        </th>
+                                        <th style="width:20%;">
+                                            Detalle Equipo
+                                        </th>
+                                        <th>
+                                            Técnico
+                                        </th>
+                                        <th>
+                                            Entrega aprox
+                                        </th>
+                                        <th>
+                                            Garantia
+                                        </th>
+                                        <th>
+                                            ...
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($row_productos as $producto): ?>
+                                        <tr>
+                                            <!-- ID SERVICIO -->
+                                            <td></td>
+
+                                            <!-- Sucursal -->
+                                            <td></td>
+
+                                            <!-- Cliente -->
+                                            <td></td>
+
+                                            <!-- Detalle del equipo -->
+                                            <td></td>
+
+                                            <!-- Nombre del tecnico que atiende -->
+                                            <td></td>
+
+                                            <!-- Fecha de entrega aprox -->
+                                            <td></td>
+
+                                            <!-- Garantia -->
+                                            <td></td>
+
+                                            <!-- Acciones -->
+                                            <td></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+
+
+
                             <table class="js-table-sections table table-condensed table-hover">
                                 <thead style="font-size:13px;">
                                     <tr>
@@ -98,62 +162,63 @@
                                 
                                 <tbody class="js-table-sections-header">
                                 <!--<tbody class="js-table-sections-header open">-->
-                                    <tr class="font-size:12px;">
-                                        <!-- ID general -->
-                                        <td>
-                                            <i class="fa fa-angle-right"></i> <span class="text-danger">342</span>
-                                        </td>
-                                        <!-- Nombre de la sucursal -->
-                                        <td>
-                                            Nom. Sucursal
-                                        </td>
-                                        <!-- Información del cliente -->
-                                        <td>
-                                            Cliente: <a href="#">Nombre del cliente</a>
-                                            <br>
-                                            Tel: <span class="text-primary">951 199 9723</span>
-                                        </td>
-                                        <!-- EQUIPO -->
-                                        <td>
-                                            <a href="#">
-                                                Nombre del equipo
-                                            </a>
-                                            <p>
-                                                Descripción: <span class="text-city">El equipo presenta falla en la pantalla, necesita ser reemplazada</span>
-                                            </p>
-                                        </td>
-                                        <!-- Nombre del tecnico -->
-                                        <td>
-                                            Nom Tecnico
-                                        </td>
-                                        <!-- Fecha de entrega aprox -->
-                                        <td>
-                                            <span class="text-danger">
-                                                <?= date('d/m/Y', time()) ?>
-                                            </span> 
-                                        </td>
+                                    <?php foreach($row_servicios as $servicio): ?>
+                                        <tr class="font-size:12px;">
+                                            <!-- ID general -->
+                                            <td>
+                                                <i class="fa fa-angle-right"></i> <span class="text-danger"><?= $servicio->id_servicio_tecnico; ?></span>
+                                            </td>
+                                            <!-- Nombre de la sucursal -->
+                                            <td>
+                                                <?= $servicio->nombre_sucursal; ?>
+                                            </td>
+                                            <!-- Información del cliente -->
+                                            <td>
+                                                Cliente: <a href="#">Nombre del cliente</a>
+                                                <br>
+                                                Tel: <span class="text-primary">951 199 9723</span>
+                                            </td>
+                                            <!-- EQUIPO -->
+                                            <td>
+                                                <a href="#">
+                                                    Nombre del equipo
+                                                </a>
+                                                <p>
+                                                    Descripción: <span class="text-city">El equipo presenta falla en la pantalla, necesita ser reemplazada</span>
+                                                </p>
+                                            </td>
+                                            <!-- Nombre del tecnico -->
+                                            <td>
+                                                Nom Tecnico
+                                            </td>
+                                            <!-- Fecha de entrega aprox -->
+                                            <td>
+                                                <span class="text-danger">
+                                                    <?= date('d/m/Y', time()) ?>
+                                                </span> 
+                                            </td>
 
-                                        <!-- FECHA DE INGRESO -->
-                                        <td>
-                                            <?php 
-                                                $validez = 2.592e+6; // 30 dias
-                                                $fin_garantia = date('d/m/Y', time()+$validez);
-                                             ?>
-                                            <?= date('d/m/Y', time()); ?>
-                                            -
-                                            <?= $fin_garantia ?>
-                                        </td>
-                                        <!-- Acciones -->
-                                        <td>
-                                            <button class="btn btn-xs btn-success">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            <button class="btn btn-xs btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-
-                                    </tr>
+                                            <!-- FECHA DE INGRESO -->
+                                            <td>
+                                                <?php 
+                                                    $validez = 2.592e+6; // 30 dias
+                                                    $fin_garantia = date('d/m/Y', time()+$validez);
+                                                 ?>
+                                                <?= date('d/m/Y', time()); ?>
+                                                -
+                                                <?= $fin_garantia ?>
+                                            </td>
+                                            <!-- Acciones -->
+                                            <td>
+                                                <button class="btn btn-xs btn-success">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                                <button class="btn btn-xs btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                                 <tbody style="font-size:12px;border: 2px solid #ee5253;">
                                     <tr style="margin:0px;padding:0px;">
@@ -480,179 +545,146 @@
 <div class="modal fade" id="modal-popout2" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-popout">
         <div class="modal-content">
-            <div class="block block-themed block-transparent remove-margin-b">
-                <div class="block-header bg-primary-dark">
-                    <ul class="block-options">
-                        <li>
-                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
-                        </li>
-                    </ul>
-                    <h3 class="block-title">Registrar nuevo ingreso</h3>
-                </div>
-                <div class="block-content">
-                    <div class="row text-justify">
+            <?php 
+            $atributos = array('class="form-horizontal push-10-t block-content"');
+            echo form_open_multipart('backend/MOD_SERV_TECNICO/Serv_tecnico/agregar'); 
+            ?>
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Registrar nuevo ingreso</h3>
+                    </div>
+                    <div class="block-content">
+                        <div class="row text-justify">
 
-                        <!-- Registrar nuevo cliente -->
-                        <div class="col-md-5">
-                               <h3 class="h4">
-                                    Información del cliente
-                                </h3>
-                                <hr>
-                                <div class="form-group">
-                                    <div class="">
-                                        <b class="text-success" style="margin-bottom:1em;">Buscar cliente</b>
-                                        <div class="input-group">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
-                                            </span>
-                                            <input class="form-control" type="text" id="example-input1-group2" name="example-input1-group2" placeholder="Nombre y apellido, Nº Telefono">
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-
-                                <h4 style="margin-bottom: 1em;">Nuevo cliente</h4>
-                                <div class="form-group">
-                                    <div class="col-sm-6">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                            <label for="material-color-primary">Nombre *</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                            <label for="material-color-primary">Nº Telefono *</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-6">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                            <label for="material-color-primary">Apellido Paterno *</label>
+                            <!-- Registrar nuevo cliente -->
+                            <div class="col-md-5">
+                                   <h3 class="h4">
+                                        Información del cliente
+                                    </h3>
+                                    <hr>
+                                    <div class="form-group">
+                                        <div class="">
+                                            <b class="text-success" style="margin-bottom:1em;">Buscar cliente</b>
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
+                                                </span>
+                                                <input class="form-control" type="text" id="example-input1-group2" name="example-input1-group2" placeholder="Nombre y apellido, Nº Telefono">
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                            <label for="material-color-primary">Apellido Materno *</label>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <hr>
+                                           <h4 style="margin-bottom: 1em;">Nuevo cliente</h4> 
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <div class="form-material">
-                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
-                                            <label for="material-textarea-small">Información extra</label>
+                                        <div class="col-sm-12">
+                                            <label for="nombre">* Nombre</label>
+                                            <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente">
                                         </div>
-                                    </div>
-                                </div>
+                                        <div class="col-sm-12">
+                                            <label for="ap_paterno">Apellido Paterno</label>
+                                            <input type="text" id="ap_paterno" name="ap_paterno" class="form-control">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <label for="ap_materno">Apellido Materno</label>
+                                            <input type="text" id="ap_materno" name="ap_materno" class="form-control">
+                                        </div>
 
-                        </div>
-                        <!-- END Registrar nuevo cliente -->
-                        <div class="col-md-7">
-                            <!-- Div servicio_tecnico -->
-                            <div id="div_servicio_tecnico">
-                                <p class="text-danger h3" >
-                                    Servicio Técnico
-                                </p>
+                                        <div class="col-sm-12">
+                                            <label for="num_telefono">* Nº Teléfono</label>
+                                            <input type="text" id="num_telefono" name="num_telefono" class="form-control">
+                                        </div>
 
-                                <div class="form-group" style="padding-bottom:4em;">
-                                    <div class="col-sm-6">
-                                        <label for="fecha_ingreso">FECHA DE INGRESO</label>
-                                        <input type="date" class="form-control" id="fecha_ingreso" value="<?= date('Y-m-d', time()) ?>" readonly>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="fecha_entrega">FECHA ESTIMADA DE ENTREGA *</label>
-                                        <input type="date" class="form-control" id="fecha_entrega" value="">
-                                    </div>
-                                </div>
-                                <div class="form-group" style="padding-bottom:4em;">
-                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="IMEI del equipo" required>
-                                            <label for="material-color-primary">IMEI *</label>
+                                        <div class="col-sm-12">
+                                            <label for="informacion_extra">Información Extra</label>
+                                            <textarea class="form-control" name="informacion_extra" id="informacion_extra"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Telefono" required>
-                                            <label for="material-color-primary">Nº Telefono *</label>
-                                        </div>
-                                    </div>
-                                </div>
+                            </div>
+                            <!-- END Registrar nuevo cliente -->
+                            <div class="col-md-7">
+                                <!-- Div servicio_tecnico -->
+                                <div id="div_servicio_tecnico">
+                                    <p class="text-danger h3" >
+                                        Servicio Técnico
+                                    </p>
 
-                                <div class="form-group" style="padding-bottom:4em;">
-                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="IMEI del equipo" required>
-                                            <label for="material-color-primary">Marca *</label>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="fecha_ingreso">FECHA DE INGRESO</label>
+                                            <input type="date" class="form-control" id="fecha_ingreso" value="<?= date('Y-m-d', time()) ?>" readonly>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                        <div class="form-material form-material-primary">
-                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Telefono" required>
-                                            <label for="material-color-primary">Modelo *</label>
+                                        <div class="col-sm-6">
+                                            <label for="fecha_entrega">* FECHA ESTIMADA DE ENTREGA</label>
+                                            <input type="date" class="form-control" id="fecha_entrega" value="">
                                         </div>
-                                    </div>
-                                </div>
 
-
-                                <div class="form-group" style="padding-bottom:4em;">
-                                    <div class="col-sm-6">
-                                        <label for="material-select">Estado fisico del equipo *</label>
-                                        <select class="form-control" id="material-select" name="material-select" size="1" required="" onchange="tipoServicio()">
-                                            <option>...</option>
-                                               <option value="1">Excenlente</option>
-                                            <option value="2">Bueno</option>
-                                            <option value="3">Regular</option>
-                                            <option value="4">Malo</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-material">
-                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="2" placeholder="Opcional: detalles del servicio"></textarea>
-                                            <label for="material-textarea-small">Falla reportada por el usuario *</label>
+                                        <div class="col-sm-6">
+                                            <label for="imei">* IMEI</label>
+                                            <input type="text" class="form-control" id="imei" name="imei">
                                         </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-6">
-                                        <div class="form-material">
+                                        <div class="col-sm-6">
+                                            <label for="num_telefono_equipo">* Número de telefono</label>
+                                            <input type="text" class="form-control" id="num_telefono_equipo" name="num_telefono_equipo">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="marca">* Marca</label>
+                                            <input type="text" class="form-control" id="marca" name="marca">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="modelo">* Modelo</label>
+                                            <input type="text" class="form-control" id="modelo" name="modelo">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="estado_del_equipo">* Estado fisico del equipo</label>
+                                            <select class="form-control" name="estado_del_equipo" id="estado_del_equipo">
+                                                <option>...</option>
+                                                <option value="1">Excenlente</option>
+                                                <option value="2">Bueno</option>
+                                                <option value="3">Regular</option>
+                                                <option value="4">Malo</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="falla_reportada">* Falla reportada por el usuario</label>
+                                            <textarea class="form-control" name="falla_reportada" id="falla_reportada" rows="5"></textarea>
+                                        </div>
+                                        <div class="col-sm-6">
                                             <label for="evidencias">Evidencias</label>
                                             <input type="file" class="form-control" id="evidencias" name="evidencias">
                                         </div>
+                                        <div class="col-sm-6">
+                                            <label for="detalle_extra">Detalle Extra</label>
+                                            <textarea class="form-control" name="detalle_extra" id="detalle_extra" rows="5"></textarea>
+                                        </div>    
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-material">
-                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
-                                            <label for="material-textarea-small">Detalles Extra</label>
+
+                                    <div class="form-group">
+                                        <div class="col-xs-6">
+                                            <label class="css-input css-checkbox css-checkbox-success">
+                                                <input type="checkbox" value="1"><span></span> <b>Patron de bloqueo</b>
+                                            </label>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="col-xs-6">
-                                        <label class="css-input css-checkbox css-checkbox-success">
-                                            <input type="checkbox"><span></span> <b>Patron de bloqueo</b>
-                                        </label>
-                                    </div>
                                 </div>
-
+                                <!-- END Div servicio_tecnico -->  
                             </div>
-                            <!-- END Div servicio_tecnico -->  
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                <button class="btn btn-sm btn-success" type="button">Registrar</button>
-            </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-sm btn-success" type="submit">Registrar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

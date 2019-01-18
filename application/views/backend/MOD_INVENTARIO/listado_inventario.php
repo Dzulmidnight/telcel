@@ -491,8 +491,8 @@
                                                 <input type="text" class="form-control" id="capacidad_telefono" name="capacidad_telefono" placeholder="">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="img_producto">Imagen del producto</label>
-                                                <input type="file" class="form-control" id="img_producto" name="img_producto">
+                                                <label for="img_telefono">Imagen del producto</label>
+                                                <input type="file" class="form-control" id="img_telefono" name="img_telefono">
                                             </div>
 
 
@@ -572,7 +572,7 @@
                                 <img id="edit_img_actual" width="80px;" height="80px;" src="" alt="">
                             </div>
                             <div class="col-md-6">
-                                <label for="img_nueva">Reemplazar Img</label>
+                                <label for="img_nueva">Reemplazar Imagen</label>
                                 <input type="file" class="form-control" id="img_nueva" name="img_nueva">
                             </div> 
                             <div class="col-md-12">

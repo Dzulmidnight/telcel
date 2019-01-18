@@ -143,6 +143,39 @@ class Consultar_model extends CI_Model{
                 return $result;
         }
 
+        //// SERVICIOS_TECNICOS //////
+        public function servicios_tecnicos($id = false){
+                $this->db->select('
+                        servicio_tecnico.*,
+                        clientes.nombre as nombre_cliente,
+                        clientes.ap_paterno,
+                        clientes.ap_materno,
+                        clientes.telefono as telefono_cliente,
+                        clientes.email,
+                        clientes.informacion_extra as informacion_extra_cliente,
+                        sucursal.nombre as nombre_sucursal
+                ');
+                $this->db->from('servicio_tecnico');
+                $this->db->join('clientes', 'clientes.id_cliente = servicio_tecnico.fk_id_cliente');
+                $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
+
+                if($id != false){
+                        $this->db->where('servicio_tecnico.id_servicio_tecnico', $id);
+                        //$this->db->like('producto.codigo_barras', $codigo);
+
+                        $query = $this->db->get();
+                        $result = $query->row();
+                }else{
+                        $query = $this->db->get();
+                        $result = $query->result();
+                }
+
+                return $result;
+        }
+        //// END SERVICIOS_TECNICOS ////
+
+
+
         //// PRODUCTOS ////
         public function productos($id = false, $id_sucursal = false){
                 $this->db->select('producto.*,
