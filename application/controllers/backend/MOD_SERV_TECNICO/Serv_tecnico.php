@@ -55,6 +55,15 @@ class Serv_tecnico extends CI_Controller{
 		$fecha_registro = time();
 		$fk_id_cliente = '';
 		$estatus = 'PENDIENTE';
+		$tipo_bloqueo = $this->input->post('tipo_bloqueo');
+		$patron_bloqueo = '';
+		$codigo_bloqueo = '';
+
+		if(isset($tipo_bloqueo) && $tipo_bloqueo = 'patron'){
+			$patron_bloqueo = $this->input->post('casilla_seleccionada');
+		}else if(isset($tipo_bloqueo) && $tipo_bloqueo == 'codigo'){
+			$codigo_bloqueo = $this->input->post('codigo_bloqueo');
+		}
 
 		if(!empty($this->input->post('nombre_cliente'))){
 			$data_cliente = array(
@@ -78,14 +87,16 @@ class Serv_tecnico extends CI_Controller{
 		$data_servicio = array(
 			'fk_id_cliente' => $fk_id_cliente,
 			'fk_id_sucursal' => $id_sucursal,
+			'fk_id_usuario' => $this->session->userdata('id_usuario'),
 			'imei' => $this->input->post('imei'),
-			'numero_telefono' => $this->input->post('numero_telefono'),
-			'marca_telefono' => $this->input->post('marca_telefono'),
-			'modelo_telefono' => $this->input->post('modelo_telefono'),
+			'numero_telefono' => $this->input->post('num_telefono_equipo'),
+			'marca_telefono' => $this->input->post('marca'),
+			'modelo_telefono' => $this->input->post('modelo'),
 			'estado_fisico' => $this->input->post('estado_fisico'),
 			'falla_reportada' => $this->input->post('falla_reportada'),
 			'detalle_extra' => $this->input->post('detalle_extra'),
-			'patron_bloqueo' => $this->input->post('patron_bloqueo'),
+			'patron_bloqueo' => $patron_bloqueo,
+			'codigo_bloqueo' => $codigo_bloqueo,
 			'fecha_registro' => $fecha_registro,
 			'estatus' => $estatus
 			);

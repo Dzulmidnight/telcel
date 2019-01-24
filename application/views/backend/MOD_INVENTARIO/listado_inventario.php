@@ -536,7 +536,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="text" id="tipo_registro" name="tipo_registro" value="">
+                    <input type="hidden" id="tipo_registro" name="tipo_registro" value="">
                     <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
                 </div>
             </form>

@@ -13,8 +13,14 @@ class Personal extends CI_Controller{
 
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
 		$data['num_resultados'] = $this->count_model->count('users');
-		$data['row_usuarios'] = $this->consultar_model->listado('users');
+		$data['row_usuarios'] = $this->consultar_model->users();
 		$data['row_sucursales'] = $this->consultar_model->sucursales();
+
+
+		foreach ($data['row_usuarios'] as $usuario) {
+			$id_usuario = $usuario->id_user;
+			$data['sucursal_user'][$id_usuario] = $this->consultar_model->sucursal_user($id_usuario);
+		}
 
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
@@ -27,6 +33,7 @@ class Personal extends CI_Controller{
 	public function listado()
 	{
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
+
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');
@@ -64,6 +71,39 @@ class Personal extends CI_Controller{
 	}
 
 	public function agregar()
+	{
+		$info_personal = array(
+			'perfil' => $this->input->post('perfil'),
+			'username' => $this->input->post('username'),
+			'password' => $this->input->post('password'),
+			'nombre' => $this->input->post('nombre'),
+			'ap_paterno' => $this->input->post('ap_paterno'),
+			'ap_materno' => $this->input->post('ap_materno'),
+			'telefono' => $this->input->post('telefono'),
+			'email' => $this->input->post('email'),
+			'id_sucursal' => $this->input->post('id_sucursal'),
+			'fecha_registro' => time()
+ 		);
+
+		$this->add_model->agregar($info_personal, 'users');
+		$id_user = $this->db->insert_id();
+
+		foreach ($this->input->post('ver_sucursal') as $sucursal) {
+			$configuracion = array(
+				'fk_id_sucursal' => $sucursal[0],
+				'fk_id_user' => $id_user,
+				'fecha_registro' => time()
+			);
+			$this->add_model->agregar($configuracion, 'sucursal_user');
+		}
+
+
+		$this->session->set_flashdata('success', "Usuario agregado");
+
+		redirect('backend/MOD_PERSONAL/Personal/index', 'refresh');
+	}
+
+	public function agregar2()
 	{
 		header("Content-Type: application/json; charset=UTF-8");
 

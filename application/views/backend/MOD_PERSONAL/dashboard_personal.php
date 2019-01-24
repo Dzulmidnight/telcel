@@ -84,7 +84,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="font-w600" style="width: 30%;">Sucursal</td>
-                                        <td>Nom. Sucursal #<?= $usuario->id_sucursal; ?></td>
+                                        <td># <?= $usuario->nombre_sucursal; ?></td>
                                     </tr>
                                     <tr>
                                         <td class="font-w600">Telefono</td>
@@ -129,7 +129,7 @@
                     <h3 class="block-title"><i class="fa fa-user-circle push-5-r"></i> Nuevo Personal</h3>
                 </div>
                 <div class="block-content">
-                    <form id="frm-nuevo-personal" class="form-horizontal push-10-t push-10">
+                    <form id="frm-nuevo-personal" class="form-horizontal push-10-t push-10" action="<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/agregar" method="POST">
                         <!--<div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="push">
@@ -155,6 +155,7 @@
                                     <select class="form-control" id="perfil" name="perfil" size="1" style="margin-top: 1.5em;">
                                         <option>Lista de perfiles</option>
                                         <option value="administrador">Administrador</option>
+                                        <option value="tecnico">Técnico</option>
                                         <option value="usuario">Usuario</option>
                                     </select>
                                     <label for="perfil">Perfil de usuario</label>
@@ -164,72 +165,65 @@
 
                         <div class="form-group">
                             <div class="col-sm-6">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="username" name="username" value="">
-                                    <label for="username">Usuario</label>
-                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
-                                </div>
+                                <label for="username">Usuario</label>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Escribe aquí">
+
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="password" name="password" value="">
-                                    <label for="password">Contraseña</label>
-                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
-                                </div>
+                                <label for="password">Contraseña</label>
+                                <input type="text" class="form-control" name="password" id="password" placeholder="Escribe aquí">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="nombre" name="nombre" value="">
-                                    <label for="nombre">Nombre</label>
-                                    <span class="input-group-addon"><i class="si si-user"></i></span>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="ap_paterno" name="ap_paterno" value="">
-                                    <label for="ap_paterno">Apellido Paterno</label>
-                                    <span class="input-group-addon"><i class="si si-plus"></i></span>
-                                </div>
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Escribe aquí">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-12">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="ap_materno" name="ap_materno" value="">
-                                    <label for="ap_materno">Apellido Materno</label>
-                                    <span class="input-group-addon"><i class="si si-plus"></i></span>
-                                </div>
+                            <div class="col-sm-6">
+                                <label for="ap_paterno">Apellido Paterno</label>
+                                <input type="text" class="form-control" name="ap_paterno" id="ap_paterno" placeholder="Escribe aquí">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="ap_materno">Apellido Materno</label>
+                                <input type="text" class="form-control" name="ap_materno" id="ap_materno" placeholder="Escribe aquí">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-12">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="telefono" name="telefono" value="">
-                                    <label for="telefono">Teléfono</label>
-                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
-                                </div>
+                            <div class="col-sm-6">
+                                <label for="telefono">Telefono</label>
+                                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Escribe aquí">
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" name="email" id="email" placeholder="Escribe aquí">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <div class="form-material form-material-primary floating input-group">
-                                    <input class="form-control" type="text" id="email" name="email" value="">
-                                    <label for="email">Email</label>
-                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
-                                </div>
-                            </div>
+                        <div class="col-md-12">
+                            <hr>
+                            <h4>Configuración de cuenta</h4>
+                            <p>
+                                Visualizar solo información de las siguiente Sucursales:
+                            </p>
+                            <?php foreach($row_sucursales as $sucursal): ?>
+                                <label class="css-input css-checkbox css-checkbox-lg css-checkbox-default">
+                                    <input type="checkbox" name="ver_sucursal[]" value="<?= $sucursal->id_sucursal; ?>"><span></span> <?= $sucursal->nombre; ?>
+                                </label>
+                                <br>
+                            <?php endforeach; ?>
                         </div>
 
 
                         <div class="form-group">
-                            <div class="col-sm-12">
+                            <div class="col-sm-12" style="margin-top:2em;">
                                 <input type="hidden" name="fecha_registro" value="<?= time() ?>">
-                                <button id="btn-nuevo-personal" class="btn btn-sm btn-primary" type="button" onclick="insertAjax('frm-nuevo-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/agregar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Crear usuario</button>
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <i class="fa fa-check"></i> Crear usuario
+                                </button>
+                                <!--<button id="btn-nuevo-personal" class="btn btn-sm btn-primary" type="button" onclick="insertAjax('frm-nuevo-personal','<?php echo base_url(); ?>backend/MOD_PERSONAL/personal/agregar', funcionMostrar)"><i class="fa fa-check push-5-r"></i> Crear usuario</button>-->
                             </div>
                         </div>
                     </form>
@@ -279,66 +273,45 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_nombre" name="nombre" value="">
-                                    <label for="editar_nombre">Nombre</label>
-                                    <span class="input-group-addon"><i class="si si-user"></i></span>
-                                </div>
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" id="editar_nombre" placeholder="Escribe aquí">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-6">
-                                <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_usuario" name="username" value="">
-                                    <label for="editar_usuario">Usuario</label>
-                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
-                                </div>
+                                <label for="usuario">Usuario</label>
+                                <input type="text" class="form-control" name="usuario" id="editar_usuario" placeholder="Escribe aquí">
                             </div>
                             <div class="col-sm-6">
-                                <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_password" name="password" value="">
-                                    <label for="editar_password">Contraseña</label>
-                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
-                                </div>
+                                <label for="password">Contraseña</label>
+                                <input type="text" class="form-control" name="password" id="editar_password" placeholder="Escribe aquí">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_ap_paterno" name="ap_paterno" value="">
-                                    <label for="editar_ap_paterno">Apellido Paterno</label>
-                                    <span class="input-group-addon"><i class="si si-plus"></i></span>
-                                </div>
+                                <label for="ap_paterno">Apellido Paterno</label>
+                                <input type="text" class="form-control" name="ap_paterno" id="editar_ap_paterno" placeholder="Escribe aquí">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_ap_materno" name="ap_materno" value="">
-                                    <label for="editar_ap_materno">Apellido Materno</label>
-                                    <span class="input-group-addon"><i class="si si-plus"></i></span>
-                                </div>
+                                <label for="ap_materno">Apellido Materno</label>
+                                <input type="text" class="form-control" name="ap_materno" id="editar_ap_materno" placeholder="Escribe aquí">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_telefono" name="telefono" value="">
-                                    <label for="editar_telefono">Teléfono</label>
-                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
-                                </div>
+                                <label for="telefono">Telefono</label>
+                                <input type="text" class="form-control" name="telefono" id="editar_telefono" placeholder="Escribe aquí">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-12">
-                                <div class="form-material form-material-primary input-group">
-                                    <input class="form-control" type="text" id="editar_email" name="email" value="">
-                                    <label for="editar_email">Email</label>
-                                    <span class="input-group-addon"><i class="si si-screen-smartphone"></i></span>
-                                </div>
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" name="email" id="editar_email" placeholder="Escribe aquí">
                             </div>
                         </div>
 

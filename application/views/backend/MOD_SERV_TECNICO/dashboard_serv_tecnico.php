@@ -68,67 +68,6 @@
                             <h4 class="font-w300 push-15">En proceso</h4>
 
 
-                            <table id="example" class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
-                                <thead style="font-size:13px;">
-                                    <tr>
-                                        <th class="danger">
-                                            #ID
-                                        </th>
-                                        <th>
-                                            Sucursal
-                                        </th>
-                                        <th>
-                                            Cliente
-                                        </th>
-                                        <th style="width:20%;">
-                                            Detalle Equipo
-                                        </th>
-                                        <th>
-                                            Técnico
-                                        </th>
-                                        <th>
-                                            Entrega aprox
-                                        </th>
-                                        <th>
-                                            Garantia
-                                        </th>
-                                        <th>
-                                            ...
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach($row_productos as $producto): ?>
-                                        <tr>
-                                            <!-- ID SERVICIO -->
-                                            <td></td>
-
-                                            <!-- Sucursal -->
-                                            <td></td>
-
-                                            <!-- Cliente -->
-                                            <td></td>
-
-                                            <!-- Detalle del equipo -->
-                                            <td></td>
-
-                                            <!-- Nombre del tecnico que atiende -->
-                                            <td></td>
-
-                                            <!-- Fecha de entrega aprox -->
-                                            <td></td>
-
-                                            <!-- Garantia -->
-                                            <td></td>
-
-                                            <!-- Acciones -->
-                                            <td></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-
-
 
                             <table class="js-table-sections table table-condensed table-hover">
                                 <thead style="font-size:13px;">
@@ -574,14 +513,13 @@
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
                                                 </span>
-                                                <input class="form-control" type="text" id="example-input1-group2" name="example-input1-group2" placeholder="Nombre y apellido, Nº Telefono">
+                                                <input class="form-control" type="text" id="" name="" placeholder="Nombre y apellido, Nº Telefono" onkeyup="buscarCliente('this.value');">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row well">
                                         <div class="col-sm-12">
-                                            <hr>
                                            <h4 style="margin-bottom: 1em;">Nuevo cliente</h4> 
                                         </div>
                                         <div class="col-sm-12">
@@ -616,7 +554,7 @@
                                         Servicio Técnico
                                     </p>
 
-                                    <div class="row">
+                                    <div class="row well" style="border-left: 3px solid #E77715;margin:10px;">
                                         <div class="col-sm-6">
                                             <label for="fecha_ingreso">FECHA DE INGRESO</label>
                                             <input type="date" class="form-control" id="fecha_ingreso" value="<?= date('Y-m-d', time()) ?>" readonly>
@@ -643,8 +581,8 @@
                                             <input type="text" class="form-control" id="modelo" name="modelo">
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="estado_del_equipo">* Estado fisico del equipo</label>
-                                            <select class="form-control" name="estado_del_equipo" id="estado_del_equipo">
+                                            <label for="estado_fisico">* Estado fisico del equipo</label>
+                                            <select class="form-control" name="estado_fisico" id="estado_fisico">
                                                 <option>...</option>
                                                 <option value="1">Excenlente</option>
                                                 <option value="2">Bueno</option>
@@ -653,27 +591,86 @@
                                             </select>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="falla_reportada">* Falla reportada por el usuario</label>
-                                            <textarea class="form-control" name="falla_reportada" id="falla_reportada" rows="5"></textarea>
-                                        </div>
-                                        <div class="col-sm-6">
                                             <label for="evidencias">Evidencias</label>
                                             <input type="file" class="form-control" id="evidencias" name="evidencias">
                                         </div>
-                                        <div class="col-sm-6">
-                                            <label for="detalle_extra">Detalle Extra</label>
-                                            <textarea class="form-control" name="detalle_extra" id="detalle_extra" rows="5"></textarea>
-                                        </div>    
-                                    </div>
 
-                                    <div class="form-group">
-                                        <div class="col-xs-6">
-                                            <label class="css-input css-checkbox css-checkbox-success">
-                                                <input type="checkbox" value="1"><span></span> <b>Patron de bloqueo</b>
-                                            </label>
+                                        <div class="col-sm-12" style="margin-top:2em;">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label for="falla_reportada">* Falla reportada por el usuario</label>
+                                                    <textarea class="form-control" name="falla_reportada" id="falla_reportada" rows="5"></textarea>
+                                                </div>
+
+                                                <div class="col-xs-6">
+                                                    <label for="detalle_extra">Detalles Extra</label>
+                                                    <textarea class="form-control" name="detalle_extra" id="detalle_extra" rows="5"></textarea>
+                                                </div> 
+                                            </div> 
                                         </div>
-                                    </div>
 
+                                        <div class="col-sm-12" style="margin-top:2em;">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label class="css-input css-radio css-radio-success">
+                                                        <input name="tipo_bloqueo" type="radio" onclick="mostrarBloqueo('patron');" value="1"><span></span> <b>Patron de bloqueo</b>
+                                                    </label>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label class="css-input css-radio css-radio-success">
+                                                        <input name="tipo_bloqueo" type="radio" onclick="mostrarBloqueo('codigo');" value="1"><span></span> <b>Codigo de bloqueo</b>
+                                                    </label>
+                                                </div> 
+                                            </div>   
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div id="div-padron-bloqueo" style="display:none">
+                                                <table class="table table-bordered" style="background:#fff;">
+                                                    <tr class="text-center">
+                                                        <td style="" colspan="3">
+                                                            <h5 style="color:#e74c3c;">
+                                                                Selecciona los cuadros para grabar el patron
+                                                            </h5>
+                                                        </td>
+                                                    </tr>
+                                                    <tr style="color:#000; border: 2px solid #52BE80;" class="text-center">
+                                                        <td style="border: 2px solid #52BE80;" id="casilla1" onclick="mostrarSeleccion(this.id);">*</td>
+                                                        <td style="border: 2px solid #52BE80;" id="casilla2" onclick="mostrarSeleccion(this.id);">*</td>
+                                                        <td style="border: 2px solid #52BE80;" id="casilla3" onclick="mostrarSeleccion(this.id);">*</td>
+                                                    </tr>
+                                                    <tr style="color:#000; border: 2px solid #52BE80;" class="text-center">
+                                                        <td style="border: 2px solid #52BE80;" id="casilla4" onclick="mostrarSeleccion(this.id);">*</td>
+                                                        <td style="border: 2px solid #52BE80;" id="casilla5" onclick="mostrarSeleccion(this.id);">*</td>
+                                                        <td style="border: 2px solid #52BE80;" id="casilla6" onclick="mostrarSeleccion(this.id);">*</td>
+                                                    </tr>
+                                                    <tr style="color:#000; border: 2px solid #52BE80;" class="text-center">
+                                                        <td style="border: 2px solid #52BE80;" id="casilla7" onclick="mostrarSeleccion(this.id);">*</td>
+                                                        <td style="border: 2px solid #52BE80;" id="casilla8" onclick="mostrarSeleccion(this.id);">*</td>
+                                                        <td style="border: 2px solid #52BE80;" id="casilla9" onclick="mostrarSeleccion(this.id);">*</td>
+                                                    </tr>
+                                                </table>                                            
+                                            </div>
+                                            <div id="div-codigo-bloqueo" style="display:none">
+                                                <table class="table table-bordered">
+                                                    <tr>
+                                                        <td>
+                                                            <h5 style="color:#e74c3c;">
+                                                                Escribe el código de bloqueo
+                                                            </h5>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="number" class="form-control" id="codigo_bloqueo" name="codigo_bloqueo" placeholder="Código de bloqueo">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
                                 </div>
                                 <!-- END Div servicio_tecnico -->  
                             </div>
@@ -681,16 +678,46 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-sm btn-success" type="submit">Registrar</button>
+                    <input type="hidden" id="tipo-bloqueo" name="tipo_bloqueo" value="">
+                    <input type="hidden" id="casilla_seleccionada" name="casilla_seleccionada">
+                    <input type="hidden" id="numero-inicial-patron" value="0">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-success" type="submit">Registrar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <!-- END FRM Registrar Proveedor -->
+<script>
+    var contadorPatron = document.getElementById('numero-inicial-patron').value;
+    var ultimoId;
+    var casillaSeleccionada = '';
+    function mostrarBloqueo(tipo){
+        if(tipo == 'patron'){
+            document.getElementById('div-padron-bloqueo').style.display = 'block';
+            document.getElementById('div-codigo-bloqueo').style.display = 'none';
+            document.getElementById('tipo-bloqueo').value = tipo;
+        }else if(tipo == 'codigo'){
+            document.getElementById('div-padron-bloqueo').style.display = 'none';
+            document.getElementById('div-codigo-bloqueo').style.display = 'block';
+            document.getElementById('tipo-bloqueo').value = tipo;
+        }
+    }
 
+    function mostrarSeleccion(id){
+        contadorPatron++;
+
+        document.getElementById(id).style = 'background:#2ecc71;color:#fff;';
+        document.getElementById(id).innerHTML = contadorPatron;
+
+        casillaSeleccionada += id+',';
+
+        document.getElementById('casilla_seleccionada').value = casillaSeleccionada;
+    }
+</script>
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<script src="<?= base_url('assets/js/propios/funciones.js') ?>"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 
 <!-- Page JS Code -->

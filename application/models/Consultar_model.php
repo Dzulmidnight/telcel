@@ -5,6 +5,19 @@ class Consultar_model extends CI_Model{
                 parent::__construct();
         }
 
+        public function consultaSimple($id, $nombre_id, $tabla)
+        {
+                $this->db->select('*');
+                $this->db->from($tabla);
+                $this->db->where($nombre_id, $id);
+                //$this->db->like('producto.codigo_barras', $codigo);
+
+                $query = $this->db->get();
+                $result = $query->row();
+
+                return $result;
+        }
+
         public function consulta($tabla = false, $nombre_campo = false, $id = false){
                 $this->db->select('*');
                 $this->db->from($tabla);
@@ -47,30 +60,59 @@ class Consultar_model extends CI_Model{
 
                 return $result;
         }
+        /* USUARIOS */
+                public function users()
+                {
+                        $this->db->select('
+                                users.*,
+                                sucursal.nombre as nombre_sucursal
+                        ');
+                        $this->db->from('users');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = users.id_sucursal');
+                        $query = $this->db->get();
+                        $result = $query->result();
+                        return $result;
+                }
+
+                public function sucursal_user($id)
+                {
+                        $this->db->select('
+                                sucursal.nombre as nombre_sucursal
+                        ');
+                        $this->db->from('sucursal_user');
+                        $this->db->join('sucursal', 'sucursal_user.fk_id_sucursal = sucursal.id_sucursal');
+                        $this->db->where('sucursal_user.fk_id_user', $id);
+
+                        $query = $this->db->get();
+                        $result = $query->result();
+
+                        return $result;    
+                }
+        /* END USUARIO*/
         //// CLIENTES ////
-        public function clientes()
-        {
-                $this->db->select('clientes.*,
-                        sucursal.nombre as nombreSucursal'
-                );
-                $this->db->from('clientes');
-                $this->db->join('sucursal', 'sucursal.id_sucursal = clientes.id_sucursal', 'left');
-                $query = $this->db->get();
-                $result = $query->result();
+                public function clientes()
+                {
+                        $this->db->select('clientes.*,
+                                sucursal.nombre as nombreSucursal'
+                        );
+                        $this->db->from('clientes');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = clientes.id_sucursal', 'left');
+                        $query = $this->db->get();
+                        $result = $query->result();
 
-                return $result;
-        }
-        public function detalle_cliente($id = false){
-                $this->db->select('*');
-                $this->db->from('clientes');
-                $this->db->where('clientes.id_cliente', $id);
-                //$this->db->like('producto.codigo_barras', $codigo);
+                        return $result;
+                }
+                public function detalle_cliente($id = false){
+                        $this->db->select('*');
+                        $this->db->from('clientes');
+                        $this->db->where('clientes.id_cliente', $id);
+                        //$this->db->like('producto.codigo_barras', $codigo);
 
-                $query = $this->db->get();
-                $result = $query->row();
+                        $query = $this->db->get();
+                        $result = $query->row();
 
-                return $result;
-        }
+                        return $result;
+                }
 
         //// END CLIENTES ////
 

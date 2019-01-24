@@ -1,5 +1,8 @@
 var base_url = window.location.href;
 
+function buscarCliente(datos){
+    console.log('datos');
+}
 
 function eliminar_informacion(nombre_id, valor_id, frm){
     document.getElementById(nombre_id).value = valor_id;
@@ -565,7 +568,7 @@ function funcionMostrar(xhttp){
                         contenido += "<tbody>";
                             contenido += "<tr>";
                                 contenido += "<td class='font-w600' style='width: 30%;'>Sucursal</td>";
-                                contenido += "<td>Nom. Sucursal </td>";
+                                contenido += "<td>Nom. Sucursal: "+xhttp[x].sucursal+" </td>";
                             contenido += "</tr>";
                             contenido += "<tr>";
                                 contenido += "<td class='font-w600'>Telefono</td>";
