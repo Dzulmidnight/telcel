@@ -3,6 +3,97 @@ var base_url = window.location.href;
 function buscarCliente(datos){
     console.log('datos');
 }
+function modalFichaServicio(ruta, id, div){
+    ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'+id;
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            document.getElementById(div).innerHTML = this.responseText;
+            $('#modal-detalle-ficha').modal('show');
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=1");
+}
+function modalDetalleCotizacion(ruta, id, div){
+    ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_detalle_cotizacion/'+id;
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            document.getElementById(div).innerHTML = this.responseText;
+            $('#modal-detalle-cotizacion').modal('show');
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=1");
+}
+
+function modalDetalleCliente(ruta, id, div){
+    ruta = ruta+'backend/MOD_CLIENTES/Clientes/modal_detalle_cliente/'+id;
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            document.getElementById(div).innerHTML = this.responseText;
+            $('#modal-detalle-cliente').modal('show');
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=1");
+
+}
+
+function historialAcciones(ruta, id, div){
+
+   // var parametros = '', ruta = ruta+id;
+    ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/historialAcciones/'+id;
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            //console.log(this.responseText);
+
+            //var objetoJson = JSON.parse(this.responseText);
+      
+
+//            console.log(objetoJson);
+
+            console.log(this.responseText);
+            document.getElementById(div).innerHTML = this.responseText;
+
+            /*document.getElementById('edit_nombre').value = objetoJson.nombre;
+            document.getElementById('edit_telefono').value = objetoJson.telefono;
+            document.getElementById('edit_ap_paterno').value = objetoJson.ap_paterno;
+            document.getElementById('edit_ap_materno').value = objetoJson.ap_materno;
+            document.getElementById('edit_email').value = objetoJson.email;
+            document.getElementById('edit_informacion_extra').value = objetoJson.informacion_extra;
+            document.getElementById('id_cliente').value = objetoJson.id_cliente;
+            /*document.getElementById('editar_nombre_contacto').value = objetoJson[0].ap_paterno;
+            document.getElementById('editar_ap_paterno').value = objetoJson[0].ap_materno;
+            document.getElementById('editar_ap_materno').value = objetoJson[0].telefono;
+            document.getElementById('editar_telefono_contacto').value = objetoJson[0].email;
+            document.getElementById('editar_email_contacto').value = objetoJson[0].id_usuario;*/
+
+           
+
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=1");
+}
+
 
 function eliminar_informacion(nombre_id, valor_id, frm){
     document.getElementById(nombre_id).value = valor_id;
@@ -305,6 +396,27 @@ function reemplazar(){
     //var vista = '$this->load->view("backend/MOD_PROVEEDORES/listadoProveedores", ,TRUE)';
 }
 
+
+function entregarEquipo(id_frm, id){
+    document.getElementById('id_frm_servicio_tecnico').value = id;
+    swal({
+        title: "Entregar",
+        text: "¿Realizar entrega del equipo?",
+        icon: "info",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            document.getElementById('id_frm_servicio_tecnico').value = id;
+            //console.log(this.form);
+            document.getElementById(id_frm).submit();
+            //console.log(id);
+        } /*else {
+            swal("Your imaginary file is safe!");
+        }*/
+    });
+}
 
 function eliminarDatos(id){
     swal({

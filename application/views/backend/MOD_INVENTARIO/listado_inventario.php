@@ -139,9 +139,9 @@
                                     </td>
                                     <!-- Codigo de barras del producto -->
                                     <td>
-                                        <button type="button" class="btn btn-default" onclick="mostrarCodigo('<?= base_url(); ?>','<?= $producto->codigo_barras ?>');">
+                                        <a href="#" onclick="mostrarCodigo('<?= base_url(); ?>','<?= $producto->codigo_barras ?>');">
                                             <i class="si si-printer"></i> <?= $producto->codigo_barras ?>
-                                        </button>
+                                        </a>
                                     </td>
                                     <!-- Cantidad -->
                                     <td>

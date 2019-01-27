@@ -155,7 +155,11 @@
                                     <select class="form-control" id="perfil" name="perfil" size="1" style="margin-top: 1.5em;">
                                         <option>Lista de perfiles</option>
                                         <option value="administrador">Administrador</option>
+<<<<<<< Updated upstream
                                         <option value="tecnico">Técnico</option>
+=======
+                                        <option value="tecnico">Tecnico</option>
+>>>>>>> Stashed changes
                                         <option value="usuario">Usuario</option>
                                     </select>
                                     <label for="perfil">Perfil de usuario</label>

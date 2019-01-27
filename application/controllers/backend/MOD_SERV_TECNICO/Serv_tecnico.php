@@ -28,6 +28,7 @@ class Serv_tecnico extends CI_Controller{
 		$data['row_servicios'] = $this->consultar_model->servicios_tecnicos();
 
 
+
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');
@@ -55,6 +56,7 @@ class Serv_tecnico extends CI_Controller{
 		$fecha_registro = time();
 		$fk_id_cliente = '';
 		$estatus = 'PENDIENTE';
+
 		$tipo_bloqueo = $this->input->post('tipo_bloqueo');
 		$patron_bloqueo = '';
 		$codigo_bloqueo = '';
@@ -64,6 +66,9 @@ class Serv_tecnico extends CI_Controller{
 		}else if(isset($tipo_bloqueo) && $tipo_bloqueo == 'codigo'){
 			$codigo_bloqueo = $this->input->post('codigo_bloqueo');
 		}
+
+		$fecha_entrega = strtotime($this->input->post('fecha_entrega'));
+
 
 		if(!empty($this->input->post('nombre_cliente'))){
 			$data_cliente = array(
@@ -88,6 +93,7 @@ class Serv_tecnico extends CI_Controller{
 			'fk_id_cliente' => $fk_id_cliente,
 			'fk_id_sucursal' => $id_sucursal,
 			'fk_id_usuario' => $this->session->userdata('id_usuario'),
+			'deposito_garantia' => $this->input->post('deposito_garantia'),
 			'imei' => $this->input->post('imei'),
 			'numero_telefono' => $this->input->post('num_telefono_equipo'),
 			'marca_telefono' => $this->input->post('marca'),
@@ -98,6 +104,7 @@ class Serv_tecnico extends CI_Controller{
 			'patron_bloqueo' => $patron_bloqueo,
 			'codigo_bloqueo' => $codigo_bloqueo,
 			'fecha_registro' => $fecha_registro,
+			'fecha_entrega' => $fecha_entrega,
 			'estatus' => $estatus
 			);
 
@@ -111,8 +118,106 @@ class Serv_tecnico extends CI_Controller{
 		}
 
 		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico', 'refresh');
+	}
 
+	public function ficha_servicio($id)
+	{
+		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
+		$data['row_servicios'] = $this->consultar_model->servicios_tecnicos($id);
+		$data['historial_estatus'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
 
+		$this->load->view('backend/template/head');
+		$this->load->view('backend/template/overlay');
+		$this->load->view('backend/template/navbar');
+		$this->load->view('backend/template/header');
+			$this->load->view('backend/MOD_SERV_TECNICO/ficha_servicio', $data);
+		$this->load->view('backend/template/footer');
+	}
+
+	public function actualizar_estatus(){
+		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
+		$data_estatus = array(
+			'estatus' => $this->input->post('estatus_servicio'),
+			'accion_realizada' => $this->input->post('accion_realizada'),
+			'fk_id_user' => $this->session->userdata('id_usuario'),
+			'fk_id_servicio_tecnico' => $id_servicio_tecnico,
+			'fecha_registro' => $this->input->post('fecha_registro')
+		);
+		$this->add_model->agregar($data_estatus, 'estatus_servicio');
+
+		$data_actualizar = array(
+			'fecha_actualizacion' => $this->input->post('fecha_registro'),
+			'estatus' => $this->input->post('estatus_servicio')
+		);
+		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+
+		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');
+	}
+
+	public function cotizacion_servicio(){
+		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
+		$data_estatus = array(
+			'estatus' => $this->input->post('estatus_servicio'),
+			'accion_realizada' => 'Cotización generada',
+			'fk_id_user' => $this->session->userdata('id_usuario'),
+			'fk_id_servicio_tecnico' => $id_servicio_tecnico,
+			'fecha_registro' => $this->input->post('fecha_registro')
+		);
+		$this->add_model->agregar($data_estatus, 'estatus_servicio');
+
+		$data_actualizar = array(
+			'costo_servicio' => $this->input->post('costo_servicio'),
+			'descripcion_servicio' => $this->input->post('descripcion_servicio'),
+			'fecha_actualizacion' => $this->input->post('fecha_registro'),
+			'estatus' => $this->input->post('estatus_servicio')
+		);
+		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+
+		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');	
+	}
+
+	public function entregar_equipo(){
+		$id_servicio_tecnico = $this->input->post('id_frm_servicio_tecnico');
+		echo $id_servicio_tecnico;
+		$data_estatus = array(
+			'estatus' => 'ENTREGADO',
+			'accion_realizada' => 'Equipo entregado al cliente',
+			'fk_id_user' => $this->session->userdata('id_usuario'),
+			'fk_id_servicio_tecnico' => $id_servicio_tecnico,
+			'fecha_registro' => $this->input->post('fecha_registro')
+		);
+		$this->add_model->agregar($data_estatus, 'estatus_servicio');
+
+		$data_actualizar = array(
+			'servicio_pagado' => 1,
+			'fecha_actualizacion' => $this->input->post('fecha_registro'),
+			'estatus' => 'ENTREGADO'
+		);
+		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+
+		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/', 'refresh');
+	}
+
+	public function modal_detalle_cotizacion($id){
+		$data['row_detalle_cotizacion'] = $this->consultar_model->servicios_tecnicos($id);
+		$vista = $this->load->view('backend/MOD_SERV_TECNICO/modal_detalle_cotizacion', $data, true);
+
+		echo $vista;
+	}
+
+	public function modal_ficha_servicio($id){
+		$data['row_detalle_ficha'] = $this->consultar_model->servicios_tecnicos($id);
+		$vista = $this->load->view('backend/MOD_SERV_TECNICO/modal_detalle_ficha', $data, true);
+
+		echo $vista;
+	}
+
+	function historialAcciones($id){
+		$data['row_historial_acciones'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
+
+		$vista = $this->load->view('backend/MOD_SERV_TECNICO/tabla_estatus_acciones', $data, true);
+		//$historial = json_encode($this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC'));
+		echo $vista;
 	}
 
 }

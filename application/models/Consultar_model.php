@@ -18,13 +18,16 @@ class Consultar_model extends CI_Model{
                 return $result;
         }
 
-        public function consulta($tabla = false, $nombre_campo = false, $id = false){
+        public function consulta($id, $nombre_id, $tabla, $orden = false){
                 $this->db->select('*');
                 $this->db->from($tabla);
-                $this->db->where($nombre_campo, $id);
+                $this->db->where($nombre_id, $id);
+                if($orden){
+                        $this->db->order_by('id_'.$tabla, $orden);
+                }
 
                 $query = $this->db->get();
-                $result = $query->row();
+                $result = $query->result();
 
                 return $result;
         }
@@ -103,8 +106,11 @@ class Consultar_model extends CI_Model{
                         return $result;
                 }
                 public function detalle_cliente($id = false){
-                        $this->db->select('*');
+                        $this->db->select('clientes.*,
+                                        sucursal.nombre as nombre_sucursal
+                                ');
                         $this->db->from('clientes');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = clientes.id_sucursal', 'left');
                         $this->db->where('clientes.id_cliente', $id);
                         //$this->db->like('producto.codigo_barras', $codigo);
 
@@ -214,6 +220,7 @@ class Consultar_model extends CI_Model{
 
                 return $result;
         }
+
         //// END SERVICIOS_TECNICOS ////
 
 
@@ -301,8 +308,29 @@ class Consultar_model extends CI_Model{
                 $result = $query->result();
 
                 return $result;
-
         }
+
+        /////// ULTIMOS AVISOS ////////
+                public function ultimosAvisos($id){
+                        $this->db->select('
+                                servicio_tecnico.*,
+                                clientes.nombre as nombre_cliente,
+                                clientes.ap_paterno,
+                                clientes.telefono as telefono_cliente
+                        ');
+                        $this->db->from('servicio_tecnico');
+                        $this->db->join('clientes', 'clientes.id_cliente = servicio_tecnico.fk_id_cliente');
+                        $this->db->where('servicio_tecnico.estatus', 'FINALIZADO');
+                        $this->db->where('servicio_tecnico.fk_id_sucursal', $id);
+
+                        $query = $this->db->get();
+                        $result = $query->result();
+
+                        return $result;
+                }
+        ////// END ULTIMOS AVISOS /////
+
+
 
 
 }

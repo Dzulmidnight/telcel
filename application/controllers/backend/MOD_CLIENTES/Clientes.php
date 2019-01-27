@@ -66,6 +66,12 @@ class Clientes extends CI_Controller{
 			echo 'Articulo no encontrado';
 		}
 	}
+	public function modal_detalle_cliente($id){
+		$data['row_cliente'] = $this->consultar_model->detalle_cliente($id);
+		$vista = $this->load->view('backend/MOD_CLIENTES/modal_detalle_cliente', $data, true);
+
+		echo $vista;
+	}
 
 	public function agregar()
 	{

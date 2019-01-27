@@ -14,9 +14,52 @@
                     <i class="si si-dollar"></i> Venta de productos
                 </button>
             </div>-->
-            <div class="col-md-9">
+            <div class="col-md-7">
                 <?= $menu_general; ?>
                 <?= $modal_ventas; ?>  
+            </div>
+
+            <div class="col-md-5">
+                <div class="block block-themed">
+                    <div class="block-header bg-city">
+                        <!--<ul class="block-options">
+                            <li>
+                                <button type="button"><i class="si si-settings"></i></button>
+                            </li>
+                        </ul>-->
+                        <h3 class="block-title">ULTIMOS AVISOS</h3>
+                    </div>
+                    <div class="block-content">
+                        <table class="table table-condensed" style="font-size: 11px;">
+                            <?php foreach($row_entregas as $entregas): ?>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-circle" style="color:#c0392b;"></i> <?= date('d/m/Y', $entregas->fecha_entrega); ?>
+                                    </td>
+                                    <td>
+                                        <?= $entregas->nombre_cliente.' '.$entregas->ap_paterno; ?>
+                                    </td>
+                                    <td>
+                                        <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha');">
+                                            <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <i class="si si-call-in"></i> <?= $entregas->telefono_cliente; ?>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Entregar">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                        <!--<button class="btn btn-xs btn-danger" data-toggle="tooltip" title="">
+                                            <i class="fa fa-close"></i>
+                                        </button>-->
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
+                </div>
             </div>
             
         </div>
@@ -25,6 +68,7 @@
 
 </div>
 
+<div id="div-mostrar-ficha"></div>
 <!-- END Page Content -->
 <!--<div class="col-md-12">
 	<h3>EL CODIGO DE BARRAS</h3>
@@ -40,9 +84,12 @@
 
 </div>-->
 
+
+
 <script src="<?= base_url('assets/js/propios/funciones.js'); ?>"></script>
 
 <script>
+
     function genPDF(){
         var doc = new jsPDF();
         doc.text(20,20,'Algo de texto');
