@@ -104,6 +104,94 @@ class PdfTicket extends CI_Controller{
 
 
 	}
+
+
+	public function pdfFicha($id, $codigo)
+	{
+		$this->load->library('My_mpdf');
+
+
+		$data['row_detalle_ficha'] = $this->consultar_model->servicios_tecnicos($id);
+
+		// datos de la sucursal
+		/*$id_sucursal = $ticket[0]->fk_id_sucursal;
+		$id_usuario = $ticket[0]->fk_id_usuario;
+		$fecha_registro = $ticket[0]->fecha_ticket;
+		*/
+
+
+		//header("Content-Type: application/json; charset=UTF-8");
+		setlocale(LC_TIME, 'es_MX');
+
+		$header = '';
+		$footer = '';
+
+		$this->my_mpdf->pdf->SetHTMLHeader($header);
+		$this->my_mpdf->pdf->SetHTMLFooter($footer);
+		
+		$html = $this->load->view('backend/pdf_ficha_tecnica',$data,true);    	
+   	
+
+		/*$html = '';
+
+		$html .= '<table width="200px">';
+			$html .= '<tr>';
+				$html .= '<td colspan="2" style="text-align:center; font-size:14px;color: #2980b9">MOVIL EXPERT</td>';
+			$html .= '</tr>';
+			$html .= '<tr>';
+				$html .= '<td style="padding:10px;" colspan="2" >Sucursal:'.$sucursal->nombre.'</td>';
+			$html .= '</tr>';
+			$html .= '<tr>';
+				$html .= '<td colspan="2" style="text-align:center;" >TICKET Nº: '.str_pad($id, 2, "0", STR_PAD_LEFT).'-'.$fecha_registro.'</td>';
+			$html .= '</tr>';
+			$html .= '<tr>';
+				$html .= '<td>Fecha: '.date('d/m/Y', $fecha_registro).'</td>';
+				$html .= '<td style="text-align: right">Hora: '.date("H:i:s", $fecha_registro).'</td>';
+			$html .= '</tr>';
+		$html .= '</table>';
+
+		$html .= '<table width="200px">';
+			$html .= '<tr>';
+				$html .= '<td style="margin-top: 20px;border-bottom: 1px solid #000; border-top: 1px solid #000">ARTICULO</td>';
+				$html .= '<td style="margin-top: 20px;border-bottom: 1px solid #000; border-top: 1px solid #000; text-align: right;">PRECIO.</td>';
+				$html .= '<td style="margin-top: 20px;border-bottom: 1px solid #000; border-top: 1px solid #000; text-align: right;">CANT.</td>';
+				$html .= '<td style="margin-top: 20px;border-bottom: 1px solid #000; border-top: 1px solid #000; text-align: right;">IMPORTE</td>';
+			$html .= '</tr>';
+
+			foreach ($ticket as $value) {
+				$total_parcial = $value->precio_venta * $value->piezas;
+				$html .= '<tr>';
+					$html .= '<td>'.$value->nombre.'</td>';
+					$html .= '<td style="text-align:right">$ '.$value->precio_venta.'</td>';
+					$html .= '<td style="text-align:right">'.$value->piezas.'</td>';
+					$html .= '<td style="text-align:right">$ '.$total_parcial.'</td>';
+				$html .= '</tr>';	
+			}
+			$html .= '<tr>';
+				$html .= '<td colspan="3" style="border-top: 1px solid #000; text-align:right">TOTAL:</td>';
+				$html .= '<td style="border-top: 1px solid #000; text-align:right">$ '.$ticket[0]->ticket_total.'</td>';
+			$html .= '</tr>';
+
+			$html .= '<tr>';
+				$html .= '<td>Le ha atendido '.$usuario->nombre.' '.$usuario->ap_paterno.'</td>';
+			$html .= '</tr>';
+
+			$html .= '<tr>';
+				$html .= '<td colspan="4">Gracias por su compra</td>';
+			$html .= '</tr>';
+
+		$html .= '</table>';*/
+
+		//$this->my_mpdf->pdf->SetJs('this.print();');
+		$this->my_mpdf->pdf->WriteHTML($html);
+
+		$this->my_mpdf->pdf->Output('ficha'.$id.'.pdf','I');
+
+		//redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
+	}
+
+
+
 	public function index2($id)
 	{
 

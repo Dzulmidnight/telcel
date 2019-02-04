@@ -16,8 +16,7 @@ class Createpdf extends CI_Controller{
 	    */
 		tcpdf();
 		// create new PDF document
-		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
+		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, [60, 297], true, 'UTF-8', false);
 
 		// remove default header/footer
 		$pdf->setPrintHeader(false);

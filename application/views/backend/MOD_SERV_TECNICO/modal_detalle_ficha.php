@@ -21,13 +21,14 @@
                             <ul class="block-options">
                                 <li>
                                     <!-- Print Page functionality is initialized in App() -> uiHelperPrint() -->
-                                    <button type="button" onclick="App.initHelper('print-page');"><i class="si si-printer"></i> Print Invoice</button>
+                                    <!--<button type="button" onclick="App.initHelper('print-page');"><i class="si si-printer"></i> Print Invoice</button>
+                                    <button type="button" onclick="descargarPdfFichaServicio('<?= base_url(); ?>',<?= $row_detalle_ficha->id_servicio_tecnico; ?>, <?= $row_detalle_ficha->codigo_barras; ?>);"><i class="si si-printer"></i> Imprimir Ficha</button>-->
                                 </li>
                                 <li>
-                                    <button type="button" data-toggle="block-option" data-action="fullscreen_toggle"></button>
+                                    <!--<button type="button" data-toggle="block-option" data-action="fullscreen_toggle"></button>-->
                                 </li>
                                 <li>
-                                    <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                                    <!--<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>-->
                                 </li>
                             </ul>
                             <h3 class="block-title">
@@ -37,12 +38,14 @@
                         </div>
                         <div class="block-content block-content-narrow">
                             <!-- Invoice Info -->
-                            <div class="h1 text-center push-30-t push-30 hidden-print">FICHA DE SERVICIO</div>
+                            <div class="h1 text-center push-30-t push-30 hidden-print">
+                                FICHA DE SERVICIO
+                            </div>
                             <hr class="hidden-print">
                             <div class="row items-push-2x">
                                 <!-- Company Info -->
-                                <div class="col-xs-6 col-sm-4 col-lg-3">
-                                    <p class="h2 font-w400 push-5">Cliente</p>
+                                <div class="col-md-4 col-lg-4">
+                                    <p class="h4 font-w400 push-5">Cliente</p>
                                     <address>
                                         <?= $row_detalle_ficha->nombre_cliente.' '.$row_detalle_ficha->ap_paterno.' '.$row_detalle_ficha->ap_materno; ?><br>
                                         <?= $row_detalle_ficha->nombre_sucursal; ?> <br>
@@ -51,12 +54,33 @@
                                 </div>
                                 <!-- END Company Info -->
                                 
-                                <div class="col-xs-6 col-sm-4 col-sm-offset-4 col-lg-3 col-lg-offset-6 text-right">
-                                    <p class="h2 font-w400 push-5">Extra</p>
+                                <div class="col-md-4 col-lg-4">
+                                    <p class="h4 font-w400 push-5">Detalles</p>
                                     <address>
                                         <?= $row_detalle_ficha->informacion_extra_cliente; ?>
                                     </address>
                                 </div>
+
+                                <div class="col-md-4 col-lg-4">
+                                    <canvas id="barcode_ficha"></canvas>
+                                </div>
+
+                                <!-- Company Info -->
+                                <div class="col-xs-12 col-sm-12 col-lg-12">
+                                    <p class="h4 font-w400 push-5">Falla reportada</p>
+                                    <address>
+                                        <?= $row_detalle_ficha->falla_reportada; ?>
+                                    </address>
+                                </div>
+                                <!-- END Company Info -->  
+
+
+                                <div class="col-lg-12">
+                                    <div class="row">
+
+                                    </div>
+                                </div>
+
                                 <!-- Client Info -->
                                 <!--<div class="col-xs-6 col-sm-4 col-sm-offset-4 col-lg-3 col-lg-offset-6 text-right">
                                     <p class="h2 font-w400 push-5">Client</p>
@@ -76,22 +100,28 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th class="text-center" style="width: 50px;"></th>
-                                            <th>Detalle</th>
+                                            <th class="text-center" style="width: 50px;">
+                                                Fecha
+                                            </th>
+                                            <th>Servicio realizado</th>
                                             <th class="text-center" style="width: 100px;">Importe</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="text-center">1</td>
+                                            <td class="text-center">
+                                                <?= date('d/m/Y', $row_detalle_ficha->fecha_actualizacion); ?>
+                                            </td>
                                             <td>
-                                                <p class="font-w600 push-10">App Design &amp; Development</p>
-                                                <div class="text-muted">Design/Development of iOS and Android application</div>
+                                                <!--<p class="font-w600 push-10">App Design &amp; Development</p>-->
+                                                <div class="text-muted">
+                                                    <?= $row_detalle_ficha->descripcion_servicio; ?>
+                                                </div>
                                             </td>
                                             <td class="text-right">$ <?= $row_detalle_ficha->costo_servicio; ?></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" class="font-w600 text-right">Deposito en garantia</td>
+                                            <td colspan="2" class="font-w600 text-right">Depósito en garantía</td>
                                             <td class="text-right">
                                                 $ <?= $row_detalle_ficha->deposito_garantia ?>
                                             </td>
@@ -126,7 +156,6 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-sm btn-success" type="submit">Registrar</button>
                 </div>
             </form>
         </div>

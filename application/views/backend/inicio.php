@@ -27,7 +27,7 @@
                                 <button type="button"><i class="si si-settings"></i></button>
                             </li>
                         </ul>-->
-                        <h3 class="block-title">ULTIMOS AVISOS</h3>
+                        <h3 class="block-title">Equipos en espera de ser recogidos</h3>
                     </div>
                     <div class="block-content">
                         <table class="table table-condensed" style="font-size: 11px;">
@@ -40,17 +40,23 @@
                                         <?= $entregas->nombre_cliente.' '.$entregas->ap_paterno; ?>
                                     </td>
                                     <td>
-                                        <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha');">
+                                        <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
                                             <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
                                         </a>
+                                        <!--<a href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'.$entregas->id_servicio_tecnico.''); ?>" data-toggle="tooltip" title="Consultar ficha de servicio">
+                                            <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
+                                        </a>-->
                                     </td>
                                     <td>
                                         <i class="si si-call-in"></i> <?= $entregas->telefono_cliente; ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Entregar">
+                                        <button type="button" class="btn btn-success" data-toggle="tooltip" title="Marcar como entregado" onclick="entregarEquipo('frm_entregar_equipo','<?= $entregas->id_servicio_tecnico; ?>');">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        <!--<button class="btn btn-xs btn-success" data-toggle="tooltip" title="Entregar">
                                             <i class="fa fa-check"></i>
-                                        </button>
+                                        </button>-->
                                         <!--<button class="btn btn-xs btn-danger" data-toggle="tooltip" title="">
                                             <i class="fa fa-close"></i>
                                         </button>-->
@@ -64,10 +70,17 @@
             
         </div>
     </div>
+
+    <form id="frm_entregar_equipo" action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/entregar_equipo'); ?>" method="POST">
+        <input type="hidden" id="id_frm_servicio_tecnico" name="id_frm_servicio_tecnico" value="">
+        <input type="hidden" name="fecha_registro" value="<?= time(); ?>">
+    </form>
+
     <!-- END Modulos -->
 
 </div>
 
+</script>
 <div id="div-mostrar-ficha"></div>
 <!-- END Page Content -->
 <!--<div class="col-md-12">
@@ -84,9 +97,18 @@
 
 </div>-->
 
-
-
-<script src="<?= base_url('assets/js/propios/funciones.js'); ?>"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/barcode.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.slimscroll.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.scrollLock.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.appear.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.countTo.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.placeholder.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/app.js"></script>
 
 <script>
 

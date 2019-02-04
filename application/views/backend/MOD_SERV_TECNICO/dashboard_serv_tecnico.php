@@ -169,7 +169,7 @@
 
                                 <!-- Detalle del equipo -->
                                 <td>
-                                    Equipo: <span style="color:red"><?= $servicio->modelo_telefono; ?> </span>
+                                    Equipo: <span style="color:red"><?= $servicio->marca_telefono.' '.$servicio->modelo_telefono; ?> </span>
                                     <br>
                                     Falla: <span style="color:red"><?= $servicio->falla_reportada; ?></span>
                                     
@@ -264,7 +264,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <label for="nombre">* Nombre</label>
-                                            <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente">
+                                            <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" required>
                                         </div>
                                         <div class="col-sm-12">
                                             <label for="ap_paterno">Apellido Paterno</label>
@@ -277,7 +277,7 @@
 
                                         <div class="col-sm-12">
                                             <label for="num_telefono">* Nº Teléfono</label>
-                                            <input type="text" id="num_telefono" name="num_telefono" class="form-control">
+                                            <input type="text" id="num_telefono" name="num_telefono" class="form-control" required>
                                         </div>
 
                                         <div class="col-sm-12">
@@ -301,7 +301,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="fecha_entrega">* FECHA ESTIMADA DE ENTREGA</label>
-                                            <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" value="">
+                                            <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" value="" required>
                                         </div>
                                         <div class="col-sm-12">
                                             <label for="deposito_garantia">Deposito en garantia</label>
@@ -309,28 +309,28 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="imei">* IMEI</label>
-                                            <input type="text" class="form-control" id="imei" name="imei">
+                                            <input type="text" class="form-control" id="imei" name="imei" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="num_telefono_equipo">* Número de telefono</label>
-                                            <input type="text" class="form-control" id="num_telefono_equipo" name="num_telefono_equipo">
+                                            <input type="text" class="form-control" id="num_telefono_equipo" name="num_telefono_equipo" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="marca">* Marca</label>
-                                            <input type="text" class="form-control" id="marca" name="marca">
+                                            <input type="text" class="form-control" id="marca" name="marca" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="modelo">* Modelo</label>
-                                            <input type="text" class="form-control" id="modelo" name="modelo">
+                                            <input type="text" class="form-control" id="modelo" name="modelo" required>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="estado_fisico">* Estado fisico del equipo</label>
-                                            <select class="form-control" name="estado_fisico" id="estado_fisico">
+                                            <select class="form-control" name="estado_fisico" id="estado_fisico" required>
                                                 <option>...</option>
-                                                <option value="1">Excenlente</option>
-                                                <option value="2">Bueno</option>
-                                                <option value="3">Regular</option>
-                                                <option value="4">Malo</option>
+                                                <option value="EXCELENTE">Excenlente</option>
+                                                <option value="BUENO">Bueno</option>
+                                                <option value="REGULAR">Regular</option>
+                                                <option value="MALO">Malo</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-6">
@@ -342,7 +342,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <label for="falla_reportada">* Falla reportada por el usuario</label>
-                                                    <textarea class="form-control" name="falla_reportada" id="falla_reportada" rows="5"></textarea>
+                                                    <textarea class="form-control" name="falla_reportada" id="falla_reportada" rows="5" required></textarea>
                                                 </div>
 
                                                 <div class="col-xs-6">

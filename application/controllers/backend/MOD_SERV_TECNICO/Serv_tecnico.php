@@ -205,6 +205,20 @@ class Serv_tecnico extends CI_Controller{
 		echo $vista;
 	}
 
+	public function modal_ficha_servicio_prueba($id){
+		$data['row_detalle_ficha'] = $this->consultar_model->servicios_tecnicos($id);
+		//$vista = $this->load->view('backend/MOD_SERV_TECNICO/modal_detalle_ficha', $data, true);
+
+		$this->load->view('backend/template/head');
+		$this->load->view('backend/template/overlay');
+		$this->load->view('backend/template/navbar');
+		$this->load->view('backend/template/header');
+			$this->load->view('backend/pdf_ficha_tecnica', $data);
+		$this->load->view('backend/template/footer');
+
+//		echo $vista;
+	}
+
 	public function modal_ficha_servicio($id){
 		$data['row_detalle_ficha'] = $this->consultar_model->servicios_tecnicos($id);
 		$vista = $this->load->view('backend/MOD_SERV_TECNICO/modal_detalle_ficha', $data, true);

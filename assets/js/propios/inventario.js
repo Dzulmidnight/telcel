@@ -22,11 +22,7 @@ function siguienteEtapa(){
             //document.getElementById('datos_telefono').style.display = 'none';
             //document.getElementById('fk_id_sub_categoria_producto').style.display = 'initial';
         }
-
     }
-
-
-
 }
 
 function numeroCelulares(numero){

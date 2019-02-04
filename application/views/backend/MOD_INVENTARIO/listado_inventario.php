@@ -215,10 +215,23 @@
                     <div class="block-content" style="margin-bottom: 4em;">
                         <div class="row text-justify">
                             <div class="col-md-7">
-                                <!-- Formulario de registro de usuario -->
-                                    <label for="archivo_datos">Selecciona el Excel con los datos que deseas cargar</label>
-                                    <input class="form-control" type="file" id="archivo_datos" name="archivo_datos" required accept=".xls, .xlsx">
-                                <!-- END Formulario de registro de cliente -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label for="fk_id_sucursal_excel">* Seleccione la sucursal</label>
+                                        <select class="form-control" name="fk_id_sucursal_excel" id="fk_id_sucursal_excel" required="">
+                                            <option value="">Listado Sucursales</option>
+                                            <?php foreach($row_sucursales as $sucursal):?>
+                                                <option value="<?= $sucursal->id_sucursal; ?>"><?= $sucursal->nombre; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-12" style="margin-top: 1em;">
+                                        <!-- Formulario de registro de usuario -->
+                                            <label for="archivo_datos">* Selecciona el Excel con los datos que deseas cargar</label>
+                                            <input class="form-control" type="file" id="archivo_datos" name="archivo_datos" required accept=".xls, .xlsx">
+                                        <!-- END Formulario de registro de cliente -->  
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-5 text-center" style="border-left:3px solid #2980b9">
                                 <p>
@@ -274,7 +287,7 @@
                                         Número de codigos a generar
                                     </label>
 
-                                    <input type="number" class="form-control" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>','');">
+                                    <input type="number" class="form-control" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>','');" value="1">
                                     <input type="hidden" id="codigoBarras" name="codigoBarras" value="">
                                     <br>
 
@@ -341,7 +354,7 @@
                                     <!-- Categoria producto -->
                                     <div class="col-sm-4">
                                         <label for="fk_id_categoria_producto">Categoria del producto</label>
-                                        <select class="form-control" name="fk_id_categoria_producto" id="fk_id_categoria_producto" onchange="siguienteEtapa();">
+                                        <select class="form-control" name="fk_id_categoria_producto" id="fk_id_categoria_producto" onchange="siguienteEtapa();" required>
                                             <option value="">...</option>
                                             <?php foreach($row_categoria_producto as $categoria_producto): ?>
                                                 <option value="<?= $categoria_producto->id_categoria_producto ?>"><?= $categoria_producto->nombre ?></option>
@@ -355,7 +368,7 @@
                                         <label for="fk_id_sucursal">
                                             Sucursal *
                                         </label>
-                                        <select class="form-control" name="fk_id_sucursal" id="fk_id_sucursal" onchange="siguienteEtapa();">
+                                        <select class="form-control" name="fk_id_sucursal" id="fk_id_sucursal" onchange="siguienteEtapa();" required>
                                             <option value="">...</option>
                                             <?php foreach($row_sucursales as $sucursal): ?>
                                                 <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
@@ -369,7 +382,7 @@
                                         <label for="fk_id_proveedor">
                                             Proveedor *
                                         </label>
-                                        <select class="form-control" name="fk_id_proveedor" id="fk_id_proveedor" onchange="siguienteEtapa();">
+                                        <select class="form-control" name="fk_id_proveedor" id="fk_id_proveedor" onchange="siguienteEtapa();" required>
                                             <option value="">...</option>
                                             <?php foreach($row_proveedores as $proveedor): ?>
                                                 <option value="<?= $proveedor->id_proveedor ?>"><?= $proveedor->nombre ?></option>
@@ -394,7 +407,7 @@
                                                 <div class="col-xs-8">
                                                     <div id="div_lista_categoria">
                                                         <label for="fk_id_sub_categoria_producto" style="color:red">Categoria *</label>
-                                                        <select class="form-control" name="fk_id_sub_categoria_producto" id="fk_id_sub_categoria_producto">
+                                                        <select class="form-control" name="fk_id_sub_categoria_producto" id="fk_id_sub_categoria_producto" required>
                                                             <option>...</option>
                                                             <?php foreach($row_sub_categoria_producto as $sub_categoria_producto): ?>
                                                                 <option value="<?= $sub_categoria_producto->id_sub_categoria_producto ?>"><?= $sub_categoria_producto->nombre ?></option>
@@ -421,32 +434,32 @@
                                         </div>
 
                                         <!-- INICIA Información Accesorio -->
-                                        <div id="div-informacion-accesorio">
+                                        <div id="div-informacion-accesorio" style="display: none">
                                             <div class="col-md-4">
-                                                <label style="color:red" for="piezas">Nº de Piezas</label>
-                                                <input class="form-control" type="number" min="0" id="piezas" name="piezas">
+                                                <label style="color:red" for="piezas">Nº de Piezas *</label>
+                                                <input class="form-control" type="number" min="0" id="piezas" name="piezas" >
                                             </div>
                                             <div class="col-md-4">
-                                                <label style="color:red" for="precio_interno">Precio Proveedor (unidad)</label>
-                                                <input type="number" class="form-control" step=".01" min="1" id="precio_interno" name="precio_interno" placeholder="$ 0.00">
+                                                <label style="color:red" for="precio_interno">Precio Proveedor (unidad) *</label>
+                                                <input type="number" class="form-control" step=".01" min="1" id="precio_interno" name="precio_interno" placeholder="$ 0.00" >
                                             </div>
                                             <div class="col-md-12">
                                                 <hr>
                                             </div>
                                                 
                                             <div class="col-md-6">
-                                                <label style="color:red" for="precio_publico">Precio Publico (unidad)</label>
-                                                <input type="number" class="form-control" step=".01" min="1" id="precio_publico" name="precio_publico" placeholder="$ 0.00">
+                                                <label style="color:red" for="precio_publico">Precio Publico (unidad) *</label>
+                                                <input type="number" class="form-control" step=".01" min="1" id="precio_publico" name="precio_publico" placeholder="$ 0.00" >
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="nombre">Nombre</label>
-                                                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="">
+                                                <label for="nombre">Nombre *</label>
+                                                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="" >
                                             </div>
 
 
                                             <div class="col-md-6">
-                                                <label for="marca">Marca</label>
-                                                <input type="text" class="form-control" id="marca" name="marca" placeholder="">
+                                                <label for="marca">Marca *</label>
+                                                <input type="text" class="form-control" id="marca" name="marca" placeholder="" >
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="modelo">Modelo</label>
@@ -500,38 +513,38 @@
                                         <!-- END Información Accesorio -->
 
                                         <!-- INICIA Información Telefono -->
-                                        <div id="div-informacion-telefono">
+                                        <div id="div-informacion-telefono" style="display: none">
                                             <div class="col-md-4">
-                                                <label style="color:red" for="piezas_telefono">Nº de Piezas</label>
+                                                <label style="color:red" for="piezas_telefono">Nº de Piezas *</label>
                                                 <input class="form-control" type="number" min="1" id="piezas_telefono" name="piezas_telefono" value="1" onkeyup="numeroCelulares(this.value);">
                                             </div>
                                             <div class="col-md-4">
-                                                <label style="color:red" for="precio_interno_telefono">Precio Proveedor</label>
-                                                <input type="number" class="form-control" step=".01" min="1" id="precio_interno_telefono" name="precio_interno_telefono" placeholder="$ 0.00">
+                                                <label style="color:red" for="precio_interno_telefono">Precio Proveedor *</label>
+                                                <input type="number" class="form-control" step=".01" min="1" id="precio_interno_telefono" name="precio_interno_telefono" placeholder="$ 0.00" >
                                             </div>
 
                                             <div class="col-md-4">
                                                 <label for="precio_publico_telefono">
-                                                    Precio Público
+                                                    Precio Público *
                                                 </label>
-                                                <input type="number" class="form-control" step="0.1" min="1" id="precio_publico_telefono" name="precio_publico_telefono" placeholder="$ 0.00">
+                                                <input type="number" class="form-control" step="0.1" min="1" id="precio_publico_telefono" name="precio_publico_telefono" placeholder="$ 0.00" >
                                             </div>
                                             <div class="col-md-12">
                                                 <hr>
                                             </div>
                                                 
                                             <div class="col-md-6">
-                                                <label for="nombre_telefono">Nombre</label>
+                                                <label for="nombre_telefono">Nombre *</label>
                                                 <input type="text" id="nombre_telefono" name="nombre_telefono" class="form-control" placeholder="">
                                             </div>
 
 
                                             <div class="col-md-6">
-                                                <label for="marca_telefono">Marca</label>
+                                                <label for="marca_telefono">Marca *</label>
                                                 <input type="text" class="form-control" id="marca_telefono" name="marca_telefono" placeholder="">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="modelo_telefono">Modelo</label>
+                                                <label for="modelo_telefono">Modelo *</label>
                                                 <input type="text" class="form-control" id="modelo_telefono" name="modelo_telefono" placeholder="">
                                             </div>
                                             <div class="col-md-6">

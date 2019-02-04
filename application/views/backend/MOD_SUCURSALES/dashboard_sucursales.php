@@ -433,9 +433,3 @@
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
-
-<!-- Page JS Plugins -->
-<script src="<?php echo base_url(); ?>assets/js/plugins/chartjsv2/Chart.min.js"></script>
-
-<!-- Page JS Code -->
-<script src="<?php echo base_url(); ?>assets/js/pages/base_comp_chartjs_v2.js"></script>

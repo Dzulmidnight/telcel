@@ -3,7 +3,7 @@ var base_url = window.location.href;
 function buscarCliente(datos){
     console.log('datos');
 }
-function modalFichaServicio(ruta, id, div){
+function modalFichaServicio(ruta, id, div, codigoBarras){
     ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'+id;
 
     var xmlhttp = new XMLHttpRequest();
@@ -13,12 +13,30 @@ function modalFichaServicio(ruta, id, div){
             console.log(this.responseText);
             document.getElementById(div).innerHTML = this.responseText;
             $('#modal-detalle-ficha').modal('show');
+            JsBarcode("#barcode_ficha", codigoBarras, {
+                height: 70
+            });
+
         }
     }
     xmlhttp.open("POST", ruta, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("x=1");
 }
+
+function descargarPdfFichaServicio(ruta, id, codigoBarras){
+    //document.getElementById('btnCodigo').innerHTML = 'LOASDFASF';
+
+
+
+    var url = ruta+'backend/PdfTicket/pdfFicha/'+id+'/'+codigoBarras;
+
+    //window.print(url);
+    window.location.assign(url);
+
+    //document.getElementById('linkPdf').href = direccion+'backend/Createpdf/index/'+cantidad+'/'+codigo+'';
+}
+
 function modalDetalleCotizacion(ruta, id, div){
     ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_detalle_cotizacion/'+id;
 
@@ -155,7 +173,7 @@ function eliminar_informacion(nombre_id, valor_id, frm){
  }
 
 function generarCodigo(){
-    JSBarcode('#barcode', '23423423434');
+JsBarcode("#barcode3", "2147483647");
 }
 
 function mostrarCodigo(direccion, codigo){

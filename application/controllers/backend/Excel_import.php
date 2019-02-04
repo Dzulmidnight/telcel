@@ -4,6 +4,9 @@ class Excel_import extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('add_model');
+		$this->load->model('count_model');
+		$this->load->model('consultar_model');			
 		$this->load->model('update_model');
 		$this->load->model('excel_import_model');
 		$this->load->library('excel');
@@ -119,6 +122,35 @@ class Excel_import extends CI_Controller
 						'codigo_barras' => $codigo_barras
 					);
 					$this->update_model->update('producto', 'id_producto', $id_producto, $data_codigo);
+
+					// AGREGAR PRODUCTO_ENTRADA
+					$data_producto_entrada = array(
+						'piezas' => $piezas,
+						'fk_id_producto' => $id_producto,
+						'precio_unitario' => $precio_interno,
+						'fecha_registro' => $fecha_registro
+					);
+					$this->add_model->agregar($data_producto_entrada, 'producto_entrada');
+
+
+					/// AGREGAR HISTORIA_INVENTARIO
+					$data_historial_inventario = array(
+						'fk_id_producto' => $id_producto,
+						'producto_entrada' => $piezas,
+						'fecha_registro' => time()
+					);
+					$this->add_model->agregar($data_historial_inventario, 'historial_inventario');
+
+			 		// AGREGAR SUCURSAL_PRODUCTO
+			 			$array_suc_producto = array(
+			 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal_excel'),
+			 				'fk_id_producto' => $id_producto,
+			 				'piezas' => $piezas,
+			 				'fecha_registro' => $fecha_registro
+			 			);
+			 			$this->add_model->agregar($array_suc_producto, 'sucursal_producto');
+			 		// END SUCURSAL_PRODUCTO
+
 
 					/*$customer_name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
 					$address = $worksheet->getCellByColumnAndRow(1, $row)->getValue();

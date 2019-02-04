@@ -1,14 +1,3 @@
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2-bootstrap.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
-
 <style>
 	.circulo {
 	     width: 30px;
@@ -93,7 +82,7 @@
                     			</li>
                     		<?php
                     		}
-                    		if($row_servicios->estatus == 'EN PROCESO'){
+                    		if($row_servicios->estatus == 'EN PROCESO' || $row_servicios->estatus == 'COTIZACION'){
                     		?>
 		                        <li>
 		                        	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-estatus-reparacion" onclick="actualizarEstatus();">
@@ -393,7 +382,7 @@
                     </div>
                     <div class="block-content">
                     	<div class="row">
-                    		<div id="div_mensaje_finalizar" class="col-md-12" style="margin-bottom: 1em;">
+                    		<div id="div_mensaje_cotizacion" class="col-md-12" style="margin-bottom: 1em;">
                     			<p class="bg-danger" style="color:white;padding:10px;">
                     				Despues de generar la cotización, se notificara a la sucursal.
                     			</p>
@@ -469,7 +458,7 @@
                     </div>
                     <div class="block-content">
                     	<div class="row">
-                    		<div id="div_mensaje_finalizar" class="col-md-12" style="margin-bottom: 1em;">
+                    		<div id="div_mensaje_finalizar" class="col-md-12" style="margin-bottom: 1em;" style="display:none;">
                     			<p class="bg-danger" style="color:white;padding:10px;">
                     				Después de finalizar el servicio ya no podras actualizar el estatus del mismo.
                     				Se notificara a la sucursal que el equipo se encuentra listo para su entrega.
@@ -486,10 +475,10 @@
                 </div>
                 <div class="modal-footer">
                 	<input type="hidden" name="fecha_registro" value="<?= time(); ?>">
-                	<input type="hidden" id="estatus_servicio" name="estatus_servicio" value="EN PROCESO">
+                	<input type="hidden" id="estatus_servicio2" name="estatus_servicio" value="EN PROCESO">
                 	<input type="hidden" name="id_servicio_tecnico" value="<?= $row_servicios->id_servicio_tecnico; ?>">
                     <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button id="btn_submit_estatus" class="btn btn-sm btn-success" type="submit">Registrar acción</button>
+                    <button id="btn_submit_estatus2" class="btn btn-sm btn-success" type="submit">Registrar acción</button>
                 </div>
             </form>
         </div>
@@ -497,25 +486,19 @@
 </div>
 <!-- END Modal actualizar estatus -->
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
-<script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/propios/barcode.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/core/jquery.slimscroll.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/core/jquery.scrollLock.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/core/jquery.appear.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/core/jquery.countTo.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/core/jquery.placeholder.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/app.js"></script>
+
 
 <script>
 	function finalizarServicio(){
-		document.getElementById('btn_submit_estatus').innerHTML = 'Finalizar';
-		document.getElementById('estatus_servicio').value = 'FINALIZADO';
+        document.getElementById('div_mensaje_finalizar').style.display = 'block';
+		document.getElementById('btn_submit_estatus2').innerHTML = 'Finalizar';
+		document.getElementById('estatus_servicio2').value = 'FINALIZADO';
 	}
 	function actualizarEstatus(){
-		document.getElementById('btn_submit_estatus').innerHTML = 'Registrar acción';
+        document.getElementById('div_mensaje_finalizar').style.display = 'none';
+		document.getElementById('btn_submit_estatus2').innerHTML = 'Registrar acción';
 	}
 </script>
+
+<script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
