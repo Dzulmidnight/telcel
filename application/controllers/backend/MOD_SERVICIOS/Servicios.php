@@ -54,6 +54,7 @@ class Servicios extends CI_Controller{
 		header("Content-Type: application/json; charset=UTF-8");
 
 		$objeto = json_decode($_POST["parametros"], false);
+		$id_vendedor = json_decode($_POST["id_vendedor"], false);
 
 
 		/*if(is_array($objeto)){
@@ -82,7 +83,7 @@ class Servicios extends CI_Controller{
 		// creamos ticket de venta
 			$data_ticket = array(
 				'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
-				'fk_id_usuario' => $this->session->userdata('id_usuario'),
+				'fk_id_usuario' => $id_vendedor,
 				'fecha_registro' => time()
 			);
 			$this->add_model->agregar($data_ticket, 'ticket');
@@ -101,7 +102,7 @@ class Servicios extends CI_Controller{
 					'precio_real_venta' => $value->precio_real_carrito,
 					'fk_id_producto' => $value->id_producto_carrito,
 					'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
-					'fk_id_usuario' => $this->session->userdata('id_usuario'),
+					'fk_id_usuario' => $id_vendedor,
 					'fk_id_ticket' => $fk_id_ticket,
 					'fecha_registro' => time()
 				);
@@ -120,7 +121,7 @@ class Servicios extends CI_Controller{
 				$this->update_model->update('producto', 'id_producto', $value->id_producto_carrito, $data_piezas_producto);
 
 			// actualizamos las piezas de la TB -> historial_inventario
-				$detalle_historial = $this->consultar_model->consulta('historial_inventario', 'fk_id_producto', $value->id_producto_carrito);
+				$detalle_historial = $this->consultar_model->consultaSimple($value->id_producto_carrito, 'fk_id_producto', 'historial_inventario');
 
 				$id_historial_inventario = $detalle_historial->id_historial_inventario;
 

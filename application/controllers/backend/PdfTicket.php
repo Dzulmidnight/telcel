@@ -23,13 +23,14 @@ class PdfTicket extends CI_Controller{
 		$id_sucursal = $data['ticket'][0]->fk_id_sucursal;
 		$id_usuario = $data['ticket'][0]->fk_id_usuario;
 
-		$data['sucursal'] = $this->consultar_model->consulta('sucursal', 'id_sucursal', $id_sucursal);
-		$data['usuario'] = $this->consultar_model->consulta('users', 'id_user', $id_usuario);
+		$data['sucursal'] = $this->consultar_model->consultaSimple($id_sucursal, 'id_sucursal', 'sucursal');
+
+		$data['usuario'] = $this->consultar_model->consultaSimple($id_usuario, 'id_user', 'users');
 		$data['id_ticket'] = $id;
 
 		$data['fecha_registro'] = $data['ticket'][0]->fecha_ticket;
-		$data['sucursal'] = $this->consultar_model->consulta('sucursal', 'id_sucursal', $id_sucursal);
-		$data['usuario'] = $this->consultar_model->consulta('users', 'id_user', $id_usuario);
+		$data['sucursal'] = $this->consultar_model->consultaSimple($id_sucursal, 'id_sucursal', 'sucursal');
+		$data['usuario'] = $this->consultar_model->consultaSimple($id_usuario, 'id_user', 'users');
 
 
 
@@ -38,9 +39,8 @@ class PdfTicket extends CI_Controller{
 
 		$header = '';
 		$footer = '';
-
-		$this->my_mpdf->pdf->SetHTMLHeader($header);
-		$this->my_mpdf->pdf->SetHTMLFooter($footer);
+		$this->my_mpdf->pdf2->SetHTMLHeader($header);
+		$this->my_mpdf->pdf2->SetHTMLFooter($footer);
 		
 		$html = $this->load->view('backend/pdf_ticket',$data,true);    	
    	
@@ -95,10 +95,10 @@ class PdfTicket extends CI_Controller{
 
 		$html .= '</table>';*/
 
-		//$this->my_mpdf->pdf->SetJs('this.print();');
-		$this->my_mpdf->pdf->WriteHTML($html);
+		//$this->my_mpdf->pdf2->SetJs('this.print();');
+		$this->my_mpdf->pdf2->WriteHTML($html);
 
-		$this->my_mpdf->pdf->Output('ticket_'.$id.'.pdf','D');
+		$this->my_mpdf->pdf2->Output('ticket_'.$id.'.pdf','I');
 
 		//redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 
@@ -185,7 +185,7 @@ class PdfTicket extends CI_Controller{
 		//$this->my_mpdf->pdf->SetJs('this.print();');
 		$this->my_mpdf->pdf->WriteHTML($html);
 
-		$this->my_mpdf->pdf->Output('ficha'.$id.'.pdf','I');
+		$this->my_mpdf->pdf->Output('ficha'.$id.'.pdf','D');
 
 		//redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}

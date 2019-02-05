@@ -1,3 +1,45 @@
+function enviarForm(id, frm){
+    formulario = document.getElementById(frm);
+    boton = document.getElementById(id);
+    if(boton.click && (boton.value == 'guardarTelefono' || boton.value == 'guardarArticulo') ){
+        console.log('se dio click');
+        console.log(boton.value);
+        console.log(frm);
+
+        function validarInformacion(frm){
+            var id = frm;
+            var formulario = document.forms[id];
+            var numElementos = formulario.elements.length;
+            //console.log(formulario);
+            //console.log(numElementos);
+
+            for(var i = 0; i < numElementos; i++){
+                //console.log(formulario[i].required);
+                if(formulario[i].required){
+                    if(formulario[i].type == 'select-one'){
+                        indice = document.getElementById(formulario[i].id).selectedIndex;
+                        if( indice == null || indice == 0 ) {
+                            document.getElementById(formulario[i].id).focus();
+                        }
+                    }else{
+                        if(!formulario[i].value){
+                            document.getElementById(formulario[i].id).focus();
+                            //console.log('falta este: '+formulario[i].id);
+                            //console.log('tipo: '+formulario[i].type);
+                        }
+                    }
+                    //console.log(formulario[i].id);
+                    //console.log(formulario[i].value);
+                }
+            }
+
+
+        }
+
+        document.getElementById(frm).submit();
+    }
+}
+
 function siguienteEtapa(){
     var categoria_producto = document.getElementById('fk_id_categoria_producto').value;
     var sucursal_producto = document.getElementById('fk_id_sucursal').value;

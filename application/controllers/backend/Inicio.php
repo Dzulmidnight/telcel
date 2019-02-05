@@ -25,13 +25,16 @@ class Inicio extends CI_Controller{
 	
 	public function index()
 	{
+
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
 		{
 			redirect(base_url().'login');
 		}
+		$data['row_sucursales'] = $this->consultar_model->sucursales();
 		
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
-		$data['modal_ventas'] = $this->load->view('backend/modal_ventas','',true);
+		$data['modal_ventas'] = $this->load->view('backend/modal_ventas', '', true);
+
 		$data['row_entregas'] = $this->consultar_model->ultimosAvisos($this->session->userdata('id_sucursal'));
 
 		$this->load->view('backend/template/head');

@@ -306,6 +306,7 @@ function carritoCompras(){
     precio = document.getElementById('precio_unitario_venta').value;
     precioRealVenta = document.getElementById('precio_real_venta').value;
     cantidad = document.getElementById('piezas_venta').value;
+
     
     numFilas = tabla.rows.length;
     filaActual = numFilas - 1;
@@ -332,6 +333,7 @@ function carritoCompras(){
 
     // limpiamos los campos despues de agregar el producto
     document.getElementById('codigoCapturado').value = '';
+
     document.getElementById('piezas_venta').value = '';
     document.getElementById('precio_unitario_venta').value = '';
 }
@@ -1100,6 +1102,8 @@ function sucursalDestino(url){
 
     function realizarVenta(url){
         console.log('Boton realizar venta');
+        //var id_sucursal = document.getElementById('id_sucursal_venta');
+        var id_vendedor = document.getElementById('id_vendedor_venta').value;
         var array_id_producto = document.getElementsByName('id_producto_carrito');
         var array_de_precio = document.getElementsByName('precio_carrito');
         var array_precio_real_carrito = document.getElementsByName('precio_real_carrito');
@@ -1124,16 +1128,18 @@ function sucursalDestino(url){
             );
         };
 
-        var array_json;
+        var array_json, json_info_extra;
         array_json = JSON.stringify(array_general);
+        var id_vendedor_json = JSON.stringify(id_vendedor);
 
         console.log(array_json);
+
 
         var xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
-                //var respuesta = JSON.parse(this.responseText);
+                var respuesta = JSON.parse(this.responseText);
                 console.log(this.responseText);
                 fk_id_ticket = this.responseText;
 
@@ -1167,7 +1173,8 @@ function sucursalDestino(url){
 
         xmlhttp.open("POST", ruta, true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.send("parametros="+array_json);
+        //xmlhttp.send("parametros="+array_json+"&id_vendedor="+id_vendedor);
+        xmlhttp.send("parametros=" + array_json + "&id_vendedor=" + id_vendedor_json);
 
     }
 

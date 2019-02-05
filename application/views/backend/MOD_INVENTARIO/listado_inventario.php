@@ -330,11 +330,7 @@
 <div class="modal fade" id="modal-agregar-producto" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-popout">
         <div class="modal-content" style="padding:30px;">
-            <?php 
-            $atributos = array('class="form-horizontal push-10-t block-content"');
-            echo form_open_multipart('backend/MOD_INVENTARIO/inventario/agregar'); 
-            ?>
-
+            <form class="form-horizontal push-10-t block-content" action="<?= base_url('backend/MOD_INVENTARIO/inventario/agregar'); ?>" id="frm_registro_articulo" name="frm_registro_articulo" method="POST" enctype="multipart/form-data">
                 <div class="block block-themed block-transparent remove-margin-b">
                     <div class="block-header bg-primary-dark">
                         <ul class="block-options">
@@ -353,7 +349,7 @@
                                 <div class="row">
                                     <!-- Categoria producto -->
                                     <div class="col-sm-4">
-                                        <label for="fk_id_categoria_producto">Categoria del producto</label>
+                                        <label for="fk_id_categoria_producto">* Categoria del producto</label>
                                         <select class="form-control" name="fk_id_categoria_producto" id="fk_id_categoria_producto" onchange="siguienteEtapa();" required>
                                             <option value="">...</option>
                                             <?php foreach($row_categoria_producto as $categoria_producto): ?>
@@ -366,7 +362,7 @@
                                     <!-- Sucursales disponibles -->
                                     <div class="col-sm-4">
                                         <label for="fk_id_sucursal">
-                                            Sucursal *
+                                            * Sucursal
                                         </label>
                                         <select class="form-control" name="fk_id_sucursal" id="fk_id_sucursal" onchange="siguienteEtapa();" required>
                                             <option value="">...</option>
@@ -380,7 +376,7 @@
                                     <!-- Proveedores -->
                                     <div class="col-sm-4">
                                         <label for="fk_id_proveedor">
-                                            Proveedor *
+                                            * Proveedor
                                         </label>
                                         <select class="form-control" name="fk_id_proveedor" id="fk_id_proveedor" onchange="siguienteEtapa();" required>
                                             <option value="">...</option>
@@ -505,7 +501,7 @@
                                                 <input type="text" class="form-control" id="color" name="color" placeholder="">-->
                                             </div>
                                             <div class="col-md-6 well text-center" style="margin-top:3em;">
-                                                <button id="btn_guardar" class="btn btn-success" type="submit">
+                                                <button type="button" id="btn_guardar1" class="btn btn-success" value="guardarArticulo" onclick="enviarForm('btn_guardar1', 'frm_registro_articulo');">
                                                     <i class="fa fa-check"></i>Registrar producto
                                                 </button>
                                             </div>
@@ -583,7 +579,7 @@
                                             </div>
 
                                             <div class="col-md-12 well text-center" style="margin-top:3em;">
-                                                <button id="btn_guardar" class="btn btn-success" type="submit">
+                                                <button type="button" id="btn_guardar2" class="btn btn-success" value="guardarTelefono" onclick="enviarForm('btn_guardar2', 'frm_registro_articulo');">
                                                     <i class="fa fa-check"></i>Registrar producto
                                                 </button>
                                             </div>

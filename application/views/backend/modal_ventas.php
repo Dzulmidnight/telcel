@@ -18,26 +18,35 @@
 
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario">
-                                <div class="col-md-4" style="background: #e67e22; color: #fff">
-                                    <label for="codigoCapturado">Codigo del producto</label>
-                                    <input type="text" class="form-control" id="codigoCapturado" name="codigoCapturado" onkeyup="consultarCodigo(this.value, '<?= base_url(); ?>')" placeholder="Introduce el codigo del producto" value="" autofocus>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-md-3" style="color:red">
+                                            <label for="id_vendedor_venta">* ID Vendedor</label>
+                                            <input type="number" class="form-control" id="id_vendedor_venta" name="id_vendedor_venta" placeholder="ID Vendedor" value="" required>
+                                        </div>
+
+                                        <div class="col-md-4" style="color:red">
+                                            <label for="codigoCapturado">* Codigo del producto</label>
+                                            <input type="text" class="form-control" id="codigoCapturado" name="codigoCapturado" onkeyup="consultarCodigo(this.value, '<?= base_url(); ?>')" placeholder="Introduce el codigo del producto" value="" autofocus required>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="piezas_venta">* Nº Piezas</label>
+                                            <input type="number" class="form-control" disabled id="piezas_venta" name="piezas_venta" placeholder="Nº de piezas">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="precio_unitario_venta">* Precio de venta</label>
+                                            <input type="number" class="form-control" disabled id="precio_unitario_venta" name="precio_unitario_venta" placeholder="Precio">
+                                            <input type="hidden" id="precio_real_venta">
+                                        </div> 
+                                    </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <label for="piezas_venta">Nº Piezas</label>
-                                    <input type="number" class="form-control" disabled id="piezas_venta" name="piezas_venta" placeholder="Nº de piezas">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="precio_unitario_venta">Precio de venta</label>
-                                    <input type="number" class="form-control" disabled id="precio_unitario_venta" name="precio_unitario_venta" placeholder="Precio">
-                                    <input type="hidden" id="precio_real_venta">
-                                </div>
-                                <div class="col-md-3">
+                                <div class="col-lg-12 text-right">
                                     <button type="button" style="margin-top:2em;" class="btn btn-sm btn-info" disabled id="btn_agregar_producto" name="btn_agregar_producto" onclick="carritoCompras();">
                                         Agregar <i class="fa fa-shopping-bag"></i>
                                     </button>
                                     <button style="margin-top:2em;" class="btn btn-sm btn-default" type="button" onclick="limpiar();">
                                         Limpiar <i class="glyphicon glyphicon-erase"></i>
-                                    </button>
+                                    </button> 
                                 </div>
 
                                 <!-- Div Información del producto -->

@@ -1,12 +1,6 @@
-<style type="text/css">
-	.ticket {
-	  width: 155px;
-	  max-width: 155px;
-	}
-</style>
 
-<div class="ticket">
-		<table style="margin-top: 1em; font-size:10px;">
+
+		<table style="font-size:10px;">
 
 			<tr>
 				<td colspan="4" style="text-align:center; font-size:14px;color: #2980b9">MOVIL EXPERT</td>
@@ -63,4 +57,3 @@
 			</tr>
 
 		</table>
-</div>
