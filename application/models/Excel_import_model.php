@@ -12,4 +12,9 @@ class Excel_import_model extends CI_Model
 		//$this->db->insert_batch('producto', $data);
 		$this->db->insert('producto', $data);
 	}
+
+	function insert_array($tabla, $data)
+	{
+		$this->db->insert_batch($tabla, $data);
+	}
 }

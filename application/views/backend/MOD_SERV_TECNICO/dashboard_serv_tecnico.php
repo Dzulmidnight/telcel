@@ -20,6 +20,10 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cargar-excel">
+                    <i class="fa fa-cloud-upload"></i> Importar
+            </button>
+
             <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-popout2">
                 <span data-toggle="tooltip" title="Registrar nuevo servicio tecnico">
                     <i class="fa fa-briefcase"></i> Nuevo Servicio
@@ -542,6 +546,56 @@
 </div>
 <!-- END Información del cliente -->
 
+
+<!-- Modal importar datos -->
+<div class="modal fade" id="modal-cargar-excel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-popout">
+        <div class="modal-content">
+            <form action="<?php echo base_url('backend/Excel_import/import_catalogo'); ?>" method="POST" enctype="multipart/form-data">
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Importar datos</h3>
+                    </div>
+                    <div class="block-content" style="margin-bottom: 4em;">
+                        <div class="row text-justify">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-xs-12" style="margin-top: 1em;">
+                                        <!-- Formulario de registro de usuario -->
+                                            <label for="archivo_datos">* Selecciona el Excel con los datos que deseas cargar</label>
+                                            <input class="form-control" type="file" id="archivo_datos" name="archivo_datos" required accept=".xls, .xlsx">
+                                        <!-- END Formulario de registro de cliente -->  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 text-center" style="border-left:3px solid #2980b9">
+                                <p>
+                                    <b>Obtener formato de excel para registrar piezas de reparación</b>
+                                </p>
+                                
+                                <a href="<?= base_url('assets/formatos/formato_para_inventario.xlsx') ?>" target="_new" class="btn btn-info">
+                                    <i class="fa fa-download"></i> Descargar formato
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-success" type="submit">
+                        <i class="fa fa-check"></i> Cargar datos
+                    </button>
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END Modal importar datos -->
 
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->

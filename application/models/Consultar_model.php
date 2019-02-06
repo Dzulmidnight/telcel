@@ -330,7 +330,20 @@ class Consultar_model extends CI_Model{
                 }
         ////// END ULTIMOS AVISOS /////
 
+        //// PIEZAS DE REPUESTO
+                public function repuestos($busqueda){
+                        $this->db->select('*');
+                        $this->db->from('catalogo_piezas_reparacion');
+                        $this->db->like('nombre_pieza', $busqueda);
+                        $this->db->or_like('modelo', $busqueda);
+                        $this->db->order_by('nombre_pieza', 'DESC');
 
+                        $query = $this->db->get();
+                        $result = $query->result();
+
+                        return $result;   
+                }
+        //// END PIEZAS DE REPUESTO
 
 
 }

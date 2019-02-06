@@ -20,54 +20,116 @@
             </div>
 
             <div class="col-md-5">
-                <div class="block block-themed">
-                    <div class="block-header bg-city">
-                        <!--<ul class="block-options">
-                            <li>
-                                <button type="button"><i class="si si-settings"></i></button>
-                            </li>
-                        </ul>-->
-                        <h3 class="block-title">Equipos en espera de ser recogidos</h3>
-                    </div>
-                    <div class="block-content">
-                        <table class="table table-condensed" style="font-size: 11px;">
-                            <?php foreach($row_entregas as $entregas): ?>
-                                <tr>
-                                    <td>
-                                        <i class="fa fa-circle" style="color:#c0392b;"></i> <?= date('d/m/Y', $entregas->fecha_entrega); ?>
-                                    </td>
-                                    <td>
-                                        <?= $entregas->nombre_cliente.' '.$entregas->ap_paterno; ?>
-                                    </td>
-                                    <td>
-                                        <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
-                                            <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
-                                        </a>
-                                        <!--<a href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'.$entregas->id_servicio_tecnico.''); ?>" data-toggle="tooltip" title="Consultar ficha de servicio">
-                                            <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
-                                        </a>-->
-                                    </td>
-                                    <td>
-                                        <i class="si si-call-in"></i> <?= $entregas->telefono_cliente; ?>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-success" data-toggle="tooltip" title="Marcar como entregado" onclick="entregarEquipo('frm_entregar_equipo','<?= $entregas->id_servicio_tecnico; ?>');">
+                <!-- Block Tabs Alternative Style -->
+                <div class="block">
+                    <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
+                        <li class="active">
+                            <a href="#btabs-equipos-finalizados">En espera</a>
+                        </li>
+                        <li>
+                            <a href="#btabs-equipos-cotizacion">Finalizados</a>
+                        </li>
+                        <li class="pull-right">
+                            <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="Settings"><i class="si si-settings"></i></a>
+                        </li>
+                    </ul>
+                    <div class="block-content tab-content">
+                        <!-- Equipos en espera -->
+                        <div class="tab-pane active" id="btabs-equipos-finalizados">
+                            <h4 class="font-w300 push-15">Equipos en espera</h4>
+                            <table class="table table-condensed" style="font-size:12px;">
+                                <thead>
+                                    <tr>
+                                        <th style="font-size:12px;">Fecha</th>
+                                        <th style="font-size:12px;">Cliente</th>
+                                        <th style="font-size:12px;">Codigo</th>
+                                        <th style="font-size:12px;">Telefono</th>
+                                        <th style="font-size:12px;">Estatus</th>
+                                        <th>
+                                            ...
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($row_servicios as $servicio): ?>
+                                        <tr>
+                                            <td>
+                                                <?= date('d/m/Y', $servicio->fecha_registro); ?>
+                                            </td>
+                                            <td>
+                                                <?= $servicio->nombre_cliente; ?>
+                                            </td>
+                                            <td>
+                                                <?= $servicio->codigo_barras; ?>
+                                            </td>
+                                            <td>
+                                                <?= $servicio->telefono_cliente; ?>
+                                            </td>
+                                            <td>
+                                                <?= $servicio->estatus; ?>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-info" href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$servicio->id_servicio_tecnico); ?>" data-toggle="tooltip" title="Ficha de servicio">
+                                                    <i class="si si-note"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- END Equipos en espera -->
+
+                        <!-- Equipos finalizados -->
+                        <div class="tab-pane" id="btabs-equipos-cotizacion">
+                            <h4 class="font-w300 push-15">Equipos finalizados</h4>
+                            <p>Contactar al cliente para entregar el equipo.</p>
+                            <table class="table table-condensed" style="font-size: 11px;">
+                                <?php foreach($row_entregas as $entregas): ?>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-circle" style="color:#c0392b;"></i> <?= date('d/m/Y', $entregas->fecha_entrega); ?>
+                                        </td>
+                                        <td>
+                                            <?= $entregas->nombre_cliente.' '.$entregas->ap_paterno; ?>
+                                        </td>
+                                        <td>
+                                            <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
+                                                <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
+                                            </a>
+                                            <!--<a href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'.$entregas->id_servicio_tecnico.''); ?>" data-toggle="tooltip" title="Consultar ficha de servicio">
+                                                <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
+                                            </a>-->
+                                        </td>
+                                        <td>
+                                            <i class="si si-call-in"></i> <?= $entregas->telefono_cliente; ?>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success" data-toggle="tooltip" title="Marcar como entregado" onclick="entregarEquipo('frm_entregar_equipo','<?= $entregas->id_servicio_tecnico; ?>');">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                            <!--<button class="btn btn-xs btn-success" data-toggle="tooltip" title="Entregar">
                                                 <i class="fa fa-check"></i>
-                                            </button>
-                                        <!--<button class="btn btn-xs btn-success" data-toggle="tooltip" title="Entregar">
-                                            <i class="fa fa-check"></i>
-                                        </button>-->
-                                        <!--<button class="btn btn-xs btn-danger" data-toggle="tooltip" title="">
-                                            <i class="fa fa-close"></i>
-                                        </button>-->
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </table>
+                                            </button>-->
+                                            <!--<button class="btn btn-xs btn-danger" data-toggle="tooltip" title="">
+                                                <i class="fa fa-close"></i>
+                                            </button>-->
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </table>
+                        </div>
+                        <!-- END Equipos finalizados -->
+
+                        <div class="tab-pane" id="btabs-alt-static-settings">
+                            <h4 class="font-w300 push-15">Settings Tab</h4>
+                            <p>...</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
+                <!-- END Block Tabs Alternative Style -->
+
+            </div>            
         </div>
     </div>
 

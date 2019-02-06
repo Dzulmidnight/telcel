@@ -22,5 +22,13 @@
 
         <!-- Page JS Code -->
         <script src="<?php echo base_url(); ?>assets/js/pages/base_pages_login.js"></script>
+
+        <!-- Page JS Plugins -->
+        <script src="<?php echo base_url(); ?>assets/js/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+
+        <!-- Page JS Code -->
+        <script src="<?php echo base_url(); ?>assets/js/pages/base_forms_wizard.js"></script>
+        
     </body>
 </html>

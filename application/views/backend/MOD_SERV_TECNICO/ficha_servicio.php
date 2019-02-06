@@ -63,7 +63,7 @@
 <!-- END Stats -->
 
 <!-- Page Content -->
-<div class="content content-boxed">
+<div class="content">
     <div class="row">
         <div class="col-sm-6 col-lg-7">
             <!-- Timeline -->
@@ -71,17 +71,6 @@
                 <div class="block-header bg-gray-lighter">
                     <ul class="block-options">
                     	<?php 
-                    		if($row_servicios->estatus == 'PENDIENTE'){
-                    		?>
-                    			<li>
-                    				<button type="button" class="" data-toggle="modal" data-target="#modal-cotizacion-servicio">
-                    					<span style="color:#f39c12;">
-                    						<i class="si si-calculator"></i> Cotización
-                    					</span>
-                    				</button>
-                    			</li>
-                    		<?php
-                    		}
                     		if($row_servicios->estatus == 'EN PROCESO' || $row_servicios->estatus == 'COTIZACION'){
                     		?>
 		                        <li>
@@ -107,10 +96,32 @@
                     <h3 class="block-title"><i class="fa fa-newspaper-o"></i> Actualizaciones</h3>
                 </div>
                 <div class="block-content">
+
                 	<?php 
                 		$total_estatus = count($historial_estatus);
                 	 ?>
                     <ul class="list list-timeline pull-t">
+                        <li>
+                            <div class="list-timeline-time"><?= date('d/m/Y h:i:s', time()); ?></div>
+                            <i class="fa fa-briefcase list-timeline-icon bg-modern"></i>
+                            <div class="list-timeline-content">
+                                <p class="font-w600">Estatus: <span>Crear cotización</span></p>
+                                <?php 
+                                    if($row_servicios->estatus == 'PENDIENTE'){
+                                ?>
+                                        <p class="font-s13">
+                                            Debes generar la cotización del servicio.
+
+                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-cotizacion-servicio">
+                                                Crear cotización
+                                            </button>
+                                        </p>
+                                <?php
+                                    }
+                                 ?>
+                            </div>
+                        </li>
+
                     	<?php 
                     	foreach ($historial_estatus as $estatus) {
                     		$estilo_estatus = '';
@@ -393,7 +404,7 @@
                     		</div>
                     		<div class="col-md-6">
                     			<label for="consultar_piezas">Consultar piezas</label>
-                    			<input type="text" class="form-control" id="consultar_piezas" name="consultar_piezas" placeholder="Nombre de piezas">
+                    			<input type="text" class="form-control" id="consultar_piezas" name="consultar_piezas" placeholder="Nombre de piezas" onkeyup="consultarRepuestos(this.value, '<?= base_url(); ?>');">
                     		</div>
 
                     		<div class="col-md-6">
@@ -402,25 +413,7 @@
                     		</div>
 
                     		<!-- tabla de piezas -->
-                    		<div class="col-md-6">
-	                            <table class="table table-condensed table-striped js-dataTable-full">
-	                                <thead>
-	                                    <tr>
-	                                        <th style="font-size: 12px;">#</th>
-	                                        <th style="font-size: 12px;">Pieza</th>
-	                                        <th style="font-size: 12px;">Precio</th>
-	                                        <th style="font-size: 12px;" style="width: 10%;">...</th>
-	                                    </tr>
-	                                </thead>
-	                                <tbody style="font-size: 11px;">
-	                                 	<tr>
-	                                 		<td></td>
-	                                 		<td></td>
-	                                 		<td></td>
-	                                 		<td></td>
-	                                 	</tr>
-	                                </tbody>
-	                            </table>
+                    		<div class="col-md-6" id="tabla-repuestos">
                     		</div>
                     	</div>
                     </div>
@@ -502,3 +495,4 @@
 
 <script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>

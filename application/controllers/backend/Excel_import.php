@@ -171,4 +171,54 @@ class Excel_import extends CI_Controller
 			redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 		} 
 	}
+
+	function import_catalogo()
+	{
+		if(isset($_FILES["archivo_datos"]["name"]))
+		{
+			$path = $_FILES["archivo_datos"]["tmp_name"];
+			$object = PHPExcel_IOFactory::load($path);
+			foreach($object->getWorksheetIterator() as $worksheet)
+			{
+				$highestRow = $worksheet->getHighestRow();
+				$highestColumn = $worksheet->getHighestColumn();
+				for($row=4; $row<=$highestRow; $row++)
+				{	
+					$nombre_pieza = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+					$modelo = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+					$color = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+					$precio = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+					$fecha_registro = time();
+					
+					$data[] = array(
+						'nombre_pieza' => $nombre_pieza,
+						'modelo' => $modelo,
+						'color' => $color,
+						'precio' => $precio,
+						'fecha_registro' => $fecha_registro
+					);
+
+
+					/*$customer_name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+					$address = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+					$city = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+					$postal_code = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+					$country = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+					$data[] = array(
+						'CustomerName'  => $customer_name,
+						'Address'   => $address,
+						'City'    => $city,
+						'PostalCode'  => $postal_code,
+						'Country'   => $country
+					);*/
+				}
+			}
+
+			$this->excel_import_model->insert_array('catalogo_piezas_reparacion',$data);
+			//$this->excel_import_model->insert($data);
+			
+			redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/', 'refresh');
+		} 
+	}
+
 }

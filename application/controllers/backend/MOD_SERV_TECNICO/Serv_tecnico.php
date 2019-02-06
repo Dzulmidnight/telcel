@@ -26,8 +26,7 @@ class Serv_tecnico extends CI_Controller{
 			$data['row_sucursal_piezas'][$producto->id_producto] = $this->consultar_model->sucursal_producto($producto->id_producto);
 		}*/
 		$data['row_servicios'] = $this->consultar_model->servicios_tecnicos();
-
-
+		$data['row_sucursales'] = $this->consultar_model->sucursales();
 
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
@@ -226,12 +225,19 @@ class Serv_tecnico extends CI_Controller{
 		echo $vista;
 	}
 
-	function historialAcciones($id){
+	public function historialAcciones($id){
 		$data['row_historial_acciones'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
 
 		$vista = $this->load->view('backend/MOD_SERV_TECNICO/tabla_estatus_acciones', $data, true);
 		//$historial = json_encode($this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC'));
 		echo $vista;
+	}
+
+	public function repuestos($busqueda){
+		$data['row_repuestos'] = $this->consultar_model->repuestos($busqueda);
+		
+		$tabla = $this->load->view('backend/MOD_SERV_TECNICO/tabla_repuesto', $data, true);
+		echo $tabla;
 	}
 
 }
