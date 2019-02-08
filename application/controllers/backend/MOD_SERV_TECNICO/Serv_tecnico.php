@@ -154,6 +154,24 @@ class Serv_tecnico extends CI_Controller{
 	}
 
 	public function cotizacion_servicio(){
+		$suma_pieza = 0;
+		$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
+		if(isset($id_pieza_repuesto)){
+			$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
+		}
+		if(isset($id_pieza_repuesto)){
+			foreach ($this->input->post('precio_pieza_repuesto') as $key => $value) {
+				$suma_pieza += $value;
+				echo '<br>id: '.$id_pieza_repuesto[$key];
+				echo '<br> Precio: '.$value;
+			}
+		}
+
+		echo '<br>costo_servicio: '.$this->input->post('costo_servicio');
+		echo '<br>costo_pieza: '.$suma_pieza;
+		echo '<br>fecha_entrega: '.$this->input->post('fecha_entrega');
+
+		/*
 		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
 		$data_estatus = array(
 			'estatus' => $this->input->post('estatus_servicio'),
@@ -172,7 +190,7 @@ class Serv_tecnico extends CI_Controller{
 		);
 		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
 
-		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');	
+		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');	*/
 	}
 
 	public function entregar_equipo(){
