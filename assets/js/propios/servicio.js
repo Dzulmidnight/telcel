@@ -39,6 +39,28 @@ function modalFichaServicio(ruta, id, div, codigoBarras){
     xmlhttp.send("x=1");
 }
 
+
+function modalCotizacion(ruta, id, div){
+    ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_detalle_cotizacion/'+id;
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            document.getElementById(div).innerHTML = this.responseText;
+            $('#modal-detalle-cotizacion').modal('show');
+            /*JsBarcode("#barcode_ficha", codigoBarras, {
+                height: 70
+            });*/
+
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=1");
+}
+
 function agregarPieza(id, pieza, modelo, color, precio){
     var tabla, pieza, modelo, color, precio;
 
@@ -60,9 +82,6 @@ function agregarPieza(id, pieza, modelo, color, precio){
     celda3.innerHTML = color;
     celda4.innerHTML = '$ '+precio+'<input type="text" name="precio_pieza_repuesto[]" value="'+precio+'"><input type="text" name="id_pieza_repuesto[]" value="'+idPieza+'">';
 
-
-
-
     /*celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
     celda2.innerHTML = idProductoVenta+"<input type='hidden' name='id_producto_carrito' value='"+idProductoVenta+"' readonly>";
     celda3.innerHTML = producto;
@@ -76,5 +95,48 @@ function agregarPieza(id, pieza, modelo, color, precio){
 
     document.getElementById('piezas_venta').value = '';
     document.getElementById('precio_unitario_venta').value = '';*/
-
 }
+
+function aceptarCotizacion(id_frm){
+    document.getElementById('estatus_cotizacion_servicio').value = 'ACEPTADA';
+    swal({
+        title: "Aceptar",
+        text: "¿El cliente ha aceptado el servicio?",
+        icon: "info",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            document.getElementById('estatus_cotizacion_servicio').value = 'ACEPTADA';
+            //console.log(this.form);
+            document.getElementById(id_frm).submit();
+            //console.log(id);
+        } /*else {
+            swal("Your imaginary file is safe!");
+        }*/
+    });
+}
+
+function rechazarCotizacion(id_frm){
+    document.getElementById('estatus_cotizacion_servicio').value = 'RECHAZADA';
+    swal({
+        title: "Rechazar",
+        text: "¿Desea cancelar el servicio?",
+        icon: "info",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            document.getElementById('estatus_cotizacion_servicio').value = 'RECHAZADA';
+            //console.log(this.form);
+            document.getElementById(id_frm).submit();
+            //console.log(id);
+        } /*else {
+            swal("Your imaginary file is safe!");
+        }*/
+    });
+}
+
+

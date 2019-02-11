@@ -20,11 +20,18 @@
             </div>
 
             <div class="col-md-5">
+                <?php 
+                    $en_espera = 0;
+                    $finalizados = 0;
+                    foreach ($row_servicios as $servicio) {
+                        $en_espera++;
+                    }
+                 ?>
                 <!-- Block Tabs Alternative Style -->
                 <div class="block">
                     <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
                         <li class="active">
-                            <a href="#btabs-equipos-finalizados">En espera</a>
+                            <a href="#btabs-equipos-finalizados">En espera (<?= $en_espera; ?>)</a>
                         </li>
                         <li>
                             <a href="#btabs-equipos-cotizacion">Finalizados</a>
@@ -36,14 +43,13 @@
                     <div class="block-content tab-content">
                         <!-- Equipos en espera -->
                         <div class="tab-pane active" id="btabs-equipos-finalizados">
-                            <h4 class="font-w300 push-15">Equipos en espera</h4>
+                            <h4 class="font-w300 push-15">Equipos en espera </h4>
                             <table class="table table-condensed" style="font-size:12px;">
                                 <thead>
                                     <tr>
                                         <th style="font-size:12px;">Fecha</th>
                                         <th style="font-size:12px;">Cliente</th>
                                         <th style="font-size:12px;">Codigo</th>
-                                        <th style="font-size:12px;">Telefono</th>
                                         <th style="font-size:12px;">Estatus</th>
                                         <th>
                                             ...
@@ -58,18 +64,44 @@
                                             </td>
                                             <td>
                                                 <?= $servicio->nombre_cliente; ?>
+                                                <br>
+                                                <?= $servicio->telefono_cliente; ?>
                                             </td>
                                             <td>
                                                 <?= $servicio->codigo_barras; ?>
                                             </td>
                                             <td>
-                                                <?= $servicio->telefono_cliente; ?>
+                                                <?php 
+                                                    if($servicio->estatus == 'COTIZACION'){
+                                                    ?>
+                                                        <a class="btn btn-xs btn-info" href="#" onclick="modalCotizacion('<?= base_url(); ?>',<?= $servicio->id_servicio_tecnico; ?>, 'div-mostrar-cotizacion');">
+                                                            <i class="fa fa-search"></i> Cotización
+                                                        </a>
+                                                    <?php
+                                                    }else{
+                                                        echo $servicio->estatus;
+                                                    }
+                                                 ?>
                                             </td>
                                             <td>
-                                                <?= $servicio->estatus; ?>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-sm btn-info" href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$servicio->id_servicio_tecnico); ?>" data-toggle="tooltip" title="Ficha de servicio">
+                                                <form action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/actualizar_estatus_cotizacion'); ?>" id="frm-informacion-cotizacion" method="POST">
+                                                    <input type="hidden" id="id_servicio_tecnico" name="id_servicio_tecnico" value="<?= $servicio->id_servicio_tecnico; ?>">
+                                                    <input type="hidden" name="fecha_registro" value="<?= time();?>">
+                                                    <input type="hidden" id="estatus_cotizacion_servicio" name="estatus_cotizacion_servicio" value="">
+                                                </form>
+                                                <?php 
+                                                    if($servicio->estatus == 'COTIZACION'){
+                                                    ?>
+                                                        <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Aceptar cotización" onclick="aceptarCotizacion('frm-informacion-cotizacion');">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                        <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Rechazar cotización" onclick="rechazarCotizacion('frm-informacion-cotizacion');">
+                                                            <i class="fa fa-close"></i>
+                                                        </button>
+                                                    <?php
+                                                    }
+                                                 ?>
+                                                <a class="btn btn-xs btn-info" href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$servicio->id_servicio_tecnico); ?>" data-toggle="tooltip" title="Ficha de servicio">
                                                     <i class="si si-note"></i>
                                                 </a>
                                             </td>
@@ -106,8 +138,8 @@
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-success" data-toggle="tooltip" title="Marcar como entregado" onclick="entregarEquipo('frm_entregar_equipo','<?= $entregas->id_servicio_tecnico; ?>');">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
+                                                <i class="fa fa-check"></i>
+                                            </button>
                                             <!--<button class="btn btn-xs btn-success" data-toggle="tooltip" title="Entregar">
                                                 <i class="fa fa-check"></i>
                                             </button>-->
@@ -143,7 +175,9 @@
 </div>
 
 </script>
+
 <div id="div-mostrar-ficha"></div>
+<div id="div-mostrar-cotizacion"></div>
 <!-- END Page Content -->
 <!--<div class="col-md-12">
 	<h3>EL CODIGO DE BARRAS</h3>
@@ -161,7 +195,8 @@
 
 <script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/propios/barcode.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.slimscroll.min.js"></script>

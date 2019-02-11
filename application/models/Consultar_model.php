@@ -221,6 +221,20 @@ class Consultar_model extends CI_Model{
                 return $result;
         }
 
+
+        public function piezas_cotizacion_servicio($id){
+                $this->db->select('
+                        piezas_cotizacion_servicio.*,
+                        catalogo_piezas_reparacion.*
+                ');
+                $this->db->from('piezas_cotizacion_servicio');
+                $this->db->join('catalogo_piezas_reparacion', 'catalogo_piezas_reparacion.id_catalogo_piezas_reparacion = piezas_cotizacion_servicio.id_pieza_repuesto');
+                $this->db->where('piezas_cotizacion_servicio.id_cotizacion_servicio = '.$id);
+                $query = $this->db->get();
+                $result = $query->result();
+
+                return $result;
+        }
         //// END SERVICIOS_TECNICOS ////
 
 

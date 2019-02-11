@@ -133,8 +133,13 @@ class Serv_tecnico extends CI_Controller{
 		$this->load->view('backend/template/footer');
 	}
 
-	public function actualizar_estatus(){
-		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
+	public function actualizar_estatus($id = false){
+		if($id){
+			$id_servicio_tecnico = $id;
+		}else{
+			$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
+		}
+		
 		$data_estatus = array(
 			'estatus' => $this->input->post('estatus_servicio'),
 			'accion_realizada' => $this->input->post('accion_realizada'),
@@ -153,26 +158,104 @@ class Serv_tecnico extends CI_Controller{
 		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');
 	}
 
+	public function actualizar_estatus_cotizacion(){
+		$estatus = $this->input->post('estatus_cotizacion_servicio');
+		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
+		
+		$data_estatus = array(
+			'estatus' => $this->input->post('estatus_cotizacion_servicio'),
+			'fecha_aceptacion' => time()
+		);
+		$this->update_model->update('cotizacion_servicio', 'id_servicio_tecnico', $id_servicio_tecnico, $data_estatus);
+
+		/// actualizamos el estatus del servicio
+		if($estatus == 'ACEPTADA'){
+			$data_estatus = array(
+				'estatus' => 'EN PROCESO',
+				'accion_realizada' => 'Cotización aceptada',
+				'fk_id_user' => $this->session->userdata('id_usuario'),
+				'fk_id_servicio_tecnico' => $id_servicio_tecnico,
+				'fecha_registro' => time()
+			);
+			$this->add_model->agregar($data_estatus, 'estatus_servicio');
+
+			$data_actualizar = array(
+				'fecha_actualizacion' => time(),
+				'estatus' => 'EN PROCESO'
+			);
+			$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+
+		}else{
+			$data_estatus = array(
+				'estatus' => 'RECHAZADO',
+				'accion_realizada' => 'Cotización rechazada',
+				'fk_id_user' => $this->session->userdata('id_usuario'),
+				'fk_id_servicio_tecnico' => $id_servicio_tecnico,
+				'fecha_registro' => time()
+			);
+			$this->add_model->agregar($data_estatus, 'estatus_servicio');
+
+			$data_actualizar = array(
+				'fecha_actualizacion' => time(),
+				'estatus' => 'RECHAZADO'
+			);
+			$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+		}
+
+		redirect('backend/Inicio', 'refresh');
+
+	}
+
 	public function cotizacion_servicio(){
 		$suma_pieza = 0;
 		$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
-		if(isset($id_pieza_repuesto)){
-			$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
-		}
+		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
+		$costo_servicio = $this->input->post('costo_servicio');
+
+		$data_cotizacion = array(
+			'id_servicio_tecnico' => $id_servicio_tecnico,
+			'descripcion' => $this->input->post('descripcion_servicio'),
+			'id_usuario' => $this->session->userdata('id_usuario'),
+			'estatus' => 'ENVIADA',
+			'fecha_registro' => time()
+		);
+		$this->add_model->agregar($data_cotizacion, 'cotizacion_servicio');
+
+		$id_cotizacion = $this->db->insert_id();
+
+
 		if(isset($id_pieza_repuesto)){
 			foreach ($this->input->post('precio_pieza_repuesto') as $key => $value) {
 				$suma_pieza += $value;
-				echo '<br>id: '.$id_pieza_repuesto[$key];
-				echo '<br> Precio: '.$value;
+				$data_pieza = array(
+					'id_pieza_repuesto' => $id_pieza_repuesto[$key],
+					'id_cotizacion_servicio' => $id_cotizacion,
+					'fecha_registro' => time()
+				);
+				$this->add_model->agregar($data_pieza, 'piezas_cotizacion_servicio');
+				/*echo '<br>id: '.$id_pieza_repuesto[$key];
+				echo '<br> Precio: '.$value;*/
 			}
 		}
+		$suma_pieza = $suma_pieza + $costo_servicio;
 
-		echo '<br>costo_servicio: '.$this->input->post('costo_servicio');
+		$data_actualizar_cotizacion = array(
+			'costo' => $suma_pieza
+		);
+		$this->update_model->update('cotizacion_servicio', 'id_cotizacion_servicio', $id_cotizacion, $data_actualizar_cotizacion);
+
+
+		if(isset($id_pieza_repuesto)){
+			$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
+		}
+
+
+		/*echo '<br>costo_servicio: '.$this->input->post('costo_servicio');
 		echo '<br>costo_pieza: '.$suma_pieza;
-		echo '<br>fecha_entrega: '.$this->input->post('fecha_entrega');
+		echo '<br>fecha_entrega: '.$this->input->post('fecha_entrega');*/
 
-		/*
-		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
+		
+
 		$data_estatus = array(
 			'estatus' => $this->input->post('estatus_servicio'),
 			'accion_realizada' => 'Cotización generada',
@@ -190,7 +273,7 @@ class Serv_tecnico extends CI_Controller{
 		);
 		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
 
-		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');	*/
+		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');
 	}
 
 	public function entregar_equipo(){
@@ -217,14 +300,20 @@ class Serv_tecnico extends CI_Controller{
 
 	public function modal_detalle_cotizacion($id){
 		$data['row_detalle_cotizacion'] = $this->consultar_model->servicios_tecnicos($id);
+		$data['row_cotizacion'] = $this->consultar_model->consultaSimple($id, 'id_servicio_tecnico', 'cotizacion_servicio');
+		$id_cotizacion =  $this->consultar_model->consultaSimple($id, 'id_servicio_tecnico', 'cotizacion_servicio');
+		
+		$data['row_piezas_cotizacion'] = $this->consultar_model->piezas_cotizacion_servicio($id_cotizacion->id_cotizacion_servicio);
+
 		$vista = $this->load->view('backend/MOD_SERV_TECNICO/modal_detalle_cotizacion', $data, true);
 
+		//echo 'el id es:'.$id_cotizacion->id_cotizacion_servicio;
 		echo $vista;
 	}
 
 	public function modal_ficha_servicio_prueba($id){
 		$data['row_detalle_ficha'] = $this->consultar_model->servicios_tecnicos($id);
-		//$vista = $this->load->view('backend/MOD_SERV_TECNICO/modal_detalle_ficha', $data, true);
+		$vista = $this->load->view('backend/MOD_SERV_TECNICO/modal_detalle_ficha', $data, true);
 
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
@@ -242,6 +331,7 @@ class Serv_tecnico extends CI_Controller{
 
 		echo $vista;
 	}
+
 
 	public function historialAcciones($id){
 		$data['row_historial_acciones'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
