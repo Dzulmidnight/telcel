@@ -366,7 +366,7 @@ $pdf->writeHTML($tbl, true, false, false, false, '');
 
 		//Close and output PDF document
 		//$pdf->Output('example_049.pdf', 'I');
-		$pdf->Output('ticket_venta'.$id.'.pdf', 'I');
+		$pdf->Output('ticket_venta'.$id.'.pdf', 'D');
 
 	}
 

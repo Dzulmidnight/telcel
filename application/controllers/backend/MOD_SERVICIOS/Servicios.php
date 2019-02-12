@@ -37,6 +37,15 @@ class Servicios extends CI_Controller{
 		$this->load->view('backend/template/footer');	
 	}
 
+	public function vendedor($id)
+	{
+		$row_vendedor = $this->consultar_model->consultaSimple($id, 'id_user', 'users');
+
+		$resultado = json_encode($row_vendedor);
+
+		echo $resultado;
+	}
+
 	public function listado()
 	{
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);

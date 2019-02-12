@@ -1,3 +1,42 @@
+function limpiarCampo(id){
+    document.getElementById(id).value = '';
+    document.getElementById('div-notificaciones').style.display = 'block';
+    document.getElementById('div-servicios').innerHTML = '';
+}
+
+function buscarServicio(codigo, url){
+    if(codigo){
+        var ruta, objeto;
+        ruta = url+'backend/MOD_SERV_TECNICO/Serv_tecnico/consultar_servicio_tecnico/'+codigo;
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                if(this.responseText != 0){
+                    //objeto = JSON.parse(this.responseText);
+                    console.log(this.responseText);
+                    document.getElementById('div-servicios').style.display = 'block';
+                    document.getElementById('div-servicios').innerHTML = this.responseText;
+                    document.getElementById('div-notificaciones').style.display = 'none';
+                }else{
+                    document.getElementById('div-servicios').innerHTML = '';
+                    //document.getElementById('div-servicios').innerHTML = 'Servicio no encontrado';
+                    document.getElementById('div-notificaciones').style.display = 'block';
+                }
+
+            }else{
+                document.getElementById('div-servicios').innerHTML = 'Buscando información ...';
+            }
+        }
+        xmlhttp.open("POST", ruta, true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send();
+    }else{
+        document.getElementById('div-servicios').style.display = 'none';
+        document.getElementById('div-notificaciones').style.display = 'block';
+    }
+}
+
 function consultarRepuestos(busqueda, ruta){
 	ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/repuestos/'+busqueda;
 

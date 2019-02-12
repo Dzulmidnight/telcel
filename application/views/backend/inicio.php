@@ -28,7 +28,16 @@
                     }
                  ?>
                 <!-- Block Tabs Alternative Style -->
-                <div class="block">
+                <label for="busqueda_cliente">Consultar servicio</label>
+                <div class="input-group">
+                    <input class="form-control" type="email" id="busqueda_cliente" onkeyup="buscarServicio(this.value, '<?= base_url(); ?>');" placeholder="# de servicio">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" onclick="limpiarCampo('busqueda_cliente');">Limpiar</button>
+                    </span>
+                </div>
+                <br>
+                <div class="block" id="div-servicios"></div>
+                <div class="block" id="div-notificaciones">
                     <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
                         <li class="active">
                             <a href="#btabs-equipos-finalizados">En espera (<?= $en_espera; ?>)</a>
@@ -194,7 +203,6 @@
 </div>-->
 
 <script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>

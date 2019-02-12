@@ -235,6 +235,7 @@ class Consultar_model extends CI_Model{
 
                 return $result;
         }
+
         //// END SERVICIOS_TECNICOS ////
 
 

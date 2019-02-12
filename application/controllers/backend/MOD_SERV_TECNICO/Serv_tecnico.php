@@ -348,4 +348,33 @@ class Serv_tecnico extends CI_Controller{
 		echo $tabla;
 	}
 
+	public function consultar_servicio_tecnico($codigo){
+		$row_servicio_tecnico = $this->consultar_model->consultaSimple($codigo, 'codigo_barras', 'servicio_tecnico');
+
+		if($row_servicio_tecnico){
+			$id_servicio_tecnico = $row_servicio_tecnico->id_servicio_tecnico;
+		}else{
+			$id_servicio_tecnico = 0;
+		}
+		
+
+		if($id_servicio_tecnico != 0){
+			/*$row_estatus = $this->consultar_model->consulta($id_servicio_tecnico, 'fk_id_servicio_tecnico', 'estatus_servicio');
+			$respuesta = array($id_servicio_tecnico => $row_estatus);*/
+
+			$data['row_servicio_tecnico'] = $this->consultar_model->consultaSimple($codigo, 'codigo_barras', 'servicio_tecnico');
+			$id_cliente = $data['row_servicio_tecnico']->fk_id_cliente;
+
+			$data['row_cliente'] = $this->consultar_model->consultaSimple($id_cliente, 'id_cliente', 'clientes');
+			$data['row_estatus'] = $this->consultar_model->consulta($id_servicio_tecnico, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
+
+			$vista = $this->load->view('backend/MOD_SERV_TECNICO/tabla_consulta_servicio', $data, true);
+
+			echo $vista;
+		}else{
+			$respuesta = null;
+			$vista = null;
+		}
+	}
+
 }

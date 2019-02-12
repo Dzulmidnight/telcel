@@ -22,7 +22,8 @@
                                     <div class="row">
                                         <div class="col-md-3" style="color:red">
                                             <label for="id_vendedor_venta">* ID Vendedor</label>
-                                            <input type="number" class="form-control" id="id_vendedor_venta" name="id_vendedor_venta" placeholder="ID Vendedor" value="" required>
+                                            <input type="number" class="form-control" id="id_vendedor_venta" name="id_vendedor_venta" onkeyup="consultarVendedor(this.value, '<?= base_url(); ?>');" placeholder="ID Vendedor" value="" required>
+                                            <p id="span-nombre-vendedor" style="background:#ecf0f1;padding:.5em;color:#2c3e50;"></p>
                                         </div>
 
                                         <div class="col-md-4" style="color:red">
@@ -50,7 +51,7 @@
                                 </div>
 
                                 <!-- Div Información del producto -->
-                                <div style="margin-top:2em;" class="col-md-5" id="div_informacion_producto">
+                                <div style="margin-top:1em;" class="col-md-5" id="div_informacion_producto">
                                 </div>
                                 <!-- END Div información del producto -->
 

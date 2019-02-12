@@ -1,5 +1,28 @@
 var base_url = window.location.href;
 
+function consultarVendedor(id, url){
+    var respuesta, ruta;
+    console.log('ID_VENDEDOR: '+id);
+    ruta = url+'backend/MOD_SERVICIOS/Servicios/vendedor/'+id;
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            respuesta = JSON.parse(this.responseText);
+            console.log(JSON.parse(this.responseText));
+            if(respuesta){
+                document.getElementById('span-nombre-vendedor').innerHTML = '<span style="color:#27ae60;">'+respuesta['nombre']+' '+respuesta['ap_paterno']+'</span>';
+            }else{
+                document.getElementById('span-nombre-vendedor').innerHTML = '<span style="color:#e74c3c;">Vendedor no encontrado</span>';
+            }
+        }
+    }
+    xmlhttp.open('POST', ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send();
+}
+
 function buscarCliente(datos){
     console.log('datos');
 }
