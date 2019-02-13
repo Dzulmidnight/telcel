@@ -23,7 +23,7 @@
                 <?php 
                     $en_espera = 0;
                     $por_entregar = 0;
-                    foreach ($row_servicios as $servicio) {
+                    foreach ($row_servicios_en_espera as $servicio) {
                         $en_espera++;
                     }
                     foreach ($row_servicios_por_entregar as $servicio_por_entregar) {
@@ -46,7 +46,7 @@
                             <a href="#btabs-equipos-finalizados">En espera (<?= $en_espera; ?>)</a>
                         </li>
                         <li>
-                            <a href="#btabs-equipos-cotizacion">POR ENTREGAR (<?= $por_entregar; ?>)</a>
+                            <a href="#btabs-equipos-cotizacion">Por entregar (<?= $por_entregar; ?>)</a>
                         </li>
                         <li class="pull-right">
                             <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="Settings"><i class="si si-settings"></i></a>
@@ -69,29 +69,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($row_servicios as $servicio): ?>
+                                    <?php foreach($row_servicios_en_espera as $servicio_en_espera): ?>
                                         <tr>
                                             <td>
-                                                <?= date('d/m/Y', $servicio->fecha_registro); ?>
+                                                <?= date('d/m/Y', $servicio_en_espera->fecha_registro); ?>
                                             </td>
                                             <td>
-                                                <?= $servicio->nombre_cliente; ?>
+                                                <?= $servicio_en_espera->nombre_cliente; ?>
                                                 <br>
-                                                <?= $servicio->telefono_cliente; ?>
+                                                <?= $servicio_en_espera->telefono_cliente; ?>
                                             </td>
                                             <td>
-                                                <?= $servicio->codigo_barras; ?>
+                                                <?= $servicio_en_espera->codigo_barras; ?>
                                             </td>
                                             <td>
                                                 <?php 
-                                                    if($servicio->estatus == 'COTIZACION'){
+                                                    if($servicio_en_espera->estatus == 'COTIZACION'){
                                                     ?>
-                                                        <a class="btn btn-xs btn-info" href="#" onclick="modalCotizacion('<?= base_url(); ?>',<?= $servicio->id_servicio_tecnico; ?>, 'div-mostrar-cotizacion');">
+                                                        <a class="btn btn-xs btn-info" href="#" onclick="modalCotizacion('<?= base_url(); ?>',<?= $servicio_en_espera->id_servicio_tecnico; ?>, 'div-mostrar-cotizacion');">
                                                             <i class="fa fa-search"></i> Cotización
                                                         </a>
                                                     <?php
                                                     }else{
-                                                        echo $servicio->estatus;
+                                                        echo $servicio_en_espera->estatus;
                                                     }
                                                  ?>
                                             </td>
