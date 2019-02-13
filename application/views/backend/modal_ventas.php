@@ -14,7 +14,7 @@
                 <div class="block-content" style="margin-bottom: 4em;">
                     <div class="row text-justify">
                         <!-- Formulario de registro de usuario -->
-                        <form class="form-horizontal push-10-t block-content" action="#" method="post">
+                        <form id="frm_venta_producto" class="form-horizontal push-10-t block-content" action="#" method="post">
 
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario">
@@ -32,17 +32,17 @@
                                         </div>
                                         <div class="col-md-2">
                                             <label for="piezas_venta">* Nº Piezas</label>
-                                            <input type="number" class="form-control" disabled id="piezas_venta" name="piezas_venta" placeholder="Nº de piezas">
+                                            <input type="number" class="form-control" disabled id="piezas_venta" name="piezas_venta" placeholder="Nº de piezas" required>
                                         </div>
                                         <div class="col-md-3">
                                             <label for="precio_unitario_venta">* Precio de venta</label>
-                                            <input type="number" class="form-control" disabled id="precio_unitario_venta" name="precio_unitario_venta" placeholder="Precio">
+                                            <input type="number" class="form-control" disabled id="precio_unitario_venta" name="precio_unitario_venta" placeholder="Precio" required>
                                             <input type="hidden" id="precio_real_venta">
                                         </div> 
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-right">
-                                    <button type="button" style="margin-top:2em;" class="btn btn-sm btn-info" disabled id="btn_agregar_producto" name="btn_agregar_producto" onclick="carritoCompras();">
+                                    <button type="button" style="margin-top:2em;" class="btn btn-sm btn-default" disabled id="btn_agregar_producto" name="btn_agregar_producto" onclick="carritoCompras('frm_venta_producto');">
                                         Agregar <i class="fa fa-shopping-bag"></i>
                                     </button>
                                     <button style="margin-top:2em;" class="btn btn-sm btn-default" type="button" onclick="limpiar();">
@@ -89,7 +89,7 @@
                                         <button type="button" class="btn btn-sm btn-default" onclick="cancelarVenta();">
                                             Cancelar
                                         </button>
-                                        <button type="button" class="btn btn-sm btn-primary" onclick="realizarVenta('<?= base_url(); ?>');">
+                                        <button type="button" id="btn_realizar_venta" class="btn btn-sm btn-default" onclick="realizarVenta('<?= base_url(); ?>', 'frm_venta_producto');" disabled>
                                             <i class="fa fa-save"></i> Realizar venta
                                         </button>
                                     </div>

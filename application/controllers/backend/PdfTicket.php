@@ -42,8 +42,9 @@ class PdfTicket extends CI_Controller{
 		$this->my_mpdf->pdf2->SetHTMLHeader($header);
 		$this->my_mpdf->pdf2->SetHTMLFooter($footer);
 		
-		$html = $this->load->view('backend/pdf_ticket',$data,true);    	
-   	
+		$html = '<div style="text-align:right">';
+			$html .= $this->load->view('backend/pdf_ticket',$data,true);    	
+   		$html .= '</div>';
 
 		/*$html = '';
 

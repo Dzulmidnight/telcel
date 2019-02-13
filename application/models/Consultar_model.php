@@ -192,34 +192,64 @@ class Consultar_model extends CI_Model{
         }
 
         //// SERVICIOS_TECNICOS //////
-        public function servicios_tecnicos($id = false){
-                $this->db->select('
-                        servicio_tecnico.*,
-                        clientes.nombre as nombre_cliente,
-                        clientes.ap_paterno,
-                        clientes.ap_materno,
-                        clientes.telefono as telefono_cliente,
-                        clientes.email,
-                        clientes.informacion_extra as informacion_extra_cliente,
-                        sucursal.nombre as nombre_sucursal
-                ');
-                $this->db->from('servicio_tecnico');
-                $this->db->join('clientes', 'clientes.id_cliente = servicio_tecnico.fk_id_cliente');
-                $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
+                public function servicios_tecnicos($id = false){
+                        $this->db->select('
+                                servicio_tecnico.*,
+                                clientes.nombre as nombre_cliente,
+                                clientes.ap_paterno,
+                                clientes.ap_materno,
+                                clientes.telefono as telefono_cliente,
+                                clientes.email,
+                                clientes.informacion_extra as informacion_extra_cliente,
+                                sucursal.nombre as nombre_sucursal
+                        ');
+                        $this->db->from('servicio_tecnico');
+                        $this->db->join('clientes', 'clientes.id_cliente = servicio_tecnico.fk_id_cliente');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
 
-                if($id != false){
-                        $this->db->where('servicio_tecnico.id_servicio_tecnico', $id);
-                        //$this->db->like('producto.codigo_barras', $codigo);
+                        if($id != false){
+                                $this->db->where('servicio_tecnico.id_servicio_tecnico', $id);
+                                //$this->db->like('producto.codigo_barras', $codigo);
 
-                        $query = $this->db->get();
-                        $result = $query->row();
-                }else{
-                        $query = $this->db->get();
-                        $result = $query->result();
+                                $query = $this->db->get();
+                                $result = $query->row();
+                        }else{
+                                $query = $this->db->get();
+                                $result = $query->result();
+                        }
+
+                        return $result;
+                }
+                public function servicios_tecnicos_por_entregar($id = false){
+                        $where = "servicio_tecnico.estatus = 'RECHAZADO' or servicio_tecnico.estatus = 'INCONCLUSO' or servicio_tecnico.estatus = 'SATISFACTORIO'";
+                        $this->db->select('
+                                servicio_tecnico.*,
+                                clientes.nombre as nombre_cliente,
+                                clientes.ap_paterno,
+                                clientes.ap_materno,
+                                clientes.telefono as telefono_cliente,
+                                clientes.email,
+                                clientes.informacion_extra as informacion_extra_cliente,
+                                sucursal.nombre as nombre_sucursal
+                        ');
+                        $this->db->from('servicio_tecnico');
+                        $this->db->join('clientes', 'clientes.id_cliente = servicio_tecnico.fk_id_cliente');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
+                        $this->db->where($where);
+                        if($id != false){
+                                $this->db->where('servicio_tecnico.id_servicio_tecnico', $id);
+                                //$this->db->like('producto.codigo_barras', $codigo);
+
+                                $query = $this->db->get();
+                                $result = $query->row();
+                        }else{
+                                $query = $this->db->get();
+                                $result = $query->result();
+                        }
+
+                        return $result;
                 }
 
-                return $result;
-        }
 
 
         public function piezas_cotizacion_servicio($id){

@@ -22,9 +22,12 @@
             <div class="col-md-5">
                 <?php 
                     $en_espera = 0;
-                    $finalizados = 0;
+                    $por_entregar = 0;
                     foreach ($row_servicios as $servicio) {
                         $en_espera++;
+                    }
+                    foreach ($row_servicios_por_entregar as $servicio_por_entregar) {
+                        $por_entregar++;
                     }
                  ?>
                 <!-- Block Tabs Alternative Style -->
@@ -43,7 +46,7 @@
                             <a href="#btabs-equipos-finalizados">En espera (<?= $en_espera; ?>)</a>
                         </li>
                         <li>
-                            <a href="#btabs-equipos-cotizacion">Finalizados</a>
+                            <a href="#btabs-equipos-cotizacion">POR ENTREGAR (<?= $por_entregar; ?>)</a>
                         </li>
                         <li class="pull-right">
                             <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="Settings"><i class="si si-settings"></i></a>
@@ -53,13 +56,13 @@
                         <!-- Equipos en espera -->
                         <div class="tab-pane active" id="btabs-equipos-finalizados">
                             <h4 class="font-w300 push-15">Equipos en espera </h4>
-                            <table class="table table-condensed" style="font-size:12px;">
+                            <table class="table table-condensed" style="font-size:11px;">
                                 <thead>
                                     <tr>
-                                        <th style="font-size:12px;">Fecha</th>
-                                        <th style="font-size:12px;">Cliente</th>
-                                        <th style="font-size:12px;">Codigo</th>
-                                        <th style="font-size:12px;">Estatus</th>
+                                        <th style="font-size:11px;">Fecha</th>
+                                        <th style="font-size:11px;">Cliente</th>
+                                        <th style="font-size:11px;">Codigo</th>
+                                        <th style="font-size:11px;">Estatus</th>
                                         <th>
                                             ...
                                         </th>
@@ -124,40 +127,53 @@
                         <!-- Equipos finalizados -->
                         <div class="tab-pane" id="btabs-equipos-cotizacion">
                             <h4 class="font-w300 push-15">Equipos finalizados</h4>
-                            <p>Contactar al cliente para entregar el equipo.</p>
+                            <p style="background:#e74c3c;color:#ecf0f1;padding:1em;">
+                                <i class="fa fa-warning"></i> Contactar al cliente para entregar el equipo.
+                            </p>
                             <table class="table table-condensed" style="font-size: 11px;">
-                                <?php foreach($row_entregas as $entregas): ?>
+                                <thead>
                                     <tr>
-                                        <td>
-                                            <i class="fa fa-circle" style="color:#c0392b;"></i> <?= date('d/m/Y', $entregas->fecha_entrega); ?>
-                                        </td>
-                                        <td>
-                                            <?= $entregas->nombre_cliente.' '.$entregas->ap_paterno; ?>
-                                        </td>
-                                        <td>
-                                            <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
-                                                <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
-                                            </a>
-                                            <!--<a href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'.$entregas->id_servicio_tecnico.''); ?>" data-toggle="tooltip" title="Consultar ficha de servicio">
-                                                <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
-                                            </a>-->
-                                        </td>
-                                        <td>
-                                            <i class="si si-call-in"></i> <?= $entregas->telefono_cliente; ?>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success" data-toggle="tooltip" title="Marcar como entregado" onclick="entregarEquipo('frm_entregar_equipo','<?= $entregas->id_servicio_tecnico; ?>');">
-                                                <i class="fa fa-check"></i>
-                                            </button>
-                                            <!--<button class="btn btn-xs btn-success" data-toggle="tooltip" title="Entregar">
-                                                <i class="fa fa-check"></i>
-                                            </button>-->
-                                            <!--<button class="btn btn-xs btn-danger" data-toggle="tooltip" title="">
-                                                <i class="fa fa-close"></i>
-                                            </button>-->
-                                        </td>
+                                        <th style="font-size:11px;">Fecha</th>
+                                        <th style="font-size:11px;">Cliente</th>
+                                        <th style="font-size:11px;">Ficha</th>
+                                        <th style="font-size:11px;">Telefono</th>
+                                        <th style="font-size:11px;"></th>
                                     </tr>
-                                <?php endforeach; ?>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($row_servicios_por_entregar as $entregas): ?>
+                                        <tr>
+                                            <td>
+                                                <i class="fa fa-circle" style="color:#c0392b;"></i> <?= date('d/m/Y', $entregas->fecha_entrega); ?>
+                                            </td>
+                                            <td>
+                                                <?= $entregas->nombre_cliente.' '.$entregas->ap_paterno; ?>
+                                            </td>
+                                            <td>
+                                                <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
+                                                    <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
+                                                </a>
+                                                <!--<a href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'.$entregas->id_servicio_tecnico.''); ?>" data-toggle="tooltip" title="Consultar ficha de servicio">
+                                                    <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
+                                                </a>-->
+                                            </td>
+                                            <td>
+                                                <i class="si si-call-in"></i> <?= $entregas->telefono_cliente; ?>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-xs btn-success" data-toggle="tooltip" title="Marcar como entregado" onclick="entregarEquipo('frm_entregar_equipo','<?= $entregas->id_servicio_tecnico; ?>');">
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                                <!--<button class="btn btn-xs btn-success" data-toggle="tooltip" title="Entregar">
+                                                    <i class="fa fa-check"></i>
+                                                </button>-->
+                                                <!--<button class="btn btn-xs btn-danger" data-toggle="tooltip" title="">
+                                                    <i class="fa fa-close"></i>
+                                                </button>-->
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
                             </table>
                         </div>
                         <!-- END Equipos finalizados -->

@@ -32,6 +32,7 @@ class Inicio extends CI_Controller{
 		}
 		$data['row_sucursales'] = $this->consultar_model->sucursales();
 		$data['row_servicios'] = $this->consultar_model->servicios_tecnicos();
+		$data['row_servicios_por_entregar'] = $this->consultar_model->servicios_tecnicos_por_entregar();
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
 		$data['modal_ventas'] = $this->load->view('backend/modal_ventas', '', true);
 

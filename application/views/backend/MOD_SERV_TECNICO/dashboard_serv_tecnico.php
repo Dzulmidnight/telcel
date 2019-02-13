@@ -24,7 +24,7 @@
                     <i class="fa fa-cloud-upload"></i> Importar
             </button>
 
-            <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-popout2">
+            <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-nuevo-ingreso">
                 <span data-toggle="tooltip" title="Registrar nuevo servicio tecnico">
                     <i class="fa fa-briefcase"></i> Nuevo Servicio
                 </span>
@@ -225,13 +225,10 @@
 </div>
 
 <!-- FRM Registrar Proveedor -->
-<div class="modal fade" id="modal-popout2" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-nuevo-ingreso" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-popout">
         <div class="modal-content">
-            <?php 
-            $atributos = array('class="form-horizontal push-10-t block-content"');
-            echo form_open_multipart('backend/MOD_SERV_TECNICO/Serv_tecnico/agregar'); 
-            ?>
+            <form id="frm_nuevo_ingreso" class="form-horizontal push-10-t block-content" action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/agregar'); ?>" method="POST" enctype="multipart/form-data">
                 <div class="block block-themed block-transparent remove-margin-b">
                     <div class="block-header bg-primary-dark">
                         <ul class="block-options">
@@ -429,7 +426,7 @@
                     <input type="hidden" id="casilla_seleccionada" name="casilla_seleccionada">
                     <input type="hidden" id="numero-inicial-patron" value="0">
                     <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-success" type="submit">Registrar</button>
+                    <button class="btn btn-success" type="submit" onclick="validarCampos('frm_nuevo_ingreso');">Registrar</button>
                 </div>
             </form>
         </div>
@@ -599,6 +596,7 @@
 
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/barcode.js"></script>

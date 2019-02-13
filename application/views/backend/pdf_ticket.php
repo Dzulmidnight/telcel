@@ -1,6 +1,6 @@
 
 
-		<table style="font-size:10px;">
+		<table style="font-size:10px;" style="text-align:center">
 
 			<tr>
 				<td colspan="4" style="text-align:center; font-size:14px;color: #2980b9">MOVIL EXPERT</td>

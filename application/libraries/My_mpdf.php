@@ -15,6 +15,6 @@ class my_mpdf{
 	{
 	    $this->param =$param;
 	    $this->pdf = new mPDF($this->param);
-	    $this->pdf2 = new mPDF('utf-8', array(70,297));
+	    $this->pdf2 = new mPDF('utf-8', array(100,297));
 	}
 }

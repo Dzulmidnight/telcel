@@ -119,7 +119,7 @@ function agregarPieza(id, pieza, modelo, color, precio){
     celda1.innerHTML = '<button class="btn btn-xs btn-danger" onclick="eliminarFila(this)"><i class="fa fa-trash"></i></button> '+pieza;
     celda2.innerHTML = modelo;
     celda3.innerHTML = color;
-    celda4.innerHTML = '$ '+precio+'<input type="text" name="precio_pieza_repuesto[]" value="'+precio+'"><input type="text" name="id_pieza_repuesto[]" value="'+idPieza+'">';
+    celda4.innerHTML = '$ '+precio+'<input type="hidden" name="precio_pieza_repuesto[]" value="'+precio+'"><input type="hidden" name="id_pieza_repuesto[]" value="'+idPieza+'">';
 
     /*celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
     celda2.innerHTML = idProductoVenta+"<input type='hidden' name='id_producto_carrito' value='"+idProductoVenta+"' readonly>";
@@ -147,7 +147,7 @@ function aceptarCotizacion(id_frm){
     })
     .then((willDelete) => {
         if (willDelete) {
-            document.getElementById('estatus_cotizacion_servicio').value = 'ACEPTADA';
+            document.getElementById('estatus_cotizacion_servicio').value = 'EN PROCESO';
             //console.log(this.form);
             document.getElementById(id_frm).submit();
             //console.log(id);
@@ -158,7 +158,7 @@ function aceptarCotizacion(id_frm){
 }
 
 function rechazarCotizacion(id_frm){
-    document.getElementById('estatus_cotizacion_servicio').value = 'RECHAZADA';
+    document.getElementById('estatus_cotizacion_servicio').value = 'RECHAZADO';
     swal({
         title: "Rechazar",
         text: "¿Desea cancelar el servicio?",
@@ -168,7 +168,7 @@ function rechazarCotizacion(id_frm){
     })
     .then((willDelete) => {
         if (willDelete) {
-            document.getElementById('estatus_cotizacion_servicio').value = 'RECHAZADA';
+            document.getElementById('estatus_cotizacion_servicio').value = 'RECHAZADO';
             //console.log(this.form);
             document.getElementById(id_frm).submit();
             //console.log(id);
@@ -178,4 +178,33 @@ function rechazarCotizacion(id_frm){
     });
 }
 
+function validarCampos(id_frm){
+
+    var formulario = document.forms[id_frm];
+    var numElementos = formulario.elements.length;
+    //console.log(formulario);
+    //console.log(numElementos);
+
+    for(var i = 0; i < numElementos; i++){
+        //console.log(formulario[i].required);
+        if(formulario[i].required){
+            if(formulario[i].type == 'select-one'){
+                indice = document.getElementById(formulario[i].id).selectedIndex;
+                if( indice == null || indice == 0 ) {
+                    document.getElementById(formulario[i].id).focus();
+                }
+            }else{
+                if(!formulario[i].value){
+                    alert('Debes completar el campo');
+                    document.getElementById(formulario[i].id).focus();
+                    console.log('falta este: '+formulario[i].id);
+                    break;
+                    //console.log('tipo: '+formulario[i].type);
+                }
+            }
+            //console.log(formulario[i].id);
+            //console.log(formulario[i].value);
+        }
+    }
+}
 

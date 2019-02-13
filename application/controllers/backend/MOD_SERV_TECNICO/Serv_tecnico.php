@@ -169,7 +169,7 @@ class Serv_tecnico extends CI_Controller{
 		$this->update_model->update('cotizacion_servicio', 'id_servicio_tecnico', $id_servicio_tecnico, $data_estatus);
 
 		/// actualizamos el estatus del servicio
-		if($estatus == 'ACEPTADA'){
+		if($estatus == 'EN PROCESO'){
 			$data_estatus = array(
 				'estatus' => 'EN PROCESO',
 				'accion_realizada' => 'Cotización aceptada',
@@ -186,6 +186,7 @@ class Serv_tecnico extends CI_Controller{
 			$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
 
 		}else{
+			// actualizamos tb_ESTATUS_SERVICIO
 			$data_estatus = array(
 				'estatus' => 'RECHAZADO',
 				'accion_realizada' => 'Cotización rechazada',
@@ -195,11 +196,13 @@ class Serv_tecnico extends CI_Controller{
 			);
 			$this->add_model->agregar($data_estatus, 'estatus_servicio');
 
+			// actualizamos tb_SERVICIO_TECNICO
 			$data_actualizar = array(
 				'fecha_actualizacion' => time(),
 				'estatus' => 'RECHAZADO'
 			);
 			$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+			
 		}
 
 		redirect('backend/Inicio', 'refresh');

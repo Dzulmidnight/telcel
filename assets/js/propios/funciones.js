@@ -302,6 +302,8 @@ function consultarCodigo(valor, ruta){
             }else{
                 document.getElementById('piezas_venta').disabled = false;
                 document.getElementById('btn_agregar_producto').disabled = false;
+                document.getElementById('btn_agregar_producto').classList.remove('btn-default');
+                document.getElementById('btn_agregar_producto').classList.add('btn-success');
 
                 precio_establecido = document.getElementById('precio_establecido').innerHTML;
                 precio_real = document.getElementById('precio_real').value;
@@ -318,47 +320,85 @@ function consultarCodigo(valor, ruta){
     xmlhttp.send("codigo="+objetoJson);
 }
 
-function carritoCompras(){
+function carritoCompras(id_frm){
     var tabla, numFilas, filaActual, producto, marca, precio, cantidad, total, totalReal;
 
 
-    tabla = document.getElementById("tablaDetalleCompra");
-    idProductoVenta = document.getElementById('id_producto').value;
-    producto = document.getElementById('spanProducto').innerHTML;
-    marca = document.getElementById('spanMarca').innerHTML;
-    precio = document.getElementById('precio_unitario_venta').value;
-    precioRealVenta = document.getElementById('precio_real_venta').value;
-    cantidad = document.getElementById('piezas_venta').value;
+    var formulario = document.forms[id_frm];
+    var numElementos = formulario.elements.length;
+    //console.log(formulario);
+    //console.log(numElementos);
 
-    
-    numFilas = tabla.rows.length;
-    filaActual = numFilas - 1;
- 
-    total = precio * cantidad;
-    totalReal = precioRealVenta * cantidad;
+    for(var i = 0; i < numElementos; i++){
+        //console.log(formulario[i].required);
+        if(formulario[i].required){
+            if(formulario[i].type == 'select-one'){
+                indice = document.getElementById(formulario[i].id).selectedIndex;
+                if( indice == null || indice == 0 ) {
+                    document.getElementById(formulario[i].id).focus();
+                }
+            }else{
+                if(!formulario[i].value){
+                    alert('Debes completar el campo');
+                    document.getElementById(formulario[i].id).focus();
+                    console.log('falta este: '+formulario[i].id);
+                    break;
+                    //console.log('tipo: '+formulario[i].type);
+                }
+            }
+            //console.log(formulario[i].id);
+            //console.log(formulario[i].value);
+        }else{
+            /////// SECCIÓN PARA GENERAR LA VENTA
+                tabla = document.getElementById("tablaDetalleCompra");
+                idProductoVenta = document.getElementById('id_producto').value;
+                producto = document.getElementById('spanProducto').innerHTML;
+                marca = document.getElementById('spanMarca').innerHTML;
+                precio = document.getElementById('precio_unitario_venta').value;
+                precioRealVenta = document.getElementById('precio_real_venta').value;
+                cantidad = document.getElementById('piezas_venta').value;
 
-    var row = tabla.insertRow(filaActual);
-    var celda1 = row.insertCell(0);
-    var celda2 = row.insertCell(1);
-    var celda3 = row.insertCell(2);
-    var celda4 = row.insertCell(3);
-    var celda5 = row.insertCell(4);
-    var celda6 = row.insertCell(5);
-    var celda7 = row.insertCell(6);
+                /// activamos el botón de venta
+                document.getElementById('btn_realizar_venta').disabled = false;
 
-    celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
-    celda2.innerHTML = idProductoVenta+"<input type='hidden' name='id_producto_carrito' value='"+idProductoVenta+"' readonly>";
-    celda3.innerHTML = producto;
-    celda4.innerHTML = marca;
-    celda5.innerHTML = "$ "+precio+"<input type='hidden' name='precio_carrito' value='"+precio+"' readonly><input type='hidden' name='precio_real_carrito' value='"+precioRealVenta+"'>";;
-    celda6.innerHTML = cantidad+"<input type='hidden' name='cantidad_carrito' value='"+cantidad+"' readonly>";;
-    celda7.innerHTML = '$ '+total.toFixed(2)+"<input type='hidden' name='total_carrito' value='"+total.toFixed(2)+"' readonly><input type='hidden' name='total_real_carrito' value='"+totalReal+"'>";
+                numFilas = tabla.rows.length;
+                filaActual = numFilas - 1;
+             
+                total = precio * cantidad;
+                totalReal = precioRealVenta * cantidad;
 
-    // limpiamos los campos despues de agregar el producto
-    document.getElementById('codigoCapturado').value = '';
+                var row = tabla.insertRow(filaActual);
+                var celda1 = row.insertCell(0);
+                var celda2 = row.insertCell(1);
+                var celda3 = row.insertCell(2);
+                var celda4 = row.insertCell(3);
+                var celda5 = row.insertCell(4);
+                var celda6 = row.insertCell(5);
+                var celda7 = row.insertCell(6);
 
-    document.getElementById('piezas_venta').value = '';
-    document.getElementById('precio_unitario_venta').value = '';
+                celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
+                celda2.innerHTML = idProductoVenta+"<input type='hidden' name='id_producto_carrito' value='"+idProductoVenta+"' readonly>";
+                celda3.innerHTML = producto;
+                celda4.innerHTML = marca;
+                celda5.innerHTML = "$ "+precio+"<input type='hidden' name='precio_carrito' value='"+precio+"' readonly><input type='hidden' name='precio_real_carrito' value='"+precioRealVenta+"'>";;
+                celda6.innerHTML = cantidad+"<input type='hidden' name='cantidad_carrito' value='"+cantidad+"' readonly>";;
+                celda7.innerHTML = '$ '+total.toFixed(2)+"<input type='hidden' name='total_carrito' value='"+total.toFixed(2)+"' readonly><input type='hidden' name='total_real_carrito' value='"+totalReal+"'>";
+
+                // limpiamos los campos despues de agregar el producto
+                document.getElementById('codigoCapturado').value = '';
+
+                document.getElementById('piezas_venta').value = '';
+                document.getElementById('precio_unitario_venta').value = '';
+
+                //habilitamos el boton de venta
+                document.getElementById('btn_realizar_venta').classList.remove('btn-default');
+                document.getElementById('btn_realizar_venta').classList.add('btn-success');
+            ////// FIN SECCIÓN PARA GENARAR LA VENTA
+            break;
+        }
+    }
+
+
 }
 
 
@@ -1121,10 +1161,13 @@ function sucursalDestino(url){
     function cancelarVenta(){
         console.log('cancelar venta');
         document.getElementById('tablaDetalleCompra').innerHTML = '';
+        document.getElementById('btn_realizar_venta').disabled = true;
+        document.getElementById('btn_realizar_venta').classList.remove('btn-success');
+        document.getElementById('btn_realizar_venta').classList.add('btn-default');
     }
 
-    function realizarVenta(url){
-        console.log('Boton realizar venta');
+    function realizarVenta(url, id_frm){
+    /////// SECCIÓN PARA GENERAR LA VENTA
         //var id_sucursal = document.getElementById('id_sucursal_venta');
         var id_vendedor = document.getElementById('id_vendedor_venta').value;
         var array_id_producto = document.getElementsByName('id_producto_carrito');
@@ -1188,9 +1231,6 @@ function sucursalDestino(url){
                         swal("Your imaginary file is safe!");
                     }*/
                 });
-
-                
-
             }
         }
 
@@ -1198,7 +1238,7 @@ function sucursalDestino(url){
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         //xmlhttp.send("parametros="+array_json+"&id_vendedor="+id_vendedor);
         xmlhttp.send("parametros=" + array_json + "&id_vendedor=" + id_vendedor_json);
-
+    ////// FIN SECCIÓN PARA GENARAR LA VENTA
     }
 
     function crearTicket(url, id){
