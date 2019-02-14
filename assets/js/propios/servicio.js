@@ -182,16 +182,20 @@ function validarCampos(id_frm){
 
     var formulario = document.forms[id_frm];
     var numElementos = formulario.elements.length;
+    var totalRequeridos = 0;
     //console.log(formulario);
     //console.log(numElementos);
 
     for(var i = 0; i < numElementos; i++){
         //console.log(formulario[i].required);
         if(formulario[i].required){
+            totalRequeridos++
             if(formulario[i].type == 'select-one'){
                 indice = document.getElementById(formulario[i].id).selectedIndex;
                 if( indice == null || indice == 0 ) {
                     document.getElementById(formulario[i].id).focus();
+                    alert('Debes completar el campo');
+                    break;
                 }
             }else{
                 if(!formulario[i].value){
@@ -199,12 +203,22 @@ function validarCampos(id_frm){
                     document.getElementById(formulario[i].id).focus();
                     console.log('falta este: '+formulario[i].id);
                     break;
+                    
                     //console.log('tipo: '+formulario[i].type);
                 }
             }
-            //console.log(formulario[i].id);
-            //console.log(formulario[i].value);
+
         }
     }
-}
 
+    if(totalRequeridos == 9){
+        document.getElementById(id_frm).submit();
+        $('#modal-nuevo-ingreso').modal('toggle');
+        $('.modal-backdrop').remove();
+
+        document.getElementById(id_frm).reset();
+
+        location.reload();
+    }
+    //console.log('El num de requeridos es: '+totalRequeridos);
+}

@@ -97,12 +97,12 @@
                                             </td>
                                             <td>
                                                 <form action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/actualizar_estatus_cotizacion'); ?>" id="frm-informacion-cotizacion" method="POST">
-                                                    <input type="hidden" id="id_servicio_tecnico" name="id_servicio_tecnico" value="<?= $servicio->id_servicio_tecnico; ?>">
+                                                    <input type="hidden" id="id_servicio_tecnico" name="id_servicio_tecnico" value="<?= $servicio_en_espera->id_servicio_tecnico; ?>">
                                                     <input type="hidden" name="fecha_registro" value="<?= time();?>">
                                                     <input type="hidden" id="estatus_cotizacion_servicio" name="estatus_cotizacion_servicio" value="">
                                                 </form>
                                                 <?php 
-                                                    if($servicio->estatus == 'COTIZACION'){
+                                                    if($servicio_en_espera->estatus == 'COTIZACION'){
                                                     ?>
                                                         <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Aceptar cotización" onclick="aceptarCotizacion('frm-informacion-cotizacion');">
                                                             <i class="fa fa-check"></i>

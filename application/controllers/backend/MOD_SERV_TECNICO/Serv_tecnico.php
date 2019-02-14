@@ -121,7 +121,7 @@ class Serv_tecnico extends CI_Controller{
 			$this->load->helper('pdf_helper');
 
 
-			header("Content-Type: application/json; charset=UTF-8");
+			header("Content-Type: application/pdf; charset=UTF-8");
 		    /*
 		        ---- ---- ---- ----
 		        your code here
@@ -177,6 +177,7 @@ class Serv_tecnico extends CI_Controller{
 			//Close and output PDF document
 			$pdf->Output('servicio_tecnico_'.$codigo_barras.'.pdf', 'D');
 
+			echo '<script>console.log("documento decargado");</script>';
 
 		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico', 'refresh');
 	}
@@ -186,7 +187,8 @@ class Serv_tecnico extends CI_Controller{
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
 		$data['row_servicios'] = $this->consultar_model->servicios_tecnicos($id);
 		$data['historial_estatus'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
-
+		$data['row_cotizacion'] = $this->consultar_model->consultaSimple($id, 'id_servicio_tecnico', 'cotizacion_servicio');
+		
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');
@@ -218,6 +220,33 @@ class Serv_tecnico extends CI_Controller{
 		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
 
 		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');
+	}
+
+	public function finalizar_servicio(){
+		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
+		$resultado_reparacion = $this->input->post('resultado_reparacion');
+		$descripcion_resultado = $this->input->post('accion_realizada');
+
+		$data_estatus = array(
+			'estatus' => 'FINALIZADO',
+			'accion_realizada' => 'Finaliza servicio',
+			'fk_id_user' => $this->session->userdata('id_usuario'),
+			'fk_id_servicio_tecnico' => $id_servicio_tecnico,
+			'fecha_registro' => $this->input->post('fecha_registro')
+		);
+		$this->add_model->agregar($data_estatus, 'estatus_servicio');
+
+		$data_actualizar = array(
+			'resultado' => $resultado_reparacion,
+			'descripcion_resultado' => $descripcion_resultado,
+			'fecha_actualizacion' => $this->input->post('fecha_registro'),
+			'estatus' => $this->input->post('estatus_servicio')
+		);
+		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+
+		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');
+
+
 	}
 
 	public function actualizar_estatus_cotizacion(){
@@ -333,6 +362,7 @@ class Serv_tecnico extends CI_Controller{
 		$data_actualizar = array(
 			'costo_servicio' => $this->input->post('costo_servicio'),
 			'descripcion_servicio' => $this->input->post('descripcion_servicio'),
+			'fecha_entrega' => $this->input->post('fecha_entrega'),
 			'fecha_actualizacion' => $this->input->post('fecha_registro'),
 			'estatus' => $this->input->post('estatus_servicio')
 		);

@@ -74,13 +74,15 @@
                     		if($row_servicios->estatus == 'EN PROCESO' || $row_servicios->estatus == 'COTIZACION'){
                     		?>
 		                        <li>
-		                        	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-estatus-reparacion" onclick="actualizarEstatus();">
-		                        		<i class="si si-refresh"></i> Actualizar estatus
+		                        	<button type="button" class="" data-toggle="modal" data-target="#modal-actualizar-estatus" onclick="actualizarEstatus();">
+		                        		<span style="color:#f39c12;" class="font-w700">
+                                            <i class="si si-refresh"></i> Actualizar estatus            
+                                        </span>
 		                        	</button>
 		                            <!--<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>-->
 		                        </li>
 		                        <li style="color:#27ae60;">
-		                        	<button type="button" class="" data-toggle="modal" data-target="#modal-estatus-reparacion" onclick="finalizarServicio();">
+		                        	<button type="button" class="" data-toggle="modal" data-target="#modal-finalizar-servicio" onclick="finalizarServicio();">
 		                        		<span style="color:#27ae60" class="font-w700"><i class="si si-check"></i> Finalizar servicio</span>
 		                        	</button>
 		                        </li>
@@ -465,7 +467,7 @@
 
 
 <!-- Modal actualizar estatus -->
-<div class="modal fade" id="modal-estatus-reparacion" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-actualizar-estatus" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-popout">
         <div class="modal-content">
             <?php 
@@ -483,12 +485,6 @@
                     </div>
                     <div class="block-content">
                     	<div class="row">
-                    		<div id="div_mensaje_finalizar" class="col-md-12" style="margin-bottom: 1em;" style="display:none;">
-                    			<p class="bg-danger" style="color:white;padding:10px;">
-                    				Después de finalizar el servicio ya no podras actualizar el estatus del mismo.
-                    				Se notificara a la sucursal que el equipo se encuentra listo para su entrega.
-                    			</p>
-                    		</div>
                     		<div class="col-md-12">
                     			<p>
                     				Fecha: <span style="background: #2c3e50; color:white; padding: 5px;"><?= date('d/m/Y');?></span>
@@ -510,10 +506,97 @@
     </div>
 </div>
 <!-- END Modal actualizar estatus -->
+
+
+<!-- Modal Finalizar servicio -->
+<div class="modal fade" id="modal-finalizar-servicio" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-popout">
+        <div class="modal-content">
+            <?php 
+            $atributos = array('class="form-horizontal push-10-t block-content"');
+            echo form_open_multipart('backend/MOD_SERV_TECNICO/Serv_tecnico/finalizar_servicio'); 
+            ?>
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Finalizar servicio</h3>
+                    </div>
+                    <div class="block-content">
+                        <div class="row">
+                            <div id="div_mensaje_finalizar" class="col-md-12" style="margin-bottom: 1em;">
+                                <p class="bg-danger" style="color:white;padding:10px;">
+                                    Se notificara a la sucursal que el equipo se encuentra listo para su entrega.
+                                </p>
+                            </div>
+
+                            <div class="col-xs-12 text-center">
+                                <p class="text-left">
+                                    Fecha: <span style="background: #2c3e50; color:white; padding: 5px;"><?= date('d/m/Y');?></span>
+                                </p>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <p>
+                                            <b>
+                                                ¿El equipo pudo ser reparado?
+                                            </b>
+                                        </p>
+                                        <label class="css-input css-radio css-radio-lg css-radio-success push-10-r">
+                                            <input id="resultado_reparacion" name="resultado_reparacion" type="radio" name="radio-group11" value="POSITIVO" required onclick="resultadoReparacion('POSITIVO');"><span></span> <b style="color:#27ae60">Si</b>
+                                        </label>
+                                        <label class="css-input css-radio css-radio-lg css-radio-danger">
+                                            <input id="resultado_reparacion" name="resultado_reparacion" type="radio" name="radio-group11" value="NEGATIVO" onclick="resultadoReparacion('NEGATIVO');"><span></span> <b style="color:#e74c3c" >No</b>
+                                        </label>
+                                    </div>
+                                    <!--<div class="col-xs-6">
+                                        <p>
+                                            <b>
+                                                Precio Final del servicio
+                                            </b>
+                                        </p>
+                                        <p>
+                                            $ <?= $row_cotizacion->costo; ?>
+                                        </p>
+                                    </div>-->
+                                </div>
+
+                            </div>
+
+                            <div id="div-justificacion" class="col-md-12" style="margin-top:1em;display:none;">
+                                <textarea class="form-control" id="accion_realizada" name="accion_realizada" id="" cols="" rows="3" placeholder="Escriba la justificación del resultado"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="fecha_registro" value="<?= time(); ?>">
+                    <input type="hidden" id="" name="estatus_servicio" value="FINALIZADO">
+                    <input type="hidden" name="id_servicio_tecnico" value="<?= $row_servicios->id_servicio_tecnico; ?>">
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                    <button id="btn_submit_estatus2" class="btn btn-sm btn-success" type="submit" onclick="finalizarServicio();">Finalizar servicio</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END Modal Finalizar servicio -->
+
+
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
 
 
 <script>
+    function resultadoReparacion(resultado){
+        if(resultado == 'POSITIVO'){
+            document.getElementById('div-justificacion').style.display = 'none';
+        }else{
+            document.getElementById('div-justificacion').style.display = 'block';
+        }
+    }
+
 	function finalizarServicio(){
         document.getElementById('div_mensaje_finalizar').style.display = 'block';
 		document.getElementById('btn_submit_estatus2').innerHTML = 'Finalizar';

@@ -224,9 +224,9 @@
     </form>
 </div>
 
-<!-- FRM Registrar Proveedor -->
-<div class="modal fade" id="modal-nuevo-ingreso" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-popout">
+<!-- FRM Registrar Servicio Tecnico -->
+<div class="modal" id="modal-nuevo-ingreso" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
         <div class="modal-content">
             <form id="frm_nuevo_ingreso" class="form-horizontal push-10-t block-content" action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/agregar'); ?>" method="POST" enctype="multipart/form-data">
                 <div class="block block-themed block-transparent remove-margin-b">
@@ -426,13 +426,13 @@
                     <input type="hidden" id="casilla_seleccionada" name="casilla_seleccionada">
                     <input type="hidden" id="numero-inicial-patron" value="0">
                     <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-success" type="submit" onclick="validarCampos('frm_nuevo_ingreso');">Registrar</button>
+                    <button class="btn btn-success" type="button" onclick="validarCampos('frm_nuevo_ingreso');">Registrar</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!-- END FRM Registrar Proveedor -->
+<!-- END FRM Registrar Servicio Tecnico -->
 
 <script>
     var contadorPatron = document.getElementById('numero-inicial-patron').value;
