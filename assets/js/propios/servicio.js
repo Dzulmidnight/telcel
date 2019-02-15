@@ -219,7 +219,7 @@ function validarCampos(id_frm){
 
         document.getElementById(id_frm).reset();
 
-        location.reload();
+        //location.reload();
     }
     //console.log('El num de requeridos es: '+totalRequeridos);
 }

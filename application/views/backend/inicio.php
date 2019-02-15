@@ -192,7 +192,7 @@
 
     <form id="frm_entregar_equipo" action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/entregar_equipo'); ?>" method="POST">
         <input type="hidden" id="id_frm_servicio_tecnico" name="id_frm_servicio_tecnico" value="">
-        <input type="text" id="monto_pagado" name="monto_pagado">
+        <input type="hidden" id="monto_pagado" name="monto_pagado">
         <input type="hidden" name="fecha_registro" value="<?= time(); ?>">
     </form>
 

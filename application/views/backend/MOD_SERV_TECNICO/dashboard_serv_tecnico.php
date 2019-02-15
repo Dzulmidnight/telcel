@@ -233,7 +233,7 @@
 <div class="modal" id="modal-nuevo-ingreso" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg ">
         <div class="modal-content">
-            <form id="frm_nuevo_ingreso" class="form-horizontal push-10-t block-content" action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/agregar'); ?>" method="POST" enctype="multipart/form-data">
+            <form id="frm_nuevo_ingreso_2" class="form-horizontal push-10-t block-content" action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/agregar'); ?>" method="POST" enctype="multipart/form-data">
                 <div class="block block-themed block-transparent remove-margin-b">
                     <div class="block-header bg-primary-dark">
                         <ul class="block-options">
@@ -431,7 +431,7 @@
                     <input type="hidden" id="casilla_seleccionada" name="casilla_seleccionada">
                     <input type="hidden" id="numero-inicial-patron" value="0">
                     <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-success" type="button" onclick="validarCampos('frm_nuevo_ingreso');">Registrar</button>
+                    <button class="btn btn-success" type="button" onclick="validarCampos('frm_nuevo_ingreso_2');">Registrar</button>
                 </div>
             </form>
         </div>
@@ -580,7 +580,7 @@
                                     <b>Obtener formato de excel para registrar piezas de reparación</b>
                                 </p>
                                 
-                                <a href="<?= base_url('assets/formatos/formato_para_inventario.xlsx') ?>" target="_new" class="btn btn-info">
+                                <a href="<?= base_url('assets/formatos/listado_piezas_reparacion.xlsx') ?>" target="_new" class="btn btn-info">
                                     <i class="fa fa-download"></i> Descargar formato
                                 </a>
                             </div>

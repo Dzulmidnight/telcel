@@ -55,6 +55,7 @@ class Serv_tecnico extends CI_Controller{
 		$fecha_registro = time();
 		$fk_id_cliente = '';
 		$estatus = 'PENDIENTE';
+		$codigo_barras = '';
 
 		$tipo_bloqueo = $this->input->post('tipo_bloqueo');
 		$patron_bloqueo = '';
@@ -179,7 +180,7 @@ class Serv_tecnico extends CI_Controller{
 
 
 
-		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico', 'refresh');
+		//redirect('backend/MOD_SERV_TECNICO/Serv_tecnico', 'refresh');
 	}
 
 	public function ficha_servicio($id)
@@ -226,6 +227,7 @@ class Serv_tecnico extends CI_Controller{
 		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
 		$resultado_reparacion = $this->input->post('resultado_reparacion');
 		$descripcion_resultado = $this->input->post('accion_realizada');
+		$comentarios_tecnico = $this->input->post('comentarios_tecnico');
 
 		$data_estatus = array(
 			'estatus' => 'FINALIZADO',
@@ -239,6 +241,7 @@ class Serv_tecnico extends CI_Controller{
 		$data_actualizar = array(
 			'resultado' => $resultado_reparacion,
 			'descripcion_resultado' => $descripcion_resultado,
+			'comentarios_tecnico' => $comentarios_tecnico,
 			'fecha_actualizacion' => $this->input->post('fecha_registro'),
 			'estatus' => $this->input->post('estatus_servicio')
 		);
@@ -380,14 +383,11 @@ class Serv_tecnico extends CI_Controller{
 		$data['historial_estatus'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
 		$data['row_cotizacion'] = $this->consultar_model->consultaSimple($id, 'id_servicio_tecnico', 'cotizacion_servicio');
 
-		$this->load->view('backend/pdf_ficha_tecnica', $data);
-		//echo $id_servicio_tecnico;
-		/*
 		$data_estatus = array(
 			'estatus' => 'ENTREGADO',
 			'accion_realizada' => 'Equipo entregado al cliente',
 			'fk_id_user' => $this->session->userdata('id_usuario'),
-			'fk_id_servicio_tecnico' => $id_servicio_tecnico,
+			'fk_id_servicio_tecnico' => $id,
 			'fecha_registro' => $this->input->post('fecha_registro')
 		);
 		$this->add_model->agregar($data_estatus, 'estatus_servicio');
@@ -398,7 +398,12 @@ class Serv_tecnico extends CI_Controller{
 			'estatus' => 'ENTREGADO'
 		);
 		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
-		*/
+
+		$this->load->view('backend/pdf_ficha_tecnica', $data);
+		//echo $id_servicio_tecnico;
+		
+
+		
 
 		//// generamos el PDF  de servicio
 

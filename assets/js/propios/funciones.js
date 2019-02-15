@@ -494,7 +494,7 @@ function entregarEquipo(id_frm, id){
         if (value) {
             document.getElementById('id_frm_servicio_tecnico').value = id;
             document.getElementById('monto_pagado').value = value;
-           // document.getElementById(id_frm).submit();
+            document.getElementById(id_frm).submit();
             
            console.log(value);
 

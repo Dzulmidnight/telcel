@@ -565,9 +565,15 @@
 
                             </div>
 
-                            <div id="div-justificacion" class="col-md-12" style="margin-top:1em;display:none;">
+                            <div id="div-justificacion" class="col-md-6" style="margin-top:1em;">
+                                <label for="accion_realizada">Reparación efectuada</label>
                                 <textarea class="form-control" id="accion_realizada" name="accion_realizada" id="" cols="" rows="3" placeholder="Escriba la justificación del resultado"></textarea>
                             </div>
+                            <div id="div-comentarios" class="col-md-6" style="margin-top:1em;">
+                                <label for="accion_realizada">Comentarios del tecnico</label>
+                                <textarea class="form-control" id="accion_realizada" name="accion_realizada" id="" cols="" rows="3" placeholder="Opcional"></textarea>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -590,11 +596,7 @@
 
 <script>
     function resultadoReparacion(resultado){
-        if(resultado == 'POSITIVO'){
-            document.getElementById('div-justificacion').style.display = 'none';
-        }else{
-            document.getElementById('div-justificacion').style.display = 'block';
-        }
+
     }
 
 	function finalizarServicio(){
