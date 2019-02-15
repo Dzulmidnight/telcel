@@ -1,3 +1,4 @@
+
 function limpiarCampo(id){
     document.getElementById(id).value = '';
     document.getElementById('div-notificaciones').style.display = 'block';

@@ -1,0 +1,14 @@
+<table>
+	<thead>
+		<tr>
+			<th>Las</th>
+			<th>sdf</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>asdfasdf</td>
+			<td>asdfasdfa</td>
+		</tr>
+	</tbody>
+</table>

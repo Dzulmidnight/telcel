@@ -126,6 +126,11 @@
                             <tr>
                                 <!-- ID SERVICIO -->
                                 <td>
+                                    <?php 
+                                        if($servicio->estatus == 'ENTREGADO'){
+                                            echo '<i style="font-size:18px;color:#27ae60;" class="fa fa-check"></i>';
+                                        }
+                                     ?>
                                     <a href="#" data-toggle="modal" data-target="#modal-historial-estatus" onclick="historialAcciones('<?= base_url(); ?>', <?= $servicio->id_servicio_tecnico; ?>,'div-mostrar-tabla');">
                                         <i class="fa fa-search"></i> <?= $servicio->codigo_barras; ?>
                                     </a>

@@ -488,13 +488,24 @@ function entregarEquipo(id_frm, id){
         icon: "info",
         buttons: true,
         dangerMode: true,
+        content: "input",
     })
-    .then((willDelete) => {
-        if (willDelete) {
+    .then((value) => {
+        if (value) {
             document.getElementById('id_frm_servicio_tecnico').value = id;
+            document.getElementById('monto_pagado').value = value;
+           // document.getElementById(id_frm).submit();
+            
+           console.log(value);
+
             //console.log(this.form);
-            document.getElementById(id_frm).submit();
             //console.log(id);
+        }else{
+            console.log('Debes ingresar un monto');
+            swal({
+                text: "Debes ingresar el monto pagado",
+                icon: "warning"
+            });
         } /*else {
             swal("Your imaginary file is safe!");
         }*/

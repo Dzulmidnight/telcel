@@ -177,7 +177,7 @@ class Serv_tecnico extends CI_Controller{
 			//Close and output PDF document
 			$pdf->Output('servicio_tecnico_'.$codigo_barras.'.pdf', 'D');
 
-			echo '<script>console.log("documento decargado");</script>';
+
 
 		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico', 'refresh');
 	}
@@ -305,6 +305,7 @@ class Serv_tecnico extends CI_Controller{
 		$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
 		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
 		$costo_servicio = $this->input->post('costo_servicio');
+		$fecha_entrega = strtotime($this->input->post('fecha_entrega'));
 
 		$data_cotizacion = array(
 			'id_servicio_tecnico' => $id_servicio_tecnico,
@@ -362,7 +363,7 @@ class Serv_tecnico extends CI_Controller{
 		$data_actualizar = array(
 			'costo_servicio' => $this->input->post('costo_servicio'),
 			'descripcion_servicio' => $this->input->post('descripcion_servicio'),
-			'fecha_entrega' => $this->input->post('fecha_entrega'),
+			'fecha_entrega' => $fecha_entrega,
 			'fecha_actualizacion' => $this->input->post('fecha_registro'),
 			'estatus' => $this->input->post('estatus_servicio')
 		);
@@ -372,8 +373,16 @@ class Serv_tecnico extends CI_Controller{
 	}
 
 	public function entregar_equipo(){
-		$id_servicio_tecnico = $this->input->post('id_frm_servicio_tecnico');
-		echo $id_servicio_tecnico;
+		
+		$id = $this->input->post('id_frm_servicio_tecnico');
+	
+			$data['row_servicios'] = $this->consultar_model->servicios_tecnicos($id);
+		$data['historial_estatus'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
+		$data['row_cotizacion'] = $this->consultar_model->consultaSimple($id, 'id_servicio_tecnico', 'cotizacion_servicio');
+
+		$this->load->view('backend/pdf_ficha_tecnica', $data);
+		//echo $id_servicio_tecnico;
+		/*
 		$data_estatus = array(
 			'estatus' => 'ENTREGADO',
 			'accion_realizada' => 'Equipo entregado al cliente',
@@ -384,13 +393,20 @@ class Serv_tecnico extends CI_Controller{
 		$this->add_model->agregar($data_estatus, 'estatus_servicio');
 
 		$data_actualizar = array(
-			'servicio_pagado' => 1,
+			'monto_pagado' => $this->input->post('monto_pagado'),
 			'fecha_actualizacion' => $this->input->post('fecha_registro'),
 			'estatus' => 'ENTREGADO'
 		);
 		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+		*/
 
-		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/', 'refresh');
+		//// generamos el PDF  de servicio
+
+
+
+
+		//redirect('backend/Inicio', 'refresh');
+		//redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/', 'refresh');
 	}
 
 	public function modal_detalle_cotizacion($id){

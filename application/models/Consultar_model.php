@@ -250,7 +250,7 @@ class Consultar_model extends CI_Model{
                         return $result;
                 }
                 public function servicios_tecnicos_por_entregar($id = false){
-                        $where = "servicio_tecnico.estatus = 'RECHAZADO' or servicio_tecnico.estatus = 'INCONCLUSO' or servicio_tecnico.estatus = 'SATISFACTORIO'";
+                        $where = "servicio_tecnico.estatus = 'RECHAZADO' or servicio_tecnico.estatus = 'FINALIZADO'";
                         $this->db->select('
                                 servicio_tecnico.*,
                                 clientes.nombre as nombre_cliente,
