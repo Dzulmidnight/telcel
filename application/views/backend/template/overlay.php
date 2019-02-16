@@ -24,9 +24,9 @@
                     <li class="active">
                         <a href="#tabs-side-overlay-overview"><i class="fa fa-fw fa-line-chart"></i> Finanzas</a>
                     </li>
-                    <!--<li>
+                    <li>
                         <a href="#tabs-side-overlay-sales"><i class="fa fa-fw fa-line-chart"></i> Sales</a>
-                    </li>-->
+                    </li>
                 </ul>
                 <div class="block-content tab-content">
                     <!-- Tab Finanzas -->

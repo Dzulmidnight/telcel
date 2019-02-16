@@ -421,4 +421,39 @@ class Consultar_model extends CI_Model{
                 }
         //// END PIEZAS DE REPUESTO
 
+
+        //// MOD FINANZAS
+                public function listado_ventas($limite = false){
+                        $this->db->select('
+                             producto_venta.id_producto_venta,
+                             producto_venta.precio_venta,
+                             producto_venta.fk_id_producto,
+                             producto_venta.fk_id_sucursal,
+                             producto_venta.fk_id_usuario,
+                             producto_venta.fk_id_ticket,
+                             producto_venta.fecha_registro as fecha_venta,
+                             ticket.piezas,
+                             ticket.total,
+                             producto.piezas as stock_producto,
+                             producto.nombre as nombre_producto,
+                             producto.modelo,
+                             producto.color,
+                             sucursal.nombre as nombre_sucursal
+                        ');
+                        $this->db->from('producto_venta');
+                        $this->db->join('producto', 'producto.id_producto = producto_venta.fk_id_producto');
+                        $this->db->join('ticket', 'ticket.id_ticket = producto_venta.fk_id_ticket');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = producto_venta.fk_id_sucursal');
+                        $this->db->order_by('producto_venta.fecha_registro', 'DESC');
+                        if($limite){
+                                $this->db->limit($limite);
+                        }
+
+                        $query = $this->db->get();
+                        $result = $query->result();
+
+                        return $result;
+                }
+        //// END MOD FINANZAS
+
 }

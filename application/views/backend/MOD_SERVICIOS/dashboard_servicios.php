@@ -19,780 +19,197 @@
             </h3>
         </div>
 
-        <div class="col-sm-5 text-right hidden-xs">
+        <div class="col-sm-2 text-right hidden-xs">
             <button class="btn btn-rounded btn-round btn-primary" onclick="history.back(-1)">
                 <i class="fa fa-arrow-left"></i> Regresar
             </button>
+            <a class="btn btn-default" href="base_pages_projects_create.html">
+                <i class="fa fa-plus-circle text-success push-5-r"></i> New Project
+            </a>
         </div>
     </div>
 
 </div>
 <!-- END Page Header -->
 
-<!-- Page Content -->
 <div class="content">
-
-
-    <div class="block">
-        <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
-            <li class="active">
-                <a href="#btabs-alt-static-home">Servicios</a>
-            </li>
-            <li class="">
-                <a href="#btabs-alt-static-profile">Historial de servicios</a>
-            </li>
-            <!--<li class="pull-right">
-                <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="" data-original-title="Settings"><i class="si si-settings"></i></a>
-            </li>-->
-        </ul>
-        <div class="block-content tab-content">
-            
-
-            <!-- Tab registrar servicio -->
-            <div class="tab-pane active" id="btabs-alt-static-home">
-                <h4 class="font-w300 push-15">REGISTRAR SERVICIO</h4>
-
-                <div class="row">
-                    <!-- Div servicio_express -->
-                    <div class="col-md-12" id="frm_servicio_express" style="">
-                        <form class="form-horizontal push-10-t" action="base_forms_elements.html" method="post" onsubmit="return false;">
-                            <!-- Lista de servicios -->
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <div class="input-group">
-                                        <p class="h4">
-                                            1.- Selecciona un tipo de servicio *
-                                        </p>
-                                        <div class="form-material">
-                                            <select class="form-control" id="material-select" name="material-select" size="1" required="" onchange="tipoServicio(this.value)">
-                                                <option>...</option>
-                                                <option value="1">Instalar whatsapp</option>
-                                                <option value="1">Instalar facebook</option>
-                                                <option value="1">Realizar recarga</option>
-                                                <option value="2">Venta de accesorios</option>
-                                                <option value="3">Venta de equipo telefonico</option>
-                                                <option value="4">Servicio Tecnico</option>
-
-                                            </select>
-                                        </div>
-                                        <span class="input-group-btn">
-                                            <button id="btn_nuevo_servicio" class="btn btn-sm btn-default" type="button" value="mostrar" onclick="nuevoServicio(this.id, this.value)">
-                                                <i class="fa fa-plus"></i> Nuevo
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END Lista de servicios -->
-                            
-                            <!-- FRM Nuevo servicio -->
-
-                                <div id="frm_nuevo_servicio" class="col-sm-6 well" style="display:none">
-                                    <div class="form-material input-group">
-                                        <input class="form-control" type="text" id="register5-password" name="register5-password" placeholder="Escribre el nuevo servicio">
-                                        <label for="register5-password">Nuevo Servicio</label>
-                                        <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
-                                    </div>
-                                    <label class="css-input switch switch-sm switch-success">
-                                        <input type="checkbox"><span></span> Necesitaras registrar usuario?
-                                    </label>
-                                    <br>
-                                    <button class="btn btn-sm btn-success" style="margin-top:2em;">
-                                        Guardar nuevo servicio
-                                    </button>
-                                </div>
-
-                            <!-- END FRM Nuevo servicio -->
-
-                            <!-- DIV contenedor servicio -->
-                            <div id="contendor_servicio" class="row col-md-12">
-                                <hr>
-
-                                <!-- Registrar nuevo cliente -->
-                                <div id="frm_cliente" class="col-md-6 block" style="display:none">
-                                    <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
-                                        <h3 class="h4">
-                                            Información del cliente
-                                        </h3>
-                                        <hr>
-                                        <div class="form-group">
-                                            <div class="col-xs-12">
-                                                <b class="text-success" style="margin-bottom:1em;">Buscar cliente</b>
-                                                <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
-                                                    </span>
-                                                    <input class="form-control" type="text" id="example-input1-group2" name="example-input1-group2" placeholder="Nº Teléfono">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
-
-                                        <h4 style="margin-bottom: 1em;">Nuevo cliente</h4>
-                                        <div class="form-group">
-                                            <div class="col-sm-6">
-                                                <div class="form-material form-material-primary">
-                                                    <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                                    <label for="material-color-primary">Nombre *</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-material form-material-primary">
-                                                    <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                                    <label for="material-color-primary">Nº Telefono *</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-sm-6">
-                                                <div class="form-material form-material-primary">
-                                                    <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                                    <label for="material-color-primary">Apellido Paterno *</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6">
-                                                <div class="form-material form-material-primary">
-                                                    <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="" required>
-                                                    <label for="material-color-primary">Apellido Materno *</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-xs-12">
-                                                <div class="form-material">
-                                                    <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
-                                                    <label for="material-textarea-small">Información extra</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- END Registrar nuevo cliente -->
-
-                                <!-- Registrar servicios -->
-                                <div class="col-md-6 block">
-                                    <form >
-                                        <h3 class="h4">
-                                            Datos del servicio
-                                        </h3>
-                                        <!--<hr style="margin-bottom: 2em;">
-                                        <div class="form-group">
-                                            <div class="col-xs-6">
-                                                <div class="form-material">
-                                                    <select class="form-control" id="material-select" name="material-select" size="1" required="" onchange="tipoServicio(this.value)">
-                                                        <option>...</option>
-                                                        <option value="1">Venta de accesorios</option>
-                                                        <option value="2">Venta de equipo telefonico</option>
-                                                        <option value="3">Servicio Tecnico</option>
-                                                    </select>
-                                                    <label for="material-select">Servicios recurrentes *</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <div class="form-material form-material-primary">
-                                                    <input class="form-control" type="text" id="material-color-primary" name="material-color-primary" placeholder="Nuevo servicio">
-                                                    <label for="material-color-primary">Otro servicio</label>
-                                                </div>
-                                            </div>
-                                        </div>-->
-
-                                        <div id="contenedor_bloques">
-                                        <hr>       
-                                            <!-- DIV Servicio express -->
-                                            <div id="div_venta_express" style="display:none">
-                                                <p class="h3 text-danger" style="margin-bottom: 1em">
-                                                    Registro express
-                                                </p>
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-material form-material-primary">
-                                                            <input class="form-control" type="number" step="0.01" min="1" id="material-color-primary" name="material-color-primary" placeholder="Ej: 150.50" required>
-                                                            <label for="material-color-primary">Monto del servicio *</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-6">
-                                                        <div class="form-material">
-                                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
-                                                            <label for="material-textarea-small">Detalles del servicio</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- END DIV Servicio express -->       
-                                            <!-- Div venta_accesorios -->
-                                            <div id="div_venta_accesorios" style="display:none">
-                                                <p class="text-danger h3" style="margin-bottom: 1em">
-                                                    Venta de Accesorios
-                                                </p class="text-danger h3">
-
-                                                <div class="form-group">
-                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                        <div class="form-material form-material-primary">
-                                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Codigo del accesorio" required>
-                                                            <label for="material-color-primary">CODIGO *</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                        <div class="row">
-                                                            <div class="col-xs-6">
-                                                                <div class="form-material form-material-primary">
-                                                                    <input class="form-control" type="number" step="0.01" min="0" id="costo_accesorio" name="costo_accesorio" placeholder="Ej: 150.50" required>
-                                                                    <label style="padding-bottom: 4em;" id="label_costo" for="costo_accesorio">Costo *</label>
-                                                                </div>  
-                                                            </div>
-                                                            <div class="col-xs-6">
-                                                                <label class="css-input css-checkbox css-checkbox-warning">
-                                                                    <input id="apartar_accesorio" type="checkbox" onclick="apartar(this.id,'label_costo')"><span></span> Apartar
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="row" style="margin-bottom:1em;">
-                                                    <div class="col-md-12">
-                                                        <h4>Información del accesorio</h4>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-12">
-                                                        <table class="table table-striped">
-                                                            <tr>
-                                                                <td>Costo</td>
-                                                                <td class="text-primary">$ 21,000 MXN</td>
-
-                                                                <td>Marca</td>
-                                                                <td class="text-primary">Samsung</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Modelo</td>
-                                                                <td class="text-primary">Galaxy S10</td>
-
-                                                                <td>Color</td>
-                                                                <td class="text-primary">Azul</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>IMEI</td>
-                                                                <td class="text-primary">232423423</td>
-
-                                                                <td>ICCID</td>
-                                                                <td class="text-primary">SDAA3341342</td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <!-- END Div venta_accesorios -->
-
-                                            <!-- Div venta_telefono -->
-                                            <div id="div_venta_telefono" style="display:none">
-                                                <p class="text-danger h3" style="margin-bottom: 1em">
-                                                    Venta de Equipo
-                                                </p>
-
-                                                <div class="form-group">
-                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                        <div class="form-material form-material-primary">
-                                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="IMEI del equipo" required>
-                                                            <label for="material-color-primary">IMEI *</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                        <div class="form-material form-material-primary">
-                                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Telefono" required>
-                                                            <label for="material-color-primary">Nº Telefono *</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-6">
-                                                        <div class="row">
-                                                            <div class="col-xs-6">
-                                                                <div class="form-material form-material-primary">
-                                                                    <input class="form-control" type="number" step="0.01" min="0" id="material-color-primary" name="material-color-primary" placeholder="Ej: 150.50" required>
-                                                                    <label id="label_costo_equipo" for="material-color-primary">Costo del equipo *</label>
-                                                                </div>  
-                                                            </div>
-                                                            <div class="col-xs-6">
-                                                                <label class="css-input css-checkbox css-checkbox-warning">
-                                                                    <input id="apartar_equipo" type="checkbox" onclick="apartar(this.id, 'label_costo_equipo')"><span></span> Apartar
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="row" style="margin-bottom:1em;">
-                                                    <div class="col-md-12">
-                                                        <h4>Información del equipo</h4>
-                                                    </div>
-                                                    
-                                                    <div class="col-md-12">
-                                                        <table class="table table-striped">
-                                                            <tr>
-                                                                <td>Costo</td>
-                                                                <td class="text-primary">$ 21,000 MXN</td>
-
-                                                                <td>Marca</td>
-                                                                <td class="text-primary">Samsung</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Modelo</td>
-                                                                <td class="text-primary">Galaxy S10</td>
-
-                                                                <td>Color</td>
-                                                                <td class="text-primary">Azul</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>IMEI</td>
-                                                                <td class="text-primary">232423423</td>
-
-                                                                <td>ICCID</td>
-                                                                <td class="text-primary">SDAA3341342</td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <!-- END Div venta_telefono -->
-
-                                            <!-- Div servicio_tecnico -->
-                                            <div id="div_servicio_tecnico" style="display:none">
-                                                <p class="text-danger h3" style="margin-bottom: 1em">
-                                                    Servicio Técnico
-                                                </p>
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-6">
-                                                        <label for="fecha_ingreso">FECHA DE INGRESO</label>
-                                                        <input type="date" class="form-control" id="fecha_ingreso" value="<?= date('Y-m-d', time()) ?>" readonly>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label for="fecha_entrega">FECHA ESTIMADA DE ENTREGA *</label>
-                                                        <input type="date" class="form-control" id="fecha_entrega" value="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                        <div class="form-material form-material-primary">
-                                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="IMEI del equipo" required>
-                                                            <label for="material-color-primary">IMEI *</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                        <div class="form-material form-material-primary">
-                                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Telefono" required>
-                                                            <label for="material-color-primary">Nº Telefono *</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                        <div class="form-material form-material-primary">
-                                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="IMEI del equipo" required>
-                                                            <label for="material-color-primary">Marca *</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                        <div class="form-material form-material-primary">
-                                                            <input class="form-control" type="number" min="0" id="material-color-primary" name="material-color-primary" placeholder="Telefono" required>
-                                                            <label for="material-color-primary">Modelo *</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-6">
-                                                        <label for="material-select">Estado fisico del equipo *</label>
-                                                        <select class="form-control" id="material-select" name="material-select" size="1" required="" onchange="tipoServicio()">
-                                                            <option>...</option>
-                                                            <option value="1">Excenlente</option>
-                                                            <option value="2">Bueno</option>
-                                                            <option value="3">Regular</option>
-                                                            <option value="4">Malo</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-material">
-                                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="2" placeholder="Opcional: detalles del servicio"></textarea>
-                                                            <label for="material-textarea-small">Falla reportada por el usuario *</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <div class="col-sm-6">
-                                                        <div class="form-material">
-                                                            <label for="evidencias">Evidencias</label>
-                                                            <input type="file" class="form-control" id="evidencias" name="evidencias">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <div class="form-material">
-                                                            <textarea class="form-control" id="material-textarea-small" name="material-textarea-small" rows="3" placeholder="Opcional: detalles del servicio"></textarea>
-                                                            <label for="material-textarea-small">Detalles Extra</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <div class="col-xs-6">
-                                                        <label class="css-input css-checkbox css-checkbox-success">
-                                                            <input type="checkbox"><span></span> <b>Patron de bloqueo</b>
-                                                        </label>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                            <!-- END Div servicio_tecnico -->     
-
-                                        </div>
-
-                                        <div id="acciones_servicio" class="col-md-12" style="display:none">
-                                            <div class="form-group text-right">
-                                                <div class="col-sm-12">
-                                                    <button type="button" class="btn btn-default">
-                                                        Cancelar
-                                                    </button>
-                                                    <button class="btn btn-success" onclick="registrarServicio()">
-                                                        Registrar servicio
-                                                    </button>  
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <!-- END Registrar servicios -->
-                            </div>
-                            <!-- END DIV contenedor servicio -->
-
-
-                        </form>
-                    </div>
-                    <!-- End div_servicio_express -->
+    <!-- Active Projects -->
+    <h2 class="content-heading">Activos (3)</h2>
+    <div class="row">
+        <div class="col-sm-6 col-lg-4">
+            <!-- Project -->
+            <div class="block block-rounded block-themed">
+                <div class="block-header bg-primary">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo">
+                                <i class="si si-refresh"></i>
+                            </button>
+                        </li>
+                        <li class="dropdown">
+                            <button type="button" data-toggle="dropdown"><i class="si si-settings"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a tabindex="-1" href="javascript:void(0)">
+                                        <i class="si si-pencil pull-right"></i>
+                                        Edit Project
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a tabindex="-1" href="javascript:void(0)">
+                                        <i class="si si-trash text-danger pull-right"></i>
+                                        Delete Project
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h3 class="h4 font-w600 push-5">
+                        <a class="text-white" href="base_pages_projects_view.html">
+                            Nombre servicio
+                        </a>
+                    </h3>
+                    <h4 class="h5 text-white-op">Fecha de pago</h4>
                 </div>
-            </div>
-            <!-- END Tab registrar servicio -->
-
-            <!-- Tab historial de servicios -->
-            <div class="tab-pane" id="btabs-alt-static-profile">
-                <h4 class="font-w300 push-15">Historial de servicios</h4>
-
-                <div class="row">
-                    <div class="col-lg-12" style="margin-bottom:1em;">
-                        <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width:20%" data-placeholder="Filtrar por sucursales" multiple>
-                            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                            <option value="1">Sucursal 1</option>
-                            <option value="2">Sucursal 2</option>
-                            <option value="3">Sucursal 3</option>
-                        </select>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-xs-6 col-md-3">
-                                <a class="block block-link-hover1" href="javascript:void(0)">
-                                    <div class="block-content block-content-full clearfix">
-                                        <div class="pull-right push-15-t push-15">
-                                            <i class="fa fa-bar-chart-o fa-2x text-amethyst"></i>
-                                        </div>
-                                        <div class="h2 text-amethyst" data-toggle="countTo" data-to="48">
-                                            45
-                                        </div>
-                                        <div class="text-uppercase font-w600 font-s12 text-muted">Balance</div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col-xs-6 col-md-3">
-                                <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>">
-                                    <div class="block-content block-content-full clearfix">
-                                        <div class="pull-right push-15-t push-15">
-                                            <i class="fa fa-users fa-2x text-primary"></i>
-                                        </div>
-                                        <div class="h2 text-primary" data-toggle="countTo" data-to="36300">
-                                            23
-                                        </div>
-                                        <div class="text-uppercase font-w600 font-s12 text-muted">Servicios Express</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <a class="block block-link-hover1" href="javascript:void(0)">
-                                    <div class="block-content block-content-full clearfix">
-                                        <div class="pull-right push-15-t push-15">
-                                            <i class="fa fa-briefcase fa-2x text-smooth"></i>
-                                        </div>
-                                        <div class="h2 text-smooth" data-toggle="countTo" data-to="360">
-                                            23
-                                        </div>
-                                        <div class="text-uppercase font-w600 font-s12 text-muted">Servicios detallados</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <a class="block block-link-hover1" href="javascript:void(0)">
-                                    <div class="block-content block-content-full clearfix">
-                                        <div class="pull-right push-15-t push-15">
-                                            <i class="fa fa-briefcase fa-2x text-success"></i>
-                                        </div>
-                                        <div class="h2 text-success" data-toggle="countTo" data-to="760" data-before="$">4</div>
-                                        <div class="text-uppercase font-w600 font-s12 text-muted">Serv. Tecnico</div>
-                                    </div>
-                                </a>
-                            </div>
-               
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 block">
-                        <div class="block-content">
-                            <table id="example" class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
-                                <thead>
-                                    <tr>
-                                        <th class="encabezado text-center">
-                                            Nº
-                                        </th>
-                                        <th>
-                                            ID
-                                        </th>
-                                        <th class="encabezado">
-                                            Sucursal
-                                        </th>
-                                        <th class="encabezado">
-                                            Tipo
-                                        </th>
-                                        <th class="encabezado">
-                                            Categoria
-                                        </th>
-                                        <th class="encabezado">
-                                            Estatus
-                                        </th>
-                                        <th class="encabezado">
-                                            Monto
-                                        </th>
-                                        </th>
-                                        <th class="encabezado">
-                                            Fecha
-                                        </th>
-                                        <th class="encabezado" style="width: 10%">...</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php 
-                                    for ($i=1; $i < 10; $i++) { 
-                                    ?>
-                                        <tr>
-                                            <!-- Nº -->
-                                            <td>
-                                                <?= $i ?>
-                                            </td>
-                                            <!-- ID -->
-                                            <td>
-                                                #342
-                                            </td>
-                                            <!-- Nombre de la sucursal -->
-                                            <td>
-                                                Nom. Sucursal
-                                            </td>
-                                            <!-- Categoria -->
-                                            <td>
-                                                Express
-                                            </td>
-                                            <!-- Tipo -->
-                                            <td>
-                                                Instalación whatsapp
-                                            </td>
-                                            <!-- Estatus -->
-                                            <td>
-                                                <span class="text-success">
-                                                    <i class="fa fa-check"></i> Completo
-                                                </span>
-                                            </td>
-                                            <!-- Monto del servico -->
-                                            <td>
-                                                $ <?= number_format(rand(700, 1500)) ?>
-                                            </td>
-                                            <!-- Fecha -->
-                                            <td>
-                                                <?= date('d/m/Y', time()); ?>
-                                            </td>
-                                            <!-- Acciones -->
-                                            <td class="text-center">
-                                                <div class="btn-group">
-                                                    <!--<button class="btn btn-xs btn-default">
-                                                        <i class="si si-settings"></i>
-                                                    </button>-->
-                                                    <button class="btn btn-xs btn-default" type="button" data-toggle="tooltip" title="Consultar detalles"><i class="fa fa-search"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                    <?php
-                                    }
-                                     ?>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="block-content text-center">
+                    <div class="btn-group push">
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Tasks">
+                            <i class="fa fa-check-circle-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Team Chat">
+                            <i class="fa fa-comments-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Project Files">
+                            <i class="fa fa-files-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Project Calendar">
+                            <i class="fa fa-calendar-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Invite People">
+                            <i class="fa fa-user-plus"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-            <!--END Tab historial de servicios -->
-
-
-            <div class="tab-pane" id="btabs-alt-static-settings">
-                <h4 class="font-w300 push-15">Settings Tab</h4>
-                <p>...</p>
+            <!-- END Project -->
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <!-- Project -->
+            <div class="block block-rounded block-themed">
+                <div class="block-header bg-amethyst">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo">
+                                <i class="si si-refresh"></i>
+                            </button>
+                        </li>
+                        <li class="dropdown">
+                            <button type="button" data-toggle="dropdown"><i class="si si-settings"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a tabindex="-1" href="javascript:void(0)">
+                                        <i class="si si-pencil pull-right"></i>
+                                        Edit Project
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a tabindex="-1" href="javascript:void(0)">
+                                        <i class="si si-trash text-danger pull-right"></i>
+                                        Delete Project
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h3 class="h4 font-w600 push-5">
+                        <a class="text-white" href="base_pages_projects_view.html">TalkSocial</a>
+                    </h3>
+                    <h4 class="h5 text-white-op">Mobile app design</h4>
+                </div>
+                <div class="block-content text-center">
+                    <div class="btn-group push">
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Tasks">
+                            <i class="fa fa-check-circle-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Team Chat">
+                            <i class="fa fa-comments-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Project Files">
+                            <i class="fa fa-files-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Project Calendar">
+                            <i class="fa fa-calendar-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Invite People">
+                            <i class="fa fa-user-plus"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
+            <!-- END Project -->
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <!-- Project -->
+            <div class="block block-rounded block-themed">
+                <div class="block-header bg-modern">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo">
+                                <i class="si si-refresh"></i>
+                            </button>
+                        </li>
+                        <li class="dropdown">
+                            <button type="button" data-toggle="dropdown"><i class="si si-settings"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    <a tabindex="-1" href="javascript:void(0)">
+                                        <i class="si si-pencil pull-right"></i>
+                                        Edit Project
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a tabindex="-1" href="javascript:void(0)">
+                                        <i class="si si-trash text-danger pull-right"></i>
+                                        Delete Project
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h3 class="h4 font-w600 push-5">
+                        <a class="text-white" href="base_pages_projects_view.html">NextBook</a>
+                    </h3>
+                    <h4 class="h5 text-white-op">Web app development</h4>
+                </div>
+                <div class="block-content text-center">
+                    <div class="btn-group push">
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Tasks">
+                            <i class="fa fa-check-circle-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Team Chat">
+                            <i class="fa fa-comments-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Project Files">
+                            <i class="fa fa-files-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Project Calendar">
+                            <i class="fa fa-calendar-o"></i>
+                        </a>
+                        <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Invite People">
+                            <i class="fa fa-user-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- END Project -->
         </div>
     </div>
-
-
+    <!-- END Active Projects -->
 </div>
 
-
-
-<script>
-    function nuevoServicio(id_btn, valor){
-        if(valor == 'mostrar'){
-            document.getElementById('frm_nuevo_servicio').style.display = 'block';
-            document.getElementById(id_btn).value = 'cancelar';
-            document.getElementById(id_btn).innerHTML = 'Cancelar';
-        }else{
-            document.getElementById('frm_nuevo_servicio').style.display = 'none';
-            document.getElementById(id_btn).value = 'mostrar';
-            document.getElementById(id_btn).innerHTML = 'Nuevo';
-        }
-    }
-
-
-    function eliminar(){
-        swal({
-            title: "¿Estas seguro?",
-            text: "Una vez eliminado, no podras recuperar la información",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-        .then((willDelete) => {
-            if (willDelete) {
-                swal("Cliente eliminado", {
-                icon: "success",
-            });
-            } else {
-                //swal("Your imaginary file is safe!");
-            }
-        });
-    }
-
-    function registrarServicio(){
-        swal({
-            title: "Operacion exitosa",
-            text: "Se ha registrado la información correctamente",
-            icon: "success",
-            buttons:{
-                imprimir:{
-                    text: "Imprimir nota",
-                },
-                nuevo:{
-                    text: "Nuevo registro",
-                },
-                confirm: true,
-            },
-
-        })
-        .then((value) => {
-            switch(value){
-                case "imprimir":
-                    swal('Mandaste a imprimir');
-                    break;
-                case "nuevo":
-                    swal('Nuevo registro');
-                    break;
-            }    
-        })
-        ;
-
-    }
-    function apartar(id, elemento){
-        if(document.getElementById(id).checked == true){
-            document.getElementById(elemento).innerHTML = "Deposito en garantia *";
-        }else{
-            document.getElementById(elemento).innerHTML = 'Costo *';
-        }
-    }
-
-    function tipoServicio(tipo){
-        var hijos = document.querySelectorAll("div#contenedor_bloques > div");
-        
-        tipo = tipo - 1;
-        
-        for (var i = 0; i < hijos.length; i++) {
-            var div_id = hijos[i].id;
-
-            if(tipo == i ){
-                if(i != 0){
-                    document.getElementById('frm_cliente').style.display = 'block';
-                }else{
-                    document.getElementById('frm_cliente').style.display = 'none';
-                }
-                document.getElementById(div_id).style.display = 'block';
-            }else{
-
-                document.getElementById(div_id).style.display = 'none';
-            }
-       
-        };
-        document.getElementById('acciones_servicio').style.display = 'block';
-    }
-    
-    function registrarServicio(){
-        swal({
-            title: "Operacion exitosa",
-            text: "Se ha registrado la información correctamente",
-            icon: "success",
-            buttons:{
-                imprimir:{
-                    text: "Imprimir nota",
-                },
-                nuevo:{
-                    text: "Nuevo registro",
-                },
-                confirm: true,
-            },
-
-        })
-        .then((value) => {
-            switch(value){
-                case "imprimir":
-                    swal('Mandaste a imprimir');
-                    break;
-                case "nuevo":
-                    swal('Nuevo registro');
-                    break;
-            }    
-        })
-        ;
-
-    }
-</script>
-<style>
-    .swal-button--imprimir {
-        background-color: #7f8c8d;
-    }
-    .swal-button--nuevo{
-        background-color: #7f8c8d;
-    }
-</style>
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>

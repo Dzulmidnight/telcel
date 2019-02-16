@@ -59,8 +59,9 @@
                     <table class="table table-condensed table-striped" style="font-size:12px;">
                         <thead style="font-size:13px;">
                             <tr>
+                                <th>#ID</th>
                                 <th>
-                                    #ID
+                                    Fecha
                                 </th>
                                 <th>
                                     Sucursal
@@ -80,34 +81,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
-                            for ($i=0; $i < 5; $i++) { 
-                            ?>
+                            <?php foreach($row_listado_ventas as $venta): ?>
                                 <tr>
+                                    <td><?= $venta->id_producto_venta; ?></td>
                                     <td>
-                                        <?= rand(100,300); ?>
-                                    </td>
-                                    <td>
-                                        Nom. sucursal
+                                        <?= date('d/m/Y', $venta->fecha_venta); ?>
                                     </td>
                                     <td>
                                         <a href="#">
-                                            Nombre articulo
+                                            <?= $venta->nombre_sucursal; ?>
                                         </a>
                                     </td>
                                     <td>
-                                        <?= rand(7, 15) ?>
+                                        <a href="#">
+                                            <?= $venta->nombre_producto; ?>
+                                        </a>
                                     </td>
                                     <td>
-                                        $ <?= number_format(rand(700, 1500)) ?>
+                                        <?= $venta->piezas; ?>
                                     </td>
                                     <td>
-                                        <?= rand(2,10) ?>
+                                        $ <?= $venta->total; ?>
+                                    </td>
+                                    <td>
+                                        <?= $venta->stock_producto; ?>
                                     </td>
                                 </tr>
-                            <?php
-                            }
-                             ?>
+                            <?php endforeach; ?>
+                            
                              <tr class="text-center">
                                  <td colspan="6">
                                      <a href="#">

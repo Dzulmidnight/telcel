@@ -14,12 +14,12 @@
                     <i class="si si-dollar"></i> Venta de productos
                 </button>
             </div>-->
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <?= $menu_general; ?>
                 <?= $modal_ventas; ?>  
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <?php 
                     $en_espera = 0;
                     $por_entregar = 0;
