@@ -32,6 +32,37 @@ class Consultar_model extends CI_Model{
                 return $result;
         }
 
+        public function catalogo_servicio(){
+                $this->db->select('*');
+                $this->db->from('catalogo_servicio');
+                $query = $this->db->get();
+                $result = $query->result();
+
+                return $result;
+        }
+
+        public function servicios_sucursal($id_sucursal = false){
+                $this->db->select('
+                        recordatorio_pago.id_recordatorio_pago,
+                        recordatorio_pago.dia,
+                        recordatorio_pago.periodo,
+                        recordatorio_pago.fk_id_sucursal,
+                        catalogo_servicio.nombre,
+                        catalogo_servicio.descripcion,
+                        recordatorio_pago.fecha_registro
+                ');
+                $this->db->from('recordatorio_pago');
+                $this->db->join('catalogo_servicio', 'catalogo_servicio.id_catalogo_servicio = recordatorio_pago.fk_id_catalogo_servicio');
+
+                if($id_sucursal){
+                        $this->db->where('recordatorio_pago.fk_id_sucursal', $id_sucursal);
+                }
+                $query = $this->db->get();
+                $result = $query->result();
+
+                return $result;
+        }
+
         public function listado($tabla = false, $id = false)
         {
                 $this->db->select('*');
@@ -455,5 +486,12 @@ class Consultar_model extends CI_Model{
                         return $result;
                 }
         //// END MOD FINANZAS
+
+
+        /// CONSULTAR SERVICIOS
+                public function pago_servicios(){
+  
+                }
+        /// END CONSULTAR SERVICIOS
 
 }

@@ -234,12 +234,55 @@ class Servicios extends CI_Controller{
 	}
 
 	public function pago_servicios(){
+		$id_sucursal = $this->session->userdata('id_sucursal');
+
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
+		$data['row_sucursales'] = $this->consultar_model->sucursales();
+		$data['row_catalogo_servicio'] = $this->consultar_model->catalogo_servicio();
+		$data['row_servicios_sucursal'] = $this->consultar_model->servicios_sucursal($id_sucursal);
+		$data['num_servicios'] = count($data['row_servicios_sucursal']);
+
+
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');
 		$this->load->view('backend/template/header');
 			$this->load->view('backend/MOD_SERVICIOS/dashboard_servicios', $data);
 		$this->load->view('backend/template/footer');	
+	}
+
+	public function agregar_servicio(){
+		$dia_pago = $this->input->post('dia_pago');
+		$periodo_pago = $this->input->post('periodo_pago');
+		$id_sucursal = $this->input->post('id_sucursal');
+		$id_catalogo_servicio = 0;
+
+		if($this->input->post('id_servicio') == 'nuevo_servicio'){
+			$data_servicio = array(
+				'nombre' => $this->input->post('nombre_servicio'),
+				'descripcion' => $this->input->post('descripcion_servicio'),
+				'fecha_registro' => time()
+			);
+
+			$this->add_model->agregar($data_servicio, 'catalogo_servicio');
+
+			$id_catalogo_servicio = $this->db->insert_id();
+		}else{
+			$id_catalogo_servicio = $this->input->post('id_servicio');
+		}
+
+		// agregar recordatorio_pago
+		if(!empty($dia_pago) && !empty($periodo_pago)){
+			$data_recordatorio = array(
+				'dia' => $dia_pago,
+				'periodo' => $periodo_pago,
+				'fk_id_sucursal' => $id_sucursal,
+				'fk_id_catalogo_servicio' => $id_catalogo_servicio,
+				'fecha_registro' => time()
+			);
+		}
+		$this->add_model->agregar($data_recordatorio, 'recordatorio_pago');
+
+		redirect('backend/MOD_SERVICIOS/Servicios/pago_servicios', 'refresh');
 	}
 }
