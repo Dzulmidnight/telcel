@@ -69,28 +69,22 @@
                             </h3>
                             <h5 class="h5 text-white-op">
                                 <?php 
-                                    $fecha = '';
+                                    $periodo = (28*$servicio->periodo).' days';
                                     $dia = $servicio->dia;
-                                    $periodo = $servicio->periodo;
-                                    $mes_actual = date('m', time());
-                                    $anio = date('Y', time());
-                                    $mes = 0;
                                     $dia_actual = date('d', time());
+                                    $mes = date('m', time());
+                                    $anio = date('Y', time());
 
-                                    $fecha_servicio = date('Y/m').'/'.$dia;
-
-
-                                    if($dia_actual < $dia){
-                                        $mes = date('m', time());
-
-                                        echo 'dia: '.$dia.' - '.date('m', time());
+                                    if($dia_actual <= $dia){
+                                        $fecha_corte = $anio.'-'.$mes.'-'.$dia;
+                                        echo '<p>El final es: '.$fecha_corte.'</p>';
                                     }else{
-                                        $mes = time();
+                                        $fecha_servicio = $anio.'-'.$mes.'-'.$dia;
+
+                                        $fecha_corte = date('Y-m-d', strtotime($fecha_servicio . ' + '.$periodo));
+                                        echo '<p>El final es: '.$fecha_corte.'</p>';
                                     }
-                                    echo '<p>'.$fecha_servicio.'</p>';
-                                    echo strtotime($fecha_servicio);
-                                    echo '<br>';
-                                    echo $dia.' - '.$mes_actual.' - '.$anio;
+
                                  ?>
                             </h5>
                         </div>
