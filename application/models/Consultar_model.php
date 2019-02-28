@@ -5,11 +5,13 @@ class Consultar_model extends CI_Model{
                 parent::__construct();
         }
 
-        public function consultaSimple($id, $nombre_id, $tabla)
+        public function consultaSimple($id = false, $nombre_id = false, $tabla)
         {
                 $this->db->select('*');
                 $this->db->from($tabla);
-                $this->db->where($nombre_id, $id);
+                if($nombre_id != false){
+                        $this->db->where($nombre_id, $id);
+                }
                 //$this->db->like('producto.codigo_barras', $codigo);
 
                 $query = $this->db->get();
@@ -450,6 +452,14 @@ class Consultar_model extends CI_Model{
                         //echo $this->db->last_query();
                         return $result;   
                 }
+                public function refacciones(){
+                        $this->db->select('*');
+                        $this->db->from('catalogo_piezas_reparacion');
+                        $query = $this->db->get();
+                        $result = $query->result();
+
+                        return $result;
+                }
         //// END PIEZAS DE REPUESTO
 
 
@@ -493,5 +503,6 @@ class Consultar_model extends CI_Model{
   
                 }
         /// END CONSULTAR SERVICIOS
+
 
 }

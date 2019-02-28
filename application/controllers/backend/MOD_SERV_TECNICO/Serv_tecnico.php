@@ -344,13 +344,30 @@ class Serv_tecnico extends CI_Controller{
 
 
 		if(isset($id_pieza_repuesto)){
+			foreach ($this->input->post('id_pieza_repuesto') as $key => $pieza) {
+				$id = $id_pieza_repuesto[$key];
+				$refacciones = $this->consultar_model->consultaSimple($id, 'id_catalogo_piezas_reparacion', 'catalogo_piezas_reparacion');
+
+				$estatus = $refacciones->estatus;
+				$cantidad = $refacciones->cantidad;
+
+				if($estatus == 'INVENTARIO'){
+					$total = $cantidad - 1;
+					//echo 'EL TOTAL: '.$total;
+					$data_update = array(
+						'cantidad' => $total,
+					);
+					$this->update_model->update('catalogo_piezas_reparacion', 'id_catalogo_piezas_reparacion', $id, $data_update);
+				}
+			}
+
 			$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
 		}
-
 
 		/*echo '<br>costo_servicio: '.$this->input->post('costo_servicio');
 		echo '<br>costo_pieza: '.$suma_pieza;
 		echo '<br>fecha_entrega: '.$this->input->post('fecha_entrega');*/
+
 
 		
 

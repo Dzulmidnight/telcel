@@ -16,187 +16,352 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
 
 <!-- Page Header -->
+
+
 <div class="content bg-gray-lighter">
-    <div class="row items-push">
-        <div class="col-sm-7">
-            <h3 class="page-heading">
-                LISTADO DE ARTICULOS: <span class="text-primary"><?= count($row_productos) ?></span>
-            </h3>
-        </div>
-        <div class="col-sm-5 text-right hidden-xs">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cargar-excel">
-                    <i class="fa fa-cloud-upload"></i> Importar
-            </button>
+    <div class="block">
+        <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
+            <li class="">
+                <a href="#btabs-alt-static-home">Articulos</a>
+            </li>
+            <li class="active">
+                <a href="#btabs-alt-static-profile">Refacciones</a>
+            </li>
+            <li class="pull-right">
+                <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="" data-original-title="Settings"><i class="si si-settings"></i></a>
+            </li>
+        </ul>
+        <div class="block-content tab-content">
+            <!-- INICIA sección articulos -->
+            <div class="tab-pane " id="btabs-alt-static-home">
+                <h4 class="font-w300 push-15">
+                    Listado de articulos: <span class="text-primary"><?= count($row_productos) ?></span>
+                </h4>
+                
+                <div class="row">
+                    <div class="col-lg-3" style="margin-bottom:1em;">
+                        <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width: 100%;" data-placeholder="Filtrar por sucursales" multiple>
+                            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                            <?php foreach($row_sucursales as $sucursal): ?>
+                                <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cargar-excel">
+                                <i class="fa fa-cloud-upload"></i> Importar
+                        </button>
 
-            <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-agregar-producto">
-                <span data-toggle="tooltip" title="Agregar nuevo producto">
-                    <i class="fa fa-plus"></i> Nuevo
-                </span>
-            </button>
+                        <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-agregar-producto">
+                            <span data-toggle="tooltip" title="Agregar nuevo producto">
+                                <i class="fa fa-plus"></i> Nuevo
+                            </span>
+                        </button>
 
-            <button class="btn btn-rounded btn-primary" onclick="history.back(-1);">
-                <i class="fa fa-arrow-left"></i> Regresar
-            </button>
+                        <button class="btn btn-rounded btn-primary" onclick="history.back(-1);">
+                            <i class="fa fa-arrow-left"></i> Regresar
+                        </button>
+                    </div>
+
+                    <div class="col-md-12 block">
+                        <table id="example" class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
+                            <thead>
+                                <tr>
+                                    <th class="encabezado text-center">
+                                        Id
+                                    </th>
+                                    <th class="encabezado">
+                                        Tipo
+                                    </th>
+                                    <th class="encabezado">
+                                        Img
+                                    </th>
+                                    <th class="encabezado">
+                                        Articulo
+                                    </th>
+
+                                    <th class="encabezado">
+                                        Sucursal
+                                    </th>
+                                    <th class="encabezado">
+                                        Codigo
+                                    </th>
+
+                                    <th class="encabezado">
+                                        Cant
+                                    </th>
+                                    <th class="encabezado">
+                                        Precio Public
+                                    </th>
+                                    <th class="encabezado" style="width:200px;">
+                                        Detalles
+                                    </th>
+                                    <th class="encabezado">
+                                        Fecha
+                                    </th>
+                                    <th class="encabezado" style="width: 10%">...</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                    $contador = 1;
+                                 ?>
+                                <?php foreach($row_productos as $producto): ?>
+                                    <tr>
+                                        <!-- Nº -->
+                                        <td>
+                                            <?php 
+                                                echo $contador;
+                                                $contador++;
+                                             ?>
+                                        </td>
+                                        <!-- Tipo -->
+                                        <td>
+                                            <?= $producto->nombre_categoria_producto; ?>
+                                        </td>
+                                        <!-- Img del producto -->
+                                        <td>
+                                            <img src="<?= base_url($producto->imagen); ?>" width="60px;" height="60px;" alt="">
+                                        </td>
+                                        <!-- Nombre articulo -->
+                                        <td>
+                                            <?= $producto->nombre; ?>
+                                        </td>
+
+                                        <!-- Sucursal -->
+                                        <td>
+                                            <?php
+                                            foreach ($row_sucursal_piezas[$producto->id_producto] as $sucursal) {
+                                                echo $sucursal->nombre.' (<span style="color:red">'.$sucursal->piezas.'</span>)';
+                                                //echo '<button class="btn btn-xs btn-warning" data-toggle="tooltip" title="'.$sucursal->nombre.'">
+                                                //<i class="si si-home "></i> '.$sucursal->piezas.'
+                                            //</button>';
+                                            }
+                                            //echo $row_sucursal_piezas[$producto->id_producto]->id_sucursal;
+                                             ?>
+                                            <!--<button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Nom. Sucur">
+                                                <i class="si si-home "></i> 4
+                                            </button>
+                                            <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Nom. Sucur">
+                                                <i class="si si-home"></i> 8
+                                            </button>
+                                            <button class="btn btn-xs btn-danger" data-toggle="tooltip" title="Nom. Sucur">
+                                                <i class="si si-home"></i> 2
+                                            </button>
+                                            <button class="btn btn-xs btn-default" data-toggle="tooltip" title="Nom. Sucur">
+                                                <i class="si si-home"></i> 0
+                                            </button>-->
+                                        </td>
+                                        <!-- Codigo de barras del producto -->
+                                        <td>
+                                            <a href="#" onclick="mostrarCodigo('<?= base_url(); ?>','<?= $producto->codigo_barras ?>');">
+                                                <i class="si si-printer"></i> <?= $producto->codigo_barras ?>
+                                            </a>
+                                        </td>
+                                        <!-- Cantidad -->
+                                        <td>
+                                            <?= $producto->piezas ?> <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
+                                        </td>
+                                        <!-- Precio al publico -->
+                                        <td>
+                                            $ <?= $producto->precio_publico ?> 
+                                        </td>
+                                        <!-- Detalles -->
+                                        <td>
+                                           <?php 
+                                           if(!empty($producto->modelo)){
+                                            echo 'Modelo: <span class="text-primary">'.$producto->modelo.'</span>';
+                                           }
+                                           if(!empty($producto->color)){
+                                            echo 'Color: <span class="text-primary">'.$producto->color.'</span>';
+                                           }
+                                           if(!empty($producto->capacidad)){
+                                            echo 'Capacidad: <span class="text-primary">'.$producto->capacidad.'</span>';
+                                           }
+                                            ?>
+                                        </td>
+                                        <!-- Fecha -->
+                                        <td>
+                                            <?= date('d/m/Y', $producto->fecha_registro); ?>
+                                        </td>
+                                        <!-- Acciones -->                                    
+                                        <td class="text-center">
+                                            <div class="btn-group">
+                                                <!--<button class="btn btn-xs btn-default">
+                                                    <i class="si si-settings"></i>
+                                                </button>-->
+                                                <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
+                                                <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar('id_eliminar', <?= $producto->id_producto; ?>, 'frm_eliminar_articulo');"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+
+                        <form id="frm_eliminar_articulo" action="<?= base_url(); ?>/backend/MOD_INVENTARIO/inventario/eliminar" method="POST">
+                            <input type="hidden" id="id_eliminar" name="id_eliminar" placeholder="id que se va a eliminar">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <!-- TERMINA sección articulos -->
+
+            <!-- INICIA sección Refacciones -->
+            <div class="tab-pane active" id="btabs-alt-static-profile">
+                <h4 class="font-w300 push-15">
+                    Listado Refacciones: <span class="text-primary"><?= count($row_refacciones); ?></span>
+                </h4>
+                <div class="row">
+                    <div class="col-lg-3" style="margin-bottom:1em;">
+                        <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width: 100%;" data-placeholder="Filtrar por sucursales" multiple>
+                            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                            <?php foreach($row_sucursales as $sucursal): ?>
+                                <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-cargar-excel-refacciones">
+                                <i class="fa fa-cloud-upload"></i> Importar refacciones
+                        </button>
+
+                        <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-agregar-producto">
+                            <span data-toggle="tooltip" title="Agregar nuevo producto">
+                                <i class="fa fa-plus"></i> Nuevo
+                            </span>
+                        </button>
+
+                        <button class="btn btn-rounded btn-primary" onclick="history.back(-1);">
+                            <i class="fa fa-arrow-left"></i> Regresar
+                        </button>
+                    </div>
+
+                    <div class="col-md-12 block">
+                        <table id="example" class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
+                            <thead>
+                                <tr>
+                                    <th class="encabezado text-center">
+                                        #
+                                    </th>
+                                    <th class="encabezado">
+                                        Tipo
+                                    </th>
+                                    <th class="encabezado">
+                                        Nombre
+                                    </th>
+                                    <th class="encabezado">
+                                        Modelo
+                                    </th>
+
+                                    <th class="encabezado">
+                                        Color
+                                    </th>
+                                    <th class="encabezado">
+                                        Precio
+                                    </th>
+                                    <th class="encabezado">
+                                        Cantidad
+                                    </th>
+                                    <th class="encabezado">
+                                        Estatus
+                                    </th>
+                                    <th class="encabezado">
+                                        Fecha
+                                    </th>
+                                    <th class="encabezado" style="width: 10%">...</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                    $contador = 1;
+                                 ?>
+                                <?php foreach($row_refacciones as $refaccion): ?>
+                                    <tr>
+                                        <!-- Nº -->
+                                        <td>
+                                            <?php 
+                                                echo $contador;
+                                                $contador++;
+                                             ?>
+                                        </td>
+                                        <!-- Tipo -->
+                                        <td>
+                                            Refacción
+                                        </td>
+                                        
+                                        <!-- Nombre -->
+                                        <td>
+                                            <?= $refaccion->nombre_pieza; ?>
+                                        </td>
+                                        
+                                        <!-- Modelo -->
+                                        <td>
+                                            <?= $refaccion->modelo; ?>
+                                        </td>
+                                        
+                                        <!-- Color -->
+                                        <td>
+                                            <?= $refaccion->color; ?>
+                                        </td>
+                                        
+                                        <!-- Precio -->
+                                        <td>
+                                            <?= $refaccion->precio; ?>
+                                        </td>
+                                        
+                                        <!-- Cantidad -->
+                                        <td>
+                                            <?= $refaccion->cantidad; ?>
+                                        </td>
+                                        
+                                        <!-- Estatus -->
+                                        <td>
+                                            <?= $refaccion->estatus; ?>
+                                        </td>
+                                        
+                                        <!-- Fecha -->
+                                        <td>
+                                            <?= date('d/m/Y', $producto->fecha_registro); ?>
+                                        </td>
+                                        <!-- Acciones -->                                    
+                                        <td class="text-center">
+                                            <div class="btn-group">
+                                                <!--<button class="btn btn-xs btn-default">
+                                                    <i class="si si-settings"></i>
+                                                </button>-->
+                                                <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
+                                                <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar('id_eliminar', <?= $producto->id_producto; ?>, 'frm_eliminar_articulo');"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+
+                        <form id="frm_eliminar_articulo" action="<?= base_url(); ?>/backend/MOD_INVENTARIO/inventario/eliminar" method="POST">
+                            <input type="hidden" id="id_eliminar" name="id_eliminar" placeholder="id que se va a eliminar">
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- TERMINA sección Refacciones -->
+            <div class="tab-pane" id="btabs-alt-static-settings">
+                <h4 class="font-w300 push-15">Settings Tab</h4>
+                <p>...</p>
+            </div>
         </div>
     </div>
+
 
 </div>
 <!-- END Page Header -->
 
-<!-- Page Content -->
-<div class="content">
-
-    <div class="content-grid push-50">
-        <div class="row">
-            <div class="col-lg-3" style="margin-bottom:1em;">
-                <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width: 100%;" data-placeholder="Filtrar por sucursales" multiple>
-                    <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                    <?php foreach($row_sucursales as $sucursal): ?>
-                        <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="col-md-12 block">
-                <div class="block-content">
-                    <table id="example" class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
-                        <thead>
-                            <tr>
-                                <th class="encabezado text-center">
-                                    Id
-                                </th>
-                                <th class="encabezado">
-                                    Tipo
-                                </th>
-                                <th class="encabezado">
-                                    Img
-                                </th>
-                                <th class="encabezado">
-                                    Articulo
-                                </th>
-
-                                <th class="encabezado">
-                                    Sucursal
-                                </th>
-                                <th class="encabezado">
-                                    Codigo
-                                </th>
-
-                                <th class="encabezado">
-                                    Cant
-                                </th>
-                                <th class="encabezado">
-                                    Precio Public
-                                </th>
-                                <th class="encabezado" style="width:200px;">
-                                    Detalles
-                                </th>
-                                <th class="encabezado">
-                                    Fecha
-                                </th>
-                                <th class="encabezado" style="width: 10%">...</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($row_productos as $producto): ?>
-                                <tr>
-                                    <!-- Nº -->
-                                    <td>
-                                        <?= $producto->id_producto; ?>
-                                    </td>
-                                    <!-- Tipo -->
-                                    <td>
-                                        <?= $producto->nombre_categoria_producto; ?>
-                                    </td>
-                                    <!-- Img del producto -->
-                                    <td>
-                                        <img src="<?= base_url($producto->imagen); ?>" width="60px;" height="60px;" alt="">
-                                    </td>
-                                    <!-- Nombre articulo -->
-                                    <td>
-                                        <?= $producto->nombre; ?>
-                                    </td>
-
-                                    <!-- Sucursal -->
-                                    <td>
-                                        <?php
-                                        foreach ($row_sucursal_piezas[$producto->id_producto] as $sucursal) {
-                                            echo $sucursal->nombre.' (<span style="color:red">'.$sucursal->piezas.'</span>)';
-                                            //echo '<button class="btn btn-xs btn-warning" data-toggle="tooltip" title="'.$sucursal->nombre.'">
-                                            //<i class="si si-home "></i> '.$sucursal->piezas.'
-                                        //</button>';
-                                        }
-                                        //echo $row_sucursal_piezas[$producto->id_producto]->id_sucursal;
-                                         ?>
-                                        <!--<button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Nom. Sucur">
-                                            <i class="si si-home "></i> 4
-                                        </button>
-                                        <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Nom. Sucur">
-                                            <i class="si si-home"></i> 8
-                                        </button>
-                                        <button class="btn btn-xs btn-danger" data-toggle="tooltip" title="Nom. Sucur">
-                                            <i class="si si-home"></i> 2
-                                        </button>
-                                        <button class="btn btn-xs btn-default" data-toggle="tooltip" title="Nom. Sucur">
-                                            <i class="si si-home"></i> 0
-                                        </button>-->
-                                    </td>
-                                    <!-- Codigo de barras del producto -->
-                                    <td>
-                                        <a href="#" onclick="mostrarCodigo('<?= base_url(); ?>','<?= $producto->codigo_barras ?>');">
-                                            <i class="si si-printer"></i> <?= $producto->codigo_barras ?>
-                                        </a>
-                                    </td>
-                                    <!-- Cantidad -->
-                                    <td>
-                                        <?= $producto->piezas ?> <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
-                                    </td>
-                                    <!-- Precio al publico -->
-                                    <td>
-                                        $ <?= $producto->precio_publico ?> 
-                                    </td>
-                                    <!-- Detalles -->
-                                    <td>
-                                       <?php 
-                                       if(!empty($producto->modelo)){
-                                        echo 'Modelo: <span class="text-primary">'.$producto->modelo.'</span>';
-                                       }
-                                       if(!empty($producto->color)){
-                                        echo 'Color: <span class="text-primary">'.$producto->color.'</span>';
-                                       }
-                                       if(!empty($producto->capacidad)){
-                                        echo 'Capacidad: <span class="text-primary">'.$producto->capacidad.'</span>';
-                                       }
-                                        ?>
-                                    </td>
-                                    <!-- Fecha -->
-                                    <td>
-                                        <?= date('d/m/Y', $producto->fecha_registro); ?>
-                                    </td>
-                                    <!-- Acciones -->                                    
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <!--<button class="btn btn-xs btn-default">
-                                                <i class="si si-settings"></i>
-                                            </button>-->
-                                            <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
-                                            <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar('id_eliminar', <?= $producto->id_producto; ?>, 'frm_eliminar_articulo');"><i class="fa fa-times"></i></button>
-                                        </div>
-                                    </td>
-
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-
-                    <form id="frm_eliminar_articulo" action="<?= base_url(); ?>/backend/MOD_INVENTARIO/inventario/eliminar" method="POST">
-                        <input type="hidden" id="id_eliminar" name="id_eliminar" placeholder="id que se va a eliminar">
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 <!-- Modal importar datos -->
 <div class="modal fade" id="modal-cargar-excel" tabindex="-1" role="dialog" aria-hidden="true">
@@ -256,6 +421,59 @@
     </div>
 </div>
 <!-- END Modal importar datos -->
+
+<!-- MODAL importar datos refacciones -->
+<!-- Modal importar datos -->
+<div class="modal fade" id="modal-cargar-excel-refacciones" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-popout">
+        <div class="modal-content">
+            <form action="<?php echo base_url('backend/Excel_import/import_catalogo'); ?>" method="POST" enctype="multipart/form-data">
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Importar datos de refacciones</h3>
+                    </div>
+                    <div class="block-content" style="margin-bottom: 4em;">
+                        <div class="row text-justify">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-xs-12" style="margin-top: 1em;">
+                                        <!-- Formulario de registro de usuario -->
+                                            <label for="archivo_datos">* Selecciona el Excel con los datos que deseas cargar</label>
+                                            <input class="form-control" type="file" id="archivo_datos" name="archivo_datos" required accept=".xls, .xlsx">
+                                        <!-- END Formulario de registro de cliente -->  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 text-center" style="border-left:3px solid #2980b9">
+                                <p>
+                                    <b>Obtener formato de excel para registrar piezas de reparación</b>
+                                </p>
+                                
+                                <a href="<?= base_url('assets/formatos/listado_refacciones.xlsx') ?>" target="_new" class="btn btn-info">
+                                    <i class="fa fa-download"></i> Descargar formato
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-success" type="submit">
+                        <i class="fa fa-check"></i> Cargar datos
+                    </button>
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END Modal importar datos -->
+<!-- END Modal importar datos refacciones -->
+
 
 <!-- Modal mostrar codigo de barras -->
 <div class="modal fade" id="modalCodigoBarras" tabindex="-1" role="dialog" aria-hidden="true">

@@ -20,10 +20,6 @@
         </div>
 
         <div class="col-sm-5 text-right hidden-xs">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cargar-excel">
-                    <i class="fa fa-cloud-upload"></i> Importar
-            </button>
-
             <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-nuevo-ingreso">
                 <span data-toggle="tooltip" title="Registrar nuevo servicio tecnico">
                     <i class="fa fa-briefcase"></i> Nuevo Servicio
@@ -71,26 +67,26 @@
                 <table class="table js-dataTable-full" style="font-size: 11px;">
                     <thead style="font-size: 12px;">
                         <tr>
-                            <th style="font-size: 12px;" class="danger">
+                            <th style="font-size: 12px;">
+                                Cliente
+                            </th>
+                            <th style="font-size: 12px;">
                                 #Codigo
+                            </th>
+                            <th style="font-size: 12px; width:20%;">
+                                Detalle
                             </th>
                             <th style="font-size: 12px;">
                                 Ingreso
                             </th>
                             <th style="font-size: 12px;">
-                                Estatus
+                                Entrega
                             </th>
                             <th style="font-size: 12px;">
                                 Sucursal
                             </th>
                             <th style="font-size: 12px;">
-                                Cliente
-                            </th>
-                            <th style="font-size: 12px; width:20%;">
-                                Detalle Equipo
-                            </th>
-                            <th style="font-size: 12px;">
-                                Entrega aprox
+                                Estatus
                             </th>
                             <th style="font-size: 12px;">
                                 Garantia
@@ -124,55 +120,16 @@
                             }
                          ?>
                             <tr>
-                                <!-- ID SERVICIO -->
-                                <td>
-                                    <?php 
-                                        if($servicio->estatus == 'ENTREGADO'){
-                                            echo '<i style="font-size:18px;color:#27ae60;" class="fa fa-check"></i>';
-                                        }
-                                     ?>
-                                    <a href="#" data-toggle="modal" data-target="#modal-historial-estatus" onclick="historialAcciones('<?= base_url(); ?>', <?= $servicio->id_servicio_tecnico; ?>,'div-mostrar-tabla');">
-                                        <i class="fa fa-search"></i> <?= $servicio->codigo_barras; ?>
-                                    </a>
-                                </td>
-
-                                <!-- FECHA DE INGRESO -->
-                                <td>
-                                    <?= date('d/m/Y', $servicio->fecha_registro); ?>
-                                </td>
-                                <!-- ESTATUS -->
-                                <td class="<?= $estilo; ?>">
-                                    <?php 
-                                        echo $servicio->estatus;
-
-                                        if($servicio->estatus == 'COTIZACION'){
-                                        ?>
-                                            <br>
-                                            <button type="button" class="btn btn-xs btn-info" onclick="modalDetalleCotizacion('<?= base_url(); ?>', <?= $servicio->id_servicio_tecnico; ?>,'div-mostrar-cotizacion');">
-                                                <i class="si si-doc"></i> Cotización
-                                            </button>
-                                        <?php
-                                        }
-                                        if(!empty($servicio->estatus) && $servicio->estatus != 'COTIZACION'){
-                                        ?>
-                                            <br>
-                                            <a href="#" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-historial-estatus" onclick="historialAcciones('<?= base_url(); ?>', <?= $servicio->id_servicio_tecnico; ?>,'div-mostrar-tabla');">
-                                                <i class="fa fa-search"></i> Historial
-                                            </a>
-                                        <?php
-                                        }
-                                     ?>  
-                                </td>
-
-                                <!-- Sucursal -->
-                                <td>
-                                    <?= $servicio->nombre_sucursal; ?>
-                                </td>
-
                                 <!-- Cliente -->
                                 <td>
                                     <a href="#" onclick="modalDetalleCliente('<?= base_url(); ?>',<?= $servicio->fk_id_cliente; ?>, 'div-mostrar-modal-cliente');">
                                         <i class="fa fa-search"></i> <?= $servicio->nombre_cliente; ?>
+                                    </a>
+                                </td>
+                                <!-- ID SERVICIO -->
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#modal-historial-estatus" onclick="historialAcciones('<?= base_url(); ?>', <?= $servicio->id_servicio_tecnico; ?>,'div-mostrar-tabla');">
+                                        <i class="fa fa-search"></i> <?= $servicio->codigo_barras; ?>
                                     </a>
                                 </td>
 
@@ -184,31 +141,90 @@
                                     
                                 </td>
 
-                                <!-- Fecha de entrega aprox -->
+                                <!-- FECHA DE INGRESO -->
                                 <td>
-                                    <?= date('d/m/Y', $servicio->fecha_entrega); ?>
+                                    <?= date('d/m/Y', $servicio->fecha_registro); ?>
                                 </td>
 
-                                <!-- Garantia -->
+                                <!-- ENTREGA APROXIMADA -->
+                                <td>
+                                    <b style="color:#ee5253;">
+                                        <?= date('d/m/Y', $servicio->fecha_entrega); ?>
+                                    </b>
+                                </td>
+
+                                <!-- Sucursal -->
+                                <td>
+                                    <?= $servicio->nombre_sucursal; ?>
+                                </td>
+
+                                <!-- ESTATUS -->
+                                <td>
+                                    <?php
+                                        
+                                        switch ($servicio->estatus) {
+                                            case 'ENTREGADO':
+                                                $color = 'color:#44bd32';
+                                                echo '<i class="fa fa-check-circle" style="'.$color.'"></i> <b style="'.$color.'">'.$servicio->estatus.'</b>';
+                                                break;
+                                            case 'FINALIZADO':
+                                                $color = 'color:#ff9f43';
+                                                echo '<i class="fa fa-exclamation-circle" style="'.$color.'"></i> <b style="'.$color.'">'.$servicio->estatus.'</b>';
+                                                break;
+                                            default:
+                                                echo '<i class="fa fa-clock-o"></i> <b>'.$servicio->estatus.'</b>';
+                                                break;
+                                        }
+
+                                        if($servicio->estatus == 'COTIZACION'){
+                                        ?>
+                                            <br>
+                                            <button type="button" class="btn btn-xs btn-info" onclick="modalDetalleCotizacion('<?= base_url(); ?>', <?= $servicio->id_servicio_tecnico; ?>,'div-mostrar-cotizacion');">
+                                                <i class="si si-doc"></i> Cotización
+                                            </button>
+                                        <?php
+                                        }
+                                        /*
+                                        if(!empty($servicio->estatus) && $servicio->estatus != 'COTIZACION'){
+                                        ?>
+                                            <br>
+                                            <a href="#" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-historial-estatus" onclick="historialAcciones('<?= base_url(); ?>', <?= $servicio->id_servicio_tecnico; ?>,'div-mostrar-tabla');">
+                                                <i class="fa fa-search"></i> Historial
+                                            </a>
+                                        <?php
+                                        }
+                                        */
+                                     ?>  
+                                </td>
+
+                                <!-- GARANTIA -->
                                 <td></td>
 
-                                <!-- Acciones -->
+                                <!-- ACCIONES -->
                                 <td>
                                     <a class="btn btn-default" href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$servicio->id_servicio_tecnico); ?>" data-toggle="tooltip" title="Ficha de servicio">
                                         <i class="si si-note"></i>
                                     </a>
                                     <?php 
+                                        if($servicio->estatus == 'PENDIENTE'){
+                                        ?>
+                                            <button type="button" class="btn btn-warning" data-toggle="tooltip" title="Cancelar servicio" onclick="entregarEquipo('frm_entregar_equipo','<?= $servicio->id_servicio_tecnico; ?>');">
+                                                <i class="fa fa-ban"></i>
+                                            </button>
+                                        <?php
+                                        }
                                         if($servicio->estatus == 'FINALIZADO'){
                                         ?>
-                                            <button type="button" class="btn btn-danger" data-toggle="tooltip" title="Eliminar" onclick="eliminarDatos();">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
                                             <button type="button" class="btn btn-success" data-toggle="tooltip" title="Marcar como entregado" onclick="entregarEquipo('frm_entregar_equipo','<?= $servicio->id_servicio_tecnico; ?>');">
                                                 <i class="fa fa-check"></i>
                                             </button>
                                         <?php
                                         }
                                      ?>
+                                    <button type="button" class="btn btn-danger" data-toggle="tooltip" title="Eliminar" onclick="eliminarDatos();">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -547,57 +563,6 @@
     </div>
 </div>
 <!-- END Información del cliente -->
-
-
-<!-- Modal importar datos -->
-<div class="modal fade" id="modal-cargar-excel" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog-popout">
-        <div class="modal-content">
-            <form action="<?php echo base_url('backend/Excel_import/import_catalogo'); ?>" method="POST" enctype="multipart/form-data">
-                <div class="block block-themed block-transparent remove-margin-b">
-                    <div class="block-header bg-primary-dark">
-                        <ul class="block-options">
-                            <li>
-                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
-                            </li>
-                        </ul>
-                        <h3 class="block-title">Importar datos</h3>
-                    </div>
-                    <div class="block-content" style="margin-bottom: 4em;">
-                        <div class="row text-justify">
-                            <div class="col-md-7">
-                                <div class="row">
-                                    <div class="col-xs-12" style="margin-top: 1em;">
-                                        <!-- Formulario de registro de usuario -->
-                                            <label for="archivo_datos">* Selecciona el Excel con los datos que deseas cargar</label>
-                                            <input class="form-control" type="file" id="archivo_datos" name="archivo_datos" required accept=".xls, .xlsx">
-                                        <!-- END Formulario de registro de cliente -->  
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5 text-center" style="border-left:3px solid #2980b9">
-                                <p>
-                                    <b>Obtener formato de excel para registrar piezas de reparación</b>
-                                </p>
-                                
-                                <a href="<?= base_url('assets/formatos/listado_piezas_reparacion.xlsx') ?>" target="_new" class="btn btn-info">
-                                    <i class="fa fa-download"></i> Descargar formato
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-sm btn-success" type="submit">
-                        <i class="fa fa-check"></i> Cargar datos
-                    </button>
-                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- END Modal importar datos -->
 
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->

@@ -72,6 +72,7 @@ class Excel_import extends CI_Controller
 					$capacidad = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
 					$precio_interno = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
 					$precio_publico = $worksheet->getCellByColumnAndRow(8, $row)->getValue();
+					$proveedor = $worksheet->getCellByColumnAndRow(9, $row)->getValue();
 					$fecha_registro = time();
 					
 					/*$data[] = array(
@@ -111,6 +112,7 @@ class Excel_import extends CI_Controller
 						'capacidad' => $capacidad,
 						'precio_interno' => $precio_interno,
 						'precio_publico' => $precio_publico,
+						'proveedor' => $proveedor,
 						'fecha_registro' => $fecha_registro
 					);
 					$this->excel_import_model->insert($data);
@@ -151,6 +153,8 @@ class Excel_import extends CI_Controller
 			 			$this->add_model->agregar($array_suc_producto, 'sucursal_producto');
 			 		// END SUCURSAL_PRODUCTO
 
+			 		// agregar proveedor
+
 
 					/*$customer_name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
 					$address = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
@@ -172,6 +176,7 @@ class Excel_import extends CI_Controller
 		} 
 	}
 
+	/// CARGAMOS LOS DATOS DE LAS REFACCIONES
 	function import_catalogo()
 	{
 		if(isset($_FILES["archivo_datos"]["name"]))
@@ -188,6 +193,9 @@ class Excel_import extends CI_Controller
 					$modelo = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
 					$color = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
 					$precio = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+					$precio_interno = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+					$cantidad = $worksheet->getCellByColumnAndRow(5, $row)->getValue();
+					$proveedor = $worksheet->getCellByColumnAndRow(6, $row)->getValue();
 					$fecha_registro = time();
 					
 					$data[] = array(
@@ -195,6 +203,9 @@ class Excel_import extends CI_Controller
 						'modelo' => $modelo,
 						'color' => $color,
 						'precio' => $precio,
+						'precio_interno' => $precio_interno,
+						'cantidad' => $cantidad,
+						'proveedor' => $proveedor,
 						'fecha_registro' => $fecha_registro
 					);
 
@@ -217,7 +228,7 @@ class Excel_import extends CI_Controller
 			$this->excel_import_model->insert_array('catalogo_piezas_reparacion',$data);
 			//$this->excel_import_model->insert($data);
 			
-			redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/', 'refresh');
+			redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 		} 
 	}
 

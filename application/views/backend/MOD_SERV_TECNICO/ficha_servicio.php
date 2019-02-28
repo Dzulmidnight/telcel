@@ -104,20 +104,29 @@
                 	 ?>
                     <ul class="list list-timeline pull-t">
                         <li>
-                            <div class="list-timeline-time"><?= date('d/m/Y h:i:s', time()); ?></div>
+                            <div class="list-timeline-time">
+                                <?= date('d/m/Y h:i:s', time()); ?>
+                            </div>
                             <i class="fa fa-briefcase list-timeline-icon bg-modern"></i>
                             <div class="list-timeline-content">
-                                <p class="font-w600">Estatus: <span>Crear cotización</span></p>
                                 <?php 
                                     if($row_servicios->estatus == 'PENDIENTE'){
                                 ?>
-                                        <p class="font-s13">
-                                            Debes generar la cotización del servicio.
-
-                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-cotizacion-servicio">
-                                                Crear cotización
-                                            </button>
-                                        </p>
+                                    <p class="font-w600">
+                                        Estatus: <span><?= $row_servicios->estatus; ?></span>
+                                    </p>
+                                    <p class="font-size-13" style="margin-top:1em;">
+                                        <a style="color:#ff9f43;text-decoration: underline;" href="#" data-toggle="modal" data-target="#modal-cotizacion-servicio">
+                                            <b>
+                                                <i class="fa fa-hand-pointer-o"></i> Generar cotización
+                                            </b>
+                                        </a>
+                                        <!--<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-cotizacion-servicio">
+                                            Crear cotización
+                                        </button>-->
+                                        <br>
+                                        Debes generar la cotización del servicio.
+                                    </p>
                                 <?php
                                     }
                                  ?>
@@ -424,8 +433,8 @@
                                         </table>
                                     </div>
                                     <div class="col-xs-6">
-                                        <label for="costo_servicio">Costo servicio</label>
-                                        <input type="text" class="form-control" id="costo_servicio" name="costo_servicio" placeholder="$ 000.00">
+                                        <label for="costo_servicio">Costo del servicio</label>
+                                        <input type="number" step="any" class="form-control" id="costo_servicio" name="costo_servicio" placeholder="$ 000.00">
                                     </div>
                                     <div class="col-xs-6">
                                         <label for="fecha_entrega">Fecha de entrega</label>
@@ -440,7 +449,9 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <label for="consultar_piezas">Consultar piezas</label>
+                                        <label for="consultar_piezas" style="background:#ecf0f1;width:100%;padding:1em;">
+                                            <i class="si si-magnifier"></i> Consultar piezas
+                                        </label>
                                         <input type="text" class="form-control" id="consultar_piezas" name="consultar_piezas" placeholder="Escribe el tipo de pieza o modelo" onkeyup="consultarRepuestos(this.value, '<?= base_url(); ?>');">
                                     </div>
                                     <!-- Tabla de piezas -->
@@ -457,7 +468,7 @@
                 	<input type="hidden" id="estatus_servicio" name="estatus_servicio" value="COTIZACION">
                 	<input type="hidden" name="id_servicio_tecnico" value="<?= $row_servicios->id_servicio_tecnico; ?>">
                     <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button id="btn_submit_estatus" class="btn btn-sm btn-success" type="submit">Registrar cotización</button>
+                    <button id="btn_submit_estatus" class="btn btn-sm btn-success" type="submit">Generar cotización</button>
                 </div>
             </form>
         </div>
@@ -595,6 +606,14 @@
 
 
 <script>
+    function solicitarPieza(opcion){
+        if(opcion == 'si'){
+            document.getElementById('div-solicitar-pieza').style.display = 'block';
+        }else{
+            document.getElementById('div-solicitar-pieza').style.display = 'none';
+        }
+    }
+
     function resultadoReparacion(resultado){
 
     }

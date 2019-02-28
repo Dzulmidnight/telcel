@@ -378,6 +378,7 @@ class Inventario extends CI_Controller{
 	public function listado()
 	{
 		$data['row_productos'] = $this->consultar_model->productos();
+		$data['row_refacciones'] = $this->consultar_model->refacciones();
 		$data['row_sucursales'] = $this->consultar_model->sucursales();
 		$data['row_proveedores'] = $this->consultar_model->listadoProveedores();
 		$data['row_categoria_producto'] = $this->consultar_model->categoriaProductos();
