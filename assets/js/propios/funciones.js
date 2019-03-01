@@ -236,11 +236,10 @@ function mostrarCodigo(direccion, codigo){
         displayValue: true
     });
     document.getElementById('codigoBarras').value = codigo;
-    document.getElementById('linkPdf').href = direccion+'backend/createPdf/index/1/'+codigo;
-
-
+    document.getElementById('linkPdf').href = direccion+'backend/createPdf/index/1/'+codigo+'/'+pieza;
 
 }
+
 function guardarImg(ruta){
     var cantidad, ruta, codigo;
     var xmlhttp = new XMLHttpRequest();
@@ -453,7 +452,7 @@ function limpiar(){
     xmlhttp.send("codigo="+codigo+"&cantidad="+cantidad);
 }*/
 
-function descargarPdf(id, direccion, cantidad){
+function descargarPdf(id, direccion, cantidad, tipo){
     //document.getElementById('btnCodigo').innerHTML = 'LOASDFASF';
     var cantidad, codigo;
 
@@ -461,7 +460,7 @@ function descargarPdf(id, direccion, cantidad){
     codigo = document.getElementById('codigoBarras').value;
 
 
-    document.getElementById('linkPdf').href = direccion+'backend/Createpdf/index/'+cantidad+'/'+codigo+'';
+    document.getElementById('linkPdf').href = direccion+'backend/Createpdf/index/'+cantidad+'/'+codigo+'/'+tipo+'';
 }
 
 function reemplazar(){

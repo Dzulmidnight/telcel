@@ -4,10 +4,20 @@ class Createpdf extends CI_Controller{
 	{
 		parent::__construct();
 		$this->load->helper('pdf_helper');
+		$this->load->model('consultar_model');
 	}
 
-	public function index($numero = false, $codigo = false)
+	public function index($numero = false, $codigo = false, $tipo = false)
 	{
+		$nombre = '';
+		if($tipo == 'refaccion'){
+			$detalle_producto = $this->consultar_model->consultaSimple($codigo, 'codigo_barras', 'catalogo_piezas_reparacion');
+			$nombre = $detalle_producto->nombre_pieza;
+		}else{
+			$detalle_producto = $this->consultar_model->consultaSimple($codigo, 'codigo_barras', 'producto');
+			$nombre = $detalle_producto->nombre;
+		}
+
 		header("Content-Type: application/json; charset=UTF-8");
 	    /*
 	        ---- ---- ---- ----
@@ -41,14 +51,17 @@ class Createpdf extends CI_Controller{
 		//$params = $pdf->serializeTCPDFtagParameters(array('0123456789', 'C128C', '', '', '', 18, 0.4, '', 'N'));
 
 
-		$params = $pdf->serializeTCPDFtagParameters(array($codigo, 'C128', '', '', 40, 20, 0.4, array('position'=>'S', 'border'=>true, 'padding'=>4, 'fgcolor'=>array(0,0,0), 'bgcolor'=>array(255,255,255), 'text'=>true, 'font'=>'helvetica', 'fontsize'=>8, 'stretchtext'=>4), 'N'));
+		$params = $pdf->serializeTCPDFtagParameters(array($codigo, 'C128', '', '', 40, 20, 0.4, array('position'=>'S', 'border'=>false, 'padding'=>4, 'fgcolor'=>array(0,0,0), 'bgcolor'=>array(255,255,255), 'text'=>true, 'font'=>'helvetica', 'fontsize'=>8, 'stretchtext'=>4), 'N'));
 
 		//$html .= '<tcpdf method="write1DBarcode" params="'.$params.'" />';
 		$html = '';
 		$html .= '<table>';
-			for ($i=0; $i < $numero; $i++) { 
+			for ($i=0; $i < $numero; $i++) {
 				$html .= '<tr>';
-					$html .= '<td><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
+					$html .= '<td style="font-family:helvetica; padding:0px;margin:0px;font-size:8px;text-align:center;">'.$nombre.' "'.$detalle_producto->modelo.'"</td>';
+				$html .= '</tr>';
+				$html .= '<tr >';
+					$html .= '<td style="padding:0px;margin:0px;"><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
 				$html .= '</tr>';
 			}
 		$html .= '</table>';

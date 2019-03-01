@@ -35,6 +35,7 @@
 				<span id="spanMarca"><?= $info_producto->marca; ?></span>
 			</td>
 		</tr>
+		<tr>
 			<td>Modelo</td>
 			<td class="text-primary">
 				<span id="spanModelo"><?= $info_producto->modelo; ?></span>
@@ -46,6 +47,7 @@
 				<span id="spanColor"><?= $info_producto->color; ?></span>
 			</td>
 		</tr>
+		<tr>
 			<td>Capacidad</td>
 			<td class="text-primary">
 				<span id="spanCapacidad"><?= $info_producto->capacidad; ?></span>

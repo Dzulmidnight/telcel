@@ -1,3 +1,50 @@
+function localizacionRefaccion(valor){
+    if(valor == 'sucursal'){
+        document.getElementById('div-listado-sucursal').style.display = 'block';
+    }else{
+        document.getElementById('div-listado-sucursal').style.display = 'none';
+    }
+}
+
+
+function mostrarCodigoRefaccion(direccion, codigo){
+    var codigo = codigo;
+
+    ruta = direccion+'backend/InformacionProducto/refaccion';
+    codigoBarras = codigo;
+
+    objetoJson = JSON.stringify(codigoBarras);
+    var xmlhttp = new XMLHttpRequest();
+
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            //console.log(this.responseText);
+            var vista = this.responseText;
+      
+            document.getElementById('div_informacion_refaccion').innerHTML = vista;
+            if(this.responseText == 'Articulo no encontrado'){
+                //console.log('no se muestra tabla');
+            }
+
+        }
+    }
+
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("codigo="+objetoJson);
+    
+
+
+    $('#modalCodigoBarrasRefaccion').modal('show');
+    JsBarcode("#barcode2", codigo,{
+        displayValue: true
+    });
+    document.getElementById('codigoBarras').value = codigo;
+    document.getElementById('linkPdfRefaccion').href = direccion+'backend/createPdf/index/1/'+codigo+'/'+'refaccion';
+
+}
+
 function enviarForm(id, frm){
     formulario = document.getElementById(frm);
     boton = document.getElementById(id);

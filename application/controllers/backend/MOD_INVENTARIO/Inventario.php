@@ -52,6 +52,7 @@ class Inventario extends CI_Controller{
 
 	}*/
 
+/// AGREGAR ACCESORIO INVENTARIO
 	public function agregar()
 	{
 		$fecha_registro = time();
@@ -356,6 +357,59 @@ class Inventario extends CI_Controller{
 
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}
+/// END AGREGAR ACCESORIO INVENTARIO
+
+/// AGREGAR REFACCIÓN INVENTARIO
+	public function agregar_refaccion()
+	{
+		$fecha_registro = time();
+		$id_refaccion = 0;
+		$codigo_barras = 0;
+		$fk_id_sucursal = 0;
+		$estatus = '';
+
+		$localizacion = $this->input->post('localizacion_refaccion');
+		if($localizacion == 'sucursal'){
+			$fk_id_sucursal = $this->input->post('fk_id_sucursal_refaccion');
+			$estatus = 'INVENTARIO';
+		}else{
+			$estatus = 'PROVEEDOR';
+		}
+
+		$nombre = strtoupper($this->input->post('nombre_refaccion'));
+		$modelo = strtoupper($this->input->post('modelo_refaccion'));
+		$color = strtoupper($this->input->post('color_refaccion'));
+		$precio_publico = strtoupper($this->input->post('precio_publico_refaccion'));
+		$precio_interno = strtoupper($this->input->post('precio_interno_refaccion'));
+		$cantidad = strtoupper($this->input->post('cantidad_refaccion'));
+		$proveedor = strtoupper($this->input->post('proveedor_refaccion'));
+
+		$data_refaccion = array(
+			'fk_id_sucursal' => $fk_id_sucursal,
+			'nombre_pieza' => $nombre,
+			'modelo' => $modelo,
+			'color' => $color,
+			'precio' => $precio_publico,
+			'precio_interno' => $precio_interno,
+			'cantidad' => $cantidad,
+			'estatus' => $estatus,
+			'proveedor' => $proveedor
+		);
+		$this->add_model->agregar($data_refaccion, 'catalogo_piezas_reparacion');
+		$id_refaccion = $this->db->insert_id();
+
+		$codigo_barras = $fecha_registro.str_pad($id_refaccion, 3, "0", STR_PAD_LEFT);
+		$data_codigo = array(
+			'codigo_barras' => $codigo_barras
+		);
+		$this->update_model->update('catalogo_piezas_reparacion', 'id_catalogo_piezas_reparacion', $id_refaccion, $data_codigo);
+
+
+		$this->session->set_flashdata('success', "Información agregada");
+
+		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
+	}
+/// END AGREGAR REFACCION INVENTARIO
 
 	public function consultar()
 	{

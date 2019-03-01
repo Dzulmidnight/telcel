@@ -2,6 +2,9 @@
     .encabezado{
         font-size: 11px !important;
     }
+    .mayusculas{
+        text-transform:uppercase;
+    }
 </style>
 
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
@@ -68,7 +71,7 @@
                             <thead>
                                 <tr>
                                     <th class="encabezado text-center">
-                                        Id
+                                        #
                                     </th>
                                     <th class="encabezado">
                                         Tipo
@@ -93,7 +96,7 @@
                                     <th class="encabezado">
                                         Precio Public
                                     </th>
-                                    <th class="encabezado" style="width:200px;">
+                                    <th class="encabezado">
                                         Detalles
                                     </th>
                                     <th class="encabezado">
@@ -152,15 +155,32 @@
                                                 <i class="si si-home"></i> 0
                                             </button>-->
                                         </td>
+
                                         <!-- Codigo de barras del producto -->
                                         <td>
                                             <a href="#" onclick="mostrarCodigo('<?= base_url(); ?>','<?= $producto->codigo_barras ?>');">
                                                 <i class="si si-printer"></i> <?= $producto->codigo_barras ?>
                                             </a>
                                         </td>
+
                                         <!-- Cantidad -->
                                         <td>
-                                            <?= $producto->piezas ?> <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><b><i class="glyphicon glyphicon-refresh"></i></b></a>
+                                            <?php 
+                                                $cantidad = $producto->piezas;
+
+                                                if($cantidad < 1){
+                                                    echo '<b style="color:#e74c3c"><i class="fa fa-close"></i> '.$cantidad.'</b>';
+                                                }else if($cantidad == 1){
+                                                    echo '<b style="color:#f39c12"><i class="fa fa-warning"></i> '.$cantidad.'</b>';
+                                                }else{
+                                                    echo '<b style="color:#44bd32">'.$cantidad.'</b>';
+                                                }
+                                             ?>
+                                            <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');">
+                                                <b>
+                                                    <i class="glyphicon glyphicon-refresh"></i>
+                                                </b>
+                                            </a>
                                         </td>
                                         <!-- Precio al publico -->
                                         <td>
@@ -170,13 +190,13 @@
                                         <td>
                                            <?php 
                                            if(!empty($producto->modelo)){
-                                            echo 'Modelo: <span class="text-primary">'.$producto->modelo.'</span>';
+                                            echo 'Modelo: <span class="text-primary">'.$producto->modelo.'</span><br>';
                                            }
                                            if(!empty($producto->color)){
-                                            echo 'Color: <span class="text-primary">'.$producto->color.'</span>';
+                                            echo 'Color: <span class="text-primary">'.$producto->color.'</span><br>';
                                            }
                                            if(!empty($producto->capacidad)){
-                                            echo 'Capacidad: <span class="text-primary">'.$producto->capacidad.'</span>';
+                                            echo 'Capacidad: <span class="text-primary">'.$producto->capacidad.'</span><br>';
                                            }
                                             ?>
                                         </td>
@@ -228,8 +248,8 @@
                                 <i class="fa fa-cloud-upload"></i> Importar refacciones
                         </button>
 
-                        <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-agregar-producto">
-                            <span data-toggle="tooltip" title="Agregar nuevo producto">
+                        <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-agregar-refaccion">
+                            <span data-toggle="tooltip" title="Agregar nueva refacción">
                                 <i class="fa fa-plus"></i> Nuevo
                             </span>
                         </button>
@@ -245,6 +265,9 @@
                                 <tr>
                                     <th class="encabezado text-center">
                                         #
+                                    </th>
+                                    <th class="encabezado">
+                                       Codigo 
                                     </th>
                                     <th class="encabezado">
                                         Tipo
@@ -287,7 +310,23 @@
                                                 $contador++;
                                              ?>
                                         </td>
-                                        <!-- Tipo -->
+
+                                        <!-- CODIGO_BARRAS -->
+                                        <td>
+                                            <?php 
+                                                if($refaccion->cantidad > 0){
+                                                ?>
+                                                    <a href="#" onclick="mostrarCodigoRefaccion('<?= base_url(); ?>','<?= $refaccion->codigo_barras ?>');">
+                                                        <i class="si si-printer"></i> <?= $refaccion->codigo_barras ?>
+                                                    </a>
+                                                <?php
+                                                }else{
+                                                    echo '<span style="color:#bdc3c7;">No disponible</span>';
+                                                }
+                                             ?>
+                                        </td>
+
+                                        <!-- TIPO -->
                                         <td>
                                             Refacción
                                         </td>
@@ -309,17 +348,47 @@
                                         
                                         <!-- Precio -->
                                         <td>
-                                            <?= $refaccion->precio; ?>
+                                            $ <b><?= $refaccion->precio; ?></b>
                                         </td>
                                         
                                         <!-- Cantidad -->
                                         <td>
-                                            <?= $refaccion->cantidad; ?>
+                                            <?php 
+                                                $cantidad = $refaccion->cantidad;
+
+                                                if($refaccion->estatus == 'INVENTARIO' || $refaccion->estatus == 'AGOTADO'){
+                                                    if($cantidad < 1){
+                                                        echo '<b style="color:#e74c3c"><i class="fa fa-close"></i> '.$cantidad.'</b>';
+                                                    }else if($cantidad == 1){
+                                                        echo '<b style="color:#f39c12"><i class="fa fa-warning"></i> '.$cantidad.'</b>';
+                                                    }else{
+                                                        echo '<b style="color:#44bd32">'.$cantidad.'</b>';
+                                                    }
+                                                }
+                                             ?>
                                         </td>
                                         
                                         <!-- Estatus -->
                                         <td>
-                                            <?= $refaccion->estatus; ?>
+                                            <?php
+                                                $estatus = $refaccion->estatus;
+
+                                                switch ($estatus) {
+                                                    case 'INVENTARIO':
+                                                        echo '<span style="color:#44bd32;"><i class="si si-check"></i> '.$estatus.'</span>';
+                                                        break;
+                                                    case 'AGOTADO':
+                                                        echo '<span style="color:#e74c3c;"><i class="si si-close"></i> '.$estatus.'</span>';
+                                                        break;
+                                                    case 'PROVEEDOR':
+                                                        echo '<span style="color:#3498db;"><i class="si si-basket-loaded"></i> '.$estatus.'</span>';
+                                                        break;
+                                                    
+                                                    default:
+                                                        echo $estatus;
+                                                        break;
+                                                }
+                                            ?>
                                         </td>
                                         
                                         <!-- Fecha -->
@@ -334,6 +403,19 @@
                                                 </button>-->
                                                 <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
                                                 <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar('id_eliminar', <?= $producto->id_producto; ?>, 'frm_eliminar_articulo');"><i class="fa fa-times"></i></button>
+
+                                                <button class="btn btn-xs btn-primary" data-toggle="tooltip" title="Actualizar cantidad">
+                                                    <i class="fa fa-repeat"></i>
+                                                </button>
+                                                <?php 
+                                                    if($refaccion->estatus == 'PROVEEDOR'){
+                                                    ?>
+                                                        <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Solicitar pieza">
+                                                            <i class="fa fa-calendar-plus-o"></i>
+                                                        </button>
+                                                    <?php
+                                                    }
+                                                 ?>
                                             </div>
                                         </td>
 
@@ -423,7 +505,6 @@
 <!-- END Modal importar datos -->
 
 <!-- MODAL importar datos refacciones -->
-<!-- Modal importar datos -->
 <div class="modal fade" id="modal-cargar-excel-refacciones" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-popout">
         <div class="modal-content">
@@ -471,7 +552,6 @@
         </div>
     </div>
 </div>
-<!-- END Modal importar datos -->
 <!-- END Modal importar datos refacciones -->
 
 
@@ -491,7 +571,7 @@
                 <div class="block-content" style="margin-bottom: 4em;">
                     <div class="row text-justify">
                         <!-- Formulario de registro de usuario -->
-                        <form class="form-horizontal push-10-t block-content" action="base_forms_elements.html" method="post" onsubmit="return false;">
+                        <form class="form-horizontal push-10-t block-content" action="#" method="post" onsubmit="return false;">
 
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario">
@@ -505,7 +585,7 @@
                                         Número de codigos a generar
                                     </label>
 
-                                    <input type="number" class="form-control" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>','');" value="1">
+                                    <input type="number" class="form-control" id="numCodigos" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigos', '<?= base_url(); ?>','','pieza');" value="1">
                                     <input type="hidden" id="codigoBarras" name="codigoBarras" value="">
                                     <br>
 
@@ -543,6 +623,67 @@
     </div>
 </div>
 <!-- END Modal mostrar codigo de barras -->
+
+
+<!-- Modal mostrar codigo de barras refaccion -->
+<div class="modal fade" id="modalCodigoBarrasRefaccion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-popout">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Codigo de barras refacción</h3>
+                </div>
+                <div class="block-content" style="margin-bottom: 4em;">
+                    <div class="row text-justify">
+                        <!-- Formulario de registro de usuario -->
+                        <form class="form-horizontal push-10-t block-content" action="#" method="post" onsubmit="return false;">
+
+                            <!-- Codigo barras refacción -->
+                            <div id="formularios_inventario">
+                                <div class="col-sm-6" id="div_informacion_refaccion">
+                                </div>
+                                <!-- sección para mostrar el codigo de barras -->
+                                <div class="col-sm-6">
+                                    <canvas id="barcode2"></canvas>
+
+                                    <label for="numCodigos">
+                                        Número de codigos a generar
+                                    </label>
+
+                                    <input type="number" class="form-control" id="numCodigosRefaccion" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigosRefaccion', '<?= base_url(); ?>', '', 'refaccion');" value="1">
+                                    <input type="hidden" id="codigoBarras" name="codigoBarras" value="">
+                                    <br>
+
+
+                                    <div id="btnCodigo">
+                                        
+                                    </div>
+                                    <a class="btn btn-success" id="linkPdfRefaccion" href="" target="_new">
+                                        Generar codigos
+                                    </a>
+
+                                </div>
+                            </div>
+                            <!-- END Codigo barras refaccion -->
+
+
+                        </form>
+                        <!-- END Formulario de registro de cliente -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal mostrar codigo de barras refaccion -->
 
 <!-- Modal registrar producto -->
 <div class="modal fade" id="modal-agregar-producto" tabindex="-1" role="dialog" aria-hidden="true">
@@ -821,7 +962,95 @@
 </div>
 <!-- END Modal registrar producto -->
 
+<!-- MODAL registrar refacción -->
+    <div class="modal fade" id="modal-agregar-refaccion" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-popout">
+            <div class="modal-content">
+                <form class="form-horizontal push-10-t block-content" action="<?= base_url('backend/MOD_INVENTARIO/inventario/agregar_refaccion'); ?>" id="frm_registro_refaccion" name="frm_registro_refaccion" method="POST" enctype="multipart/form-data">
+                    <div class="block block-themed block-transparent remove-margin-b">
+                        <div class="block-header bg-primary-dark">
+                            <ul class="block-options">
+                                <li>
+                                    <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                                </li>
+                            </ul>
+                            <h3 class="block-title">Registrar Refacción</h3>
+                        </div>
+                        <div class="block-content" style="margin-bottom:2em;">
+                            <div class="row">
+                                <div class="col-md-12" style="margin-bottom:2em;">
+                                    <p>
+                                        Localización de la pieza  
+                                    </p>
 
+                                    <label class="css-input css-radio css-radio-lg css-radio-primary push-10-r">
+                                        <input type="radio" name="localizacion_refaccion" value="sucursal" onclick="localizacionRefaccion(this.value);" required><span></span> Sucursal
+                                    </label>
+                                    <label class="css-input css-radio css-radio-lg css-radio-primary">
+                                        <input type="radio" name="localizacion_refaccion" value="proveedor" onclick="localizacionRefaccion(this.value);"><span></span> Proveedor
+                                    </label>
+                                </div>
+                                <div id="div-listado-sucursal" class="col-md-6" style="display:none">
+                                    <label for="id_sucursal_refaccion">* Listado de sucursales</label>
+                                    <select class="form-control" name="id_sucursal_refaccion" id="id_sucursal_refaccion" required>
+                                        <option value="">...</option>
+                                        <?php foreach($row_sucursales as $sucursal): ?>
+                                            <option value="<?= $sucursal->id_sucursal?>"><?= $sucursal->nombre; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="nombre_refaccion">* Nombre de la pieza</label>
+                                    <input type="text" class="form-control mayusculas" id="nombre_refaccion" name="nombre_refaccion" required>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label for="modelo_refaccion">* Modelo</label>
+                                    <input type="text" class="form-control mayusculas" id="modelo_refaccion" name="modelo_refaccion" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="precio_publico_refaccion">* Precio Publico</label>
+                                    <input type="number" step="any" class="form-control mayusculas" id="precio_publico_refaccion" name="precio_publico_refaccion" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="precio_interno_refaccion">* Precio Proveedor</label>
+                                    <input type="number" step="any" class="form-control mayusculas" id="precio_interno_refaccion" name="precio_interno_refaccion" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="color_refaccion">Color</label>
+                                    <input type="text" class="form-control mayusculas" id="color_refaccion" name="color_refaccion">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="cantidad_refaccion">* Cantidad</label>
+                                    <input type="number" min="1" class="form-control mayusculas" id="cantidad_refaccion" name="cantidad_refaccion" value="1" required>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="proveedor_refaccion">Proveedor</label>
+                                    <input type="text" class="form-control mayusculas" id="proveedor_refaccion" name="proveedor_refaccion">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="tipo_registro" name="tipo_registro" value="">
+                        <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-check"></i> Registrar pieza
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+<!-- END MODAL registrar refacción -->  
 
 <!-- Modal Editar Producto -->
 <div class="modal fade" id="modal-editar-articulo" tabindex="-1" role="dialog" aria-hidden="true">
@@ -1123,7 +1352,5 @@
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.placeholder.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/app.js"></script>
-
-
 
 <!-- Page JS Code -->

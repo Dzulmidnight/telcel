@@ -358,6 +358,8 @@ class Serv_tecnico extends CI_Controller{
 						'cantidad' => $total,
 					);
 					$this->update_model->update('catalogo_piezas_reparacion', 'id_catalogo_piezas_reparacion', $id, $data_update);
+				}else{
+					
 				}
 			}
 
