@@ -3,6 +3,7 @@
     <!-- Header Navigation Right -->
     <ul class="nav-header pull-right">
         <li>
+
             <div class="btn-group">
                 <button class="btn btn-default btn-image dropdown-toggle" data-toggle="dropdown" type="button">
                     <img src="<?php echo base_url(); ?>assets/img/avatars/avatar10.jpg" alt="Avatar">
@@ -46,6 +47,14 @@
             <button class="btn btn-default" data-toggle="layout" data-action="side_overlay_toggle" type="button">
                 <i class="fa fa-tasks"></i>
             </button>
+        </li>
+        <li>
+            
+            <div class="btn-group">
+                <a class="btn btn-default" tabindex="-1" href="<?= base_url('login/logout_ci'); ?>" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión">
+                    <i class="si si-logout pull-right"></i>
+                </a>
+            </div>
         </li>
     </ul>
     <!-- END Header Navigation Right -->

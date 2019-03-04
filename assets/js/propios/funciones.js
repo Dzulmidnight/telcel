@@ -280,13 +280,17 @@ function guardarImg(ruta){
 
 function consultarCodigo(valor, ruta){
     console.log(valor);
-    var codigoBarras, objetoJson, ruta, precio_establecido;
-
+    var codigoBarras, objetoJson, ruta, precio_establecido, sucursal_venta;
     console.log(ruta);
+
     ruta = ruta+'backend/InformacionProducto';
     codigoBarras = valor;
+    sucursal_venta = document.getElementById('fk_id_sucursal_venta').value;
+
+    console.log('LA SUCURSAL DE VENTA: '+sucursal_venta);
 
     objetoJson = JSON.stringify(codigoBarras);
+    sucursalJson = JSON.stringify(sucursal_venta);
     var xmlhttp = new XMLHttpRequest();
 
 
@@ -299,16 +303,26 @@ function consultarCodigo(valor, ruta){
             if(this.responseText == 'Articulo no encontrado'){
                 console.log('no se muestra tabla');
             }else{
+                piezas_existentes = document.getElementById('piezas_existentes').value;
+
                 document.getElementById('piezas_venta').disabled = false;
                 document.getElementById('btn_agregar_producto').disabled = false;
                 document.getElementById('btn_agregar_producto').classList.remove('btn-default');
                 document.getElementById('btn_agregar_producto').classList.add('btn-success');
+
+                if(piezas_existentes == 0){
+                    document.getElementById('btn_agregar_producto').disabled = true;
+                    document.getElementById('btn_agregar_producto').classList.remove('btn-success');
+                    document.getElementById('btn_agregar_producto').classList.add('btn-default');
+                }
 
                 precio_establecido = document.getElementById('precio_establecido').innerHTML;
                 precio_real = document.getElementById('precio_real').value;
                 document.getElementById('precio_unitario_venta').disabled = false;
                 document.getElementById('precio_unitario_venta').value = precio_establecido;
                 document.getElementById('precio_real_venta').value = precio_real;
+
+                console.log('LAS PIEZAS EXISTENTES: '+piezas_existentes);
             }
 
         }
@@ -316,7 +330,7 @@ function consultarCodigo(valor, ruta){
 
     xmlhttp.open("POST", ruta, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("codigo="+objetoJson);
+    xmlhttp.send("codigo="+objetoJson+"&sucursal="+sucursalJson);
 }
 
 function carritoCompras(id_frm){
@@ -1180,6 +1194,7 @@ function sucursalDestino(url){
     /////// SECCIÓN PARA GENERAR LA VENTA
         //var id_sucursal = document.getElementById('id_sucursal_venta');
         var id_vendedor = document.getElementById('id_vendedor_venta').value;
+        var id_sucursal = document.getElementById('fk_id_sucursal_venta').value;
         var array_id_producto = document.getElementsByName('id_producto_carrito');
         var array_de_precio = document.getElementsByName('precio_carrito');
         var array_precio_real_carrito = document.getElementsByName('precio_real_carrito');
@@ -1207,7 +1222,9 @@ function sucursalDestino(url){
         var array_json, json_info_extra;
         array_json = JSON.stringify(array_general);
         var id_vendedor_json = JSON.stringify(id_vendedor);
+        var id_sucursal_json = JSON.stringify(id_sucursal);
 
+        console.log('la sucursal: '+id_sucursal_json);
         console.log(array_json);
 
 
@@ -1247,7 +1264,7 @@ function sucursalDestino(url){
         xmlhttp.open("POST", ruta, true);
         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         //xmlhttp.send("parametros="+array_json+"&id_vendedor="+id_vendedor);
-        xmlhttp.send("parametros=" + array_json + "&id_vendedor=" + id_vendedor_json);
+        xmlhttp.send("parametros=" + array_json + "&id_vendedor=" + id_vendedor_json + "&id_sucursal=" + id_sucursal_json);
     ////// FIN SECCIÓN PARA GENARAR LA VENTA
     }
 

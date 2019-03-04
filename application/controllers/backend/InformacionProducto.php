@@ -8,6 +8,7 @@ class InformacionProducto extends CI_Controller{
 		$this->load->model('consultar_model');
 
 		$codigo = json_decode($_POST['codigo']);
+		$sucursal = json_decode($_POST['sucursal']);
 
 		if($this->consultar_model->detalle_producto($codigo)){
 			$data['info_producto'] = $this->consultar_model->detalle_producto($codigo);

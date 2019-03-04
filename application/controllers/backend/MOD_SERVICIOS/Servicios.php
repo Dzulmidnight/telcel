@@ -64,6 +64,7 @@ class Servicios extends CI_Controller{
 
 		$objeto = json_decode($_POST["parametros"], false);
 		$id_vendedor = json_decode($_POST["id_vendedor"], false);
+		$id_sucursal = json_decode($_POST["id_sucursal"], false);
 
 
 		/*if(is_array($objeto)){
@@ -89,7 +90,7 @@ class Servicios extends CI_Controller{
 		$total_ticket = 0;
 		$array_producto_venta = array();
 
-		// creamos ticket de venta
+		////// CREAMOS TICKET DE VENTA //////
 			$data_ticket = array(
 				'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
 				'fk_id_usuario' => $id_vendedor,
@@ -103,14 +104,15 @@ class Servicios extends CI_Controller{
 			$piezas_ticket += $value->cantidad_carrito;
 			//$precio_pieza = $value->precio_carrito * $value->cantidad_carrito;
 			$total_ticket += ($value->precio_carrito * $value->cantidad_carrito);
+			$id_producto = $value->id_producto_carrito;
 
 			// registramos la venta en tb -> producto_venta
 				$data_producto_venta = array(
 					'piezas' => $value->cantidad_carrito,
 					'precio_venta' => $value->precio_carrito,
 					'precio_real_venta' => $value->precio_real_carrito,
-					'fk_id_producto' => $value->id_producto_carrito,
-					'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
+					'fk_id_producto' => $id_producto,
+					'fk_id_sucursal' => $id_sucursal,
 					'fk_id_usuario' => $id_vendedor,
 					'fk_id_ticket' => $fk_id_ticket,
 					'fecha_registro' => time()
@@ -118,8 +120,9 @@ class Servicios extends CI_Controller{
 				$this->add_model->agregar($data_producto_venta, 'producto_venta');
 
 				$array_producto_venta[] = $this->db->insert_id();
+				
 			//// actualizamos las piezas de la tb -> producto
-				$producto = $this->consultar_model->producto($value->id_producto_carrito);
+				$producto = $this->consultar_model->producto($id_producto);
 
 				$piezas_restantes = ($producto->piezas) - ($value->cantidad_carrito);
 
@@ -127,10 +130,21 @@ class Servicios extends CI_Controller{
 					'piezas' => $piezas_restantes
 				);
 				
-				$this->update_model->update('producto', 'id_producto', $value->id_producto_carrito, $data_piezas_producto);
+				$this->update_model->update('producto', 'id_producto', $id_producto, $data_piezas_producto);
+
+			///// actualizamos las piezas de sucursal
+				$sucursal_producto = $this->consultar_model->sucursal_cantidad($id_producto, $id_sucursal);
+
+				$restante = ($sucursal_producto->piezas) - ($value->cantidad_carrito);
+
+				$data_restante_sucursal = array(
+					'piezas' => $restante,
+					'fecha_actualizacion' => time()
+				);
+				$this->update_model->update('sucursal_producto', 'id_sucursal_producto', $sucursal_producto->id_sucursal_producto, $data_restante_sucursal);
 
 			// actualizamos las piezas de la TB -> historial_inventario
-				$detalle_historial = $this->consultar_model->consultaSimple($value->id_producto_carrito, 'fk_id_producto', 'historial_inventario');
+				$detalle_historial = $this->consultar_model->consultaSimple($id_producto, 'fk_id_producto', 'historial_inventario');
 
 				$id_historial_inventario = $detalle_historial->id_historial_inventario;
 

@@ -9,6 +9,11 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
 
+<style>
+    .margen-top{
+        margin-top: 1.5em; 
+    }
+</style>
 
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
@@ -36,201 +41,235 @@
 
 <!-- Page Content -->
 <div class="content">
-    <?php 
-    if($this->session->flashdata('success')){
-        $mensaje = $this->session->flashdata('success');
-    ?>
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
-        </div>
-    <?php
-    }else if($this->session->flashdata('error')){
-        $mensaje = $this->session->flashdata('error');
-    ?>
-        <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h3 class="font-w300 push-15"><?= $mensaje ?></h3>
-        </div>
-    <?php
-    }
-     ?>
-
-    <div class="block">
-        <div class="row">
-            <?php foreach($row_sucursales as $sucursal): ?>
-                <div class="col-md-4">
-                    <!-- Sucursales -->
-                    <div class="block">
-                        <div class="block-content">
-                            <div class="row items-push">
-                                <div class="font-s12 push-10">
-                                    <em class="pull-right">
-                                        <button class="btn btn-xs btn-warning">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-xs btn-danger" data-toggle="tooltip" title="Eliminar sucursal" onclick="eliminar()">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </em>
-                                    Creada: <?= date('d/m/Y', $sucursal->fecha_registro) ?>
-                                </div>
-                                <h4 class="text-uppercase push-10"><a class="text-primary-dark" href="base_pages_blog_story.html">Sucursal: <?= $sucursal->nombre ?></a></h4>
-                                <em>
-                                    Dirección: <span class="text-primary"><?= $sucursal->direccion ?></span>
+    <div class="row">
+        <?php foreach($row_sucursales as $sucursal): ?>
+            <div class="col-md-4">
+                <!-- Sucursales -->
+                <div class="block">
+                    <div class="block-content">
+                        <div class="row items-push">
+                            <div class="font-s12 push-10">
+                                <em class="pull-right">
+                                    <button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal-editar-sucursal<?= $sucursal->id_sucursal; ?>">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-xs btn-danger" data-toggle="tooltip" title="Eliminar sucursal" onclick="eliminar()">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </em>
-                                <div class="row" style="margin-top:2em;">
-                                    <div class="col-xs-12">
-                                        <table class="table table-condensed table-bordered">
-                                            <thead>
-                                                <tr class="bg-success text-white">
-                                                    <td colspan="2">
-                                                        INVENTARIO
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        Stock
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Apartados
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Por agotar
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Agotados
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <table class="table table-condensed table-bordered">
-                                            <thead>
-                                                <tr class="bg-city text-white">
-                                                    <td colspan="3">
-                                                        SERVICIOS
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        Ventas
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                    <td>
-                                                        $ 0
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Apartados
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                    <td>
-                                                        $ 0
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Telefonos
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                    <td>
-                                                        $ 0
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Reparaciones
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                    <td>
-                                                        $ 0
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <table class="table table-condensed table-bordered">
-                                            <thead>
-                                                <tr class="bg-gray-darker text-white">
-                                                    <td colspan="2">
-                                                        REPARACIONES
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        EN PROCESO
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        FINALIZADAS
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        CANCELADAS
-                                                    </td>
-                                                    <td>
-                                                        0
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                Creada: <?= date('d/m/Y', $sucursal->fecha_registro) ?>
+                            </div>
+                            <h4 class="text-uppercase push-10"><a class="text-primary-dark" href="base_pages_blog_story.html">Sucursal: <?= $sucursal->nombre ?></a></h4>
+                            <em>
+                                Dirección: <span class="text-primary"><?= $sucursal->direccion ?></span>
+                            </em>
+                            <div class="row" style="margin-top:2em;">
+                                <div class="col-xs-12">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr class="bg-success text-white">
+                                                <td colspan="2">
+                                                    INVENTARIO
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Stock
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Apartados
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Por agotar
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Agotados
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-xs-12">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr class="bg-city text-white">
+                                                <td colspan="3">
+                                                    SERVICIOS
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Ventas
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                                <td>
+                                                    $ 0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Apartados
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                                <td>
+                                                    $ 0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Telefonos
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                                <td>
+                                                    $ 0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Reparaciones
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                                <td>
+                                                    $ 0
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-xs-12">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr class="bg-gray-darker text-white">
+                                                <td colspan="2">
+                                                    REPARACIONES
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    EN PROCESO
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    FINALIZADAS
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    CANCELADAS
+                                                </td>
+                                                <td>
+                                                    0
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- END Sucursales -->
                 </div>
-            <?php endforeach; ?>
+                <!-- END Sucursales -->
+            </div>
             
-        </div>
+            <!-- Modal Editar sucursal -->
+            <div class="modal fade" id="modal-editar-sucursal<?= $sucursal->id_sucursal; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-md modal-dialog-popout">
+                    <div class="modal-content">
+                        <?php 
+                        $atributos = array('class="form-horizontal push-10-t block-content"');
+                        echo form_open('backend/MOD_SUCURSALES/sucursales/editar', $atributos);
+                         ?>
+                            <div class="block block-themed block-transparent remove-margin-b">
+                                <div class="block-header bg-primary">
+                                    <ul class="block-options">
+                                        <li>
+                                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                                        </li>
+                                    </ul>
+                                    <h3 class="block-title">Editar información de sucursal</h3>
+                                </div>
+                                <div class="block-content" style="">
+                                    <div class="row">
+                                        <div class="col-md-6 margen-top">
+                                            <label for="usuario_sucursal">* Usuario</label>
+                                            <input type="text" class="form-control" id="usuario_sucursal" name="usuario_sucursal" value="<?= $sucursal->usuario; ?>" required>
+                                        </div>
+                                        <div class="col-md-6 margen-top">
+                                            <label for="password_sucursal">* Contraseña</label>
+                                            <input type="text" class="form-control" id="password_sucursal" name="password_sucursal" value="<?= $sucursal->password; ?>" required>
+                                        </div>
+                                        <div class="col-md-6 margen-top">
+                                            <label for="nombre">* Nombre de la sucursal</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?= $sucursal->nombre; ?>" required>
+                                        </div>
+                                        <div class="col-md-6 margen-top">
+                                            <label for="telefono">* Teléfono</label>
+                                            <input type="text" class="form-control" id="telefono" name="telefono" value="<?= $sucursal->telefono; ?>" required>
+                                        </div>
+                                        <div class="col-md-12 margen-top">
+                                            <label for="direccion">* Dirección de la sucursal</label>
+                                            <textarea class="form-control" name="direccion" id="direccion" required><?= $sucursal->direccion; ?></textarea>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="id_sucursal" value="<?= $sucursal->id_sucursal; ?>">
+                                <input type="hidden" name="fecha_registro" value="<?= time() ?>">
+                                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                                <button id="btn_guardar" class="btn btn-sm btn-warning" type="submit" >
+                                    <i class="fa fa-check"></i> Actualizar información
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- END Modal Editar sucursal -->
+
+        <?php endforeach; ?>
+        
     </div>
-
-
 </div>
 
 <!-- Modal crear sucursal -->
@@ -251,36 +290,28 @@
                         <h3 class="block-title">Registrar Nueva sucursal</h3>
                     </div>
                     <div class="block-content" style="">
-                        <div class="row text-justify">
-                            <!-- Formularios invetario -->
-                            <div id="formularios_inventario">
-                                <div class="form-group">
-                                    <div class="col-sm-6">
-                                        <div class="form-material form-material-primary input-group">
-                                            <input class="form-control" type="text" id="nombre" name="nombre" placeholder="" required>
-                                            <label for="nombre">Nombre de la sucursal</label>
-                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-material form-material-primary input-group">
-                                            <input class="form-control" type="text" id="telefono" name="telefono" placeholder="" required>
-                                            <label for="telefono">Teléfono *</label>
-                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <div class="form-material">
-                                            <textarea class="form-control" id="direccion" name="direccion" rows="3" placeholder="Ingresa la dirección de la nueva sucursal"></textarea>
-                                            <label for="direccion">Dirección de la nueva sucursal</label>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="usuario_sucursal">* Usuario</label>
+                                <input type="text" class="form-control" id="usuario_sucursal" name="usuario_sucursal" required>
                             </div>
-                            <!-- END Formularios inventario -->
+                            <div class="col-md-6">
+                                <label for="password_sucursal">* Contraseña</label>
+                                <input type="text" class="form-control" id="password_sucursal" name="password_sucursal" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="nombre">* Nombre de la sucursal</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="telefono">* Teléfono</label>
+                                <input type="text" class="form-control" id="telefono" name="telefono" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="direccion">* Dirección de la sucursal</label>
+                                <textarea class="form-control" name="direccion" id="direccion" required></textarea>
+                            </div>
+
                         </div>
                     </div>
                 </div>

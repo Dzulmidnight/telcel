@@ -18,23 +18,42 @@
 
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario">
+                                <div class="col-lg-6">
+                                    <label for="fk_id_sucursal">Sucursal</label>
+                                    <select class="form-control" name="fk_id_sucursal_venta" id="fk_id_sucursal_venta" required>
+                                        <option value="">...</option>
+                                        <?php 
+                                            foreach ($row_sucursales as $sucursal) {
+                                                if($sucursal->id_sucursal == $this->session->userdata('id_sucursal')){
+                                                    echo "<option value='{$sucursal->id_sucursal}' selected>{$sucursal->nombre}</option>";
+                                                }else{
+                                                    echo "<option value='{$sucursal->id_sucursal}'>{$sucursal->nombre}</option>";
+                                                }
+                                            }
+                                         ?>
+             
+                                    </select>
+                                </div>
+                                <div class="col-lg-6" style="color:red">
+                                    <label for="id_vendedor_venta">* ID Vendedor</label>
+                                    <input type="number" class="form-control" id="id_vendedor_venta" name="id_vendedor_venta" onkeyup="consultarVendedor(this.value, '<?= base_url(); ?>');" placeholder="ID Vendedor" value="" required>
+                                    <p id="span-nombre-vendedor" style="background:#ecf0f1;padding:.5em;color:#2c3e50;"></p>
+                                </div>
+
                                 <div class="col-lg-12">
                                     <div class="row">
-                                        <div class="col-md-3" style="color:red">
-                                            <label for="id_vendedor_venta">* ID Vendedor</label>
-                                            <input type="number" class="form-control" id="id_vendedor_venta" name="id_vendedor_venta" onkeyup="consultarVendedor(this.value, '<?= base_url(); ?>');" placeholder="ID Vendedor" value="" required>
-                                            <p id="span-nombre-vendedor" style="background:#ecf0f1;padding:.5em;color:#2c3e50;"></p>
+                                        <div class="col-md-12">
+                                            <hr>
                                         </div>
-
                                         <div class="col-md-4" style="color:red">
                                             <label for="codigoCapturado">* Codigo del producto</label>
                                             <input type="text" class="form-control" id="codigoCapturado" name="codigoCapturado" onkeyup="consultarCodigo(this.value, '<?= base_url(); ?>')" placeholder="Introduce el codigo del producto" value="" autofocus required>
                                         </div>
-                                        <div class="col-md-2">
+                                        <div class="col-md-4">
                                             <label for="piezas_venta">* Nº Piezas</label>
                                             <input type="number" class="form-control" disabled id="piezas_venta" name="piezas_venta" placeholder="Nº de piezas" required>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <label for="precio_unitario_venta">* Precio de venta</label>
                                             <input type="number" class="form-control" disabled id="precio_unitario_venta" name="precio_unitario_venta" placeholder="Precio" required>
                                             <input type="hidden" id="precio_real_venta">

@@ -6,6 +6,7 @@ class Sucursales extends CI_Controller{
 
 		$this->load->model('add_model');
 		$this->load->model('consultar_model');
+		$this->load->model('update_model');
 	}
 
 	public function index($tipo = false)
@@ -39,6 +40,8 @@ class Sucursales extends CI_Controller{
 	public function agregar()
 	{
 		$data = array(
+			'usuario' => $this->input->post('usuario_sucursal'),
+			'password' => $this->input->post('password_sucursal'),
 			'nombre' => $this->input->post('nombre'),
 			'telefono' => $this->input->post('telefono'),
 			'direccion' => $this->input->post('direccion'),
@@ -47,6 +50,23 @@ class Sucursales extends CI_Controller{
 
 		if($this->add_model->agregar($data, 'sucursal')){
 			$this->session->set_flashdata('success', "Sucursal agregada");
+		}
+		redirect('backend/MOD_SUCURSALES/sucursales', 'refresh');
+	}
+
+	public function editar(){
+		$id_sucursal = $this->input->post('id_sucursal');
+
+		$data_update = array(
+			'usuario' => $this->input->post('usuario_sucursal'),
+			'password' => $this->input->post('password_sucursal'),
+			'nombre' => $this->input->post('nombre'),
+			'telefono' => $this->input->post('telefono'),
+			'direccion' => $this->input->post('direccion')
+		);
+
+		if($this->update_model->update('sucursal', 'id_sucursal', $id_sucursal, $data_update)){
+			$this->session->set_flashdata('success', "Información actualizada");
 		}
 		redirect('backend/MOD_SUCURSALES/sucursales', 'refresh');
 	}

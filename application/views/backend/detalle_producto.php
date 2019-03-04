@@ -15,8 +15,15 @@
 			</td>
 		</tr>
 		<tr>
+			<td>Sucursal</td>
+			<td class="text-primary"><?= $info_producto->nombre_sucursal; ?></td>
+		</tr>
+		<tr>
 			<td>Piezas</td>
-			<td class="text-primary"><?= $info_producto->piezas; ?></td>
+			<td class="text-primary">
+				<input type="text" id="piezas_existentes" value="<?= $info_producto->piezas; ?>">
+				<?= $info_producto->piezas; ?>
+			</td>
 		</tr>
 		<tr>
 			<td>
