@@ -24,10 +24,10 @@
 <div class="content bg-gray-lighter">
     <div class="block">
         <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
-            <li class="">
+            <li class="active">
                 <a href="#btabs-alt-static-home">Articulos</a>
             </li>
-            <li class="active">
+            <li class="">
                 <a href="#btabs-alt-static-profile">Refacciones</a>
             </li>
             <li class="pull-right">
@@ -36,7 +36,7 @@
         </ul>
         <div class="block-content tab-content">
             <!-- INICIA sección articulos -->
-            <div class="tab-pane " id="btabs-alt-static-home">
+            <div class="tab-pane active" id="btabs-alt-static-home">
                 <h4 class="font-w300 push-15">
                     Listado de articulos: <span class="text-primary"><?= count($row_productos) ?></span>
                 </h4>
@@ -51,8 +51,8 @@
                         </select>
                     </div>
                     <div class="col-md-9 text-right">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-cargar-excel">
-                                <i class="fa fa-cloud-upload"></i> Importar
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-cargar-excel">
+                                <i class="fa fa-cloud-upload"></i> Importar articulos
                         </button>
 
                         <button type="button" class="btn btn-rounded btn-success" data-toggle="modal" data-target="#modal-agregar-producto">
@@ -74,6 +74,9 @@
                                         #
                                     </th>
                                     <th class="encabezado">
+                                        Codigo
+                                    </th>
+                                    <th class="encabezado">
                                         Tipo
                                     </th>
                                     <th class="encabezado">
@@ -85,9 +88,6 @@
 
                                     <th class="encabezado">
                                         Sucursal
-                                    </th>
-                                    <th class="encabezado">
-                                        Codigo
                                     </th>
 
                                     <th class="encabezado">
@@ -117,6 +117,12 @@
                                                 echo $contador;
                                                 $contador++;
                                              ?>
+                                        </td>
+                                        <!-- Codigo de barras del producto -->
+                                        <td>
+                                            <a href="#" onclick="mostrarCodigo('<?= base_url(); ?>','<?= $producto->codigo_barras ?>');">
+                                                <i class="si si-printer"></i> <?= $producto->codigo_barras ?>
+                                            </a>
                                         </td>
                                         <!-- Tipo -->
                                         <td>
@@ -154,13 +160,6 @@
                                             <button class="btn btn-xs btn-default" data-toggle="tooltip" title="Nom. Sucur">
                                                 <i class="si si-home"></i> 0
                                             </button>-->
-                                        </td>
-
-                                        <!-- Codigo de barras del producto -->
-                                        <td>
-                                            <a href="#" onclick="mostrarCodigo('<?= base_url(); ?>','<?= $producto->codigo_barras ?>');">
-                                                <i class="si si-printer"></i> <?= $producto->codigo_barras ?>
-                                            </a>
                                         </td>
 
                                         <!-- Cantidad -->
@@ -230,7 +229,7 @@
             <!-- TERMINA sección articulos -->
 
             <!-- INICIA sección Refacciones -->
-            <div class="tab-pane active" id="btabs-alt-static-profile">
+            <div class="tab-pane" id="btabs-alt-static-profile">
                 <h4 class="font-w300 push-15">
                     Listado Refacciones: <span class="text-primary"><?= count($row_refacciones); ?></span>
                 </h4>
@@ -445,7 +444,7 @@
 <!-- END Page Header -->
 
 
-<!-- Modal importar datos -->
+<!-- Modal importar Listado de Articulos -->
 <div class="modal fade" id="modal-cargar-excel" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-popout">
         <div class="modal-content">
@@ -457,7 +456,7 @@
                                 <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
                             </li>
                         </ul>
-                        <h3 class="block-title">Importar datos</h3>
+                        <h3 class="block-title">Importar Listado de articulos</h3>
                     </div>
                     <div class="block-content" style="margin-bottom: 4em;">
                         <div class="row text-justify">
@@ -502,7 +501,7 @@
         </div>
     </div>
 </div>
-<!-- END Modal importar datos -->
+<!-- END Modal importar Listado de Articulos -->
 
 <!-- MODAL importar datos refacciones -->
 <div class="modal fade" id="modal-cargar-excel-refacciones" tabindex="-1" role="dialog" aria-hidden="true">
@@ -516,12 +515,26 @@
                                 <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
                             </li>
                         </ul>
-                        <h3 class="block-title">Importar datos de refacciones</h3>
+                        <h3 class="block-title">Importar Listado de refacciones</h3>
                     </div>
                     <div class="block-content" style="margin-bottom: 4em;">
                         <div class="row text-justify">
                             <div class="col-md-7">
                                 <div class="row">
+                                    <div class="col-xs-12">
+                                        <label for="fk_id_sucursal">
+                                            * Seleccione un sucursal
+                                        </label>
+                                        <select class="form-control" name="fk_id_sucursal" id="fk_id_sucursal" required>
+                                            <option value="">Listado de sucursales</option>
+                                            <?php 
+                                                foreach ($row_sucursales as $sucursal) {
+                                                    echo '<option value="'.$sucursal->id_sucursal.'">'.$sucursal->nombre.'</option>';
+                                                }
+                                             ?>
+                                        </select>    
+                                    </div>
+
                                     <div class="col-xs-12" style="margin-top: 1em;">
                                         <!-- Formulario de registro de usuario -->
                                             <label for="archivo_datos">* Selecciona el Excel con los datos que deseas cargar</label>
@@ -655,7 +668,7 @@
                                         Número de codigos a generar
                                     </label>
 
-                                    <input type="number" class="form-control" id="numCodigosRefaccion" name="numCodigos" min="1" onkeyup="descargarPdf('numCodigosRefaccion', '<?= base_url(); ?>', '', 'refaccion');" value="1">
+                                    <input type="number" class="form-control" id="numCodigosRefaccion" name="numCodigosRefaccion" min="1" onkeyup="descargarPdf('numCodigosRefaccion', '<?= base_url(); ?>', '', 'refaccion');" value="1">
                                     <input type="hidden" id="codigoBarras" name="codigoBarras" value="">
                                     <br>
 

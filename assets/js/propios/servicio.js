@@ -1,3 +1,19 @@
+function historialServicios(idSucursal, idServicio, url){
+    var xmlhttp = new XMLHttpRequest;
+    var ruta = url + 'backend/MOD_SERVICIOS/Servicios/historial_pagos/' + idSucursal+ '/' +idServicio;
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById('div-historial-pagos').innerHTML = this.responseText;
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send();
+    
+    $('#modal-historial-pagos').modal('show');
+}
+
 
 function limpiarCampo(id){
     document.getElementById(id).value = '';

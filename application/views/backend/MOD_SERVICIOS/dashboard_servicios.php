@@ -15,7 +15,7 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                DASHBOARD SERVICIOS
+                DASHBOARD SERVICIOS (<span><?= $num_servicios; ?></span>)
             </h3>
         </div>
 
@@ -34,11 +34,10 @@
 
 <div class="content">
     <!-- Active Projects -->
-    <h2 class="content-heading">Activos (<?= $num_servicios; ?>)</h2>
     <div class="row">
         <div class="col-lg-12">
             <?php foreach($row_servicios_sucursal as $servicio): ?>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <!-- Project -->
                     <div class="block block-rounded block-themed">
                         <div class="block-header bg-modern">
@@ -76,13 +75,13 @@
                                     $anio = date('Y', time());
 
                                     if($dia_actual <= $dia){
-                                        $fecha_corte = $anio.'-'.$mes.'-'.$dia;
-                                        echo '<p>El final es: '.$fecha_corte.'</p>';
+                                        $fecha_corte = $dia.'-'.$mes.'-'.$anio;
+                                        echo '<p>Fecha limite de pago: <span style="color:#ecf0f1;">'.$fecha_corte.'</span></p>';
                                     }else{
-                                        $fecha_servicio = $anio.'-'.$mes.'-'.$dia;
+                                        $fecha_servicio = $dia.'-'.$mes.'-'.$anio;
 
-                                        $fecha_corte = date('Y-m-d', strtotime($fecha_servicio . ' + '.$periodo));
-                                        echo '<p>El final es: '.$fecha_corte.'</p>';
+                                        $fecha_corte = date('d-m-Y', strtotime($fecha_servicio . ' + '.$periodo));
+                                        echo '<p>Fecha limite de pago: <span style="color:#ecf0f1;">'.$fecha_corte.'</span></p>';
                                     }
 
                                  ?>
@@ -94,10 +93,10 @@
                                     <i class="fa fa-check-circle-o"></i> Pagar
                                 </button>
 
-                                <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Comprobante de pago">
+                                <!--<a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Comprobante de pago">
                                     <i class="fa fa-files-o"></i>
-                                </a>
-                                <a class="btn btn-default js-tooltip" href="javascript:void(0)" title="Fecha de notificaciones">
+                                </a>-->
+                                <a class="btn btn-default js-tooltip" href="#" title="Historial de pagos" onclick="historialServicios(<?= $servicio->fk_id_sucursal; ?>, <?= $servicio->id_recordatorio_pago; ?>, '<?= base_url(); ?>')">
                                     <i class="fa fa-calendar-o"></i>
                                 </a>
                             </div>
@@ -116,34 +115,60 @@
                 <div class="modal fade" id="modal-pagar-servicio<?= $servicio->id_recordatorio_pago; ?>" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-md modal-dialog-popout">
                         <div class="modal-content">
-                            <form class="form-horizontal push-10-t block-content" action="<?= base_url(); ?>/backend/MOD_SERVICIOS/Servicios/agregar_servicio" method="post">
+                            <form enctype="multipart/form-data" class="form-horizontal push-10-t block-content" action="<?= base_url(); ?>/backend/MOD_SERVICIOS/Servicios/realizar_pago" method="post">
                                 <div class="block block-themed block-transparent remove-margin-b">
-                                    <div class="block-header bg-primary-dark">
+                                    <div class="block-header bg-success">
                                         <ul class="block-options">
                                             <li>
                                                 <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
                                             </li>
                                         </ul>
-                                        <h3 class="block-title">Registrar nuevo servicio</h3>
+                                        <h3 class="block-title">
+                                            Registrar pago de servicio
+                                        </h3>
                                     </div>
                                     <div class="block-content" style="margin-bottom: 4em;">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <label for="fk_id_sucursal">
+                                                    Pago de sucusal
+                                                </label>
+                                                <select name="fk_id_sucursal" id="fk_id_sucursal" required>
+                                                    <option value="">
+                                                        Listado de sucursales
+                                                    </option>
+
+                                                    <?php 
+                                                        foreach ($row_sucursales as $sucursal) {
+                                                            if($sucursal->id_sucursal == $this->session->userdata('id_sucursal')){
+                                                                echo '<option value="'.$sucursal->id_sucursal.'" selected>'.$sucursal->nombre.'</option>';
+                                                            }else{
+                                                                echo '<option value="'.$sucursal->id_sucursal.'">'.$sucursal->nombre.'</option>';
+                                                            }
+                                                        }
+                                                     ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
                                                 <p>
                                                     Servicio: <b><?= $servicio->nombre; ?></b>
                                                 </p>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <p>
-                                                    Fecha de corte: <b><?= $servicio->dia; ?></b>
+                                                    Fecha de corte: <b><?= $fecha_corte; ?></b>
                                                 </p>
                                             </div>
                                             <div class="col-md-12">
-                                                <label for="monto_pagado">Monto pagado *</label>
+                                                <label for="monto_pagado">
+                                                    * Monto pagado
+                                                </label>
                                                 <input type="text" class="form-control" id="monto_pagado" name="monto_pagado" placeholder="$ 000.00">
                                             </div>
                                             <div class="col-md-12">
-                                                <label for="comprobante_pago">Comprobante de Pago</label>
+                                                <label for="comprobante_pago">
+                                                    Comprobante de Pago
+                                                </label>
                                                 <input type="file" class="form-control" id="comprobante_pago" name="comprobante_pago">
                                             </div>
                                         </div>
@@ -151,11 +176,14 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                    <input type="hidden" name="fk_id_catalogo_servicio" value="<?= $servicio->id_catalogo_servicio; ?>">
                                     <input type="hidden" name="fecha_registro" value="<?= time(); ?>">
-                                    <input type="hidden" name="id_sucursal" value="<?= $this->session->userdata('id_sucursal'); ?>">
-
-                                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                                    <button class="btn btn-sm btn-success" type="submit">Registrar</button>
+                                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button class="btn btn-sm btn-success" type="submit">
+                                        Registrar pago
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -273,6 +301,39 @@
     <!-- END Active Projects -->
 </div>
 
+
+<!-- Historial pagos realizados -->
+<div class="modal fade" id="modal-historial-pagos" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-popout">
+        <div class="modal-content">
+            <form class="form-horizontal push-10-t block-content" action="<?= base_url(); ?>/backend/MOD_SERVICIOS/Servicios/agregar_servicio" method="post">
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Historial de pagos realizados</h3>
+                    </div>
+                    <div class="block-content" style="margin-bottom: 4em;">
+                        <div id="div-historial-pagos" class="">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END Historial pagos realizados -->
+
+
+
 <!-- Registrar Catalogo Servicio -->
 <div class="modal fade" id="modal-agregar-servicio" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-md modal-dialog-popout">
@@ -372,5 +433,6 @@
 </script>
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>

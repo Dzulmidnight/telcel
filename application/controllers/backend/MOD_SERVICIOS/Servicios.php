@@ -299,4 +299,60 @@ class Servicios extends CI_Controller{
 
 		redirect('backend/MOD_SERVICIOS/Servicios/pago_servicios', 'refresh');
 	}
+
+	public function realizar_pago(){
+		$fk_id_catalogo_servicio = $this->input->post('fk_id_catalogo_servicio');
+		$fk_id_sucursal = $this->input->post('fk_id_sucursal');
+		$monto = $this->input->post('monto_pagado');
+		$comprobante_pago = '';
+		$fecha_registro = $this->input->post('fecha_registro');
+
+
+		/* cargar comprobante de pago */
+			$ruta_de_carga = 'assets/img/comprobante_pago/';
+			$nombreArchivo = strtolower('comprobante_pago'.$fecha_registro.'_'.$fk_id_catalogo_servicio);
+
+		   	$img_comprobante = 'comprobante_pago';
+		    $config['upload_path'] = $ruta_de_carga;
+		    $config['file_name'] = $nombreArchivo;
+		    $config['allowed_types'] = "*";
+		    $config['max_size'] = 0;
+		    $config['remove_spaces'] = true;
+
+		    $this->load->library('upload', $config);
+
+		    if (!$this->upload->do_upload($img_comprobante)) {
+		        //*** ocurrio un error
+		        /*$data['uploadError'] = $this->upload->display_errors();
+		        echo $this->upload->display_errors();
+		        return;*/
+		    }else{
+		    	$nombre_archivo = $this->upload->data('file_name');
+		    	$ruta_definida = $ruta_de_carga.$nombre_archivo;
+
+		    	$comprobante_pago = $ruta_definida;
+		    }
+
+
+		$data_pago = array(
+			'fk_id_catalogo_servicio' => $fk_id_catalogo_servicio,
+			'fk_id_sucursal' => $fk_id_sucursal,
+			'monto' => $monto,
+			'comprobante_pago' => $comprobante_pago,
+			'fecha_registro' => $fecha_registro
+		);
+		$this->add_model->agregar($data_pago, 'pago_servicio');
+
+		$this->session->set_flashdata('success', "Información registrada");
+		redirect('backend/MOD_SERVICIOS/Servicios/pago_servicios', 'refresh');
+	}
+
+	public function historial_pagos($id_sucursal, $id_servicio){
+		$data['row_historial_pagos'] = $this->consultar_model->historial_pagos($id_sucursal, $id_servicio);
+
+		$vista = $this->load->view('backend/MOD_SERVICIOS/tabla_historial_pagos', $data, true);
+
+		echo $vista;
+
+	}
 }

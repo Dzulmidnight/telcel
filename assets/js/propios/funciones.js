@@ -200,18 +200,12 @@ JsBarcode("#barcode3", "2147483647");
 }
 
 function mostrarCodigo(direccion, codigo){
-    var codigo = codigo;
-    console.log(codigo);
-
-
-    console.log(direccion);
     ruta = direccion+'backend/InformacionProducto';
-    codigoBarras = codigo;
 
-    objetoJson = JSON.stringify(codigoBarras);
+    objetoJson = JSON.stringify(codigo);
+    console.log(objetoJson);
+
     var xmlhttp = new XMLHttpRequest();
-
-
     xmlhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
             //console.log(this.responseText);
@@ -221,10 +215,8 @@ function mostrarCodigo(direccion, codigo){
             if(this.responseText == 'Articulo no encontrado'){
                 console.log('no se muestra tabla');
             }
-
         }
     }
-
     xmlhttp.open("POST", ruta, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("codigo="+objetoJson);
@@ -236,7 +228,7 @@ function mostrarCodigo(direccion, codigo){
         displayValue: true
     });
     document.getElementById('codigoBarras').value = codigo;
-    document.getElementById('linkPdf').href = direccion+'backend/createPdf/index/1/'+codigo+'/'+pieza;
+    document.getElementById('linkPdf').href = direccion+'backend/createPdf/index/1/'+codigo+'/'+'articulo';
 
 }
 
@@ -469,12 +461,13 @@ function limpiar(){
 function descargarPdf(id, direccion, cantidad, tipo){
     //document.getElementById('btnCodigo').innerHTML = 'LOASDFASF';
     var cantidad, codigo;
+    console.log(id);
 
     cantidad = document.getElementById(id).value;
     codigo = document.getElementById('codigoBarras').value;
 
 
-    document.getElementById('linkPdf').href = direccion+'backend/Createpdf/index/'+cantidad+'/'+codigo+'/'+tipo+'';
+    document.getElementById('linkPdfRefaccion').href = direccion+'backend/Createpdf/index/'+cantidad+'/'+codigo+'/'+tipo+'';
 }
 
 function reemplazar(){

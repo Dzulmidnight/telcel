@@ -45,6 +45,7 @@ class Consultar_model extends CI_Model{
 
         public function servicios_sucursal($id_sucursal = false){
                 $this->db->select('
+                        catalogo_servicio.id_catalogo_servicio,
                         recordatorio_pago.id_recordatorio_pago,
                         recordatorio_pago.dia,
                         recordatorio_pago.periodo,
@@ -59,6 +60,26 @@ class Consultar_model extends CI_Model{
                 if($id_sucursal){
                         $this->db->where('recordatorio_pago.fk_id_sucursal', $id_sucursal);
                 }
+                $query = $this->db->get();
+                $result = $query->result();
+
+                return $result;
+        }
+
+        public function historial_pagos($id_sucursal, $id_servicio){
+                $this->db->select('
+                        sucursal.nombre as nombre_sucursal,
+                        catalogo_servicio.nombre as nombre_servicio,
+                        pago_servicio.*
+                ');
+                $this->db->from('pago_servicio');
+                $this->db->join('sucursal', 'sucursal.id_sucursal = pago_servicio.fk_id_sucursal');
+                $this->db->join('catalogo_servicio', 'catalogo_servicio.id_catalogo_servicio = pago_servicio.fk_id_catalogo_servicio');
+                $this->db->where('pago_servicio.fk_id_sucursal', $id_sucursal);
+                $this->db->where('pago_servicio.fk_id_catalogo_servicio', $id_servicio);
+
+                $this->db->order_by('pago_servicio.fecha_registro', 'DESC');
+
                 $query = $this->db->get();
                 $result = $query->result();
 
@@ -377,8 +398,8 @@ class Consultar_model extends CI_Model{
                 $this->db->from('producto');
                 $this->db->join('categoria_producto', 'categoria_producto.id_categoria_producto = producto.fk_id_categoria_producto', 'left');
                 $this->db->join('sub_categoria_producto', 'sub_categoria_producto.id_sub_categoria_producto = producto.fk_id_sub_categoria_producto', 'left');
-                $this->db->join('sucursal_producto', 'sucursal_producto.fk_id_producto = producto.id_producto');
-                $this->db->join('sucursal', 'sucursal.id_sucursal = sucursal_producto.fk_id_producto');
+                $this->db->join('sucursal_producto', 'sucursal_producto.fk_id_producto = producto.id_producto', 'left');
+                $this->db->join('sucursal', 'sucursal.id_sucursal = sucursal_producto.fk_id_producto', 'left');
 
                 $this->db->where('producto.codigo_barras', $codigo);
 
@@ -388,9 +409,11 @@ class Consultar_model extends CI_Model{
                 //$this->db->like('producto.codigo_barras', $codigo);
 
                 $query = $this->db->get();
+                // imprimir la consultar realizada => echo $this->db->last_query();
                 $result = $query->row();
 
                 return $result;
+
         }
         //// END PRODUCTOS ////
 

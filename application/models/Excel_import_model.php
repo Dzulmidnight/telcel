@@ -7,10 +7,10 @@ class Excel_import_model extends CI_Model
 		$query = $this->db->get('tbl_customer');
 		return $query;
 	}
-	function insert($data)
+	function insert($tabla, $data)
 	{
 		//$this->db->insert_batch('producto', $data);
-		$this->db->insert('producto', $data);
+		$this->db->insert($tabla, $data);
 	}
 
 	function insert_array($tabla, $data)
