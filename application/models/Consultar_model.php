@@ -495,7 +495,7 @@ class Consultar_model extends CI_Model{
 
 
         //// MOD FINANZAS
-                public function listado_ventas($limite = false){
+                public function listado_ventas($limite = false, $sucursal = false){
                         $this->db->select('
                              producto_venta.id_producto_venta,
                              producto_venta.precio_venta,
@@ -510,13 +510,18 @@ class Consultar_model extends CI_Model{
                              producto.nombre as nombre_producto,
                              producto.modelo,
                              producto.color,
-                             sucursal.nombre as nombre_sucursal
+                             sucursal.nombre as nombre_sucursal,
+                             users.nombre as nombre_vendedor
                         ');
                         $this->db->from('producto_venta');
                         $this->db->join('producto', 'producto.id_producto = producto_venta.fk_id_producto');
                         $this->db->join('ticket', 'ticket.id_ticket = producto_venta.fk_id_ticket');
                         $this->db->join('sucursal', 'sucursal.id_sucursal = producto_venta.fk_id_sucursal');
+                        $this->db->join('users', 'users.id_user = producto_venta.fk_id_usuario');
                         $this->db->order_by('producto_venta.fecha_registro', 'DESC');
+                        if($sucursal){
+                                $this->db->where('producto_venta.fk_id_sucursal', $sucursal);
+                        }
                         if($limite){
                                 $this->db->limit($limite);
                         }

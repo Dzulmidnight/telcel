@@ -51,7 +51,7 @@
         <li>
             
             <div class="btn-group">
-                <a class="btn btn-default" tabindex="-1" href="<?= base_url('login/logout_ci'); ?>" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión">
+                <a class="btn btn-danger" tabindex="-1" href="<?= base_url('login/logout_ci'); ?>" data-toggle="tooltip" data-placement="bottom" title="Cerrar sesión">
                     <i class="si si-logout pull-right"></i>
                 </a>
             </div>
@@ -102,6 +102,7 @@
 <main id="main-container">
 
 <?php 
+
     if($this->session->flashdata('success')){
         $mensaje = $this->session->flashdata('success');
     ?>

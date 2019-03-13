@@ -130,7 +130,11 @@
                                         </td>
                                         <!-- Img del producto -->
                                         <td>
-                                            <img src="<?= base_url($producto->imagen); ?>" width="60px;" height="60px;" alt="">
+                                            <?php 
+                                                if(isset($producto->imagen)){
+                                                    echo '<img src="'.base_url($producto->imagen).'" width="60px" height="60px" alt="">';
+                                                }
+                                             ?>
                                         </td>
                                         <!-- Nombre articulo -->
                                         <td>

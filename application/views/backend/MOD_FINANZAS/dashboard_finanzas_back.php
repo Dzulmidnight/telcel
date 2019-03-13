@@ -9,16 +9,14 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
 
-<?php 
-    $sucursal_gral = $this->session->userdata('id_sucursal');
- ?>
+
 
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                FINANZAS - VENTAS
+                DASHBOARD FINANZAS
             </h3>
         </div>
 
@@ -35,170 +33,18 @@
 <!-- Page Content -->
 <div class="content">
 
-    <!-- Navigation -->
-    <div class="bg-gray-light border-b">
-        <ul class="nav nav-pills push">
-            <li class="active">
-                <a href="javascript:void(0)"><i class="fa fa-fw fa-home push-5-r"></i> Productos</a>
-            </li>
-            <li>
-                <a href="javascript:void(0)"><i class="fa fa-fw fa-pencil push-5-r"></i> Servicios</a>
-            </li>
-            <li>
-                <a href="javascript:void(0)"><i class="fa fa-fw fa-pencil push-5-r"></i> Reparaciones</a>
-            </li>
-
-            <li>
-                <a href="javascript:void(0)"><i class="fa fa-envelope"></i></a>
-            </li>
-        </ul>
-    </div>
-    <!-- END Navigation -->
-    <div class="row">
-
-        <div class="col-sm-6 col-lg-3">
-            <a class="block block-bordered block-link-hover3 text-center" href="javascript:void(0)">
-                <div class="block-content block-content-full bg-gray-lighter border-b">
-                    <div class="h1 font-w700">
-                        <?= $num_productos; ?>
-                    </div>
-                    <div class="h5 text-muted text-uppercase push-5-t">Productos</div>
-                </div>
-                <div class="block-content block-content-full block-content-mini">
-                    <i class="fa fa-arrow-down text-danger"></i> -5% Está semana
-                </div>
-            </a>
-        </div>
-        <div class="col-sm-6 col-lg-3">
-            <a class="block block-bordered block-link-hover3 text-center" href="javascript:void(0)">
-                <div class="block-content block-content-full bg-gray-lighter border-b">
-                    <div class="h1 font-w700"><span class="h2 text-muted">$</span> <?= $monto_ventas; ?></div>
-                    <div class="h5 text-muted text-uppercase push-5-t">Monto</div>
-                </div>
-                <div class="block-content block-content-full block-content-mini">
-                    <i class="fa fa-arrow-up text-success"></i> +50% Está semana
-                </div>
-            </a>
-        </div>
-    </div>
-
-
     <div class="row">
         <div class="col-lg-12" style="margin-bottom:1em;">
             <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width:20%" data-placeholder="Filtrar por sucursales" multiple>
                 <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                <?php 
-                    foreach ($row_sucursales as $sucursal) {
-                        if($sucursal_gral == $sucursal->id_sucursal){
-                            echo '<option value="'.$sucursal->id_sucursal.'" selected>'.$sucursal->nombre.'</option>';
-                        }else{
-                            echo '<option value="'.$sucursal->id_sucursal.'">'.$sucursal->nombre.'</option>';
-                        }
-                    }
-                 ?>
+                <option value="1">Sucursal 1</option>
+                <option value="2">Sucursal 2</option>
+                <option value="3">Sucursal 3</option>
             </select>
         </div>
 
+
         <!-- Articulos mas vendidos -->
-        <div class="col-lg-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="success text-center" colspan="9">
-                            REGISTRO DE VENTAS REALIZADAS
-                        </th>
-                    </tr>
-                    <tr>
-                        <th style="font-size:12px;">
-                            #
-                        </th>
-                        <th style="font-size:12px;">
-                            ID
-                        </th>
-                        <th style="font-size:12px;">
-                            FECHA
-                        </th>
-                        <th style="font-size:12px;">
-                            SUCURSAL
-                        </th>
-                        <th style="font-size:12px;">
-                            VENDEDOR
-                        </th>
-                        <th style="font-size:12px;">
-                            ARTICULO
-                        </th>
-                        <th style="font-size:12px;">
-                            VENDIDOS
-                        </th>
-                        <th style="font-size:12px;">
-                            MONTO
-                        </th>
-                        <th style="font-size:12px;">
-                            STOCK
-                        </th>
-                    </tr>
-                </thead>
-                <tbody style="font-size:12px;">
-                    <?php
-                        $contador = 0;
-                        foreach ($row_listado_ventas as $venta) {
-                        $contador++;
-                    ?>
-                            <tr>
-                                <!-- # -->
-                                <td>
-                                    <?= $contador; ?>
-                                </td>
-
-                                <!-- ID VENTA -->
-                                <td>
-                                    <?= $venta->id_producto_venta; ?>
-                                </td>
-
-                                <!-- FECHA VENTA -->
-                                <td>
-                                    <?= date('d/m/Y', $venta->fecha_venta); ?>
-                                </td>
-
-                                <!-- SUCURSAL -->
-                                <td>
-                                    <?= $venta->nombre_sucursal; ?>
-                                </td>
-
-                                <!-- VENDEDOR -->
-                                <td>
-                                    <?= $venta->nombre_vendedor; ?>
-                                </td>
-
-                                <!-- ARTICULO -->
-                                <td>
-                                    <?= $venta->nombre_producto; ?>
-                                </td>
-
-                                <!-- VENDIDOS -->
-                                <td>
-                                    <b>
-                                        <?= $venta->piezas; ?>
-                                    </b>
-                                </td>
-
-                                <!-- TOTAL VENTA -->
-                                <td>
-                                    <?= $venta->total; ?>
-                                </td>
-
-                                <!-- STOCK -->
-                                <td style="background:#ecf0f1; color:#2c3e50;">
-                                    <?= $venta->stock_producto; ?>
-                                </td>
-                            </tr>
-                    <?php
-                        }
-                     ?>
-                </tbody>
-            </table>
-        </div>
-
         <div class="col-xs-6 col-lg-6">
             <div class="block block-themed">
                 <div class="block-header bg-success">
@@ -265,7 +111,7 @@
                             
                              <tr class="text-center">
                                  <td colspan="6">
-                                     <a href="<?= base_url('backend/MOD_FINANZAS/Finanzas/listado_ventas'); ?>">
+                                     <a href="#">
                                          <i class="fa fa-search"></i> Consultar todos
                                      </a>
                                  </td>
@@ -361,6 +207,109 @@
         <!-- END Articulos con mayor tiempo -->
     </div>
 
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <a class="block block-link-hover1" href="javascript:void(0)">
+                        <div class="block-content block-content-full clearfix">
+                            <div class="pull-right push-15-t push-15">
+                                <i class="fa fa-bar-chart-o fa-2x text-amethyst"></i>
+                            </div>
+                            <div class="h2 text-success" data-toggle="countTo" data-to="48">
+                               <span class="h2 text-muted">+</span> $ 7,000
+                            </div>
+                            <div class="text-uppercase font-w600 font-s12 text-muted">Balance del dia</div>
+                        </div>
+
+                        <div class="block-content block-content-full text-center">
+                            <!-- Lines Chart Container -->
+                            <canvas class="js-chartjs2-lines"></canvas>
+                        </div>
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-xs-6 ">
+                            <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_SERVICIOS/servicios/listado'); ?>">
+                                <div class="block-content block-content-full clearfix">
+                                    <div class="pull-right push-15-t push-15">
+                                        <i class="fa fa-users fa-2x text-primary"></i>
+                                    </div>
+                                    <div class="h2 text-primary" data-toggle="countTo" data-to="36300">
+                                        <span class="h2 text-muted">+</span> $ 2,000
+                                    </div>
+                                    <div class="text-uppercase font-w600 font-s12 text-muted">Servicios Express</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6 ">
+                            <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_SERVICIOS/servicios/listado'); ?>">
+                                <div class="block-content block-content-full clearfix">
+                                    <div class="pull-right push-15-t push-15">
+                                        <i class="fa fa-briefcase fa-2x text-smooth"></i>
+                                    </div>
+                                    <div class="h2 text-smooth" data-toggle="countTo" data-to="360">
+                                        <span class="h2 text-muted">+</span> $ 6,000
+                                    </div>
+                                    <div class="text-uppercase font-w600 font-s12 text-muted">Telefonos</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-xs-6 ">
+                            <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_SERVICIOS/servicios/listado'); ?>">
+                                <div class="block-content block-content-full clearfix">
+                                    <div class="pull-right push-15-t push-15">
+                                        <i class="fa fa-line-chart fa-2x text-gray"></i>
+                                    </div>
+                                    <div class="h2 text-gray" data-toggle="countTo" data-to="760" data-before="$">$ 0</div>
+                                    <div class="text-uppercase font-w600 font-s12 text-muted">Otros</div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-xs-6 ">
+                            <a class="block block-link-hover1" href="<?php echo base_url('backend/MOD_SERVICIOS/servicios/listado'); ?>">
+                                <div class="block-content block-content-full clearfix">
+                                    <div class="pull-right push-15-t push-15">
+                                        <i class="fa fa-bar-chart-o fa-2x text-danger"></i>
+                                    </div>
+                                    <div class="h2 text-danger" data-toggle="countTo" data-to="48">- $ 1,000</div>
+                                    <div class="text-uppercase font-w600 font-s12 text-muted">Pago servicios</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <!-- Ventas de la semana -->
+            <div class="block">
+                <div class="block-header">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Ventas por sucursal</h3>
+                </div>
+                <div class="block-content text-center">
+                    <!-- Bars Chart Container -->
+                    <canvas class="js-chartjs2-bars"></canvas>
+                </div>
+            </div>
+            <!-- END Ventas de la semana -->
+        </div>
+
+    </div>
+
 </div>
 
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
@@ -368,6 +317,7 @@
 <script src="<?php echo base_url(); ?>assets/js/plugins/chartjsv2/Chart.min.js"></script>
 <!-- Page JS Code -->
 <script src="<?php echo base_url(); ?>assets/js/pages/base_comp_chartjs_v2.js"></script>
+
 
 
 <script>

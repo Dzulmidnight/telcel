@@ -21,7 +21,7 @@
 		<tr>
 			<td>Piezas</td>
 			<td class="text-primary">
-				<input type="text" id="piezas_existentes" value="<?= $info_producto->piezas; ?>">
+				<input type="hidden" id="piezas_existentes" value="<?= $info_producto->piezas; ?>">
 				<?= $info_producto->piezas; ?>
 			</td>
 		</tr>
@@ -62,7 +62,13 @@
 		</tr>
 		<tr>
 			<td>Imagen</td>
-			<td><img src="<?= base_url($info_producto->imagen); ?>" alt="" style="width:100px;height:100px;"></td>
+			<td>
+				<?php 
+				    if(isset($info_producto->imagen)){
+				        echo '<img src="'.base_url($info_producto->imagen).'" style="width:100px;height:100px;" alt="">';
+				    }
+				 ?>
+			</td>
 		</tr>
 	</tbody>
 </table>

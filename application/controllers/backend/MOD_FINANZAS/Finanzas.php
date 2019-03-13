@@ -13,8 +13,17 @@ class Finanzas extends CI_Controller{
 
 	public function index()
 	{
+		$data['row_sucursales'] = $this->consultar_model->sucursales();
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
-		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas(5);
+		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas(false, false);
+
+		$data['monto_ventas'] = 0;
+		$data['num_productos'] = 0;
+
+		foreach ($data['row_listado_ventas'] as $venta) {
+			$data['monto_ventas'] += $venta->total;
+			$data['num_productos'] += $venta->piezas;
+		}
 
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
@@ -24,14 +33,23 @@ class Finanzas extends CI_Controller{
 		$this->load->view('backend/template/footer');	
 	}
 
-	public function listado()
+	public function listado_ventas()
 	{
+		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas();
+		$data['row_sucursales'] = $this->consultar_model->sucursales();
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');
 		$this->load->view('backend/template/header');
-			$this->load->view('backend/MOD_FINANZAS/listado_inventario', $data);
+			$this->load->view('backend/MOD_FINANZAS/tabla_ventas', $data);
 		$this->load->view('backend/template/footer');
+	}
+
+	public function tabla_ventas($sucursal = false){
+		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas(false, $sucursal);
+
+		$vista = $this->load->view('backend/MOD_FINANZAS/tabla_ventas_ajax', $data, true);
+		echo $vista;
 	}
 }

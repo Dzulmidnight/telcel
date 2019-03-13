@@ -1225,11 +1225,11 @@ function sucursalDestino(url){
 
         xmlhttp.onreadystatechange = function(){
             if(this.readyState == 4 && this.status == 200){
-                var respuesta = JSON.parse(this.responseText);
+                //var respuesta = JSON.parse(this.responseText);
                 console.log(this.responseText);
                 fk_id_ticket = this.responseText;
 
-                console.log('EL FK_ID_TICKET: '+fk_id_ticket);
+                //console.log('EL FK_ID_TICKET: '+fk_id_ticket);
                 $('#modalVenta').modal('toggle');
             
                 swal({
