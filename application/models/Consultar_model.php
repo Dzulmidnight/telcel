@@ -535,8 +535,48 @@ class Consultar_model extends CI_Model{
 
 
         /// CONSULTAR SERVICIOS
-                public function pago_servicios(){
-  
+                public function pago_servicios($inicio = false, $fin = false, $sucursal = false){
+                        $this->db->select("
+                             producto_venta.id_producto_venta,
+                             producto_venta.precio_venta,
+                             producto_venta.fk_id_producto,
+                             producto_venta.fk_id_sucursal,
+                             producto_venta.fk_id_usuario,
+                             producto_venta.fk_id_ticket,
+                             producto_venta.fecha_registro as fecha_venta,
+                             ticket.piezas,
+                             ticket.total,
+                             producto.piezas as stock_producto,
+                             producto.nombre as nombre_producto,
+                             producto.modelo,
+                             producto.color,
+                             sucursal.nombre as nombre_sucursal,
+                             users.nombre as nombre_vendedor,
+                             FROM_UNIXTIME(producto_venta.fecha_registro, '%d/%m/%Y') AS `created_at`
+                        ");
+                        $this->db->from('producto_venta');
+                        $this->db->join('producto', 'producto.id_producto = producto_venta.fk_id_producto');
+                        $this->db->join('ticket', 'ticket.id_ticket = producto_venta.fk_id_ticket');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = producto_venta.fk_id_sucursal');
+                        $this->db->join('users', 'users.id_user = producto_venta.fk_id_usuario');
+                        $this->db->order_by('producto_venta.fecha_registro', 'DESC');
+                        if($sucursal){
+                                foreach ($sucursal as $valor) {
+                                        $this->db->or_where('producto_venta.fk_id_sucursal', $valor);
+                                }
+                        }
+                        if($inicio && $fin){
+                                $where = "BETWEEN $inicio  AND $fin";
+                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') <",$fin);
+                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') >",$inicio);
+                                //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
+                        }
+
+                        $query = $this->db->get();
+                        $result = $query->result();
+
+                        //echo $this->db->last_query();
+                        return $result;                
                 }
         /// END CONSULTAR SERVICIOS
 

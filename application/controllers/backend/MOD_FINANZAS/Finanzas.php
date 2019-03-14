@@ -47,9 +47,17 @@ class Finanzas extends CI_Controller{
 	}
 
 	public function tabla_ventas($sucursal = false){
-		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas(false, $sucursal);
+		header("Content-type: application/json");
+
+		$obj = json_decode($_POST['objeto'], false);
+		$inicio = $obj[0];
+		$fin = $obj[1];
+		$sucursal = $obj[2];
+
+		$data['row_listado_ventas'] = $this->consultar_model->pago_servicios($inicio, $fin, $sucursal);
 
 		$vista = $this->load->view('backend/MOD_FINANZAS/tabla_ventas_ajax', $data, true);
+
 		echo $vista;
 	}
 }

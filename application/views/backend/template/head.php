@@ -41,7 +41,7 @@
 
         <!-- Bootstrap and OneUI CSS framework -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
-        <link rel="stylesheet" id="css-main" href="<?php echo base_url(); ?>assets/css/oneui.css">
+
 
         <!-- Page JS Plugins CSS -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/slick/slick.min.css">
@@ -50,7 +50,10 @@
         <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="<?php echo base_url(); ?>assets/css/themes/flat.min.css"> -->
         <!-- END Stylesheets -->
+        <link rel="stylesheet" href="<?= base_url(); ?>assets/js/plugins/select2/select2.min.css">
+        <link rel="stylesheet" href="<?= base_url(); ?>assets/js/plugins/select2/select2-bootstrap.min.css">
 
+        <link rel="stylesheet" id="css-main" href="<?= base_url(); ?>assets/css/oneui.css">
         <!-- Sweet alert -->
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="<?= base_url('assets/js/jsPDF/dist/jspdf.min.js'); ?>"></script>

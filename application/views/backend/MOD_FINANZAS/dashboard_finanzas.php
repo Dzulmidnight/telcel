@@ -1,13 +1,4 @@
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2-bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
-<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+
 
 <?php 
     $sucursal_gral = $this->session->userdata('id_sucursal');
@@ -55,11 +46,23 @@
     </div>
     <!-- END Navigation -->
     <div class="row">
-
-        <div class="col-sm-6 col-lg-3">
+        <div class="col-sm-6 col-lg-4">
             <a class="block block-bordered block-link-hover3 text-center" href="javascript:void(0)">
                 <div class="block-content block-content-full bg-gray-lighter border-b">
-                    <div class="h1 font-w700">
+                    <div id="montoVentas_div" class="h1 font-w700">
+                        <?= money_format('%n', $monto_ventas); ?>
+                    </div>
+                    <div class="h5 text-muted text-uppercase push-5-t">Monto</div>
+                </div>
+                <div class="block-content block-content-full block-content-mini">
+                    <i class="fa fa-arrow-up text-success"></i> +50% Está semana
+                </div>
+            </a>
+        </div>
+        <div class="col-sm-6 col-lg-4">
+            <a class="block block-bordered block-link-hover3 text-center" href="javascript:void(0)">
+                <div class="block-content block-content-full bg-gray-lighter border-b">
+                    <div id="productosVendidos_div" class="h1 font-w700">
                         <?= $num_productos; ?>
                     </div>
                     <div class="h5 text-muted text-uppercase push-5-t">Productos</div>
@@ -69,52 +72,66 @@
                 </div>
             </a>
         </div>
-        <div class="col-sm-6 col-lg-3">
-            <a class="block block-bordered block-link-hover3 text-center" href="javascript:void(0)">
-                <div class="block-content block-content-full bg-gray-lighter border-b">
-                    <div class="h1 font-w700"><span class="h2 text-muted">$</span> <?= $monto_ventas; ?></div>
-                    <div class="h5 text-muted text-uppercase push-5-t">Monto</div>
+
+        <div class="col-sm-6 col-lg-4">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="example-daterange1">
+                            Período de ventas
+                        </label>
+                        <div class="input-daterange input-group" data-date-format="mm/dd/yyyy">
+                            <input class="form-control" type="text" id="inicio_ventas" name="inicio_ventas" placeholder="Del">
+                            <span class="input-group-addon"><i class="fa fa-chevron-right"></i></span>
+                            <input class="form-control" type="text" id="fin_ventas" name="fin_ventas" placeholder="Al">
+                        </div>
+                    </div>
                 </div>
-                <div class="block-content block-content-full block-content-mini">
-                    <i class="fa fa-arrow-up text-success"></i> +50% Está semana
+                <div class="col-xs-12">
+                    <label for="fk_id_sucursales">Sucursales</label>
+                    <!--<select class="js-select2 form-control" id="fk_id_sucursales" name="fk_id_sucursales" style="" data-placeholder="Filtrar por sucursales" multiple onchange="ventaSucursal(this.value, '<?= base_url(); ?>')">-->
+                    <select class="js-select2 form-control" id="listado_sucursales" name="fk_id_sucursales" style="" data-placeholder="Filtrar por sucursales" multiple>
+                        <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                        <?php 
+                            foreach ($row_sucursales as $sucursal) {
+                                if($sucursal_gral == $sucursal->id_sucursal){
+                                    echo '<option value="'.$sucursal->id_sucursal.'" >'.$sucursal->nombre.'</option>';
+                                }else{
+                                    echo '<option value="'.$sucursal->id_sucursal.'">'.$sucursal->nombre.'</option>';
+                                }
+                            }
+                         ?>
+                    </select>  
                 </div>
-            </a>
+                <div class="col-xs-12 text-right">
+                    <button class="btn btn-sm btn-primary" onclick="busquedaFinanzas('<?= base_url(); ?>');">
+                        <i class="fa fa-search"></i> Consultar
+                    </button>
+                </div>
+            </div>
         </div>
+
     </div>
 
 
     <div class="row">
-        <div class="col-lg-12" style="margin-bottom:1em;">
-            <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width:20%" data-placeholder="Filtrar por sucursales" multiple>
-                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                <?php 
-                    foreach ($row_sucursales as $sucursal) {
-                        if($sucursal_gral == $sucursal->id_sucursal){
-                            echo '<option value="'.$sucursal->id_sucursal.'" selected>'.$sucursal->nombre.'</option>';
-                        }else{
-                            echo '<option value="'.$sucursal->id_sucursal.'">'.$sucursal->nombre.'</option>';
-                        }
-                    }
-                 ?>
-            </select>
-        </div>
 
         <!-- Articulos mas vendidos -->
-        <div class="col-lg-12">
+        <div id="tablaVentas_div" class="col-lg-12">
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="success text-center" colspan="9">
-                            REGISTRO DE VENTAS REALIZADAS
+                        <th class="success text-left" colspan="8">
+                            REGISTRO DE VENTAS REALIZADAS AL DÍA <b style="color:#e74c3c;"><?= date('d-m', time()); ?></b>
                         </th>
                     </tr>
                     <tr>
                         <th style="font-size:12px;">
                             #
                         </th>
-                        <th style="font-size:12px;">
+                        <!--<th style="font-size:12px;">
                             ID
-                        </th>
+                        </th>-->
                         <th style="font-size:12px;">
                             FECHA
                         </th>
@@ -151,9 +168,9 @@
                                 </td>
 
                                 <!-- ID VENTA -->
-                                <td>
+                                <!--<td>
                                     <?= $venta->id_producto_venta; ?>
-                                </td>
+                                </td>-->
 
                                 <!-- FECHA VENTA -->
                                 <td>
@@ -182,9 +199,11 @@
                                     </b>
                                 </td>
 
-                                <!-- TOTAL VENTA -->
-                                <td>
-                                    <?= $venta->total; ?>
+                                <!-- MONTO VENTA -->
+                                <td style="color:#00a8ff;">
+                                    <b>
+                                        <?= money_format('%n', $venta->total); ?>
+                                    </b>
                                 </td>
 
                                 <!-- STOCK -->
@@ -363,53 +382,37 @@
 
 </div>
 
-<script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
-<!-- Page JS Plugins -->
-<script src="<?php echo base_url(); ?>assets/js/plugins/chartjsv2/Chart.min.js"></script>
-<!-- Page JS Code -->
-<script src="<?php echo base_url(); ?>assets/js/pages/base_comp_chartjs_v2.js"></script>
 
+        <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+        <script src="<?= base_url(); ?>assets/js/core/jquery.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/core/bootstrap.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/core/jquery.slimscroll.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/core/jquery.scrollLock.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/core/jquery.appear.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/core/jquery.countTo.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/core/jquery.placeholder.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/core/js.cookie.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/app.js"></script>
 
-<script>
-var ctx = document.getElementById("myChart").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
+        <!-- Page JS Plugins -->
+        <script src="<?= base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/moment.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/bootstrap-colorpicker/bootstrap-colorpicker.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/select2/select2.full.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+        <script src="<?= base_url(); ?>assets/js/plugins/autonumeric/autoNumeric.min.js"></script>
 
-</script>
-
-
-
+        <!-- Page JS Code -->
+        <script src="<?= base_url(); ?>assets/js/pages/base_forms_pickers_more.js"></script>
+        <script>
+            jQuery(function () {
+                // Init page helpers (BS Datepicker + BS Datetimepicker + BS Colorpicker + BS Maxlength + Select2 + Masked Input + Range Sliders + Tags Inputs + AutoNumeric plugins)
+                App.initHelpers(['datepicker', 'datetimepicker', 'colorpicker', 'maxlength', 'select2', 'masked-inputs', 'rangeslider', 'tags-inputs', 'autonumeric']);
+            });
+        </script>

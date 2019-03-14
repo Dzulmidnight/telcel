@@ -102,7 +102,7 @@
 <main id="main-container">
 
 <?php 
-
+    setlocale(LC_MONETARY, 'en_US');
     if($this->session->flashdata('success')){
         $mensaje = $this->session->flashdata('success');
     ?>
