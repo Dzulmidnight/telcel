@@ -737,10 +737,10 @@
 
                                     <!-- Sucursales disponibles -->
                                     <div class="col-sm-4">
-                                        <label for="fk_id_sucursal">
+                                        <label for="fk_id_sucursal_accesorios">
                                             * Sucursal
                                         </label>
-                                        <select class="form-control" name="fk_id_sucursal" id="fk_id_sucursal" onchange="siguienteEtapa();" required>
+                                        <select class="form-control" name="fk_id_sucursal_accesorios" id="fk_id_sucursal_accesorios" onchange="siguienteEtapa();" required>
                                             <option value="">...</option>
                                             <?php foreach($row_sucursales as $sucursal): ?>
                                                 <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
@@ -751,14 +751,17 @@
 
                                     <!-- Proveedores -->
                                     <div class="col-sm-4">
-                                        <label for="fk_id_proveedor">
+                                        <label for="fk_id_proveedor_accesorios">
                                             * Proveedor
                                         </label>
-                                        <select class="form-control" name="fk_id_proveedor" id="fk_id_proveedor" onchange="siguienteEtapa();" required>
+                                        <select class="form-control" name="fk_id_proveedor_accesorios" id="fk_id_proveedor_accesorios" onchange="siguienteEtapa();" required>
                                             <option value="">...</option>
                                             <?php foreach($row_proveedores as $proveedor): ?>
                                                 <option value="<?= $proveedor->id_proveedor ?>"><?= $proveedor->nombre ?></option>
                                             <?php endforeach; ?>
+                                            <option value="1">
+                                                Otro proveedor
+                                            </option>
                                         </select>
                                     </div>
                                     <!-- END Proveedores -->
@@ -863,7 +866,7 @@
                                                                     <span class="input-group-btn">
                                                                         <button class="btn btn-success" type="button" onclick="guardarColor();"><i class="fa fa-save"></i></button>
                                                                     </span>
-                                                                    <input class="form-control" type="text" id="color" name="color" placeholder="">
+                                                                    <input class="form-control" type="text" id="color" name="color" placeholder="Color">
                                                                 </div>
                                                             </td>
                                                             <td>

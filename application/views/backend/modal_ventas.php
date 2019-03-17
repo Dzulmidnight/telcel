@@ -19,7 +19,7 @@
                             <!-- Formularios invetario -->
                             <div id="formularios_inventario">
                                 <div class="col-lg-6">
-                                    <label for="fk_id_sucursal">Sucursal</label>
+                                    <label for="fk_id_sucursal">Sucursal donde se realiza la venta</label>
                                     <select class="form-control" name="fk_id_sucursal_venta" id="fk_id_sucursal_venta" required>
                                         <option value="">...</option>
                                         <?php 
@@ -35,8 +35,8 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6" style="color:red">
-                                    <label for="id_vendedor_venta">* ID Vendedor</label>
-                                    <input type="number" class="form-control" id="id_vendedor_venta" name="id_vendedor_venta" onkeyup="consultarVendedor(this.value, '<?= base_url(); ?>');" placeholder="ID Vendedor" value="" required>
+                                    <label for="id_vendedor_venta">* Identificación del vendedor</label>
+                                    <input type="number" class="form-control" id="id_vendedor_venta" name="id_vendedor_venta" onkeyup="consultarVendedor(this.value, '<?= base_url(); ?>');" placeholder="Ingresa tu número de vendedor" value="" required>
                                     <p id="span-nombre-vendedor" style="background:#ecf0f1;padding:.5em;color:#2c3e50;"></p>
                                 </div>
 
@@ -120,6 +120,31 @@
                         </form>
                         <!-- END Formulario de registro de cliente -->
                     </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal mostrar codigo de barras -->
+
+<!-- Modal mostrar codigo de barras -->
+<div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-popout">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Ticket de Compra</h3>
+                </div>
+                <div class="block-content" style="margin-bottom: 4em;">
+                    <iframe id="frame_pdf" src="" height="500px" width="100%" frameborder="0"></iframe>
                 </div>
             </div>
             <div class="modal-footer">

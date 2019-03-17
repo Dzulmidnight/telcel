@@ -12,6 +12,7 @@
 			<td class="text-primary">
 				$<span id="precio_establecido"><?= $info_producto->precio_publico; ?></span>
 				<input type="hidden" id="precio_real" value="<?= $info_producto->precio_publico; ?>">
+				<input type="hidden" id="fk_id_sucursal_producto" value="<?= $info_producto->fk_id_sucursal; ?>">
 			</td>
 		</tr>
 		<tr>

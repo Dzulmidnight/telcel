@@ -8,7 +8,9 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+        <link rel="stylesheet" href="<?= base_url('assets/css/inforganic.css'); ?>">
 
+        <link href="<?= base_url('assets/css/patternLock.css'); ?>"  rel="stylesheet" type="text/css" />
 
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
@@ -257,7 +259,7 @@
                                 <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
                             </li>
                         </ul>
-                        <h3 class="block-title">Registrar nuevo ingreso</h3>
+                        <h3 class="block-title">Ingreso de servicio tecnico</h3>
                     </div>
                     <div class="block-content">
                         <div class="row text-justify">
@@ -268,6 +270,7 @@
                                         Información del cliente
                                     </h3>
                                     <hr>
+                                    <!--
                                     <div class="form-group">
                                         <div class="">
                                             <b class="text-success" style="margin-bottom:1em;">Buscar cliente</b>
@@ -278,14 +281,14 @@
                                                 <input class="form-control" type="text" id="" name="" placeholder="Nombre y apellido, Nº Telefono" onkeyup="buscarCliente('this.value');">
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="row well">
                                         <div class="col-sm-12">
                                            <h4 style="margin-bottom: 1em;">Nuevo cliente</h4> 
                                         </div>
                                         <div class="col-sm-12">
-                                            <label for="nombre">* Nombre</label>
+                                            <label class="obligatorio" for="nombre">* Nombre</label>
                                             <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" required>
                                         </div>
                                         <div class="col-sm-12">
@@ -298,7 +301,7 @@
                                         </div>
 
                                         <div class="col-sm-12">
-                                            <label for="num_telefono">* Nº Teléfono</label>
+                                            <label class="obligatorio" for="num_telefono">* Nº Teléfono</label>
                                             <input type="text" id="num_telefono" name="num_telefono" class="form-control" required>
                                         </div>
 
@@ -322,7 +325,7 @@
                                             <input type="date" class="form-control" id="fecha_ingreso" value="<?= date('Y-m-d', time()) ?>" readonly>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="fecha_entrega">* FECHA ESTIMADA DE ENTREGA</label>
+                                            <label class="obligatorio" for="fecha_entrega">* ESTIMADA DE ENTREGA</label>
                                             <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" value="" required>
                                         </div>
                                         <div class="col-sm-12">
@@ -330,23 +333,23 @@
                                             <input type="text" class="form-control" id="deposito_garantia" name="deposito_garantia" value="" placeholder="$ 000.00">
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="imei">* IMEI</label>
+                                            <label class="obligatorio" for="imei">* IMEI</label>
                                             <input type="text" class="form-control" id="imei" name="imei" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="num_telefono_equipo">* Número de telefono</label>
+                                            <label class="obligatorio" for="num_telefono_equipo">* Número de telefono</label>
                                             <input type="text" class="form-control" id="num_telefono_equipo" name="num_telefono_equipo" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="marca">* Marca</label>
+                                            <label class="obligatorio" for="marca">* Marca</label>
                                             <input type="text" class="form-control" id="marca" name="marca" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="modelo">* Modelo</label>
+                                            <label class="obligatorio" for="modelo">* Modelo</label>
                                             <input type="text" class="form-control" id="modelo" name="modelo" required>
                                         </div>
                                         <div class="col-sm-6">
-                                            <label for="estado_fisico">* Estado fisico del equipo</label>
+                                            <label class="obligatorio" for="estado_fisico">* Estado fisico del equipo</label>
                                             <select class="form-control" name="estado_fisico" id="estado_fisico" required>
                                                 <option>...</option>
                                                 <option value="EXCELENTE">Excenlente</option>
@@ -363,7 +366,7 @@
                                         <div class="col-sm-12" style="margin-top:2em;">
                                             <div class="row">
                                                 <div class="col-xs-6">
-                                                    <label for="falla_reportada">* Falla reportada por el usuario</label>
+                                                    <label class="obligatorio" for="falla_reportada">* Falla reportada por el usuario</label>
                                                     <textarea class="form-control" name="falla_reportada" id="falla_reportada" rows="5" required></textarea>
                                                 </div>
 
@@ -391,31 +394,12 @@
 
                                         <div class="col-md-12">
                                             <div id="div-padron-bloqueo" style="display:none">
-                                                <table class="table table-bordered" style="background:#fff;">
-                                                    <tr class="text-center">
-                                                        <td style="" colspan="3">
-                                                            <h5 style="color:#e74c3c;">
-                                                                Selecciona los cuadros para grabar el patron
-                                                            </h5>
-                                                        </td>
-                                                    </tr>
-                                                    <tr style="color:#000; border: 2px solid #52BE80;" class="text-center">
-                                                        <td style="border: 2px solid #52BE80;" id="casilla1" onclick="mostrarSeleccion(this.id);">*</td>
-                                                        <td style="border: 2px solid #52BE80;" id="casilla2" onclick="mostrarSeleccion(this.id);">*</td>
-                                                        <td style="border: 2px solid #52BE80;" id="casilla3" onclick="mostrarSeleccion(this.id);">*</td>
-                                                    </tr>
-                                                    <tr style="color:#000; border: 2px solid #52BE80;" class="text-center">
-                                                        <td style="border: 2px solid #52BE80;" id="casilla4" onclick="mostrarSeleccion(this.id);">*</td>
-                                                        <td style="border: 2px solid #52BE80;" id="casilla5" onclick="mostrarSeleccion(this.id);">*</td>
-                                                        <td style="border: 2px solid #52BE80;" id="casilla6" onclick="mostrarSeleccion(this.id);">*</td>
-                                                    </tr>
-                                                    <tr style="color:#000; border: 2px solid #52BE80;" class="text-center">
-                                                        <td style="border: 2px solid #52BE80;" id="casilla7" onclick="mostrarSeleccion(this.id);">*</td>
-                                                        <td style="border: 2px solid #52BE80;" id="casilla8" onclick="mostrarSeleccion(this.id);">*</td>
-                                                        <td style="border: 2px solid #52BE80;" id="casilla9" onclick="mostrarSeleccion(this.id);">*</td>
-                                                    </tr>
-                                                </table>                                            
+                                                <h5 class="text-center" style="padding:10px;background:#fff; color: #e84118;">
+                                                    Dibuja el patrón de bloqueo
+                                                </h5>
+                                                <div id="patternHolder"></div> 
                                             </div>
+
                                             <div id="div-codigo-bloqueo" style="display:none">
                                                 <table class="table table-bordered">
                                                     <tr>
@@ -580,9 +564,17 @@
 <script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/app.js"></script>
 
+<script src="<?= base_url('assets/js/patternLock.js'); ?>"></script>
 
 <!-- Page JS Code -->
 <script>
+var lock = new PatternLock('#patternHolder');
+
+function obtenerPatron(){
+    console.log('EL PATRON: '+lock.getPattern());
+}
+    
+
     jQuery(function () {
         // Init page helpers (Table Tools helper)
         App.initHelpers('table-tools');

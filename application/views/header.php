@@ -44,6 +44,8 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
         <link rel="stylesheet" id="css-main" href="<?php echo base_url(); ?>assets/css/oneui.css">
 
+        <link rel="stylesheet" href="<?= base_url('assets/css/inforganic.css'); ?>">
+
         <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
         <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
         <!-- END Stylesheets -->

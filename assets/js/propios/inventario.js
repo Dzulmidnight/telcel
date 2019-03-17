@@ -89,8 +89,8 @@ function enviarForm(id, frm){
 
 function siguienteEtapa(){
     var categoria_producto = document.getElementById('fk_id_categoria_producto').value;
-    var sucursal_producto = document.getElementById('fk_id_sucursal').value;
-    var proveedor_producto = document.getElementById('fk_id_proveedor').value;
+    var sucursal_producto = document.getElementById('fk_id_sucursal_accesorios').value;
+    var proveedor_producto = document.getElementById('fk_id_proveedor_accesorios').value;
 
     if(categoria_producto !== '' && sucursal_producto !== '' && proveedor_producto !== '' ){
         console.log('seleccionaste los 3');

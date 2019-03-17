@@ -99,7 +99,7 @@ class PdfTicket extends CI_Controller{
 		//$this->my_mpdf->pdf2->SetJs('this.print();');
 		$this->my_mpdf->pdf2->WriteHTML($html);
 
-		$this->my_mpdf->pdf2->Output('ticket_'.$id.'.pdf','D');
+		$this->my_mpdf->pdf2->Output('ticket_'.$id.'.pdf','I');
 
 		//redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 

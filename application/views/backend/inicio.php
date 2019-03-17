@@ -218,7 +218,7 @@
     </a>
 
 </div>-->
-
+<script src="<?php echo base_url(); ?>assets/js/propios/ventas.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>

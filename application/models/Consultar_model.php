@@ -227,6 +227,7 @@ class Consultar_model extends CI_Model{
                 $this->db->select('
                         sucursal.id_sucursal,
                         sucursal.nombre,
+                        sucursal_producto.fk_id_producto,
                         sucursal_producto.id_sucursal_producto,
                         sucursal_producto.piezas
 
@@ -239,9 +240,10 @@ class Consultar_model extends CI_Model{
                 if($id_sucursal != false){
                         $this->db->where('sucursal_producto.fk_id_sucursal', $id_sucursal);
                 }
+                
                 $query = $this->db->get();
                 $result = $query->row();
-
+                //echo $this->db->last_query();
                 return $result;
         }
 
@@ -399,7 +401,7 @@ class Consultar_model extends CI_Model{
                 $this->db->join('categoria_producto', 'categoria_producto.id_categoria_producto = producto.fk_id_categoria_producto', 'left');
                 $this->db->join('sub_categoria_producto', 'sub_categoria_producto.id_sub_categoria_producto = producto.fk_id_sub_categoria_producto', 'left');
                 $this->db->join('sucursal_producto', 'sucursal_producto.fk_id_producto = producto.id_producto', 'left');
-                $this->db->join('sucursal', 'sucursal.id_sucursal = sucursal_producto.fk_id_producto', 'left');
+                $this->db->join('sucursal', 'sucursal.id_sucursal = sucursal_producto.fk_id_sucursal', 'left');
 
                 $this->db->where('producto.codigo_barras', $codigo);
 
@@ -496,6 +498,78 @@ class Consultar_model extends CI_Model{
 
         //// MOD FINANZAS
                 public function listado_ventas($limite = false, $sucursal = false){
+                        $this->db->select('
+                             producto_venta.id_producto_venta,
+                             producto_venta.precio_venta,
+                             producto_venta.fk_id_producto,
+                             producto_venta.fk_id_sucursal,
+                             producto_venta.fk_id_usuario,
+                             producto_venta.fk_id_ticket,
+                             producto_venta.fecha_registro as fecha_venta,
+                             ticket.piezas,
+                             ticket.total,
+                             producto.piezas as stock_producto,
+                             producto.nombre as nombre_producto,
+                             producto.modelo,
+                             producto.color,
+                             sucursal.nombre as nombre_sucursal,
+                             users.nombre as nombre_vendedor
+                        ');
+                        $this->db->from('producto_venta');
+                        $this->db->join('producto', 'producto.id_producto = producto_venta.fk_id_producto');
+                        $this->db->join('ticket', 'ticket.id_ticket = producto_venta.fk_id_ticket');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = producto_venta.fk_id_sucursal');
+                        $this->db->join('users', 'users.id_user = producto_venta.fk_id_usuario');
+                        $this->db->order_by('producto_venta.fecha_registro', 'DESC');
+                        if($sucursal){
+                                $this->db->where('producto_venta.fk_id_sucursal', $sucursal);
+                        }
+                        if($limite){
+                                $this->db->limit($limite);
+                        }
+
+                        $query = $this->db->get();
+                        $result = $query->result();
+
+                        return $result;
+                }
+                public function listado_servicios($limite = false, $sucursal = false){
+                        $this->db->select('
+                             producto_venta.id_producto_venta,
+                             producto_venta.precio_venta,
+                             producto_venta.fk_id_producto,
+                             producto_venta.fk_id_sucursal,
+                             producto_venta.fk_id_usuario,
+                             producto_venta.fk_id_ticket,
+                             producto_venta.fecha_registro as fecha_venta,
+                             ticket.piezas,
+                             ticket.total,
+                             producto.piezas as stock_producto,
+                             producto.nombre as nombre_producto,
+                             producto.modelo,
+                             producto.color,
+                             sucursal.nombre as nombre_sucursal,
+                             users.nombre as nombre_vendedor
+                        ');
+                        $this->db->from('producto_venta');
+                        $this->db->join('producto', 'producto.id_producto = producto_venta.fk_id_producto');
+                        $this->db->join('ticket', 'ticket.id_ticket = producto_venta.fk_id_ticket');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = producto_venta.fk_id_sucursal');
+                        $this->db->join('users', 'users.id_user = producto_venta.fk_id_usuario');
+                        $this->db->order_by('producto_venta.fecha_registro', 'DESC');
+                        if($sucursal){
+                                $this->db->where('producto_venta.fk_id_sucursal', $sucursal);
+                        }
+                        if($limite){
+                                $this->db->limit($limite);
+                        }
+
+                        $query = $this->db->get();
+                        $result = $query->result();
+
+                        return $result;
+                }
+                public function listado_reparaciones($limite = false, $sucursal = false){
                         $this->db->select('
                              producto_venta.id_producto_venta,
                              producto_venta.precio_venta,

@@ -60,11 +60,10 @@ class Servicios extends CI_Controller{
 	public function venta()
 	{
 
-		header("Content-Type: application/json; charset=UTF-8");
-
 		$objeto = json_decode($_POST["parametros"], false);
 		$id_vendedor = json_decode($_POST["id_vendedor"], false);
-		$id_sucursal = json_decode($_POST["id_sucursal"], false);
+		$id_sucursal_venta = $_POST["id_sucursal_venta"];
+		//$id_sucursal = json_decode($_POST["array_sucursal"], false);
 
 
 		/*if(is_array($objeto)){
@@ -92,7 +91,7 @@ class Servicios extends CI_Controller{
 
 		////// CREAMOS TICKET DE VENTA //////
 			$data_ticket = array(
-				'fk_id_sucursal' => $this->session->userdata('id_sucursal'),
+				'fk_id_sucursal' => $id_sucursal_venta,
 				'fk_id_usuario' => $id_vendedor,
 				'fecha_registro' => time()
 			);
@@ -105,6 +104,7 @@ class Servicios extends CI_Controller{
 			//$precio_pieza = $value->precio_carrito * $value->cantidad_carrito;
 			$total_ticket += ($value->precio_carrito * $value->cantidad_carrito);
 			$id_producto = $value->id_producto_carrito;
+			$id_sucursal_producto = $value->id_sucursal_producto; 
 
 			// registramos la venta en tb -> producto_venta
 				$data_producto_venta = array(
@@ -112,7 +112,7 @@ class Servicios extends CI_Controller{
 					'precio_venta' => $value->precio_carrito,
 					'precio_real_venta' => $value->precio_real_carrito,
 					'fk_id_producto' => $id_producto,
-					'fk_id_sucursal' => $id_sucursal,
+					'fk_id_sucursal' => $id_sucursal_venta,
 					'fk_id_usuario' => $id_vendedor,
 					'fk_id_ticket' => $fk_id_ticket,
 					'fecha_registro' => time()
@@ -133,7 +133,7 @@ class Servicios extends CI_Controller{
 				$this->update_model->update('producto', 'id_producto', $id_producto, $data_piezas_producto);
 
 			///// actualizamos las piezas de sucursal
-				$sucursal_producto = $this->consultar_model->sucursal_cantidad($id_producto, $id_sucursal);
+				$sucursal_producto = $this->consultar_model->sucursal_cantidad($id_producto, $id_sucursal_producto);
 
 				$restante = ($sucursal_producto->piezas) - ($value->cantidad_carrito);
 

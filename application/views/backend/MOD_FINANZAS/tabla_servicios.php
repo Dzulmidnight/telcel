@@ -2,16 +2,16 @@
     <thead>
         <tr>
             <th class="success text-left" colspan="8">
-                REGISTRO DE VENTAS REALIZADAS AL DÍA <b style="color:#e74c3c;"><?= date('d / m / Y', time()); ?></b>
+                REGISTRO DE SERVICIOS REALIZADAS AL DÍA <b style="color:#e74c3c;"><?= date('d / m / Y', time()); ?></b>
             </th>
         </tr>
         <tr>
             <th style="font-size:12px;">
                 #
             </th>
-            <th style="font-size:12px;">
+            <!--<th style="font-size:12px;">
                 ID
-            </th>
+            </th>-->
             <th style="font-size:12px;">
                 FECHA
             </th>
@@ -35,7 +35,7 @@
             </th>
         </tr>
     </thead>
-    <tbody id="tbody_respuesta" style="font-size:12px;">
+    <tbody style="font-size:12px;">
         <?php
             $contador = 0;
             foreach ($row_listado_ventas as $venta) {
@@ -44,13 +44,13 @@
                 <tr>
                     <!-- # -->
                     <td>
-                        <?= $contador.' - '.$venta->created_at; ?>
+                        <?= $contador; ?>
                     </td>
 
                     <!-- ID VENTA -->
-                    <td>
+                    <!--<td>
                         <?= $venta->id_producto_venta; ?>
-                    </td>
+                    </td>-->
 
                     <!-- FECHA VENTA -->
                     <td>
@@ -73,14 +73,14 @@
                     </td>
 
                     <!-- VENDIDOS -->
-                    <td class="cantidad-venta">
+                    <td>
                         <b>
                             <?= $venta->piezas; ?>
                         </b>
                     </td>
 
                     <!-- MONTO VENTA -->
-                    <td style="color:#00a8ff;" class="monto-venta">
+                    <td style="color:#00a8ff;">
                         <b>
                             <?= money_format('%n', $venta->total); ?>
                         </b>

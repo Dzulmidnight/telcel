@@ -138,7 +138,7 @@ class Inventario extends CI_Controller{
 
 				 		// AGREGAR SUCURSAL_PRODUCTO
 				 			$array_suc_producto = array(
-				 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal'),
+				 				'fk_id_sucursal_accesorios' => $this->input->post('fk_id_sucursal_accesorios'),
 				 				'fk_id_producto' => $id_producto,
 				 				'piezas' => 1,
 				 				'fecha_registro' => $fecha_registro
@@ -258,7 +258,7 @@ class Inventario extends CI_Controller{
 
 						 		// AGREGAR SUCURSAL_PRODUCTO
 						 			$array_suc_producto = array(
-						 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal'),
+						 				'fk_id_sucursal_accesorios' => $this->input->post('fk_id_sucursal_accesorios'),
 						 				'fk_id_producto' => $id_producto,
 						 				'piezas' => $piezas,
 						 				'fecha_registro' => $fecha_registro
@@ -341,7 +341,7 @@ class Inventario extends CI_Controller{
 
 				 		// AGREGAR SUCURSAL_PRODUCTO
 				 			$array_suc_producto = array(
-				 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal'),
+				 				'fk_id_sucursal_accesorios' => $this->input->post('fk_id_sucursal_accesorios'),
 				 				'fk_id_producto' => $id_producto,
 				 				'piezas' => $this->input->post('piezas'),
 				 				'fecha_registro' => $fecha_registro
