@@ -14,28 +14,28 @@
 			</p>
 		</div>
 		<div id="div-solicitar-pieza" style="display:block;border: 2px solid #44bd32;">
-			<form action="" method="POST" style="padding:1em;">
+			<div id="frmConsultarPieza_div" style="padding:1em;">
 				
 				<p style="background:#44bd32;color:#fff;padding:1em;">
-					Formulario de solicitud <a class="push-right" style="float: right;color:white;" href="#" onclick="solicitarPieza('no');"><i class="fa fa-window-close"></i> Cancelar</a>
+					Formulario de consulta de pieza <a class="push-right" style="float: right;color:white;" href="#" onclick="solicitarPieza('no');"><i class="fa fa-window-close"></i> Cancelar</a>
 				</p>
 
 				<div style="margin:1em;">
-					<label for="">Nombre</label>
-					<input type="text" class="form-control">
+					<label for="">Nombre de la pieza</label>
+					<input name="consultar_nombre_pieza" type="text" class="form-control">
 
 					<label for="">Modelo</label>
-					<input type="text" class="form-control">
+					<input name="consultar_modelo_pieza" type="text" class="form-control">
 
 					<label for="">Color</label>
-					<input type="text" class="form-control">
+					<input name="consultar_color_pieza" type="text" class="form-control">
 
-					<button type="button" class="btn btn-sm btn-success">
+					<!--<button type="button" class="btn btn-sm btn-success">
 						Enviar solicitud
-					</button>				
+					</button>-->		
 				</div>
 
-			</form>
+			</div>
 		</div>
 	<?php
 	}else{

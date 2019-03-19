@@ -35,8 +35,8 @@ function cambiarContenido(seccion, url){
 			contenidoGeneral_row.innerHTML = this.responseText;
 		}else{
 			contenidoGeneral_row.innerHTML = `
-				<div class="col-lg-12 text-center" style="margin-top:4em; margin-bottom:4em;">\
-                    <i class="fa fa-3x fa-spinner fa-spin text-primary"></i>\
+				<div class="col-lg-12 text-center" style="margin-top:4em; margin-bottom:4em;">
+                    <i class="fa fa-3x fa-spinner fa-spin text-primary"></i>
             	</div>
             `;
 		}
@@ -76,8 +76,8 @@ function busquedaFinanzas(accion, url){
 			actualizarCifras();
 		}else{
 			div_respuesta.innerHTML = `
-				<div class="col-lg-12 text-center" style="margin-top:4em; margin-bottom:4em;">\
-                    <i class="fa fa-3x fa-spinner fa-spin text-primary"></i>\
+				<div class="col-lg-12 text-center" style="margin-top:4em; margin-bottom:4em;">
+                    <i class="fa fa-3x fa-spinner fa-spin text-primary"></i>
             	</div>
 			`;
 		}

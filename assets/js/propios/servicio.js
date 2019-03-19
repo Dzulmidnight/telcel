@@ -195,13 +195,25 @@ function rechazarCotizacion(id_frm){
     });
 }
 
-function validarCampos(id_frm){
+function obtenerPatron(){
+    let valor = lock.getPattern();
+    console.log('EL PATRON: '+lock.getPattern());
+    return valor;
+}
 
+function validarCampos(id_frm, url){
+    let ruta = url + 'backend/MOD_SERV_TECNICO/Serv_tecnico/agregar';
     var formulario = document.forms[id_frm];
     var numElementos = formulario.elements.length;
     var totalRequeridos = 0;
     //console.log(formulario);
     //console.log(numElementos);
+    let patronBloqueo = obtenerPatron();
+
+    if(patronBloqueo){
+        document.getElementById('patron_bloqueo').value = patronBloqueo;
+    }
+
 
     for(var i = 0; i < numElementos; i++){
         //console.log(formulario[i].required);
@@ -229,13 +241,20 @@ function validarCampos(id_frm){
     }
 
     if(totalRequeridos == 9){
+        let servicioTecnico_frm = document.getElementById(id_frm);
+
+        servicioTecnico_frm.target = '_blank';
+        servicioTecnico_frm.action = ruta;
         document.getElementById(id_frm).submit();
         $('#modal-nuevo-ingreso').modal('toggle');
         $('.modal-backdrop').remove();
 
         document.getElementById(id_frm).reset();
 
-        //location.reload();
+    /* abrir en otra ventana
+        window.location.assign(ruta);
+    */
+        location.reload();
     }
     //console.log('El num de requeridos es: '+totalRequeridos);
 }

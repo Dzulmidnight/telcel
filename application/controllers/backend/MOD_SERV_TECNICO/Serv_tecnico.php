@@ -62,7 +62,7 @@ class Serv_tecnico extends CI_Controller{
 		$codigo_bloqueo = '';
 
 		if(isset($tipo_bloqueo) && $tipo_bloqueo = 'patron'){
-			$patron_bloqueo = $this->input->post('casilla_seleccionada');
+			$patron_bloqueo = $this->input->post('patron_bloqueo');
 		}else if(isset($tipo_bloqueo) && $tipo_bloqueo == 'codigo'){
 			$codigo_bloqueo = $this->input->post('codigo_bloqueo');
 		}
@@ -157,16 +157,34 @@ class Serv_tecnico extends CI_Controller{
 
 			$params = $pdf->serializeTCPDFtagParameters(array($codigo_barras, 'C128', '', '', 40, 20, 0.4, array('position'=>'S', 'border'=>true, 'padding'=>4, 'fgcolor'=>array(0,0,0), 'bgcolor'=>array(255,255,255), 'text'=>true, 'font'=>'helvetica', 'fontsize'=>8, 'stretchtext'=>4), 'N'));
 
-			$html = '<tcpdf method="write1DBarcode" params="'.$params.'" />';
-			/*$html = '';
-			$html .= '<table>';
-				for ($i=0; $i < $numero; $i++) { 
-					$html .= '<tr>';
-						$html .= '<td><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
-					$html .= '</tr>';
-				}
-			$html .= '</table>';*/
+			//$html = '<tcpdf method="write1DBarcode" params="'.$params.'" />';
 
+
+			$html = '';
+			$html .= '<table>';
+				////// CODIGO PARA EL SERVICIO TECNICO
+				$html .= '<tr>';
+					$html .= '<td style="font-family:helvetica; padding:0px;margin:0px;font-size:8px;text-align:center;">Servicio Tecnico</td>';
+				$html .= '</tr>';
+				$html .= '<tr >';
+					$html .= '<td style="padding:0px;margin:0px;"><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
+				$html .= '</tr>';
+				$html .= '<tr>';
+					$html .= '<td style="font-family:helvetica; padding:0px;margin:0px;font-size:8px;text-align:center;">Firma cliente</td>';
+				$html .= '</tr>';
+				$html .= '<tr>';
+					$html .= '<td style="margin-top:10px;border-bottom:1px solid #000;"></td>';
+				$html .= '</tr>';
+
+				////// CODIGO PARA EL CLIENTE
+				$html .= '<tr>';
+					$html .= '<td style="font-family:helvetica; padding:0px;padding-top:20px; margin-top:10px;font-size:8px;text-align:center;">Copia cliente</td>';
+				$html .= '</tr>';
+				$html .= '<tr >';
+					$html .= '<td style="padding:0px;margin:0px;"><tcpdf method="write1DBarcode" params="'.$params.'" /></td>';
+				$html .= '</tr>';
+
+			$html .= '</table>';
 
 			// output the HTML content
 			$pdf->writeHTML($html, true, 0, true, 0);
@@ -176,10 +194,7 @@ class Serv_tecnico extends CI_Controller{
 			// ---------------------------------------------------------
 
 			//Close and output PDF document
-			$pdf->Output('servicio_tecnico_'.$codigo_barras.'.pdf', 'D');
-
-
-
+			$pdf->Output('servicio_tecnico_'.$codigo_barras.'.pdf', 'I');
 		//redirect('backend/MOD_SERV_TECNICO/Serv_tecnico', 'refresh');
 	}
 
@@ -303,135 +318,158 @@ class Serv_tecnico extends CI_Controller{
 
 	}
 
-	public function cotizacion_servicio(){
-		$suma_pieza = 0;
-		$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
-		$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
-		$costo_servicio = $this->input->post('costo_servicio');
-		$fecha_entrega = strtotime($this->input->post('fecha_entrega'));
+	// INICIA GENERAR COTIZACION_SERVICIO
+		public function cotizacion_servicio(){
+			$suma_pieza = 0;
+			$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
+			$id_servicio_tecnico = $this->input->post('id_servicio_tecnico');
+			$costo_servicio = $this->input->post('costo_servicio');
+			$fecha_entrega = strtotime($this->input->post('fecha_entrega'));
 
-		$data_cotizacion = array(
-			'id_servicio_tecnico' => $id_servicio_tecnico,
-			'descripcion' => $this->input->post('descripcion_servicio'),
-			'id_usuario' => $this->session->userdata('id_usuario'),
-			'estatus' => 'ENVIADA',
-			'fecha_registro' => time()
-		);
-		$this->add_model->agregar($data_cotizacion, 'cotizacion_servicio');
+			$data_cotizacion = array(
+				'id_servicio_tecnico' => $id_servicio_tecnico,
+				'descripcion' => $this->input->post('descripcion_servicio'),
+				'id_usuario' => $this->session->userdata('id_usuario'),
+				'estatus' => 'PENDIENTE',
+				'fecha_registro' => time()
+			);
+			$this->add_model->agregar($data_cotizacion, 'cotizacion_servicio');
 
-		$id_cotizacion = $this->db->insert_id();
+			$id_cotizacion = $this->db->insert_id();
 
+			/// FRM CONSULTA DE PIEZA
+			$consultar_nombre_pieza = $this->input->post('consultar_nombre_pieza');
+			if($consultar_nombre_pieza != ''){
+				$consultar_nombre_pieza = $this->input->post('consultar_nombre_pieza');
+				$consultar_modelo_pieza = $this->input->post('consultar_modelo_pieza');
+				$consultar_color_pieza = $this->input->post('consultar_color_pieza');
+				$estatus = 'PENDIENTE';
 
-		if(isset($id_pieza_repuesto)){
-			foreach ($this->input->post('precio_pieza_repuesto') as $key => $value) {
-				$suma_pieza += $value;
-				$data_pieza = array(
-					'id_pieza_repuesto' => $id_pieza_repuesto[$key],
-					'id_cotizacion_servicio' => $id_cotizacion,
+				$data_consulta_pieza = array(
+					'fk_id_cotizacion_servicio' => $id_cotizacion,
+					'nombre' => $consultar_nombre_pieza,
+					'modelo' => $consultar_modelo_pieza,
+					'color' => $consultar_color_pieza,
+					'estatus' => $estatus,
 					'fecha_registro' => time()
 				);
-				$this->add_model->agregar($data_pieza, 'piezas_cotizacion_servicio');
-				/*echo '<br>id: '.$id_pieza_repuesto[$key];
-				echo '<br> Precio: '.$value;*/
+				$this->add_model->agregar($data_consulta_pieza, 'consulta_pieza');
 			}
-		}
-		$suma_pieza = $suma_pieza + $costo_servicio;
 
-		$data_actualizar_cotizacion = array(
-			'costo' => $suma_pieza
-		);
-		$this->update_model->update('cotizacion_servicio', 'id_cotizacion_servicio', $id_cotizacion, $data_actualizar_cotizacion);
-
-
-		if(isset($id_pieza_repuesto)){
-			foreach ($this->input->post('id_pieza_repuesto') as $key => $pieza) {
-				$id = $id_pieza_repuesto[$key];
-				$refacciones = $this->consultar_model->consultaSimple($id, 'id_catalogo_piezas_reparacion', 'catalogo_piezas_reparacion');
-
-				$estatus = $refacciones->estatus;
-				$cantidad = $refacciones->cantidad;
-
-				if($estatus == 'INVENTARIO'){
-					$total = $cantidad - 1;
-					//echo 'EL TOTAL: '.$total;
-					$data_update = array(
-						'cantidad' => $total,
+			/// PIEZAS UTILIZADAS EN EL SERVICIO
+			if(isset($id_pieza_repuesto)){
+				foreach ($this->input->post('precio_pieza_repuesto') as $key => $value) {
+					$suma_pieza += $value;
+					$data_pieza = array(
+						'id_pieza_repuesto' => $id_pieza_repuesto[$key],
+						'id_cotizacion_servicio' => $id_cotizacion,
+						'fecha_registro' => time()
 					);
-					$this->update_model->update('catalogo_piezas_reparacion', 'id_catalogo_piezas_reparacion', $id, $data_update);
-				}else{
-					
+					$this->add_model->agregar($data_pieza, 'piezas_cotizacion_servicio');
+					/*echo '<br>id: '.$id_pieza_repuesto[$key];
+					echo '<br> Precio: '.$value;*/
 				}
 			}
+			$suma_pieza = $suma_pieza + $costo_servicio;
 
-			$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
+			$data_actualizar_cotizacion = array(
+				'costo' => $suma_pieza
+			);
+			$this->update_model->update('cotizacion_servicio', 'id_cotizacion_servicio', $id_cotizacion, $data_actualizar_cotizacion);
+
+
+			if(isset($id_pieza_repuesto)){
+				foreach ($this->input->post('id_pieza_repuesto') as $key => $pieza) {
+					$id = $id_pieza_repuesto[$key];
+					$refacciones = $this->consultar_model->consultaSimple($id, 'id_catalogo_piezas_reparacion', 'catalogo_piezas_reparacion');
+
+					$estatus = $refacciones->estatus;
+					$cantidad = $refacciones->cantidad;
+
+					if($estatus == 'INVENTARIO'){
+						$total = $cantidad - 1;
+						//echo 'EL TOTAL: '.$total;
+						$data_update = array(
+							'cantidad' => $total,
+						);
+						$this->update_model->update('catalogo_piezas_reparacion', 'id_catalogo_piezas_reparacion', $id, $data_update);
+					}else{
+						
+					}
+				}
+
+				$id_pieza_repuesto = $this->input->post('id_pieza_repuesto');
+			}
+
+			/*echo '<br>costo_servicio: '.$this->input->post('costo_servicio');
+			echo '<br>costo_pieza: '.$suma_pieza;
+			echo '<br>fecha_entrega: '.$this->input->post('fecha_entrega');*/
+
+
+			$data_estatus = array(
+				'estatus' => $this->input->post('estatus_servicio'),
+				'accion_realizada' => 'Cotización generada',
+				'fk_id_user' => $this->session->userdata('id_usuario'),
+				'fk_id_servicio_tecnico' => $id_servicio_tecnico,
+				'fecha_registro' => $this->input->post('fecha_registro')
+			);
+			$this->add_model->agregar($data_estatus, 'estatus_servicio');
+
+			$data_actualizar = array(
+				'costo_servicio' => $this->input->post('costo_servicio'),
+				'descripcion_servicio' => $this->input->post('descripcion_servicio'),
+				'fecha_entrega' => $fecha_entrega,
+				'fecha_actualizacion' => $this->input->post('fecha_registro'),
+				'estatus' => $this->input->post('estatus_servicio')
+			);
+			$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+
+			$this->session->set_flashdata('success', "Cotización generada");
+
+			redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');
 		}
+	/// END COTIZACIÓN_SERVICIO
 
-		/*echo '<br>costo_servicio: '.$this->input->post('costo_servicio');
-		echo '<br>costo_pieza: '.$suma_pieza;
-		echo '<br>fecha_entrega: '.$this->input->post('fecha_entrega');*/
-
-
+	/// INICIA ENTREGAR_EQUIPO
+		public function entregar_equipo(){
+			
+			$id = $this->input->post('id_frm_servicio_tecnico');
 		
+				$data['row_servicios'] = $this->consultar_model->servicios_tecnicos($id);
+			$data['historial_estatus'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
+			$data['row_cotizacion'] = $this->consultar_model->consultaSimple($id, 'id_servicio_tecnico', 'cotizacion_servicio');
 
-		$data_estatus = array(
-			'estatus' => $this->input->post('estatus_servicio'),
-			'accion_realizada' => 'Cotización generada',
-			'fk_id_user' => $this->session->userdata('id_usuario'),
-			'fk_id_servicio_tecnico' => $id_servicio_tecnico,
-			'fecha_registro' => $this->input->post('fecha_registro')
-		);
-		$this->add_model->agregar($data_estatus, 'estatus_servicio');
+			$data_estatus = array(
+				'estatus' => 'ENTREGADO',
+				'accion_realizada' => 'Equipo entregado al cliente',
+				'fk_id_user' => $this->session->userdata('id_usuario'),
+				'fk_id_servicio_tecnico' => $id,
+				'fecha_registro' => $this->input->post('fecha_registro')
+			);
+			$this->add_model->agregar($data_estatus, 'estatus_servicio');
 
-		$data_actualizar = array(
-			'costo_servicio' => $this->input->post('costo_servicio'),
-			'descripcion_servicio' => $this->input->post('descripcion_servicio'),
-			'fecha_entrega' => $fecha_entrega,
-			'fecha_actualizacion' => $this->input->post('fecha_registro'),
-			'estatus' => $this->input->post('estatus_servicio')
-		);
-		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
+			$data_actualizar = array(
+				'monto_pagado' => $this->input->post('monto_pagado'),
+				'fecha_actualizacion' => $this->input->post('fecha_registro'),
+				'estatus' => 'ENTREGADO'
+			);
+			$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
 
-		redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$id_servicio_tecnico.'', 'refresh');
-	}
+			$this->load->view('backend/pdf_ficha_tecnica', $data);
+			//echo $id_servicio_tecnico;
+			
 
-	public function entregar_equipo(){
-		
-		$id = $this->input->post('id_frm_servicio_tecnico');
-	
-			$data['row_servicios'] = $this->consultar_model->servicios_tecnicos($id);
-		$data['historial_estatus'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
-		$data['row_cotizacion'] = $this->consultar_model->consultaSimple($id, 'id_servicio_tecnico', 'cotizacion_servicio');
+			
 
-		$data_estatus = array(
-			'estatus' => 'ENTREGADO',
-			'accion_realizada' => 'Equipo entregado al cliente',
-			'fk_id_user' => $this->session->userdata('id_usuario'),
-			'fk_id_servicio_tecnico' => $id,
-			'fecha_registro' => $this->input->post('fecha_registro')
-		);
-		$this->add_model->agregar($data_estatus, 'estatus_servicio');
-
-		$data_actualizar = array(
-			'monto_pagado' => $this->input->post('monto_pagado'),
-			'fecha_actualizacion' => $this->input->post('fecha_registro'),
-			'estatus' => 'ENTREGADO'
-		);
-		$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
-
-		$this->load->view('backend/pdf_ficha_tecnica', $data);
-		//echo $id_servicio_tecnico;
-		
-
-		
-
-		//// generamos el PDF  de servicio
+			//// generamos el PDF  de servicio
 
 
 
 
-		//redirect('backend/Inicio', 'refresh');
-		//redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/', 'refresh');
-	}
+			//redirect('backend/Inicio', 'refresh');
+			//redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/', 'refresh');
+		}
+	/// END ENTREGAR_EQUIPO
 
 	public function modal_detalle_cotizacion($id){
 		$data['row_detalle_cotizacion'] = $this->consultar_model->servicios_tecnicos($id);
@@ -510,6 +548,34 @@ class Serv_tecnico extends CI_Controller{
 			$respuesta = null;
 			$vista = null;
 		}
+	}
+
+	public function consulta_refaccion(){
+		$id = $_POST["id"];
+		$precio_refaccion = $_POST["precio"];
+		$id_cotizacion = $_POST["id_cotizacion"];
+		$estatus = 'ENVIADO';
+
+		// ACTUALIZAR CONSULTA_PIEZA
+		$data_actualizar = array(
+			'precio' => $precio_refaccion,
+			'estatus' => $estatus,
+			'fecha_actualizacion' => time()
+		);
+		
+		$this->update_model->update('consulta_pieza', 'id_consulta_pieza', $id, $data_actualizar);
+
+
+		// ACTUALIZAR COTIZACION
+		$data_act_cotizacion = array(
+			'estatus' => $estatus
+		);
+		$this->update_model->update('cotizacion_servicio', 'id_cotizacion_servicio', $id_cotizacion, $data_act_cotizacion);
+
+		$data['row_consulta_refaccion'] = $this->consultar_model->consulta_refaccion(false, 'PENDIENTE');
+		$vista = $this->load->view('backend/tabla_consulta_refaccion', $data, true);
+
+		echo $vista;
 	}
 
 }

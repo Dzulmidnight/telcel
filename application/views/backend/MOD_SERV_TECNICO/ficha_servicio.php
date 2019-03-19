@@ -1,3 +1,17 @@
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2-bootstrap.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
+<link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
+<link rel="stylesheet" href="<?= base_url('assets/css/inforganic.css'); ?>">
+
+<link href="<?= base_url('assets/css/patternLock.css'); ?>"  rel="stylesheet" type="text/css" />
+
 <style>
 	.circulo {
 	     width: 30px;
@@ -116,6 +130,8 @@
                                         Estatus: <span><?= $row_servicios->estatus; ?></span>
                                     </p>
                                     <p class="font-size-13" style="margin-top:1em;">
+                                        Debes generar la cotización del servicio.
+                                        <br>
                                         <a style="color:#ff9f43;text-decoration: underline;" href="#" data-toggle="modal" data-target="#modal-cotizacion-servicio">
                                             <b>
                                                 <i class="fa fa-hand-pointer-o"></i> Generar cotización
@@ -124,8 +140,6 @@
                                         <!--<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-cotizacion-servicio">
                                             Crear cotización
                                         </button>-->
-                                        <br>
-                                        Debes generar la cotización del servicio.
                                     </p>
                                 <?php
                                     }
@@ -235,137 +249,18 @@
                             </div>
                         </li>
                         <li>
-                            <h5 class="push-10-t">Tipo de bloqueo</h5>
+                            <h5 class="push-10-t">
+                                Tipo de bloqueo
+                                <button type="button" onclick="mostrarEsa();">
+                                    Mostrar
+                                </button>
+                            </h5>
                             <div class="font-s13">
                             	<?php
 
                             		if(isset($row_servicios->patron_bloqueo)){
                             			echo '<p class="text-success">Patrón de Bloqueo</p>';
-                            			echo '<p>Sigue la secuencia de número para desbloquear el equipo</p>';
-
-											$token_casilla = explode(',', $row_servicios->patron_bloqueo);
-											$string_casilla = '';
-
-											foreach ($token_casilla as $value) {
-												$string_casilla .= $value;
-											}
-
-											$num_casilla = explode('casilla', $string_casilla);
-
-											$orden = array();
-											$casilla = array();
-											$cont = 1;
-
-											foreach ($num_casilla as $value) {
-												if($value != ''){
-													$casilla[] = $value;
-													$orden[] = $cont;
-													$cont++;
-												}
-											}
-		
-											$orden_casilla = array_combine($orden, $casilla);
-
-                            			?>
-											<table class="table table-bordered text-center" style="color:white;">
-												<tr>
-													<td class="">
-														<?php 
-															for ($i=1; $i <= count($orden_casilla); $i++) { 
-																if ($orden_casilla[$i] == '1') {
-																	echo '<span class="bg-success" style="padding:10px;">'.$i.'</span>';
-																	break;
-																}
-															}
-														 ?>
-													</td>
-													<td>
-														<?php 
-															for ($i=1; $i <= count($orden_casilla); $i++) { 
-																if ($orden_casilla[$i] == '2') {
-																	echo '<span class="bg-success" style="padding:10px;">'.$i.'</span>';
-																	break;
-																}
-															}
-														 ?>
-													</td>
-													<td>
-														<?php 
-															for ($i=1; $i <= count($orden_casilla); $i++) { 
-																if ($orden_casilla[$i] == '3') {
-																	echo '<span class="bg-success" style="padding:10px;">'.$i.'</span>';
-																	break;
-																}
-															}
-														 ?>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<?php 
-															for ($i=1; $i <= count($orden_casilla); $i++) { 
-																if ($orden_casilla[$i] == '4') {
-																	echo '<span class="bg-success" style="padding:10px;">'.$i.'</span>';
-																	break;
-																}
-															}
-														 ?>
-													</td>
-													<td>
-														<?php 
-															for ($i=1; $i <= count($orden_casilla); $i++) { 
-																if ($orden_casilla[$i] == '5') {
-																	echo '<span class="bg-success" style="padding:10px;">'.$i.'</span>';
-																	break;
-																}
-															}
-														 ?>
-													</td>
-													<td>
-														<?php 
-															for ($i=1; $i <= count($orden_casilla); $i++) { 
-																if ($orden_casilla[$i] == '6') {
-																	echo '<span class="bg-success" style="padding:10px;">'.$i.'</span>';
-																	break;
-																}
-															}
-														 ?>
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<?php 
-															for ($i=1; $i <= count($orden_casilla); $i++) { 
-																if ($orden_casilla[$i] == '7') {
-																	echo '<span class="bg-success" style="padding:10px;">'.$i.'</span>';
-																	break;
-																}
-															}
-														 ?>
-													</td>
-													<td>
-														<?php 
-															for ($i=1; $i <= count($orden_casilla); $i++) { 
-																if ($orden_casilla[$i] == '8') {
-																	echo '<span class="bg-success" style="padding:10px;">'.$i.'</span>';
-																	break;
-																}
-															}
-														 ?>
-													</td>
-													<td>
-														<?php 
-															for ($i=1; $i <= count($orden_casilla); $i++) { 
-																if ($orden_casilla[$i] == '9') {
-																	echo '<span class="bg-success" style="padding:10px;">'.$i.'</span>';
-																	break;
-																}
-															}
-														 ?>
-													</td>
-												</tr>
-											</table>
-                            			<?php
+                            			echo '<div id="patternHolder"></div>';
                             		}else if(isset($row_servicios->codigo_bloqueo)){
                             			echo '<p class="text-primary">Codigo de Bloqueo</p>';
                             			echo '<b>'.$row_servicios->codigo_bloqueo.'</b>';
@@ -406,7 +301,7 @@
                     	<div class="row">
                     		<div id="div_mensaje_cotizacion" class="col-md-12" style="margin-bottom: 1em;">
                     			<p class="bg-danger" style="color:white;padding:10px;">
-                    				Despues de generar la cotización, se notificara a la sucursal.
+                    				Después de generar la cotización, se notificara a la sucursal.
                     			</p>
                     		</div>
                             <div class="col-md-6">
@@ -416,8 +311,8 @@
                                         <table class="table table-bordered table-condensed">
                                             <thead>
                                                 <tr>
-                                                    <th class="text-center" colspan="4" style="font-size:12px;background:#27ae60;color:#ecf0f1">
-                                                        PIEZAS UTILIZADAS
+                                                    <th class="text-center" colspan="4" style="font-size:12px;background:#27ae60;color:#fff">
+                                                        TABLA DE PIEZAS UTILIZADAS
                                                     </th>
                                                 </tr>
                                                 <tr>
@@ -433,15 +328,15 @@
                                         </table>
                                     </div>
                                     <div class="col-xs-6">
-                                        <label for="costo_servicio">Costo del servicio</label>
-                                        <input type="number" step="any" class="form-control" id="costo_servicio" name="costo_servicio" placeholder="$ 000.00">
+                                        <label for="costo_servicio">Costo del servicio (instalación)</label>
+                                        <input type="number" step="any" class="form-control" id="costo_servicio" name="costo_servicio" placeholder="$ 000.00" required>
                                     </div>
                                     <div class="col-xs-6">
                                         <label for="fecha_entrega">Fecha de entrega</label>
-                                        <input type="date" class="form-control" name="fecha_entrega" value="<?= date('Y-m-d', $row_servicios->fecha_entrega); ?>">
+                                        <input type="date" class="form-control" name="fecha_entrega" value="<?= date('Y-m-d', $row_servicios->fecha_entrega); ?>" required>
                                     </div>
-                                    <div class="col-xs-12">
-                                        <label for="descripcion_servicio">Descripción del servicio</label>
+                                    <div class="col-xs-12" style="margin-top:1em;">
+                                        <label for="descripcion_servicio">Descripción del servicio a realizar</label>
                                         <textarea class="form-control" name="descripcion_servicio" id="descripcion_servicio" cols="" rows="5" placeholder=""></textarea>
                                     </div>
                                 </div>
@@ -450,7 +345,7 @@
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <label for="consultar_piezas" style="background:#ecf0f1;width:100%;padding:1em;">
-                                            <i class="si si-magnifier"></i> Consultar piezas
+                                            <i class="si si-magnifier"></i> Consultar piezas del catalogo
                                         </label>
                                         <input type="text" class="form-control" id="consultar_piezas" name="consultar_piezas" placeholder="Escribe el tipo de pieza o modelo" onkeyup="consultarRepuestos(this.value, '<?= base_url(); ?>');">
                                     </div>
@@ -604,6 +499,22 @@
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
 
+<!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/barcode.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.slimscroll.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.scrollLock.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.appear.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.countTo.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/jquery.placeholder.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/app.js"></script>
+
+<script src="<?= base_url('assets/js/patternLock.js'); ?>"></script>
 
 <script>
     function solicitarPieza(opcion){
@@ -629,6 +540,20 @@
 	}
 </script>
 
-<script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>
+<!-- Page JS Code -->
+<script>
+    var lock = new PatternLock('#patternHolder',{
+        enableSetPattern:true //option
+    });
+
+    function mostrarEsa(){
+        lock.setPattern('123456');
+    }
+    //lock.setPattern('123456789');
+    //var lock = PatternLock('#patternHolder',{enableSetPattern: true});
+
+    jQuery(function () {
+        // Init page helpers (Table Tools helper)
+        App.initHelpers('table-tools');
+    });
+</script>

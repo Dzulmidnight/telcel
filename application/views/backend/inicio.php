@@ -21,14 +21,9 @@
 
             <div class="col-md-6">
                 <?php 
-                    $en_espera = 0;
-                    $por_entregar = 0;
-                    foreach ($row_servicios_en_espera as $servicio) {
-                        $en_espera++;
-                    }
-                    foreach ($row_servicios_por_entregar as $servicio_por_entregar) {
-                        $por_entregar++;
-                    }
+                    $en_espera = count($row_servicios_en_espera);
+                    $por_entregar = count($row_servicios_por_entregar);
+                    $refaccion = count($row_consulta_refaccion);
                  ?>
                 <!-- Block Tabs Alternative Style -->
                 <label for="busqueda_cliente">Consultar servicio</label>
@@ -43,10 +38,19 @@
                 <div class="block" id="div-notificaciones">
                     <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
                         <li class="active">
-                            <a href="#btabs-equipos-finalizados">En espera (<?= $en_espera; ?>)</a>
+                            <a href="#btabs-equipos-finalizados">
+                                En espera (<?= $en_espera; ?>)
+                            </a>
                         </li>
                         <li>
-                            <a href="#btabs-equipos-cotizacion">Por entregar (<?= $por_entregar; ?>)</a>
+                            <a href="#btabs-equipos-cotizacion">
+                                Por entregar (<?= $por_entregar; ?>)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#btabs-consulta-refacciones">
+                                Refacciones (<span id="totalRefaccion_span"><?= $refaccion; ?></span>)
+                            </a>
                         </li>
                         <li class="pull-right">
                             <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="Settings"><i class="si si-settings"></i></a>
@@ -113,7 +117,7 @@
                                                     <?php
                                                     }
                                                  ?>
-                                                <a class="btn btn-xs btn-info" href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$servicio->id_servicio_tecnico); ?>" data-toggle="tooltip" title="Ficha de servicio">
+                                                <a class="btn btn-xs btn-info" href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/ficha_servicio/'.$servicio_en_espera->id_servicio_tecnico); ?>" data-toggle="tooltip" title="Ficha de servicio">
                                                     <i class="si si-note"></i>
                                                 </a>
                                             </td>
@@ -177,6 +181,74 @@
                             </table>
                         </div>
                         <!-- END Equipos finalizados -->
+
+                        <!-- Consulta precios refacciones -->
+                        <div class="tab-pane" id="btabs-consulta-refacciones">
+                            <h4 class="font-w300 push-15">
+                                Consulta sobre refacciones
+                            </h4>
+                            <p style="background:#e74c3c;color:#ecf0f1;padding:1em;">
+                                <i class="fa fa-warning"></i> Debes agregar el precio de las siguiente piezas.
+                            </p>
+                            <div id="tablaConsultaRefaccion_div">
+                                <table class="table table-condensed" style="font-size: 11px;">
+                                    <thead>
+                                        <tr>
+                                            <th style="font-size:11px;">Fecha</th>
+                                            <th style="font-size:11px;">Nombre</th>
+                                            <th style="font-size:11px;">Modelo</th>
+                                            <th style="font-size:11px;">Color</th>
+                                            <th style="font-size:11px;">Detalle</th>
+                                            <th>
+                                                ...
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($row_consulta_refaccion as $consulta_refaccion): ?>
+                                            <tr>
+                                                <!-- Fecha -->
+                                                <td>
+                                                    <?= date('d/m/Y', $consulta_refaccion->fecha_registro); ?>
+                                                </td>
+
+                                                <!-- Nombre pieza -->
+                                                <td>
+                                                    <?= $consulta_refaccion->nombre; ?>
+                                                </td>
+
+                                                <!-- Modelo de la pieza -->
+                                                <td>
+                                                    <?= $consulta_refaccion->modelo; ?>
+                                                </td>
+
+                                                <!-- Color de la pieza -->
+                                                <td>
+                                                    <?= $consulta_refaccion->color; ?>
+                                                </td>
+
+                                                <!-- Detalles extra -->
+                                                <td>
+                                                    Tel: <b><?= $consulta_refaccion->modelo_telefono; ?></b>
+                                                    <br>
+                                                    Marca: <b><?= $consulta_refaccion->marca_telefono; ?></b>
+                                                </td>
+
+                                                <!-- Acciones -->
+                                                <td>
+                                                    <button type="button" class="btn btn-sm btn-info" data-toggle="tooltip" title="Asignar precio" onclick="asignarPrecio('<?= base_url(); ?>', <?= $consulta_refaccion->id_consulta_pieza; ?>, <?= $consulta_refaccion->id_cotizacion_servicio; ?>);">
+                                                        <i class="fa fa-dollar"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>                                
+                            </div>
+
+                        </div>
+                        <!-- END Consulta precios refacciones -->
+
 
                         <div class="tab-pane" id="btabs-alt-static-settings">
                             <h4 class="font-w300 push-15">Settings Tab</h4>

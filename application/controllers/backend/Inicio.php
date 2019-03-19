@@ -38,6 +38,8 @@ class Inicio extends CI_Controller{
 
 		$data['row_entregas'] = $this->consultar_model->ultimosAvisos($this->session->userdata('id_sucursal'));
 
+		$data['row_consulta_refaccion'] = $this->consultar_model->consulta_refaccion(false, 'PENDIENTE');
+
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');

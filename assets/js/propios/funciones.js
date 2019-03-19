@@ -1,8 +1,45 @@
 var base_url = window.location.href;
 
-function buscarCliente(datos){
-    console.log('datos');
+function actualizarValor(url, id, precio, idCotizacion){
+    let ruta = url + 'backend/MOD_SERV_TECNICO/Serv_tecnico/consulta_refaccion';
+    let tablaRefaccion_div = document.getElementById('tablaConsultaRefaccion_div');
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            let vista = this.responseText;
+            let delayInMilliseconds = 250;
+            
+
+            tablaRefaccion_div.innerHTML = `
+                <div class="col-lg-12 text-center">
+                    <i class="fa fa-3x fa-spinner fa-spin text-primary"></i>
+                </div>
+            `;
+            setTimeout(function() {
+                tablaRefaccion_div.innerHTML = vista;
+                let total = document.getElementById('total_consulta_refaccion').value;
+                
+                document.getElementById('totalRefaccion_span').innerHTML = total;
+            }, delayInMilliseconds);
+        }
+    }
+
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("id=" + id + "&precio=" + precio + "&id_cotizacion=" +$idCotizacion);
 }
+
+function asignarPrecio(url, idConsulta, idCotizacion){
+    swal("Ingresa el precio de la pieza", {
+        content: "input",
+    })
+    .then((value) => {
+        actualizarValor(url, id, value, idCotizacion);
+        //swal(`You typed: ${value}`);
+    });
+}
+
 function modalFichaServicio(ruta, id, div, codigoBarras){
     ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'+id;
 
@@ -61,7 +98,7 @@ function modalDetalleCliente(ruta, id, div){
 
     xmlhttp.onreadystatechange = function(){
         if(this.readyState == 4 && this.status == 200){
-            console.log(this.responseText);
+            //console.log(this.responseText);
             document.getElementById(div).innerHTML = this.responseText;
             $('#modal-detalle-cliente').modal('show');
         }
@@ -87,7 +124,7 @@ function historialAcciones(ruta, id, div){
 
 //            console.log(objetoJson);
 
-            console.log(this.responseText);
+//            console.log(this.responseText);
             document.getElementById(div).innerHTML = this.responseText;
 
             /*document.getElementById('edit_nombre').value = objetoJson.nombre;

@@ -69,11 +69,14 @@
                 <table class="table js-dataTable-full" style="font-size: 11px;">
                     <thead style="font-size: 12px;">
                         <tr>
+                            <th>
+                                Nº
+                            </th>
                             <th style="font-size: 12px;">
                                 Cliente
                             </th>
                             <th style="font-size: 12px;">
-                                #Codigo
+                                Historial
                             </th>
                             <th style="font-size: 12px; width:20%;">
                                 Detalle
@@ -99,8 +102,10 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $contador = 0; ?>
                         <?php foreach($row_servicios as $servicio): ?>
-                        <?php 
+                        <?php
+                            $contador++;
                             $estilo = '';
                             switch ($servicio->estatus) {
                                 case 'PENDIENTE':
@@ -122,6 +127,11 @@
                             }
                          ?>
                             <tr>
+                                <!-- Nº -->
+                                <td>
+                                    <?= $contador; ?>    
+                                </td>
+
                                 <!-- Cliente -->
                                 <td>
                                     <a href="#" onclick="modalDetalleCliente('<?= base_url(); ?>',<?= $servicio->fk_id_cliente; ?>, 'div-mostrar-modal-cliente');">
@@ -251,7 +261,10 @@
 <div class="modal" id="modal-nuevo-ingreso" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg ">
         <div class="modal-content">
-            <form id="frm_nuevo_ingreso_2" class="form-horizontal push-10-t block-content" action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/agregar'); ?>" method="POST" enctype="multipart/form-data">
+            <!--<form id="frm_nuevo_ingreso_2" class="form-horizontal push-10-t block-content" action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/agregar'); ?>" method="POST" enctype="multipart/form-data">-->
+
+            <form id="frm_nuevo_ingreso_2" class="form-horizontal push-10-t block-content" action="#" method="POST" enctype="multipart/form-data">
+
                 <div class="block block-themed block-transparent remove-margin-b">
                     <div class="block-header bg-primary-dark">
                         <ul class="block-options">
@@ -270,22 +283,10 @@
                                         Información del cliente
                                     </h3>
                                     <hr>
-                                    <!--
-                                    <div class="form-group">
-                                        <div class="">
-                                            <b class="text-success" style="margin-bottom:1em;">Buscar cliente</b>
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-info" type="button"><i class="fa fa-search"></i> Buscar</button>
-                                                </span>
-                                                <input class="form-control" type="text" id="" name="" placeholder="Nombre y apellido, Nº Telefono" onkeyup="buscarCliente('this.value');">
-                                            </div>
-                                        </div>
-                                    </div>-->
-
-                                    <div class="row well">
+                                    <div class="row ">
                                         <div class="col-sm-12">
-                                           <h4 style="margin-bottom: 1em;">Nuevo cliente</h4> 
+                                            <label class="obligatorio" for="num_telefono">* Teléfono de contacto</label>
+                                            <input type="text" id="num_telefono" name="num_telefono" class="form-control" required>
                                         </div>
                                         <div class="col-sm-12">
                                             <label class="obligatorio" for="nombre">* Nombre</label>
@@ -301,11 +302,6 @@
                                         </div>
 
                                         <div class="col-sm-12">
-                                            <label class="obligatorio" for="num_telefono">* Nº Teléfono</label>
-                                            <input type="text" id="num_telefono" name="num_telefono" class="form-control" required>
-                                        </div>
-
-                                        <div class="col-sm-12">
                                             <label for="informacion_extra">Información Extra</label>
                                             <textarea class="form-control" name="informacion_extra" id="informacion_extra"></textarea>
                                         </div>
@@ -313,112 +309,107 @@
                             </div>
                             <!-- END Registrar nuevo cliente -->
                             <div class="col-md-7">
-                                <!-- Div servicio_tecnico -->
-                                <div id="div_servicio_tecnico">
-                                    <p class="text-danger h3" >
+                                    <h3 class="h4 text-danger">
                                         Servicio Técnico
-                                    </p>
+                                    </h3>
+                                <!-- Div servicio_tecnico -->
+                                <div id="div_servicio_tecnico" class="row" style="border-left: 3px solid #E77715;margin:10px;">
+                                    <div class="col-sm-6">
+                                        <label for="fecha_ingreso">Fecha de ingreso</label>
+                                        <input type="date" class="form-control" id="fecha_ingreso" value="<?= date('Y-m-d', time()) ?>" readonly>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="obligatorio" for="fecha_entrega">* Entrega estimada</label>
+                                        <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" value="" required>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="deposito_garantia">Deposito en garantia</label>
+                                        <input type="text" class="form-control" id="deposito_garantia" name="deposito_garantia" value="" placeholder="$ 000.00">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="obligatorio" for="imei">* IMEI</label>
+                                        <input type="text" class="form-control" id="imei" name="imei" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="obligatorio" for="num_telefono_equipo">* Número de telefono</label>
+                                        <input type="text" class="form-control" id="num_telefono_equipo" name="num_telefono_equipo" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="obligatorio" for="marca">* Marca</label>
+                                        <input type="text" class="form-control" id="marca" name="marca" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="obligatorio" for="modelo">* Modelo</label>
+                                        <input type="text" class="form-control" id="modelo" name="modelo" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="obligatorio" for="estado_fisico">* Estado fisico del equipo</label>
+                                        <select class="form-control" name="estado_fisico" id="estado_fisico" required>
+                                            <option>...</option>
+                                            <option value="EXCELENTE">Excenlente</option>
+                                            <option value="BUENO">Bueno</option>
+                                            <option value="REGULAR">Regular</option>
+                                            <option value="MALO">Malo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="evidencias">Evidencias</label>
+                                        <input type="file" class="form-control" id="evidencias" name="evidencias">
+                                    </div>
 
-                                    <div class="row well" style="border-left: 3px solid #E77715;margin:10px;">
-                                        <div class="col-sm-6">
-                                            <label for="fecha_ingreso">FECHA DE INGRESO</label>
-                                            <input type="date" class="form-control" id="fecha_ingreso" value="<?= date('Y-m-d', time()) ?>" readonly>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="obligatorio" for="fecha_entrega">* ESTIMADA DE ENTREGA</label>
-                                            <input type="date" class="form-control" id="fecha_entrega" name="fecha_entrega" value="" required>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <label for="deposito_garantia">Deposito en garantia</label>
-                                            <input type="text" class="form-control" id="deposito_garantia" name="deposito_garantia" value="" placeholder="$ 000.00">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="obligatorio" for="imei">* IMEI</label>
-                                            <input type="text" class="form-control" id="imei" name="imei" required>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="obligatorio" for="num_telefono_equipo">* Número de telefono</label>
-                                            <input type="text" class="form-control" id="num_telefono_equipo" name="num_telefono_equipo" required>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="obligatorio" for="marca">* Marca</label>
-                                            <input type="text" class="form-control" id="marca" name="marca" required>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="obligatorio" for="modelo">* Modelo</label>
-                                            <input type="text" class="form-control" id="modelo" name="modelo" required>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label class="obligatorio" for="estado_fisico">* Estado fisico del equipo</label>
-                                            <select class="form-control" name="estado_fisico" id="estado_fisico" required>
-                                                <option>...</option>
-                                                <option value="EXCELENTE">Excenlente</option>
-                                                <option value="BUENO">Bueno</option>
-                                                <option value="REGULAR">Regular</option>
-                                                <option value="MALO">Malo</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <label for="evidencias">Evidencias</label>
-                                            <input type="file" class="form-control" id="evidencias" name="evidencias">
-                                        </div>
+                                    <div class="col-sm-12" style="margin-top:2em;">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <label class="obligatorio" for="falla_reportada">* Falla reportada por el usuario</label>
+                                                <textarea class="form-control" name="falla_reportada" id="falla_reportada" rows="5" required></textarea>
+                                            </div>
 
-                                        <div class="col-sm-12" style="margin-top:2em;">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <label class="obligatorio" for="falla_reportada">* Falla reportada por el usuario</label>
-                                                    <textarea class="form-control" name="falla_reportada" id="falla_reportada" rows="5" required></textarea>
-                                                </div>
-
-                                                <div class="col-xs-6">
-                                                    <label for="detalle_extra">Detalles Extra</label>
-                                                    <textarea class="form-control" name="detalle_extra" id="detalle_extra" rows="5"></textarea>
-                                                </div> 
+                                            <div class="col-xs-6">
+                                                <label for="detalle_extra">Detalles Extra</label>
+                                                <textarea class="form-control" name="detalle_extra" id="detalle_extra" rows="5"></textarea>
                                             </div> 
-                                        </div>
+                                        </div> 
+                                    </div>
 
-                                        <div class="col-sm-12" style="margin-top:2em;">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <label class="css-input css-radio css-radio-success">
-                                                        <input name="tipo_bloqueo" type="radio" onclick="mostrarBloqueo('patron');" value="1"><span></span> <b>Patron de bloqueo</b>
-                                                    </label>
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    <label class="css-input css-radio css-radio-success">
-                                                        <input name="tipo_bloqueo" type="radio" onclick="mostrarBloqueo('codigo');" value="1"><span></span> <b>Codigo de bloqueo</b>
-                                                    </label>
-                                                </div> 
-                                            </div>   
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div id="div-padron-bloqueo" style="display:none">
-                                                <h5 class="text-center" style="padding:10px;background:#fff; color: #e84118;">
-                                                    Dibuja el patrón de bloqueo
-                                                </h5>
-                                                <div id="patternHolder"></div> 
+                                    <div class="col-sm-12" style="margin-top:2em;">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <label class="css-input css-radio css-radio-success">
+                                                    <input name="tipo_bloqueo" type="radio" onclick="mostrarBloqueo('patron');" value="1"><span></span> <b>Patron de bloqueo</b>
+                                                </label>
                                             </div>
+                                            <div class="col-xs-6">
+                                                <label class="css-input css-radio css-radio-success">
+                                                    <input name="tipo_bloqueo" type="radio" onclick="mostrarBloqueo('codigo');" value="1"><span></span> <b>Codigo de bloqueo</b>
+                                                </label>
+                                            </div> 
+                                        </div>   
+                                    </div>
 
-                                            <div id="div-codigo-bloqueo" style="display:none">
-                                                <table class="table table-bordered">
-                                                    <tr>
-                                                        <td>
-                                                            <h5 style="color:#e74c3c;">
-                                                                Escribe el código de bloqueo
-                                                            </h5>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="number" class="form-control" id="codigo_bloqueo" name="codigo_bloqueo" placeholder="Código de bloqueo">
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-
+                                    <div class="col-md-12">
+                                        <div id="div-padron-bloqueo" style="display:none">
+                                            <h5 class="text-center" style="padding:10px;background:#fff; color: #e84118;">
+                                                Dibuja el patrón de bloqueo
+                                            </h5>
+                                            <div id="patternHolder"></div> 
                                         </div>
 
+                                        <div id="div-codigo-bloqueo" style="display:none">
+                                            <table class="table table-bordered">
+                                                <tr>
+                                                    <td>
+                                                        <h5 style="color:#e74c3c;">
+                                                            Escribe el código de bloqueo
+                                                        </h5>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="number" class="form-control" id="codigo_bloqueo" name="codigo_bloqueo" placeholder="Código de bloqueo">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- END Div servicio_tecnico -->  
@@ -427,11 +418,12 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <input type="hidden" id="patron_bloqueo" name="patron_bloqueo" value="">
                     <input type="hidden" id="tipo-bloqueo" name="tipo_bloqueo" value="">
                     <input type="hidden" id="casilla_seleccionada" name="casilla_seleccionada">
                     <input type="hidden" id="numero-inicial-patron" value="0">
                     <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                    <button class="btn btn-success" type="button" onclick="validarCampos('frm_nuevo_ingreso_2');">Registrar</button>
+                    <button class="btn btn-success" type="button" onclick="validarCampos('frm_nuevo_ingreso_2', '<?= base_url(); ?>');">Registrar</button>
                 </div>
             </form>
         </div>
@@ -568,13 +560,8 @@
 
 <!-- Page JS Code -->
 <script>
-var lock = new PatternLock('#patternHolder');
-
-function obtenerPatron(){
-    console.log('EL PATRON: '+lock.getPattern());
-}
+    var lock = new PatternLock('#patternHolder');
     
-
     jQuery(function () {
         // Init page helpers (Table Tools helper)
         App.initHelpers('table-tools');

@@ -247,6 +247,36 @@ class Consultar_model extends CI_Model{
                 return $result;
         }
 
+        //// REFACCIONES POR CONSULTA //////
+                public function consulta_refaccion($id = false, $estado = false){
+                        $this->db->select('
+                                consulta_pieza.*,
+                                cotizacion_servicio.id_cotizacion_servicio,
+                                cotizacion_servicio.id_servicio_tecnico,
+                                servicio_tecnico.marca_telefono,
+                                servicio_tecnico.modelo_telefono,
+                                servicio_tecnico.falla_reportada
+                        ');
+                        $this->db->from('consulta_pieza');
+                        $this->db->join('cotizacion_servicio', 'cotizacion_servicio.id_cotizacion_servicio = consulta_pieza.fk_id_cotizacion_servicio');
+                        $this->db->join('servicio_tecnico', 'servicio_tecnico.id_servicio_tecnico = cotizacion_servicio.id_servicio_tecnico');
+
+                        if($estado == 'PENDIENTE'){
+                                $this->db->where('consulta_pieza.estatus', 'PENDIENTE');
+                        }
+                        if($id){
+                                $this->db->where('consulta_pieza.id_consulta_pieza', $id);
+                                $query = $this->db->get();
+                                $result = $query->row();
+                        }else{
+                                $query = $this->db->get();
+                                $result = $query->result();
+                        }
+                        return $result;
+                }
+        //// END REFACCIONES POR CONSULTA //////
+
+
         //// SERVICIOS_TECNICOS //////
                 public function servicios_tecnicos($id = false){
                         $this->db->select('
@@ -653,6 +683,8 @@ class Consultar_model extends CI_Model{
                         return $result;                
                 }
         /// END CONSULTAR SERVICIOS
+
+
 
 
 }
