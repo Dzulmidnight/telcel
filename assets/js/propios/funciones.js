@@ -1,8 +1,15 @@
 var base_url = window.location.href;
 
-function actualizarValor(url, id, precio, idCotizacion){
+function actualizarValor(url, arrayDatos){
     let ruta = url + 'backend/MOD_SERV_TECNICO/Serv_tecnico/consulta_refaccion';
     let tablaRefaccion_div = document.getElementById('tablaConsultaRefaccion_div');
+    let objJson;
+
+    objJson = JSON.stringify(arrayDatos);
+    console.log('EL JSON ES: ');
+    console.log(objJson);
+
+
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function(){
@@ -10,7 +17,6 @@ function actualizarValor(url, id, precio, idCotizacion){
             let vista = this.responseText;
             let delayInMilliseconds = 250;
             
-
             tablaRefaccion_div.innerHTML = `
                 <div class="col-lg-12 text-center">
                     <i class="fa fa-3x fa-spinner fa-spin text-primary"></i>
@@ -27,17 +33,32 @@ function actualizarValor(url, id, precio, idCotizacion){
 
     xmlhttp.open("POST", ruta, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("id=" + id + "&precio=" + precio + "&id_cotizacion=" +$idCotizacion);
+    xmlhttp.send("objJson=" + objJson);
+    
 }
 
 function asignarPrecio(url, idConsulta, idCotizacion){
-    swal("Ingresa el precio de la pieza", {
+    let notificarConsulta_btn = document.getElementById("notificarConsulta_btn");
+    let tiempoEntrega = document.getElementById("tiempo_entrega_refaccion");
+    let precioRefaccion = document.getElementById("precio_consulta_refaccion");
+    let objConsulta;
+
+    $("#modalPrecioRefaccion").modal('show');
+
+    notificarConsulta_btn.addEventListener("click", function(){
+        objConsulta = { consulta: idConsulta, cotizacion: idCotizacion, precio: precioRefaccion.value, tiempo: tiempoEntrega.value};
+        console.log(objConsulta);
+        $("#modalPrecioRefaccion").modal('toggle');
+        actualizarValor(url, objConsulta);
+    })
+
+    /*swal("Ingresa el precio de la pieza", {
         content: "input",
     })
     .then((value) => {
         actualizarValor(url, id, value, idCotizacion);
         //swal(`You typed: ${value}`);
-    });
+    });*/
 }
 
 function modalFichaServicio(ruta, id, div, codigoBarras){

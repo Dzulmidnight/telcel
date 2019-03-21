@@ -551,19 +551,24 @@ class Serv_tecnico extends CI_Controller{
 	}
 
 	public function consulta_refaccion(){
-		$id = $_POST["id"];
-		$precio_refaccion = $_POST["precio"];
-		$id_cotizacion = $_POST["id_cotizacion"];
+		//$id = $_POST["id"];
+		$objJson = json_decode($_POST["objJson"]);
+		$id_consulta_pieza = $objJson->consulta;
+		$id_cotizacion = $objJson->cotizacion;
+		$precio_refaccion = $objJson->precio;
+		$tiempo_entrega = $objJson->tiempo;
+
 		$estatus = 'ENVIADO';
 
 		// ACTUALIZAR CONSULTA_PIEZA
 		$data_actualizar = array(
 			'precio' => $precio_refaccion,
+			'tiempo_entrega' => $tiempo_entrega,
 			'estatus' => $estatus,
 			'fecha_actualizacion' => time()
 		);
 		
-		$this->update_model->update('consulta_pieza', 'id_consulta_pieza', $id, $data_actualizar);
+		$this->update_model->update('consulta_pieza', 'id_consulta_pieza', $id_consulta_pieza, $data_actualizar);
 
 
 		// ACTUALIZAR COTIZACION

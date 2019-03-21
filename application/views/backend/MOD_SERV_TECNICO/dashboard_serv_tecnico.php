@@ -129,7 +129,8 @@
                             <tr>
                                 <!-- Nº -->
                                 <td>
-                                    <?= $contador; ?>    
+                                    <?= $contador; ?>
+                                    <?= 'id: '.$servicio->id_servicio_tecnico; ?>
                                 </td>
 
                                 <!-- Cliente -->

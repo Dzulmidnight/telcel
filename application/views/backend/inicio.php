@@ -36,6 +36,9 @@
                 <br>
                 <div class="block" id="div-servicios"></div>
                 <div class="block" id="div-notificaciones">
+                    <h4 class="text-center" style="background:#ecf0f1; padding:10px;">
+                        Servicio tecnico
+                    </h4>
                     <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
                         <li class="active">
                             <a href="#btabs-equipos-finalizados">
@@ -290,6 +293,66 @@
     </a>
 
 </div>-->
+
+<!-- Modal mostrar codigo de barras -->
+<div class="modal fade" id="modalPrecioRefaccion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-popout">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">
+                        Petición de refacción
+                    </h3>
+                </div>
+                <div class="block-content" style="margin-bottom: 4em;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="" for="precio_consulta_refaccion">
+                                    Precio Refacción
+                                </label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="text" class="form-control" id="precio_consulta_refaccion" name="precio_consulta_refaccion" placeholder="Ej: 100.00">
+                                </div>
+                            </div>
+                            
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="" for="tiempo_entrega_refaccion">
+                                    Tiempo de entrega
+                                </label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="tiempo_entrega_refaccion" name="tiempo_entrega_refaccion" placeholder="Ej: 4">
+                                    <div class="input-group-addon">Dia(s)</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="notificarConsulta_btn" class="btn btn-sm btn-success">
+                    Notificar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal mostrar codigo de barras -->
+
+
+
 <script src="<?php echo base_url(); ?>assets/js/propios/ventas.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
