@@ -127,10 +127,20 @@
                             }
                          ?>
                             <tr>
+                                <?php 
+                                    switch ($servicio->estatus) {
+                                        case 'EN PROCESO':
+                                            $resaltar = 'style="font-size:14px;background:#2ecc71;color:#fff;"';
+                                            break;
+                                        
+                                        default:
+                                            $resaltar = 'style="font-size:14px;"';
+                                            break;
+                                    }
+                                 ?>
                                 <!-- Nº -->
-                                <td>
+                                <td <?= $resaltar; ?>>
                                     <?= $contador; ?>
-                                    <?= 'id: '.$servicio->id_servicio_tecnico; ?>
                                 </td>
 
                                 <!-- Cliente -->
@@ -173,6 +183,7 @@
 
                                 <!-- ESTATUS -->
                                 <td>
+
                                     <?php
                                         
                                         switch ($servicio->estatus) {
@@ -183,6 +194,16 @@
                                             case 'FINALIZADO':
                                                 $color = 'color:#ff9f43';
                                                 echo '<i class="fa fa-exclamation-circle" style="'.$color.'"></i> <b style="'.$color.'">'.$servicio->estatus.'</b>';
+                                                break;
+                                            case 'EN PROCESO':
+                                                $color = 'color:#27ae60';
+                                                ?>
+                                                    <a style="<?= $color; ?>" href="#" data-toggle="tooltip" title="Se ha aceptado la cotización, debes iniciar con el servicio">
+                                                        <b>
+                                                            <i class="fa fa-warning"></i> <?= $servicio->estatus; ?>
+                                                        </b>
+                                                    </a>
+                                                <?php
                                                 break;
                                             default:
                                                 echo '<i class="fa fa-clock-o"></i> <b>'.$servicio->estatus.'</b>';
@@ -286,8 +307,8 @@
                                     <hr>
                                     <div class="row ">
                                         <div class="col-sm-12">
-                                            <label class="obligatorio" for="num_telefono">* Teléfono de contacto</label>
-                                            <input type="text" id="num_telefono" name="num_telefono" class="form-control" required>
+                                            <label class="obligatorio" for="telefono_contacto">* Teléfono de contacto</label>
+                                            <input type="text" id="telefono_contacto" name="telefono_contacto" class="form-control" required>
                                         </div>
                                         <div class="col-sm-12">
                                             <label class="obligatorio" for="nombre">* Nombre</label>
@@ -543,10 +564,10 @@
 
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
-<script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/ventas.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/funciones.js"></script>
-<script src="<?php echo base_url(); ?>assets/js/propios/barcode.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/propios/servicio.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.slimscroll.min.js"></script>

@@ -6,7 +6,6 @@ function actualizarValor(url, arrayDatos){
     let objJson;
 
     objJson = JSON.stringify(arrayDatos);
-    console.log('EL JSON ES: ');
     console.log(objJson);
 
 
@@ -37,18 +36,34 @@ function actualizarValor(url, arrayDatos){
     
 }
 
-function asignarPrecio(url, idConsulta, idCotizacion){
+function asignarPrecio(url, idConsulta, idCotizacion, costoCotizacion, idServicioTecnico){
     let notificarConsulta_btn = document.getElementById("notificarConsulta_btn");
     let tiempoEntrega = document.getElementById("tiempo_entrega_refaccion");
-    let precioRefaccion = document.getElementById("precio_consulta_refaccion");
+    let precioInternoRefaccion = document.getElementById("precio_interno_refaccion");
+    let precioPublicoRefaccion = document.getElementById("precio_publico_refaccion");
     let objConsulta;
 
     $("#modalPrecioRefaccion").modal('show');
 
     notificarConsulta_btn.addEventListener("click", function(){
-        objConsulta = { consulta: idConsulta, cotizacion: idCotizacion, precio: precioRefaccion.value, tiempo: tiempoEntrega.value};
+        
+        objConsulta = {
+            costoCotizacion: costoCotizacion,
+            consulta: idConsulta, 
+            cotizacion: idCotizacion,
+            servicioTecnico: idServicioTecnico,
+            precioInterno: precioInternoRefaccion.value,
+            precioPublico: precioPublicoRefaccion.value,
+            tiempo: tiempoEntrega.value
+        };
+        
         console.log(objConsulta);
         $("#modalPrecioRefaccion").modal('toggle');
+        
+        precioInternoRefaccion.value = '';
+        precioPublicoRefaccion.value = '';
+        tiempoEntrega.value = '';
+        
         actualizarValor(url, objConsulta);
     })
 

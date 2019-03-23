@@ -38,7 +38,17 @@ class Inicio extends CI_Controller{
 
 		$data['row_entregas'] = $this->consultar_model->ultimosAvisos($this->session->userdata('id_sucursal'));
 
-		$data['row_consulta_refaccion'] = $this->consultar_model->consulta_refaccion(false, 'PENDIENTE');
+		$data['row_consulta_refaccion2'] = $this->consultar_model->consulta_refaccion2();
+
+		foreach ($data['row_consulta_refaccion2'] as $value) {
+			$data['row_piezas_cotizacion'][$value->id_cotizacion_servicio] = $this->consultar_model->piezas_cotizacion_servicio($value->id_cotizacion_servicio, 'PETICION');
+		}
+
+
+		$data['row_consulta_refaccion'] = $this->consultar_model->consulta_refaccion(false);
+		foreach ($data['row_consulta_refaccion'] as $value) {
+			$data['detalle_refaccion'][$value->id_catalogo_piezas_reparacion] = $this->consultar_model->servicio_tecnico_piezas($value->id_catalogo_piezas_reparacion);
+		}
 
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');

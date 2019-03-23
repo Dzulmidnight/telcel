@@ -62,6 +62,7 @@ function consultarRepuestos(busqueda, ruta){
 		xmlhttp.onreadystatechange = function(){
 			if(this.readyState == 4 && this.status == 200){
 				console.log(this.responseText);
+                document.getElementById('tabla-repuestos').style.display = 'block';
 				document.getElementById('tabla-repuestos').innerHTML = this.responseText;
 			}
 		}
@@ -73,6 +74,25 @@ function consultarRepuestos(busqueda, ruta){
 
 }
 
+function agregarConsultaPieza(){
+    let pieza = document.getElementById("consultarNombrePieza").value;
+    let modelo = document.getElementById("consultarModeloPieza").value;
+    let color = document.getElementById("consultarColorPieza").value;
+    let tabla = document.getElementById('piezas-utilizadas');
+
+    idPieza = 6;
+
+    var row = tabla.insertRow(0);
+    var celda1 = row.insertCell(0);
+    var celda2 = row.insertCell(1);
+    var celda3 = row.insertCell(2);
+    var celda4 = row.insertCell(3);
+
+    celda1.innerHTML = '<button class="btn btn-xs btn-danger" onclick="eliminarFila(this)"><i class="fa fa-trash"></i></button> '+pieza+'<input type="text" name="nombre_pieza_repuesto[]" value="'+pieza+'">';
+    celda2.innerHTML = modelo+'<input type="text" name="modelo_pieza_repuesto[]" value="'+modelo+'">';
+    celda3.innerHTML = color+'<input type="text" name="color_pieza_repuesto[]" value="'+color+'">';
+    celda4.innerHTML = '$ PENDIENTE<input type="hidden" name="precio_pieza_repuesto[]" value="PENDIENTE"><input type="hidden" name="id_pieza_repuesto[]" value="PENDIENTE">';
+}
 
 function modalFichaServicio(ruta, id, div, codigoBarras){
     ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'+id;
@@ -94,7 +114,36 @@ function modalFichaServicio(ruta, id, div, codigoBarras){
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("x=1");
 }
+function modalFichaServicio2(url, id, cotizacion){
+   // ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'+id;
 
+
+    let ruta = url + "backend/Createpdf/ficha_servicio/" + id + '/' + cotizacion;
+    /* abrir en otra ventana
+        window.location.assign(ruta);
+    */
+    document.getElementById("framePdfFichaServicio").src = ruta;
+    $("#modalPdfFicha").modal("show");
+
+/*
+
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            document.getElementById(div).innerHTML = this.responseText;
+            $('#modal-detalle-ficha').modal('show');
+            JsBarcode("#barcode_ficha", codigoBarras, {
+                height: 70
+            });
+
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("x=1");*/
+}
 
 function modalCotizacion(ruta, id, div){
     ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_detalle_cotizacion/'+id;
@@ -133,9 +182,9 @@ function agregarPieza(id, pieza, modelo, color, precio){
     var celda3 = row.insertCell(2);
     var celda4 = row.insertCell(3);
 
-    celda1.innerHTML = '<button class="btn btn-xs btn-danger" onclick="eliminarFila(this)"><i class="fa fa-trash"></i></button> '+pieza;
-    celda2.innerHTML = modelo;
-    celda3.innerHTML = color;
+    celda1.innerHTML = '<button class="btn btn-xs btn-danger" onclick="eliminarFila(this)"><i class="fa fa-trash"></i></button> '+pieza+'<input type="text" name="nombre_pieza_repuesto[]" value="'+pieza+'">';
+    celda2.innerHTML = modelo+'<input type="text" name="modelo_pieza_repuesto[]" value="'+modelo+'">';
+    celda3.innerHTML = color+'<input type="text" name="color_pieza_repuesto[]" value="'+color+'">';
     celda4.innerHTML = '$ '+precio+'<input type="hidden" name="precio_pieza_repuesto[]" value="'+precio+'"><input type="hidden" name="id_pieza_repuesto[]" value="'+idPieza+'">';
 
     /*celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
@@ -153,8 +202,8 @@ function agregarPieza(id, pieza, modelo, color, precio){
     document.getElementById('precio_unitario_venta').value = '';*/
 }
 
-function aceptarCotizacion(id_frm){
-    document.getElementById('estatus_cotizacion_servicio').value = 'ACEPTADA';
+function aceptarCotizacion(id_frm, idCotizacion){
+    document.getElementById('estatus_cotizacion_servicio'+idCotizacion).value = 'ACEPTADA';
     swal({
         title: "Aceptar",
         text: "¿El cliente ha aceptado el servicio?",
@@ -164,9 +213,9 @@ function aceptarCotizacion(id_frm){
     })
     .then((willDelete) => {
         if (willDelete) {
-            document.getElementById('estatus_cotizacion_servicio').value = 'EN PROCESO';
+            document.getElementById('estatus_cotizacion_servicio'+idCotizacion).value = 'EN PROCESO';
             //console.log(this.form);
-            document.getElementById(id_frm).submit();
+            document.getElementById(id_frm+idCotizacion).submit();
             //console.log(id);
         } /*else {
             swal("Your imaginary file is safe!");

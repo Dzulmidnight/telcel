@@ -22,17 +22,17 @@
 
 				<div style="margin:1em;">
 					<label for="">Nombre de la pieza</label>
-					<input name="consultar_nombre_pieza" type="text" class="form-control">
+					<input id="consultarNombrePieza" name="consultar_nombre_pieza" type="text" class="form-control">
 
 					<label for="">Modelo</label>
-					<input name="consultar_modelo_pieza" type="text" class="form-control">
+					<input id="consultarModeloPieza" name="consultar_modelo_pieza" type="text" class="form-control">
 
 					<label for="">Color</label>
-					<input name="consultar_color_pieza" type="text" class="form-control">
+					<input id="consultarColorPieza" name="consultar_color_pieza" type="text" class="form-control">
 
-					<!--<button type="button" class="btn btn-sm btn-success">
-						Enviar solicitud
-					</button>-->		
+					<button type="button" class="btn btn-sm btn-info" onclick="agregarConsultaPieza()">
+						Solicitar pieza
+					</button>		
 				</div>
 
 			</div>
@@ -40,7 +40,7 @@
 	<?php
 	}else{
 	?>
-		<table class="table table-bordered" style="margin-top:1em;">
+		<table class="table table-striped table-condensed" style="margin-top:1em;">
 			<thead>
 				<tr>
 					<th style="font-size:12px;background:#ecf0f1;color:#2c3e50;" class="text-center" colspan="5">
@@ -105,7 +105,7 @@
 								<?php
 								}else{
 								?>
-									<button type="button" class="btn btn-xs btn-success" onclick="agregarPieza(<?= $id_pieza; ?>, '<?= $pieza; ?>', '<?= $modelo; ?>', '<?= $color; ?>', <?= $precio; ?>);">
+									<button type="button" class="btn btn-xs btn-success" onclick="agregarPieza(<?= $id_pieza; ?>, '<?= $pieza; ?>', '<?= $modelo; ?>', '<?= $color; ?>', <?= $precio; ?>, <?= $value->id_servicio_tecnico; ?>);">
 										<i class="fa fa-plus"></i>
 									</button>
 								<?php

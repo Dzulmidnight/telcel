@@ -12,43 +12,40 @@
         </tr>
     </thead>
     <tbody>
-        <input type="hidden" id="total_consulta_refaccion" value="<?= count($row_consulta_refaccion); ?>">
-        <?php foreach($row_consulta_refaccion as $consulta_refaccion): ?>
-            <tr>
-                <!-- Fecha -->
-                <td>
-                    <?= date('d/m/Y', $consulta_refaccion->fecha_registro); ?>
-                </td>
+        <input type="hidden" id="total_consulta_refaccion" value="<?= count($row_consulta_refaccion2); ?>">
+            <?php foreach($row_consulta_refaccion2 as $value): ?>
+                <tr>
+                    <td colspan="6">
+                        Cotización en espera: ID <?= $value->id_cotizacion_servicio; ?>
+                    </td>
+                </tr>
+                <?php foreach($row_piezas_cotizacion[$value->id_cotizacion_servicio] as $pieza): ?>
+                    <tr style="background:#ecf0f1;">
+                        <td>
+                            <?= date('d/m/Y', $pieza->fecha_registro); ?>
+                        </td>
+                        <td>
+                            <?= $pieza->nombre_pieza; ?>
+                        </td>
+                        <td>
+                            <?= $pieza->modelo; ?>
+                        </td>
+                        <td>
+                            <?= $pieza->color; ?>
+                        </td>
+                        <td>
+                            Tel: <b><?= $value->modelo_telefono; ?></b>
+                            <br>
+                            Marca: <b><?= $value->marca_telefono; ?></b>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-info" data-toggle="tooltip" title="Asignar precio" onclick="asignarPrecio('<?= base_url(); ?>', <?= $pieza->id_catalogo_piezas_reparacion; ?>, <?= $value->id_cotizacion_servicio; ?>, '<?= $value->costo; ?>');">
+                                <i class="fa fa-dollar"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach;?>
 
-                <!-- Nombre pieza -->
-                <td>
-                    <?= $consulta_refaccion->nombre; ?>
-                </td>
-
-                <!-- Modelo de la pieza -->
-                <td>
-                    <?= $consulta_refaccion->modelo; ?>
-                </td>
-
-                <!-- Color de la pieza -->
-                <td>
-                    <?= $consulta_refaccion->color; ?>
-                </td>
-
-                <!-- Detalles extra -->
-                <td>
-                    Tel: <b><?= $consulta_refaccion->modelo_telefono; ?></b>
-                    <br>
-                    Marca: <b><?= $consulta_refaccion->marca_telefono; ?></b>
-                </td>
-
-                <!-- Acciones -->
-                <td>
-                    <button type="button" class="btn btn-sm btn-info" data-toggle="tooltip" title="Asignar precio" onclick="asignarPrecio('<?= base_url(); ?>', <?= $consulta_refaccion->id_consulta_pieza; ?>);">
-                        <i class="fa fa-dollar"></i>
-                    </button>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
     </tbody>
 </table>

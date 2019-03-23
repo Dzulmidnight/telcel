@@ -248,30 +248,64 @@ class Consultar_model extends CI_Model{
         }
 
         //// REFACCIONES POR CONSULTA //////
-                public function consulta_refaccion($id = false, $estado = false){
+                public function consulta_refaccion($id = false){
                         $this->db->select('
-                                consulta_pieza.*,
-                                cotizacion_servicio.id_cotizacion_servicio,
-                                cotizacion_servicio.id_servicio_tecnico,
-                                servicio_tecnico.marca_telefono,
-                                servicio_tecnico.modelo_telefono,
-                                servicio_tecnico.falla_reportada
+                                catalogo_piezas_reparacion.*
                         ');
-                        $this->db->from('consulta_pieza');
-                        $this->db->join('cotizacion_servicio', 'cotizacion_servicio.id_cotizacion_servicio = consulta_pieza.fk_id_cotizacion_servicio');
-                        $this->db->join('servicio_tecnico', 'servicio_tecnico.id_servicio_tecnico = cotizacion_servicio.id_servicio_tecnico');
-
-                        if($estado == 'PENDIENTE'){
-                                $this->db->where('consulta_pieza.estatus', 'PENDIENTE');
-                        }
+                        $this->db->from('catalogo_piezas_reparacion');
+                        $this->db->where('catalogo_piezas_reparacion.estatus', 'PETICION');
                         if($id){
-                                $this->db->where('consulta_pieza.id_consulta_pieza', $id);
+                                $this->db->where('catalogo_piezas_reparacion.id_catalogo_piezas_reparacion', $id);
                                 $query = $this->db->get();
                                 $result = $query->row();
                         }else{
                                 $query = $this->db->get();
                                 $result = $query->result();
                         }
+                        return $result;
+                }
+
+                public function consulta_refaccion2(){
+                        $this->db->select('
+                                cotizacion_servicio.id_cotizacion_servicio,
+                                cotizacion_servicio.costo,
+                                cotizacion_servicio.descripcion,
+                                cotizacion_servicio.id_usuario,
+                                
+                                servicio_tecnico.id_servicio_tecnico,
+                                servicio_tecnico.descripcion_servicio,
+                                servicio_tecnico.numero_telefono,
+                                servicio_tecnico.marca_telefono,
+                                servicio_tecnico.modelo_telefono,
+                                servicio_tecnico.falla_reportada,
+                        ');
+                        $this->db->from('cotizacion_servicio');
+                        $this->db->join('servicio_tecnico', 'servicio_tecnico.id_servicio_tecnico = cotizacion_servicio.id_servicio_tecnico');
+                        $this->db->where('cotizacion_servicio.estatus', 'PENDIENTE');
+
+                        $query = $this->db->get();
+                        $result = $query->result();
+                        
+                        return $result;
+                }
+
+
+                public function servicio_tecnico_piezas($id_pieza){
+                        $this->db->select('
+                                servicio_tecnico.falla_reportada,
+                                servicio_tecnico.marca_telefono,
+                                servicio_tecnico.modelo_telefono,
+
+                        ');
+                        $this->db->from('cotizacion_servicio');
+                        $this->db->join('servicio_tecnico', 'servicio_tecnico.id_servicio_tecnico = cotizacion_servicio.id_servicio_tecnico');
+                        $this->db->join('piezas_cotizacion_servicio', 'piezas_cotizacion_servicio.id_cotizacion_servicio = cotizacion_servicio.id_cotizacion_servicio');
+                        $this->db->join('catalogo_piezas_reparacion', 'catalogo_piezas_reparacion.id_catalogo_piezas_reparacion = piezas_cotizacion_servicio.id_pieza_repuesto');
+                        $this->db->where('piezas_cotizacion_servicio.id_pieza_repuesto', $id_pieza);
+                        
+                        $query = $this->db->get();
+                        $result = $query->result();
+
                         return $result;
                 }
         //// END REFACCIONES POR CONSULTA //////
@@ -307,7 +341,7 @@ class Consultar_model extends CI_Model{
                         return $result;
                 }
                 public function servicios_tecnicos_en_espera($id = false){
-                        $where = "servicio_tecnico.estatus = 'PENDIENTE' or servicio_tecnico.estatus = 'COTIZACION'";
+                        $where = "servicio_tecnico.estatus = 'PENDIENTE' or servicio_tecnico.estatus = 'COTIZACION' and cotizacion_servicio.estatus != 'PENDIENTE'";
                         $this->db->select('
                                 servicio_tecnico.*,
                                 clientes.nombre as nombre_cliente,
@@ -316,11 +350,18 @@ class Consultar_model extends CI_Model{
                                 clientes.telefono as telefono_cliente,
                                 clientes.email,
                                 clientes.informacion_extra as informacion_extra_cliente,
-                                sucursal.nombre as nombre_sucursal
+                                sucursal.nombre as nombre_sucursal,
+                                cotizacion_servicio.id_cotizacion_servicio,
+                                cotizacion_servicio.estatus as estatus_cotizacion,
+                                consulta_pieza.id_consulta_pieza,
+                                consulta_pieza.tiempo_entrega
                         ');
                         $this->db->from('servicio_tecnico');
                         $this->db->join('clientes', 'clientes.id_cliente = servicio_tecnico.fk_id_cliente');
                         $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
+                        $this->db->join('cotizacion_servicio', 'cotizacion_servicio.id_servicio_tecnico = servicio_tecnico.id_servicio_tecnico', 'left');
+                        $this->db->join('consulta_pieza', 'consulta_pieza.fk_id_cotizacion_servicio = cotizacion_servicio.id_cotizacion_servicio', 'left');
+                        $this->db->order_by('servicio_tecnico.id_servicio_tecnico', 'DESC');
                         $this->db->where($where);
                         if($id != false){
                                 $this->db->where('servicio_tecnico.id_servicio_tecnico', $id);
@@ -338,6 +379,7 @@ class Consultar_model extends CI_Model{
                 public function servicios_tecnicos_por_entregar($id = false){
                         $where = "servicio_tecnico.estatus = 'RECHAZADO' or servicio_tecnico.estatus = 'FINALIZADO'";
                         $this->db->select('
+                                cotizacion_servicio.id_cotizacion_servicio,
                                 servicio_tecnico.*,
                                 clientes.nombre as nombre_cliente,
                                 clientes.ap_paterno,
@@ -348,6 +390,7 @@ class Consultar_model extends CI_Model{
                                 sucursal.nombre as nombre_sucursal
                         ');
                         $this->db->from('servicio_tecnico');
+                        $this->db->join('cotizacion_servicio', 'cotizacion_servicio.id_servicio_tecnico = servicio_tecnico.id_servicio_tecnico');
                         $this->db->join('clientes', 'clientes.id_cliente = servicio_tecnico.fk_id_cliente');
                         $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
                         $this->db->where($where);
@@ -367,7 +410,7 @@ class Consultar_model extends CI_Model{
 
 
 
-        public function piezas_cotizacion_servicio($id){
+        public function piezas_cotizacion_servicio($id, $estatus = false){
                 $this->db->select('
                         piezas_cotizacion_servicio.*,
                         catalogo_piezas_reparacion.*
@@ -375,6 +418,9 @@ class Consultar_model extends CI_Model{
                 $this->db->from('piezas_cotizacion_servicio');
                 $this->db->join('catalogo_piezas_reparacion', 'catalogo_piezas_reparacion.id_catalogo_piezas_reparacion = piezas_cotizacion_servicio.id_pieza_repuesto');
                 $this->db->where('piezas_cotizacion_servicio.id_cotizacion_servicio = '.$id);
+                if($estatus){
+                        $this->db->where('catalogo_piezas_reparacion.estatus = ', $estatus);
+                }
                 $query = $this->db->get();
                 $result = $query->result();
 

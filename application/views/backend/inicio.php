@@ -62,8 +62,8 @@
                     <div class="block-content tab-content">
                         <!-- Equipos en espera -->
                         <div class="tab-pane active" id="btabs-equipos-finalizados">
-                            <h4 class="font-w300 push-15">Equipos en espera </h4>
-                            <table class="table table-condensed" style="font-size:11px;">
+                            <h4 class="font-w300 push-15">Equipos en espera</h4>
+                            <table class="table table-condensed table-hover" style="font-size:11px;">
                                 <thead>
                                     <tr>
                                         <th style="font-size:11px;">Fecha</th>
@@ -79,17 +79,33 @@
                                     <?php foreach($row_servicios_en_espera as $servicio_en_espera): ?>
                                         <tr>
                                             <td>
+                                                <?php 
+                                                    if($servicio_en_espera->estatus == 'COTIZACION'){
+                                                        echo '<a style="font-size:16px;" href="#" data-toggle="tooltip" title="El cliente debe aceptar o rechazar la cotización."><i class="fa fa-info-circle"></i></a>';
+                                                    }else{
+                                                        echo '<a style="color:#e74c3c;font-size:16px;" href="#" data-toggle="tooltip" title="Se debe generar una cotización de servicio."><i class="fa fa-info-circle"></i></a>';
+                                                    }
+                                                 ?>
                                                 <?= date('d/m/Y', $servicio_en_espera->fecha_registro); ?>
                                             </td>
-                                            <td>
+                                            <td style="font-weight:bold;">
                                                 <?= $servicio_en_espera->nombre_cliente; ?>
-                                                <br>
-                                                <?= $servicio_en_espera->telefono_cliente; ?>
+                                                <?php 
+                                                    if(isset($servicio_en_espera->telefono_cliente)){
+                                                        echo '<br>';
+                                                        echo '<i class="fa fa-phone"></i> '.$servicio_en_espera->telefono_cliente;
+                                                    }
+                                                ?>
                                             </td>
                                             <td>
                                                 <?= $servicio_en_espera->codigo_barras; ?>
                                             </td>
                                             <td>
+                                                <?php 
+                                                    if(isset($servicio_en_espera->id_consulta_pieza)){
+                                                        echo $servicio_en_espera->tiempo_entrega;
+                                                    }
+                                                 ?>
                                                 <?php 
                                                     if($servicio_en_espera->estatus == 'COTIZACION'){
                                                     ?>
@@ -103,18 +119,18 @@
                                                  ?>
                                             </td>
                                             <td>
-                                                <form action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/actualizar_estatus_cotizacion'); ?>" id="frm-informacion-cotizacion" method="POST">
+                                                <form action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/actualizar_estatus_cotizacion'); ?>" id="frm-informacion-cotizacion<?= $servicio_en_espera->id_cotizacion_servicio; ?>" method="POST">
                                                     <input type="hidden" id="id_servicio_tecnico" name="id_servicio_tecnico" value="<?= $servicio_en_espera->id_servicio_tecnico; ?>">
                                                     <input type="hidden" name="fecha_registro" value="<?= time();?>">
-                                                    <input type="hidden" id="estatus_cotizacion_servicio" name="estatus_cotizacion_servicio" value="">
+                                                    <input type="hidden" id="estatus_cotizacion_servicio<?= $servicio_en_espera->id_servicio_tecnico; ?>" name="estatus_cotizacion_servicio" value="">
                                                 </form>
                                                 <?php 
                                                     if($servicio_en_espera->estatus == 'COTIZACION'){
                                                     ?>
-                                                        <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Aceptar cotización" onclick="aceptarCotizacion('frm-informacion-cotizacion');">
+                                                        <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Aceptar cotización" onclick="aceptarCotizacion('frm-informacion-cotizacion', <?= $servicio_en_espera->id_cotizacion_servicio; ?>);">
                                                             <i class="fa fa-check"></i>
                                                         </button>
-                                                        <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Rechazar cotización" onclick="rechazarCotizacion('frm-informacion-cotizacion');">
+                                                        <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Rechazar cotización" onclick="rechazarCotizacion('frm-informacion-cotizacion<?= $servicio_en_espera->id_cotizacion_servicio; ?>');">
                                                             <i class="fa fa-close"></i>
                                                         </button>
                                                     <?php
@@ -134,7 +150,7 @@
                         <!-- Equipos finalizados -->
                         <div class="tab-pane" id="btabs-equipos-cotizacion">
                             <h4 class="font-w300 push-15">Equipos finalizados</h4>
-                            <p style="background:#e74c3c;color:#ecf0f1;padding:1em;">
+                            <p style="background:#e74c3c;color:#fff;padding:1em;">
                                 <i class="fa fa-warning"></i> Contactar al cliente para entregar el equipo.
                             </p>
                             <table class="table table-condensed" style="font-size: 11px;">
@@ -151,6 +167,7 @@
                                     <?php foreach($row_servicios_por_entregar as $entregas): ?>
                                         <tr>
                                             <td>
+                                                <?= 'cot: '.$entregas->id_cotizacion_servicio; ?>
                                                 <i class="fa fa-circle" style="color:#c0392b;"></i> <?= date('d/m/Y', $entregas->fecha_entrega); ?>
                                             </td>
                                             <td>
@@ -160,6 +177,11 @@
                                                 <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
                                                     <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
                                                 </a>
+<br>
+                                                <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio2('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>, <?= $entregas->id_cotizacion_servicio; ?>);">
+                                                    <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
+                                                </a>
+
                                                 <!--<a href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'.$entregas->id_servicio_tecnico.''); ?>" data-toggle="tooltip" title="Consultar ficha de servicio">
                                                     <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
                                                 </a>-->
@@ -190,7 +212,7 @@
                             <h4 class="font-w300 push-15">
                                 Consulta sobre refacciones
                             </h4>
-                            <p style="background:#e74c3c;color:#ecf0f1;padding:1em;">
+                            <p style="background:#e74c3c;color:#fff;padding:1em;">
                                 <i class="fa fa-warning"></i> Debes agregar el precio de las siguiente piezas.
                             </p>
                             <div id="tablaConsultaRefaccion_div">
@@ -208,16 +230,56 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($row_consulta_refaccion as $consulta_refaccion): ?>
+                                        <?php foreach($row_consulta_refaccion2 as $value): ?>
+                                            <tr>
+                                                <td colspan="6">
+                                                    Cotización en espera: ID <?= $value->id_cotizacion_servicio; ?>
+                                                    <br>
+                                                    servicio: <?= $value->id_servicio_tecnico; ?>
+                                                </td>
+                                            </tr>
+                                            <?php foreach($row_piezas_cotizacion[$value->id_cotizacion_servicio] as $pieza): ?>
+                                                <tr style="background:#ecf0f1;">
+                                                    <td>
+                                                        <?= date('d/m/Y', $pieza->fecha_registro); ?>
+                                                    </td>
+                                                    <td>
+                                                        <?= $pieza->nombre_pieza; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?= $pieza->modelo; ?>
+                                                    </td>
+                                                    <td>
+                                                        <?= $pieza->color; ?>
+                                                    </td>
+                                                    <td>
+                                                        Tel: <b><?= $value->modelo_telefono; ?></b>
+                                                        <br>
+                                                        Marca: <b><?= $value->marca_telefono; ?></b>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-sm btn-info" data-toggle="tooltip" title="Asignar precio" onclick="asignarPrecio('<?= base_url(); ?>', <?= $pieza->id_catalogo_piezas_reparacion; ?>, <?= $value->id_cotizacion_servicio; ?>, '<?= $value->costo; ?>', <?= $value->id_servicio_tecnico; ?>);">
+                                                            <i class="fa fa-dollar"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach;?>
+
+                                        <?php endforeach; ?>
+
+
+
+                                        <?php foreach($row_consulta_refaccion as $consulta_refaccion): /* ?>
                                             <tr>
                                                 <!-- Fecha -->
                                                 <td>
+                                                    <?php echo 'ID: '.$consulta_refaccion->id_catalogo_piezas_reparacion; ?>
                                                     <?= date('d/m/Y', $consulta_refaccion->fecha_registro); ?>
                                                 </td>
 
                                                 <!-- Nombre pieza -->
                                                 <td>
-                                                    <?= $consulta_refaccion->nombre; ?>
+                                                    <?= $consulta_refaccion->nombre_pieza; ?>
                                                 </td>
 
                                                 <!-- Modelo de la pieza -->
@@ -232,19 +294,21 @@
 
                                                 <!-- Detalles extra -->
                                                 <td>
-                                                    Tel: <b><?= $consulta_refaccion->modelo_telefono; ?></b>
-                                                    <br>
-                                                    Marca: <b><?= $consulta_refaccion->marca_telefono; ?></b>
+                                                    <?php foreach($detalle_refaccion[$consulta_refaccion->id_catalogo_piezas_reparacion] as $detalle):?>
+                                                        Tel: <b><?= $detalle->modelo_telefono; ?></b>
+                                                        <br>
+                                                        Marca: <b><?= $detalle->marca_telefono; ?></b>
+                                                    <?php endforeach; ?>
                                                 </td>
 
                                                 <!-- Acciones -->
                                                 <td>
-                                                    <button type="button" class="btn btn-sm btn-info" data-toggle="tooltip" title="Asignar precio" onclick="asignarPrecio('<?= base_url(); ?>', <?= $consulta_refaccion->id_consulta_pieza; ?>, <?= $consulta_refaccion->id_cotizacion_servicio; ?>);">
+                                                    <button type="button" class="btn btn-sm btn-info" data-toggle="tooltip" title="Asignar precio" onclick="asignarPrecio('<?= base_url(); ?>', <?= $consulta_refaccion->id_catalogo_piezas_reparacion; ?>);">
                                                         <i class="fa fa-dollar"></i>
                                                     </button>
                                                 </td>
                                             </tr>
-                                        <?php endforeach; ?>
+                                        <?php */ endforeach; ?>
                                     </tbody>
                                 </table>                                
                             </div>
@@ -295,7 +359,7 @@
 </div>-->
 
 <!-- Modal mostrar codigo de barras -->
-<div class="modal fade" id="modalPrecioRefaccion" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal" id="modalPrecioRefaccion" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-popout">
         <div class="modal-content">
             <div class="block block-themed block-transparent remove-margin-b">
@@ -313,15 +377,26 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="" for="precio_consulta_refaccion">
-                                    Precio Refacción
+                                <label class="" for="precio_interno_refaccion">
+                                    Precio Interno
                                 </label>
                                 <div class="input-group">
                                     <div class="input-group-addon">$</div>
-                                    <input type="text" class="form-control" id="precio_consulta_refaccion" name="precio_consulta_refaccion" placeholder="Ej: 100.00">
+                                    <input type="text" class="form-control" id="precio_interno_refaccion" name="precio_interno_refaccion" placeholder="Ej: 100.00">
                                 </div>
                             </div>
-                            
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="" for="precio_publico_refaccion">
+                                    Precio al Publico
+                                </label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                    <input type="text" class="form-control" id="precio_publico_refaccion" name="precio_publico_refaccion" placeholder="Ej: 100.00">
+                                </div>
+                            </div>
                         </div>
 
 
@@ -351,7 +426,30 @@
 </div>
 <!-- END Modal mostrar codigo de barras -->
 
-
+<!-- Modal mostrar PDF FICHA SERVICIO -->
+<div class="modal fade" id="modalPdfFicha" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-popout">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">FICHA DE SERVICIO</h3>
+                </div>
+                <div class="block-content" style="margin-bottom: 4em;">
+                    <iframe id="framePdfFichaServicio" src="" height="500px" width="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal mostrar PDF FICHA SERVICIO -->
 
 <script src="<?php echo base_url(); ?>assets/js/propios/ventas.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/propios/inventario.js"></script>

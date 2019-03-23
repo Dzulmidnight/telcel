@@ -120,12 +120,14 @@
                                             </td>
                                             <td class="text-right">$ <?= $row_detalle_ficha->costo_servicio; ?></td>
                                         </tr>
+                                        <!-- DEPOSITO EN GARANTIA -->
                                         <tr>
                                             <td colspan="2" class="font-w600 text-right">Depósito en garantía</td>
                                             <td class="text-right">
                                                 $ <?= $row_detalle_ficha->deposito_garantia ?>
                                             </td>
                                         </tr>
+                                        <!-- SALDO RESTANTE -->
                                         <tr>
                                             <td colspan="2" class="font-w600 text-right">Restante</td>
                                             <td class="text-right" style="color: #27ae60">
@@ -135,6 +137,7 @@
                                                 <b>$ <?= $monto_restante; ?></b>        
                                             </td>
                                         </tr>
+                                        <!-- TOTAL -->
                                         <tr class="active">
                                             <td colspan="2" class="font-w700 text-uppercase text-right">Total</td>
                                             <td class="font-w700 text-right">

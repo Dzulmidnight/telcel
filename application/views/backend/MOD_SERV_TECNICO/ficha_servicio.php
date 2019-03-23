@@ -304,6 +304,21 @@
                     				Después de generar la cotización, se notificara a la sucursal.
                     			</p>
                     		</div>
+
+                            <div class="col-md-6">
+                                <label for="costo_servicio">Costo del servicio</label>
+                                <input type="number" step="any" class="form-control" id="costo_servicio" name="costo_servicio" placeholder="$ 000.00" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="fecha_entrega">Fecha de entrega</label>
+                                <input type="date" class="form-control" name="fecha_entrega" value="<?= date('Y-m-d', $row_servicios->fecha_entrega); ?>" required>
+                            </div>
+                            <div class="col-md-12" style="margin: 1.5em 0em;">
+                                <label for="descripcion_servicio">Descripción del servicio a realizar</label>
+                                <textarea class="form-control" name="descripcion_servicio" id="descripcion_servicio" cols="" rows="3" placeholder="" required></textarea>
+                            </div>
+
+
                             <div class="col-md-6">
                                 <div class="row">
                                     <!-- Piezas utilizadas -->
@@ -327,18 +342,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="col-xs-6">
-                                        <label for="costo_servicio">Costo del servicio (instalación)</label>
-                                        <input type="number" step="any" class="form-control" id="costo_servicio" name="costo_servicio" placeholder="$ 000.00" required>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <label for="fecha_entrega">Fecha de entrega</label>
-                                        <input type="date" class="form-control" name="fecha_entrega" value="<?= date('Y-m-d', $row_servicios->fecha_entrega); ?>" required>
-                                    </div>
-                                    <div class="col-xs-12" style="margin-top:1em;">
-                                        <label for="descripcion_servicio">Descripción del servicio a realizar</label>
-                                        <textarea class="form-control" name="descripcion_servicio" id="descripcion_servicio" cols="" rows="5" placeholder=""></textarea>
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -350,7 +353,7 @@
                                         <input type="text" class="form-control" id="consultar_piezas" name="consultar_piezas" placeholder="Escribe el tipo de pieza o modelo" onkeyup="consultarRepuestos(this.value, '<?= base_url(); ?>');">
                                     </div>
                                     <!-- Tabla de piezas -->
-                                    <div class="col-xs-12" id="tabla-repuestos" style="height:400px;overflow:scroll;">  
+                                    <div class="col-xs-12" id="tabla-repuestos" style="display:none;height:400px;overflow:scroll;">  
                                     </div>
 
                                 </div>                                
