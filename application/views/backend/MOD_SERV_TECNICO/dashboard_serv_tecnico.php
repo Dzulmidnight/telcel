@@ -196,7 +196,7 @@
                                                 echo '<i class="fa fa-exclamation-circle" style="'.$color.'"></i> <b style="'.$color.'">'.$servicio->estatus.'</b>';
                                                 break;
                                             case 'EN PROCESO':
-                                                $color = 'color:#27ae60';
+                                                $color = 'color:#e67e22';
                                                 ?>
                                                     <a style="<?= $color; ?>" href="#" data-toggle="tooltip" title="Se ha aceptado la cotización, debes iniciar con el servicio">
                                                         <b>

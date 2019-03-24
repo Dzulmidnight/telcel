@@ -123,8 +123,8 @@ class Createpdf extends CI_Controller{
 	    */
 		tcpdf();
 		// create new PDF document
-		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, [210, 297], true, 'UTF-8', false);
-
+		//$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, [210, 297], true, 'UTF-8', false);
+		$pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 		// remove default header/footer
 		$pdf->setPrintHeader(false);
 		$pdf->setPrintFooter(false);
@@ -139,7 +139,7 @@ class Createpdf extends CI_Controller{
 		// ---------------------------------------------------------
 
 		// set font
-		$pdf->SetFont('times', '', 12);
+		$pdf->SetFont('Helvetica', '', 12);
 
 		//$pdf->setFontSubsetting(false);
 
@@ -149,9 +149,9 @@ class Createpdf extends CI_Controller{
 		$params = $pdf->serializeTCPDFtagParameters(array($codigo, 'C128', '', '', 40, 20, 0.4, array('position'=>'S', 'border'=>false, 'padding'=>4, 'fgcolor'=>array(0,0,0), 'bgcolor'=>array(255,255,255), 'text'=>true, 'font'=>'helvetica', 'fontsize'=>8, 'stretchtext'=>4), 'N'));
 
 		$html = '';
-		$html .= '<table>';
-			$html .= '<tr>';
-				$html .= '<td colspan="3"><h2>FICHA DE SERVICIO</h2></td>';
+		$html .= '<table style="margin:0px;padding:0px;">';
+			$html .= '<tr style="text-align:center;padding:20px;margin:20px">';
+				$html .= '<td colspan="3" cellspacing="10" style="padding:20px;margin:20px"><h2 style="padding:40px;">FICHA DE SERVICIO</h2></td>';
 			$html .= '</tr>';
 
 			/// INICIA INFORMACION CLIENTE

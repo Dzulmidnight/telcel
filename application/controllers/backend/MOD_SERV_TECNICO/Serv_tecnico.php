@@ -465,8 +465,9 @@ class Serv_tecnico extends CI_Controller{
 		public function entregar_equipo(){
 			
 			$id = $this->input->post('id_frm_servicio_tecnico');
-		
-				$data['row_servicios'] = $this->consultar_model->servicios_tecnicos($id);
+			$id_servicio_tecnico = $this->input->post('id_frm_servicio_tecnico');
+
+			$data['row_servicios'] = $this->consultar_model->servicios_tecnicos($id);
 			$data['historial_estatus'] = $this->consultar_model->consulta($id, 'fk_id_servicio_tecnico', 'estatus_servicio', 'DESC');
 			$data['row_cotizacion'] = $this->consultar_model->consultaSimple($id, 'id_servicio_tecnico', 'cotizacion_servicio');
 
@@ -486,7 +487,7 @@ class Serv_tecnico extends CI_Controller{
 			);
 			$this->update_model->update('servicio_tecnico', 'id_servicio_tecnico', $id_servicio_tecnico, $data_actualizar);
 
-			$this->load->view('backend/pdf_ficha_tecnica', $data);
+			//$this->load->view('backend/pdf_ficha_tecnica', $data);
 			//echo $id_servicio_tecnico;
 			
 
@@ -495,9 +496,7 @@ class Serv_tecnico extends CI_Controller{
 			//// generamos el PDF  de servicio
 
 
-
-
-			//redirect('backend/Inicio', 'refresh');
+			redirect('backend/Inicio', 'refresh');
 			//redirect('backend/MOD_SERV_TECNICO/Serv_tecnico/', 'refresh');
 		}
 	/// END ENTREGAR_EQUIPO

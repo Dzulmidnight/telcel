@@ -69,7 +69,7 @@
                 <a class="block block-link-hover3 text-center" href="<?php echo base_url('backend/MOD_SERVICIOS/Servicios/pago_servicios'); ?>">
                     <div class="block-content block-content-full">
                         <i class="si si-notebook fa-4x text-muted"></i>
-                        <div class="font-w600 push-15-t">Servicios</div>
+                        <div class="font-w600 push-15-t">Interno</div>
                     </div>
                 </a>
             </div>

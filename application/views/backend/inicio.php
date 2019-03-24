@@ -127,10 +127,13 @@
                                                 <?php 
                                                     if($servicio_en_espera->estatus == 'COTIZACION'){
                                                     ?>
+                                                        <!-- ACEPTAR COTIZACIÓN -->
                                                         <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Aceptar cotización" onclick="aceptarCotizacion('frm-informacion-cotizacion', <?= $servicio_en_espera->id_cotizacion_servicio; ?>);">
                                                             <i class="fa fa-check"></i>
                                                         </button>
-                                                        <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Rechazar cotización" onclick="rechazarCotizacion('frm-informacion-cotizacion<?= $servicio_en_espera->id_cotizacion_servicio; ?>');">
+
+                                                        <!-- RECHAZAR COTIZACIÓN -->
+                                                        <button class="btn btn-xs btn-warning" data-toggle="tooltip" title="Rechazar cotización" onclick="rechazarCotizacion('frm-informacion-cotizacion', <?= $servicio_en_espera->id_cotizacion_servicio; ?>);">
                                                             <i class="fa fa-close"></i>
                                                         </button>
                                                     <?php
@@ -158,13 +161,17 @@
                                     <tr>
                                         <th style="font-size:11px;">Fecha</th>
                                         <th style="font-size:11px;">Cliente</th>
+                                        <th style="font-size:11px;">Adeudo</th>
                                         <th style="font-size:11px;">Ficha</th>
                                         <th style="font-size:11px;">Telefono</th>
                                         <th style="font-size:11px;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($row_servicios_por_entregar as $entregas): ?>
+                                    <?php 
+                                    foreach($row_servicios_por_entregar as $entregas): 
+                                        $restante = ($entregas->costo_servicio) - ($entregas->deposito_garantia);
+                                    ?>
                                         <tr>
                                             <td>
                                                 <?= 'cot: '.$entregas->id_cotizacion_servicio; ?>
@@ -173,18 +180,17 @@
                                             <td>
                                                 <?= $entregas->nombre_cliente.' '.$entregas->ap_paterno; ?>
                                             </td>
+                                            <td style="background:#e74c3c;color: #fff;">
+                                                <b>$ <?= $restante; ?></b>
+                                            </td>
                                             <td>
-                                                <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
+                                                <!--<a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
                                                     <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
-                                                </a>
-<br>
+                                                </a>-->
+    
                                                 <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio2('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>, <?= $entregas->id_cotizacion_servicio; ?>);">
                                                     <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
                                                 </a>
-
-                                                <!--<a href="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'.$entregas->id_servicio_tecnico.''); ?>" data-toggle="tooltip" title="Consultar ficha de servicio">
-                                                    <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
-                                                </a>-->
                                             </td>
                                             <td>
                                                 <i class="si si-call-in"></i> <?= $entregas->telefono_cliente; ?>

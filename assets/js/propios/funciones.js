@@ -481,38 +481,6 @@ function reemplazar(){
 }
 
 
-function entregarEquipo(id_frm, id){
-    document.getElementById('id_frm_servicio_tecnico').value = id;
-    swal({
-        title: "Entregar",
-        text: "¿Realizar entrega del equipo?",
-        icon: "info",
-        buttons: true,
-        dangerMode: true,
-        content: "input",
-    })
-    .then((value) => {
-        if (value) {
-            document.getElementById('id_frm_servicio_tecnico').value = id;
-            document.getElementById('monto_pagado').value = value;
-            document.getElementById(id_frm).submit();
-            
-           console.log(value);
-
-            //console.log(this.form);
-            //console.log(id);
-        }else{
-            console.log('Debes ingresar un monto');
-            swal({
-                text: "Debes ingresar el monto pagado",
-                icon: "warning"
-            });
-        } /*else {
-            swal("Your imaginary file is safe!");
-        }*/
-    });
-}
-
 function eliminarDatos(id){
     swal({
         title: "Eliminar",

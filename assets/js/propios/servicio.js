@@ -1,3 +1,40 @@
+function entregarEquipo(id_frm, id){
+    document.getElementById('id_frm_servicio_tecnico').value = id;
+    swal({
+        title: "Entregar",
+        text: "¿Realizar entrega del equipo?",
+        icon: "info",
+        buttons: true,
+        dangerMode: true,
+        content: {
+            element: "input",
+            attributes: {
+                placeholder: "Monto pagado por el cliente"
+            }
+        } 
+    })
+    .then((value) => {
+        if (value) {
+            document.getElementById('id_frm_servicio_tecnico').value = id;
+            document.getElementById('monto_pagado').value = value;
+            document.getElementById(id_frm).submit();
+            
+           console.log(value);
+
+            //console.log(this.form);
+            //console.log(id);
+        }else{
+            console.log('Debes ingresar un monto');
+            swal({
+                text: "Debes ingresar el monto pagado",
+                icon: "warning"
+            });
+        } /*else {
+            swal("Your imaginary file is safe!");
+        }*/
+    });
+}
+
 function historialServicios(idSucursal, idServicio, url){
     var xmlhttp = new XMLHttpRequest;
     var ruta = url + 'backend/MOD_SERVICIOS/Servicios/historial_pagos/' + idSucursal+ '/' +idServicio;
@@ -94,7 +131,7 @@ function agregarConsultaPieza(){
     celda4.innerHTML = '$ PENDIENTE<input type="hidden" name="precio_pieza_repuesto[]" value="PENDIENTE"><input type="hidden" name="id_pieza_repuesto[]" value="PENDIENTE">';
 }
 
-function modalFichaServicio(ruta, id, div, codigoBarras){
+/*function modalFichaServicio(ruta, id, div, codigoBarras){
     ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'+id;
 
     var xmlhttp = new XMLHttpRequest();
@@ -113,36 +150,14 @@ function modalFichaServicio(ruta, id, div, codigoBarras){
     xmlhttp.open("POST", ruta, true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("x=1");
-}
+}*/
 function modalFichaServicio2(url, id, cotizacion){
-   // ruta = ruta+'backend/MOD_SERV_TECNICO/Serv_tecnico/modal_ficha_servicio/'+id;
-
-
-    let ruta = url + "backend/Createpdf/ficha_servicio/" + id + '/' + cotizacion;
+    let ruta = url + "backend/Generar_pdf/pdf_ficha_servicio/" + id + "/" + cotizacion;
     /* abrir en otra ventana
         window.location.assign(ruta);
     */
     document.getElementById("framePdfFichaServicio").src = ruta;
     $("#modalPdfFicha").modal("show");
-
-/*
-
-    var xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            console.log(this.responseText);
-            document.getElementById(div).innerHTML = this.responseText;
-            $('#modal-detalle-ficha').modal('show');
-            JsBarcode("#barcode_ficha", codigoBarras, {
-                height: 70
-            });
-
-        }
-    }
-    xmlhttp.open("POST", ruta, true);
-    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("x=1");*/
 }
 
 function modalCotizacion(ruta, id, div){
@@ -223,8 +238,8 @@ function aceptarCotizacion(id_frm, idCotizacion){
     });
 }
 
-function rechazarCotizacion(id_frm){
-    document.getElementById('estatus_cotizacion_servicio').value = 'RECHAZADO';
+function rechazarCotizacion(id_frm, idCotizacion){
+    document.getElementById('estatus_cotizacion_servicio'+idCotizacion).value = 'RECHAZADO';
     swal({
         title: "Rechazar",
         text: "¿Desea cancelar el servicio?",
@@ -236,7 +251,7 @@ function rechazarCotizacion(id_frm){
         if (willDelete) {
             document.getElementById('estatus_cotizacion_servicio').value = 'RECHAZADO';
             //console.log(this.form);
-            document.getElementById(id_frm).submit();
+            document.getElementById(id_frm+idCotizacion).submit();
             //console.log(id);
         } /*else {
             swal("Your imaginary file is safe!");

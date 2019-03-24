@@ -121,6 +121,8 @@ class PdfTicket extends CI_Controller{
 			$html .= $this->load->view('backend/MOD_SERV_TECNICO/modal_detalle_ficha', $data, true);    	
    		$html .= '</div>';
 
+   		$html .= '<barcode code="1553305097006" type="C128A" height="2" text="1" />';
+
 		/*$html = '';
 
 		$html .= '<table width="200px">';

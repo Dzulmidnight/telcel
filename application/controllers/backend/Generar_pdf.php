@@ -1,11 +1,12 @@
 <?php
-class PdfTicket extends CI_Controller{
+class Generar_pdf extends CI_Controller{
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('pdf_helper');
 		$this->load->model('count_model');
 		$this->load->model('consultar_model');
+		$this->load->library('My_mpdf');
 	}
 
 	public function index($id)
@@ -105,8 +106,222 @@ class PdfTicket extends CI_Controller{
 
 	}
 
+	public function pdf_ficha_servicio($id, $cotizacion){
+		$data['row_detalle_ficha'] = $this->consultar_model->servicios_tecnicos($id);
+		$codigo = $data['row_detalle_ficha']->codigo_barras;
+		$nombre = $data['row_detalle_ficha']->nombre_cliente.' '.$data['row_detalle_ficha']->ap_paterno.' '.$data['row_detalle_ficha']->ap_materno;
+		$nombre_sucursal = $data['row_detalle_ficha']->nombre_sucursal;
+		$telefono_cliente = $data['row_detalle_ficha']->telefono_cliente;
 
-	public function pdfFicha($id, $codigo)
+		/// INFORMACIÓN DEL CLIENTE
+		$informacion_cliente = '';
+		$informacion_cliente .= '<b>Cliente</b>: '.$nombre;
+		$informacion_cliente .= '<br>';
+		$informacion_cliente .= '<b>Sucursal</b>: '.$nombre_sucursal;
+		$informacion_cliente .= '<br>';
+		$informacion_cliente .= '<b>Teléfono</b>: '.$telefono_cliente;
+
+		/// INFORMACIÓN DEL EQUIPO
+		$informacion_equipo = '';
+		$informacion_equipo .= '<b>Marca</b>: '.$data['row_detalle_ficha']->marca_telefono.'<br>';
+		$informacion_equipo .= '<b>Modelo</b>: '.$data['row_detalle_ficha']->modelo_telefono.'<br>';
+		$informacion_equipo .= '<b>IMEI</b>: '.$data['row_detalle_ficha']->imei.'<br>';
+		$informacion_equipo .= '<b>Condicion del equipo</b>:<br>';
+		$informacion_equipo .= $data['row_detalle_ficha']->estado_fisico;
+
+		$fecha_ingreso = date('d/m/Y', $data['row_detalle_ficha']->fecha_registro);
+		$fecha_salida = date('d/m/Y', $data['row_detalle_ficha']->fecha_actualizacion);
+		
+		$falla_reportada = $data['row_detalle_ficha']->falla_reportada;
+
+		$ultima_fecha = date('d/m/Y', $data['row_detalle_ficha']->fecha_actualizacion);
+		$descripcion_servicio = $data['row_detalle_ficha']->descripcion_servicio;
+		$importe = '$ '.$data['row_detalle_ficha']->costo_servicio;
+
+		$deposito_garantia = '$ '.$data['row_detalle_ficha']->deposito_garantia;
+
+		$restante = ($data['row_detalle_ficha']->costo_servicio) - ($data['row_detalle_ficha']->deposito_garantia);
+
+		$saldo_restante = '$ '.$restante;
+		$total = '$ '.$data['row_detalle_ficha']->costo_servicio;
+
+
+		///// INFORMACIÓN SOBRE LAS PIEZAS UTILIZADAS
+		$data['row_piezas_cotizacion'] = $this->consultar_model->piezas_cotizacion_servicio($cotizacion);
+
+		$this->load->library('My_mpdf');
+
+		setlocale(LC_TIME, 'es_MX');
+		$header = '';
+		$footer = '<span style="color:#7f8c8d">Muchas gracias por su preferencia</span>';
+
+		$this->my_mpdf->pdf->SetHTMLHeader($header);
+		$this->my_mpdf->pdf->SetHTMLFooter($footer);
+		
+		//$html = $this->load->view('backend/pdf_ficha_tecnica',$data,true);
+   		$codigo_barras = '<barcode code="'.$codigo.'" type="C128A" height="2" text="1" />';
+
+
+		$html = '
+		<html>
+			<head>
+				<style>
+					body {
+						font-family: sans-serif;
+						font-size: 11px;
+					}
+					h5, p {	
+						margin: 0pt;
+					}
+					table {
+					  border-collapse: collapse;
+					  width: 100%;
+					}
+					.borde table, .borde td, .borde th {  
+					  border: 1px solid #ddd;
+					  text-align: left;
+					}
+
+					th, td {
+					  padding: 10px;
+					}
+					.barcode {
+						padding: 1.5mm;
+						margin: 0;
+						vertical-align: top;
+						color: #000000;
+					}
+					.barcodecell {
+						text-align: center;
+						vertical-align: middle;
+						padding: 0;
+					}
+
+				</style>
+			</head>
+			<body>
+		';
+
+
+			$html .= '<table>';
+				$html .= '<thead>
+					<tr style="border: 1px solid #ddd;">
+						<th><h2>MOVILEXPERT</h2></th>
+						<th colspan="2" style="text-align:right;"><h2>FICHA DE SERVICIO</h2></th>
+					</tr>
+					<tr>
+						<th width="30%" style="text-align:left;">CLIENTE</th>
+						<th width="40%" style="text-align:left;">EQUIPO</th>
+						<th width="30%" style="text-align:left;"></th>
+					</tr>
+				</thead>';
+
+				$html .= '<tbody>';
+					$html .= '<tr>
+						<td>'.$informacion_cliente.'</td>
+						<td>'.$informacion_equipo.'</td>
+						<td style="text-align:center">
+							'.$codigo_barras.'
+							<br>
+							'.$codigo.'
+						</td>
+					</tr>';
+
+					// FALLA REPORTADA
+					$html .= '<tr>';
+						$html .= '<td>
+							<b>Fecha de ingreso</b>: '.$fecha_ingreso.'
+							<br>
+							<b>Fecha de salida</b>: '.$fecha_salida.'
+						</td>';
+						$html .= '<td colspan="2">';
+							$html .= '<h3>FALLA REPORTADA</h3>';
+							$html .= '<br>';
+							$html .= '<p >'.$falla_reportada.'</p>';
+						$html .= '</td>';
+					$html .= '</tr>';
+					// END FALLA REPORTADA
+				$html .= '</tbody>';
+
+			$html .= '</table>';
+
+
+			/// DESGLOSE DE PRECIO
+
+			$html .= '<table class="borde" width="100%" style="margin-top:3em;">';
+				$html .= '<thead>';
+					$html .= '<tr>';
+						$html .= '<th>FECHA</th>';
+						$html .= '<th>SERVICIO REALIZADO</th>';
+						$html .= '<th>IMPORTE</th>';
+					$html .= '</tr>';
+				$html .= '</thead>';
+
+				$html .= '<tbody>';
+					$html .= '<tr>';
+						$html .= '<td>'.$ultima_fecha.'</td>';
+						$html .= '<td>'.$descripcion_servicio.'</td>';
+						$html .= '<td>'.$importe.'</td>';
+					$html .= '</tr>';
+					//deposito en garantia
+					$html .= '<tr>';
+						$html .= '<td style="text-align:right" colspan="2">Depósito en garantía</td>';
+						$html .= '<td>'.$deposito_garantia.'</td>';
+					$html .= '</tr>';
+					// total
+					$html .= '<tr>';
+						$html .= '<td colspan="2" style="text-align:right;">Total</td>';
+						$html .= '<td>'.$total.'</td>';
+					$html .= '</tr>';
+					// saldo restante
+					$html .= '<tr style="background-color:#ecf0f1;">';
+						$html .= '<td style="text-align:right" colspan="2">Restante</td>';
+						$html .= '<td><b>'.$saldo_restante.'</b></td>';
+					$html .= '</tr>';
+
+
+
+				$html .= '</tbody>';
+			$html .= '</table>';
+
+			/// LISTADO DE PIEZAS UTILIZADAS
+			$total_piezas = count($data['row_piezas_cotizacion']);
+
+			if($total_piezas > 0){
+				$html .= '<table class="borde" style="margin-top:3em;">';
+					$html .= '<thead>';
+						$html .= '<tr>';
+							$html .= '<th colspan="3">PIEZAS UTILIZADAS</th>';
+						$html .= '</tr>';
+						$html .= '<tr>';
+							$html .= '<th>Pieza</th>';
+							$html .= '<th>Modelo</th>';
+							$html .= '<th>Color</th>';
+						$html .= '</tr>';
+					$html .= '</thead>';
+
+					$html .= '<tbody>';
+						foreach ($data['row_piezas_cotizacion'] as $piezas) {
+							$html .= '<tr>';
+								$html .= '<td>'.$piezas->nombre_pieza.'</td>';
+								$html .= '<td>'.$piezas->modelo.'</td>';
+								$html .= '<td>'.$piezas->color.'</td>';
+							$html .= '</tr>';
+						}
+					$html .= '</tbody>';
+				$html .= '</table>';
+			}
+
+		$html .= '
+			</body>
+		</html>
+		';
+
+		$this->my_mpdf->pdf->WriteHTML($html);
+		$this->my_mpdf->pdf->Output('ficha_servicio_'.$id.'.pdf','I');
+	}
+
+	public function pdfFicha($id = false, $codigo = false)
 	{
 		$this->load->library('My_mpdf');
 
@@ -129,8 +344,9 @@ class PdfTicket extends CI_Controller{
 		$this->my_mpdf->pdf->SetHTMLHeader($header);
 		$this->my_mpdf->pdf->SetHTMLFooter($footer);
 		
-		$html = $this->load->view('backend/pdf_ficha_tecnica',$data,true);    	
-   	
+		//$html = $this->load->view('backend/pdf_ficha_tecnica',$data,true);    	
+   		$html = '';
+   		$html .= '<barcode code="978-0-9542246-0" type="ISBN" height="0.66" text="1" />';
 
 		/*$html = '';
 
@@ -185,7 +401,7 @@ class PdfTicket extends CI_Controller{
 		//$this->my_mpdf->pdf->SetJs('this.print();');
 		$this->my_mpdf->pdf->WriteHTML($html);
 
-		$this->my_mpdf->pdf->Output('ficha'.$id.'.pdf','D');
+		$this->my_mpdf->pdf->Output('ficha_pdf','I');
 
 		//redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}
