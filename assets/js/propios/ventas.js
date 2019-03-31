@@ -25,6 +25,23 @@ function consultarVendedor(id, url){
 	}
 }
 
+function tipoServicio(tipo){
+    let tipoServicio_input = document.getElementById('tipo_servicio');
+
+    tipoServicio_input.value = tipo;
+}
+
+function servicioRapido(valor){
+    let nuevoServicio_div = document.getElementById('nuevoServicio_div');
+
+    if(valor == 'otro'){
+        nuevoServicio_div.style.display = 'block';
+    }else{
+        nuevoServicio_div.style.display = 'none';
+    }
+}
+
+
 function consultarCodigo(codigoBarras, url){
 	let precioEstablecido, precioReal, codigoJson, sucursalJson, vista, piezasExistentes;
 	let sucursalVenta = document.getElementById('fk_id_sucursal_venta').value;

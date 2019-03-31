@@ -174,23 +174,36 @@
                                     ?>
                                         <tr>
                                             <td>
-                                                <?= 'cot: '.$entregas->id_cotizacion_servicio; ?>
                                                 <i class="fa fa-circle" style="color:#c0392b;"></i> <?= date('d/m/Y', $entregas->fecha_entrega); ?>
                                             </td>
                                             <td>
                                                 <?= $entregas->nombre_cliente.' '.$entregas->ap_paterno; ?>
                                             </td>
                                             <td style="background:#e74c3c;color: #fff;">
-                                                <b>$ <?= $restante; ?></b>
+                                                <?php 
+                                                    if($entregas->estatus == 'RECHAZADO'){
+                                                        echo $entregas->estatus;
+                                                        echo '<br>Garantia: <b>$ '.$entregas->deposito_garantia.'</b>';
+                                                    }else{
+                                                        echo '<b>$ '.$restante.'</b>';
+                                                    }
+                                                 ?>
                                             </td>
                                             <td>
                                                 <!--<a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
                                                     <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
                                                 </a>-->
-    
-                                                <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio2('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>, <?= $entregas->id_cotizacion_servicio; ?>);">
-                                                    <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
-                                                </a>
+                                                <?php 
+                                                    if($entregas->estatus == 'RECHAZADO'){
+                                                        echo '<i class="si si-briefcase"></i> '.$entregas->codigo_barras;
+                                                    }else{
+                                                    ?>
+                                                        <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio2('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>, <?= $entregas->id_cotizacion_servicio; ?>);">
+                                                            <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
+                                                        </a>
+                                                    <?php
+                                                    }
+                                                 ?>
                                             </td>
                                             <td>
                                                 <i class="si si-call-in"></i> <?= $entregas->telefono_cliente; ?>
