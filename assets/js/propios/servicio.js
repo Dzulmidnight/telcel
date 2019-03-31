@@ -249,7 +249,7 @@ function rechazarCotizacion(id_frm, idCotizacion){
     })
     .then((willDelete) => {
         if (willDelete) {
-            document.getElementById('estatus_cotizacion_servicio').value = 'RECHAZADO';
+            document.getElementById('estatus_cotizacion_servicio'+idCotizacion).value = 'RECHAZADO';
             //console.log(this.form);
             document.getElementById(id_frm+idCotizacion).submit();
             //console.log(id);
