@@ -21,6 +21,7 @@ class Inicio extends CI_Controller{
 		$this->load->model('consultar_model');
 		$this->load->model('update_model');
 		$this->load->model('eliminar_model');
+		
 	}
 	
 	public function index()

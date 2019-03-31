@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th class="success text-left" colspan="8">
-                REGISTRO DE SERVICIOS REALIZADAS AL DÍA <b style="color:#e74c3c;"><?= date('d / m / Y', time()); ?></b>
+                REGISTRO DE SERVICIOS REALIZADAS POR PERIODO
             </th>
         </tr>
         <tr>
@@ -38,7 +38,7 @@
     <tbody style="font-size:12px;">
         <?php
             $contador = 0;
-            foreach ($row_listado_ventas as $venta) {
+            foreach ($row_listado_servicios as $servicios) {
             $contador++;
         ?>
                 <tr>
@@ -49,46 +49,46 @@
 
                     <!-- ID VENTA -->
                     <!--<td>
-                        <?= $venta->id_producto_venta; ?>
+                        <?= $servicios->id_producto_venta; ?>
                     </td>-->
 
                     <!-- FECHA VENTA -->
                     <td>
-                        <?= date('d/m/Y', $venta->fecha_venta); ?>
+                        <?= date('d/m/Y', $servicios->fecha_venta); ?>
                     </td>
 
                     <!-- SUCURSAL -->
                     <td>
-                        <?= $venta->nombre_sucursal; ?>
+                        <?= $servicios->nombre_sucursal; ?>
                     </td>
 
                     <!-- VENDEDOR -->
                     <td>
-                        <?= $venta->nombre_vendedor; ?>
+                        <?= $servicios->nombre_vendedor; ?>
                     </td>
 
                     <!-- ARTICULO -->
                     <td>
-                        <?= $venta->nombre_producto; ?>
+                        <?= $servicios->nombre_producto; ?>
                     </td>
 
                     <!-- VENDIDOS -->
                     <td>
                         <b>
-                            <?= $venta->piezas; ?>
+                            <?= $servicios->piezas; ?>
                         </b>
                     </td>
 
                     <!-- MONTO VENTA -->
                     <td style="color:#00a8ff;">
                         <b>
-                            <?= money_format('%n', $venta->total); ?>
+                            <?= money_format('%n', $servicios->total); ?>
                         </b>
                     </td>
 
                     <!-- STOCK -->
                     <td style="background:#ecf0f1; color:#2c3e50;">
-                        <?= $venta->stock_producto; ?>
+                        <?= $servicios->stock_producto; ?>
                     </td>
                 </tr>
         <?php

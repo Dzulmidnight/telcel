@@ -6,7 +6,7 @@
     <div class="row items-push">
         <div class="col-sm-7">
             <h3 class="page-heading">
-                FINANZAS - VENTAS
+                DASHBOARD FINANZAS
             </h3>
         </div>
 
@@ -34,10 +34,6 @@
             </li>
             <li id="reparaciones_li">
                 <a href="#" onclick="cambiarContenido('reparaciones', '<?= base_url(); ?>');"><i class="fa fa-fw fa-pencil push-5-r"></i> Reparaciones</a>
-            </li>
-
-            <li>
-                <a href="javascript:void(0)"><i class="fa fa-envelope"></i></a>
             </li>
         </ul>
     </div>
@@ -108,6 +104,7 @@
                         <button type="button" class="btn btn-sm btn-primary" onclick="busquedaFinanzas('buscar','<?= base_url(); ?>');">
                             <i class="fa fa-search"></i> Consultar
                         </button>
+                        <input type="hidden" id="tipo_seccion" name="tipo_seccion" value="">
                     </div>
                 </div>
             </form>

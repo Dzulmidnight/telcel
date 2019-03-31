@@ -13,9 +13,10 @@ class Finanzas extends CI_Controller{
 
 	public function index()
 	{
+		$fecha_actual = date('d/m/Y',time());
 		$data['row_sucursales'] = $this->consultar_model->sucursales();
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
-		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas(false, false);
+		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas(false, false, $fecha_actual);
 
 		$data['monto_ventas'] = 0;
 		$data['num_productos'] = 0;
@@ -64,7 +65,8 @@ class Finanzas extends CI_Controller{
 					$vista = $this->load->view('backend/MOD_FINANZAS/tabla_servicios', $data, true);
 					break;
 				case 'reparaciones':
-					$data['row_listado_reparaciones'] = $this->consultar_model->listado_reparaciones();
+					$fecha_actual = date('d/m/Y', time());
+					$data['row_listado_reparaciones'] = $this->consultar_model->listado_reparaciones(false, false, false, $fecha_actual);
 					$vista = $this->load->view('backend/MOD_FINANZAS/tabla_reparaciones', $data, true);
 					break;
 				
@@ -91,4 +93,37 @@ class Finanzas extends CI_Controller{
 
 		echo $vista;
 	}
+
+	public function tabla_servicios(){
+		header("Content-type: application/json");
+
+		$obj = json_decode($_POST['objeto'], false);
+		$inicio = $obj[0];
+		$fin = $obj[1];
+		$sucursal = $obj[2];
+
+		$data['row_listado_ventas'] = $this->consultar_model->pago_servicios($inicio, $fin, $sucursal);
+
+		$vista = $this->load->view('backend/MOD_FINANZAS/tabla_ventas_ajax', $data, true);
+
+		echo $vista;
+	}
+
+	public function tabla_reparaciones(){
+		//header("Content-type: application/json");
+		$obj = json_decode($_POST['objeto'], false);
+		$inicio = $obj[0];
+		$fin = $obj[1];
+		$sucursal = $obj[2];
+
+		$data['row_listado_reparaciones'] = $this->consultar_model->listado_reparaciones($inicio, $fin, $sucursal, false);
+
+		$vista = $this->load->view('backend/MOD_FINANZAS/tabla_reparaciones_ajax', $data, true);
+
+		echo $vista;
+	}
+
+
+
+
 }

@@ -573,7 +573,7 @@ class Consultar_model extends CI_Model{
 
 
         //// MOD FINANZAS
-                public function listado_ventas($limite = false, $sucursal = false){
+                public function listado_ventas($limite = false, $sucursal = false, $fecha = false){
                         $this->db->select('
                              producto_venta.id_producto_venta,
                              producto_venta.precio_venta,
@@ -597,6 +597,12 @@ class Consultar_model extends CI_Model{
                         $this->db->join('sucursal', 'sucursal.id_sucursal = producto_venta.fk_id_sucursal');
                         $this->db->join('users', 'users.id_user = producto_venta.fk_id_usuario');
                         $this->db->order_by('producto_venta.fecha_registro', 'DESC');
+                        if($fecha){
+                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%d/%m/%Y') = ",$fecha);
+                        }else{
+                                $fecha_actual = date('d/m/Y', time());
+                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%d/%m/%Y') = ",$fecha_actual);
+                        }
                         if($sucursal){
                                 $this->db->where('producto_venta.fk_id_sucursal', $sucursal);
                         }
@@ -609,32 +615,36 @@ class Consultar_model extends CI_Model{
 
                         return $result;
                 }
-                public function listado_servicios($limite = false, $sucursal = false){
+                public function listado_servicios($inicio = false, $fin = false, $sucursal = false, $fecha = false){
                         $this->db->select('
-                             producto_venta.id_producto_venta,
-                             producto_venta.precio_venta,
-                             producto_venta.fk_id_producto,
-                             producto_venta.fk_id_sucursal,
-                             producto_venta.fk_id_usuario,
-                             producto_venta.fk_id_ticket,
-                             producto_venta.fecha_registro as fecha_venta,
-                             ticket.piezas,
-                             ticket.total,
-                             producto.piezas as stock_producto,
-                             producto.nombre as nombre_producto,
-                             producto.modelo,
-                             producto.color,
-                             sucursal.nombre as nombre_sucursal,
-                             users.nombre as nombre_vendedor
+                                servicio_tecnico.id_servicio_tecnico,
+                                servicio_tecnico.fk_id_cliente,
+                                servicio_tecnico.fk_id_sucursal,
+                                servicio_tecnico.fk_id_usuario,
+                                servicio_tecnico.deposito_garantia,
+                                servicio_tecnico.costo_servicio,
+                                servicio_tecnico.monto_pagado,
+                                servicio_tecnico.resultado,
+                                servicio_tecnico.fecha_registro as fecha_registro_servicio,
+                                servicio_tecnico.fecha_entrega as fecha_entrega_servicio,
+                                sucursal.nombre as nombre_sucursal,
+                                users.nombre as nombre_vendedor
                         ');
-                        $this->db->from('producto_venta');
-                        $this->db->join('producto', 'producto.id_producto = producto_venta.fk_id_producto');
-                        $this->db->join('ticket', 'ticket.id_ticket = producto_venta.fk_id_ticket');
-                        $this->db->join('sucursal', 'sucursal.id_sucursal = producto_venta.fk_id_sucursal');
-                        $this->db->join('users', 'users.id_user = producto_venta.fk_id_usuario');
-                        $this->db->order_by('producto_venta.fecha_registro', 'DESC');
+                        $this->db->from('servicio_tecnico');
+                        $this->db->join('sucusal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
+                        $this->db->join('users', 'users.id_user = servicio_tecnico.fk_id_usuario');
+
+                        $this->db->order_by('servicio_tecnico.fecha_registro', 'DESC');
+
+                        if($fecha){
+                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%d/%m/%Y') = ",$fecha);
+                        }else{
+                                $fecha_actual = date('d/m/Y', time());
+                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_registro, '%d/%m/%Y') = ",$fecha_actual);
+                        }
+
                         if($sucursal){
-                                $this->db->where('producto_venta.fk_id_sucursal', $sucursal);
+                                $this->db->where('servicio_tecnico.fk_id_sucursal', $sucursal);
                         }
                         if($limite){
                                 $this->db->limit($limite);
@@ -645,35 +655,45 @@ class Consultar_model extends CI_Model{
 
                         return $result;
                 }
-                public function listado_reparaciones($limite = false, $sucursal = false){
+                public function listado_reparaciones($inicio = false, $fin = false, $sucursal = false, $fecha = false){
                         $this->db->select('
-                             producto_venta.id_producto_venta,
-                             producto_venta.precio_venta,
-                             producto_venta.fk_id_producto,
-                             producto_venta.fk_id_sucursal,
-                             producto_venta.fk_id_usuario,
-                             producto_venta.fk_id_ticket,
-                             producto_venta.fecha_registro as fecha_venta,
-                             ticket.piezas,
-                             ticket.total,
-                             producto.piezas as stock_producto,
-                             producto.nombre as nombre_producto,
-                             producto.modelo,
-                             producto.color,
-                             sucursal.nombre as nombre_sucursal,
-                             users.nombre as nombre_vendedor
+                                servicio_tecnico.id_servicio_tecnico,
+                                servicio_tecnico.fk_id_cliente,
+                                servicio_tecnico.fk_id_sucursal,
+                                servicio_tecnico.fk_id_usuario as nombre_tecnico,
+                                servicio_tecnico.deposito_garantia,
+                                servicio_tecnico.costo_servicio,
+                                servicio_tecnico.marca_telefono,
+                                servicio_tecnico.modelo_telefono,
+                                servicio_tecnico.monto_pagado,
+                                servicio_tecnico.resultado,
+                                servicio_tecnico.fecha_registro as fecha_registro_servicio,
+                                servicio_tecnico.fecha_entrega,
+                                sucursal.nombre as nombre_sucursal,
+                                users.nombre as nombre_tecnico
                         ');
-                        $this->db->from('producto_venta');
-                        $this->db->join('producto', 'producto.id_producto = producto_venta.fk_id_producto');
-                        $this->db->join('ticket', 'ticket.id_ticket = producto_venta.fk_id_ticket');
-                        $this->db->join('sucursal', 'sucursal.id_sucursal = producto_venta.fk_id_sucursal');
-                        $this->db->join('users', 'users.id_user = producto_venta.fk_id_usuario');
-                        $this->db->order_by('producto_venta.fecha_registro', 'DESC');
+                        $this->db->from('servicio_tecnico');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
+                        $this->db->join('users', 'users.id_user = servicio_tecnico.fk_id_usuario');
+
+                        $this->db->order_by('servicio_tecnico.fecha_registro', 'DESC');
+
+                        /*if($fecha){
+                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%d/%m/%Y') = ",$fecha);
+                        }else{
+                                $fecha_actual = date('d/m/Y', time());
+                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%d/%m/%Y') = ",$fecha_actual);
+                        }*/
+
                         if($sucursal){
-                                $this->db->where('producto_venta.fk_id_sucursal', $sucursal);
+                                foreach ($sucursal as $valor) {
+                                        $this->db->or_where('servicio_tecnico.fk_id_sucursal', $valor);
+                                }
                         }
-                        if($limite){
-                                $this->db->limit($limite);
+                        if($inicio && $fin){
+                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') <",$fin);
+                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') >",$inicio);
+                                //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
                         }
 
                         $query = $this->db->get();
@@ -716,7 +736,6 @@ class Consultar_model extends CI_Model{
                                 }
                         }
                         if($inicio && $fin){
-                                $where = "BETWEEN $inicio  AND $fin";
                                 $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') <",$fin);
                                 $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') >",$inicio);
                                 //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);

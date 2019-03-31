@@ -31,6 +31,7 @@ function consultarCodigo(codigoBarras, url){
 	let sucursalProducto;
 	let ruta = url + 'backend/InformacionProducto';
 	let informacionProducto_div = document.getElementById('div_informacion_producto');
+	//let codigoBarras = codigoBarras.trim();
 
 	codigoJson = JSON.stringify(codigoBarras);
 	sucursalJson = JSON.stringify(sucursalVenta);

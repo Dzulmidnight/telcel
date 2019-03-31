@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th class="success text-left" colspan="8">
+            <th class="success text-left" colspan="6">
                 REGISTRO DE REPARACIONES REALIZADAS AL DÍA <b style="color:#e74c3c;"><?= date('d / m / Y', time()); ?></b>
             </th>
         </tr>
@@ -19,26 +19,20 @@
                 SUCURSAL
             </th>
             <th style="font-size:12px;">
-                VENDEDOR
+                TECNICO
             </th>
             <th style="font-size:12px;">
                 ARTICULO
             </th>
             <th style="font-size:12px;">
-                VENDIDOS
-            </th>
-            <th style="font-size:12px;">
                 MONTO
-            </th>
-            <th style="font-size:12px;">
-                STOCK
             </th>
         </tr>
     </thead>
     <tbody style="font-size:12px;">
         <?php
             $contador = 0;
-            foreach ($row_listado_ventas as $venta) {
+            foreach ($row_listado_reparaciones as $reparacion) {
             $contador++;
         ?>
                 <tr>
@@ -49,46 +43,42 @@
 
                     <!-- ID VENTA -->
                     <!--<td>
-                        <?= $venta->id_producto_venta; ?>
+                        <?= $reparacion->id_producto_venta; ?>
                     </td>-->
 
                     <!-- FECHA VENTA -->
                     <td>
-                        <?= date('d/m/Y', $venta->fecha_venta); ?>
+                        <?= date('d/m/Y', $reparacion->fecha_entrega); ?>
                     </td>
 
                     <!-- SUCURSAL -->
                     <td>
-                        <?= $venta->nombre_sucursal; ?>
+                        <?= $reparacion->nombre_sucursal; ?>
                     </td>
 
                     <!-- VENDEDOR -->
                     <td>
-                        <?= $venta->nombre_vendedor; ?>
+                        <?= $reparacion->nombre_tecnico; ?>
                     </td>
 
                     <!-- ARTICULO -->
-                    <td>
-                        <?= $venta->nombre_producto; ?>
-                    </td>
-
-                    <!-- VENDIDOS -->
-                    <td>
-                        <b>
-                            <?= $venta->piezas; ?>
-                        </b>
+                    <td class="cantidad-venta">
+                        <span class="hidden cantidad-reparaciones">1</span>
+                        <?php 
+                            echo 'Marca: '.$reparacion->marca_telefono;
+                            echo '<br>';
+                            echo 'Mod: '.$reparacion->modelo_telefono;
+                         ?>
                     </td>
 
                     <!-- MONTO VENTA -->
-                    <td style="color:#00a8ff;">
+                    <td style="color:#00a8ff;" class="monto-venta">
+                        <?php 
+                            $total = $reparacion->deposito_garantia + $reparacion->monto_pagado;
+                         ?>
                         <b>
-                            <?= money_format('%n', $venta->total); ?>
+                            <?= money_format('%n', $total); ?>
                         </b>
-                    </td>
-
-                    <!-- STOCK -->
-                    <td style="background:#ecf0f1; color:#2c3e50;">
-                        <?= $venta->stock_producto; ?>
                     </td>
                 </tr>
         <?php

@@ -118,22 +118,24 @@
 											<?= $venta->nombre_producto; ?>
 										</td>
 
-										<!-- VENDIDOS -->
-										<td>
-											<b>
-												<?= $venta->piezas; ?>
-											</b>
-										</td>
+					                    <!-- VENDIDOS -->
+					                    <td class="cantidad-venta">
+					                        <b>
+					                            <?= $venta->piezas; ?>
+					                        </b>
+					                    </td>
 
-										<!-- TOTAL VENTA -->
-										<td>
-											<?= $venta->total; ?>
-										</td>
+					                    <!-- MONTO VENTA -->
+					                    <td style="color:#00a8ff;" class="monto-venta">
+					                        <b>
+					                            <?= money_format('%n', $venta->total); ?>
+					                        </b>
+					                    </td>
 
-										<!-- STOCK -->
-										<td style="background:#ecf0f1; color:#2c3e50;">
-											<?= $venta->stock_producto; ?>
-										</td>
+					                    <!-- STOCK -->
+					                    <td style="background:#ecf0f1; color:#2c3e50;">
+					                        <?= $venta->stock_producto; ?>
+					                    </td>
 									</tr>
 							<?php
 								}
