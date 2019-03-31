@@ -160,12 +160,12 @@
                                                         <label class="" for="exampleInputAmount">Monto pagado</label>
                                                         <div class="input-group">
                                                             <div class="input-group-addon">$</div>
-                                                            <input type="text" class="form-control" id="exampleInputAmount" placeholder="0.00">
+                                                            <input type="text" class="form-control" id="pago_servicio" name="pago_servicio" placeholder="0.00">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12 text-right">
-                                                    <button class="btn btn-sm btn-success">
+                                                    <button type="button" class="btn btn-sm btn-success" onclick="ventaRapida('<?= base_url(); ?>');">
                                                         <i class="fa fa-check"></i> Registrar venta
                                                     </button>
                                                 </div>

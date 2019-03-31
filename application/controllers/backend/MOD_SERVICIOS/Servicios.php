@@ -247,6 +247,13 @@ class Servicios extends CI_Controller{
 		}*/
 	}
 
+	public function venta_rapida(){
+		$parametros = json_decode($_POST['parametros']);
+		echo $parametros->pago;
+
+		
+	}
+
 	public function pago_servicios(){
 		$id_sucursal = $this->session->userdata('id_sucursal');
 

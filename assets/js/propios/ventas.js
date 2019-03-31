@@ -260,3 +260,60 @@ function realizarVenta(url, id_frm){
     xmlhttp.send("parametros=" + array_json + "&id_vendedor=" + id_vendedor_json + "&id_sucursal_venta=" + id_sucursal_venta);
 
 }
+
+function ventaRapida(url){
+	let ruta = url + 'backend/MOD_SERVICIOS/Servicios/venta_rapida/'
+	let selectServicio = $('#nombre_servicio').val();
+	let pagoServicio = document.getElementById('pago_servicio').value;
+	let sucursal = document.getElementById('fk_id_sucursal_venta').value;
+	let idVendedor = document.getElementById('id_vendedor_venta').value;
+	console.log(selectServicio);
+	let objetoJson;
+
+	if(selectServicio == 0){
+		alert('Debes seleccionar un servicio');
+		document.getElementById('nombre_servicio').focus();
+	}else if(pagoServicio == 0){
+		alert('Debes ingresar el monto pagado');
+		document.getElementById('pago_servicio').focus();
+	}else{
+		if(selectServicio == 'otro'){
+			al
+		}
+		let arrayRespuestas = {idServicio: selectServicio, pago: pagoServicio, idSucursal: sucursal, idVendedor: idVendedor};
+		objetoJson = JSON.stringify(arrayRespuestas);
+
+		console.log(objetoJson);
+
+		var xmlhttp = new XMLHttpRequest();
+
+	    xmlhttp.onreadystatechange = function(){
+	    	if(this.readyState == 4 && this.status == 200){
+	    		console.log(this.responseText);
+
+	    		// limpiamos la vista
+	    		//document.getElementById("pago_servicio").value = '';
+
+	    		$("#modalVenta").modal("toggle");
+	    		swal("Venta registrada", "", "success");
+
+	    	}
+	    }
+	    xmlhttp.open("POST", ruta, true);
+	    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	    xmlhttp.send("parametros=" + objetoJson);
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
