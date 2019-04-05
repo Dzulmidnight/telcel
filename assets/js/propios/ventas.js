@@ -269,18 +269,37 @@ function ventaRapida(url){
 	let idVendedor = document.getElementById('id_vendedor_venta').value;
 	console.log(selectServicio);
 	let objetoJson;
+	let nuevoServicio_input;
+	let validacion = true;
+
+	if(pagoServicio == 0){
+		validacion = false;
+		document.getElementById('pago_servicio').focus();
+		alert('Debes ingresar el monto pagado');
+		console.log('pago: '+validacion);
+	}
 
 	if(selectServicio == 0){
+		validacion = false;
 		alert('Debes seleccionar un servicio');
 		document.getElementById('nombre_servicio').focus();
-	}else if(pagoServicio == 0){
-		alert('Debes ingresar el monto pagado');
-		document.getElementById('pago_servicio').focus();
-	}else{
-		if(selectServicio == 'otro'){
-			al
+		console.log('servicio: '+validacion);
+	}else if(selectServicio == 'otro'){
+		let nombreNuevoServicio = document.getElementById('nombre_nuevo_servicio');
+		if(nombreNuevoServicio.value == ''){
+			validacion = false;
+			alert('Debe completar el nombre del servicio');
+			nombreNuevoServicio.focus();
+			console.log('nuevo: '+validacion);
+		}else{
+			nuevoServicio_input = nombreNuevoServicio.value;
+			console.log(nombreNuevoServicio.value);
 		}
-		let arrayRespuestas = {idServicio: selectServicio, pago: pagoServicio, idSucursal: sucursal, idVendedor: idVendedor};
+	}
+
+	console.log('al final: '+validacion);
+	if(validacion){
+		let arrayRespuestas = {idServicio: selectServicio, nuevoServicio: nuevoServicio_input, pago: pagoServicio, idSucursal: sucursal, idVendedor: idVendedor};
 		objetoJson = JSON.stringify(arrayRespuestas);
 
 		console.log(objetoJson);
@@ -302,7 +321,6 @@ function ventaRapida(url){
 	    xmlhttp.open("POST", ruta, true);
 	    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	    xmlhttp.send("parametros=" + objetoJson);
-
 	}
 }
 
