@@ -138,7 +138,7 @@ class Inventario extends CI_Controller{
 
 				 		// AGREGAR SUCURSAL_PRODUCTO
 				 			$array_suc_producto = array(
-				 				'fk_id_sucursal_accesorios' => $this->input->post('fk_id_sucursal_accesorios'),
+				 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal'),
 				 				'fk_id_producto' => $id_producto,
 				 				'piezas' => 1,
 				 				'fecha_registro' => $fecha_registro
@@ -258,7 +258,7 @@ class Inventario extends CI_Controller{
 
 						 		// AGREGAR SUCURSAL_PRODUCTO
 						 			$array_suc_producto = array(
-						 				'fk_id_sucursal_accesorios' => $this->input->post('fk_id_sucursal_accesorios'),
+						 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal_accesorios'),
 						 				'fk_id_producto' => $id_producto,
 						 				'piezas' => $piezas,
 						 				'fecha_registro' => $fecha_registro
@@ -341,7 +341,7 @@ class Inventario extends CI_Controller{
 
 				 		// AGREGAR SUCURSAL_PRODUCTO
 				 			$array_suc_producto = array(
-				 				'fk_id_sucursal_accesorios' => $this->input->post('fk_id_sucursal_accesorios'),
+				 				'fk_id_sucursal' => $this->input->post('fk_id_sucursal_accesorios'),
 				 				'fk_id_producto' => $id_producto,
 				 				'piezas' => $this->input->post('piezas'),
 				 				'fecha_registro' => $fecha_registro
@@ -363,7 +363,6 @@ class Inventario extends CI_Controller{
 	public function agregar_refaccion()
 	{
 		$fecha_registro = time();
-		$id_refaccion = 0;
 		$codigo_barras = 0;
 		$fk_id_sucursal = 0;
 		$estatus = '';
@@ -428,6 +427,26 @@ class Inventario extends CI_Controller{
 			echo 'Articulo no encontrado';
 		}
 	}
+
+	/// inicia consultar_refaccion
+	public function consultar_refaccion()
+	{
+
+		$codigo = json_decode($_POST['codigo']);
+
+		//echo $codigo;
+		if($this->consultar_model->detalle_refaccion($codigo)){
+			$data['info_refaccion'] = $this->consultar_model->detalle_refaccion($codigo);
+
+			//$vista = $this->load->view('backend/detalle_refaccion', $data, true);
+			$respuesta_json = json_encode($this->consultar_model->detalle_refaccion($codigo));
+			echo $respuesta_json;
+
+		}else{
+			echo 'Articulo no encontrado';
+		}
+	}
+	/// END consultar_refaccion
 
 	public function listado()
 	{
@@ -545,6 +564,28 @@ class Inventario extends CI_Controller{
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}
 
+	/// INICIA editar_refaccion
+	public function editar_refaccion()
+	{
+		$id_refaccion = $this->input->post('edit_id_refaccion');
+
+		$data = array(
+			'precio' => $this->input->post('edit_precio_publico_refaccuib'),
+			'precio_interno' => $this->input->post('edit_precio_proveedor_refaccion'),
+			'nombre_pieza' => $this->input->post('edit_nombre_refaccion'),
+			'marca' => $this->input->post('edit_marca_refaccion'),
+			'modelo' => $this->input->post('edit_modelo_refaccion'),
+			'fecha_actualizacion' => time()
+		);
+		
+		if($this->update_model->update('catalogo_piezas_reparacion', 'id_catalogo_piezas_reparacion', $id_refaccion, $data)){
+			$this->session->set_flashdata('success', "Información editada");
+		}
+
+		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
+	}
+	/// END editar_refaccion
+	
 	public function eliminar()
 	{
 		$id = $this->input->post('id_eliminar');

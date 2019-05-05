@@ -193,41 +193,44 @@ class Excel_import extends CI_Controller
 					if($ubicacion == 'INVENTARIO'){
 						$fk_id_sucursal = $this->input->post('fk_id_sucursal');
 					}
+					if($nombre_pieza){
 					
-					$data = array(
-						'fk_id_sucursal' => $fk_id_sucursal,
-						'nombre_pieza' => $nombre_pieza,
-						'modelo' => $modelo,
-						'color' => $color,
-						'precio' => $precio,
-						'precio_interno' => $precio_interno,
-						'cantidad' => $cantidad,
-						'estatus' => $ubicacion,
-						'proveedor' => $proveedor,
-						'fecha_registro' => $fecha_registro
-					);
+						$data_insert = array(
+							'fk_id_sucursal' => $fk_id_sucursal,
+							'nombre_pieza' => $nombre_pieza,
+							'modelo' => $modelo,
+							'color' => $color,
+							'precio' => $precio,
+							'precio_interno' => $precio_interno,
+							'cantidad' => $cantidad,
+							'estatus' => $ubicacion,
+							'proveedor' => $proveedor,
+							'fecha_registro' => $fecha_registro
+						);
 
-					$this->excel_import_model->insert('catalogo_piezas_reparacion',$data);
+						$this->excel_import_model->insert('catalogo_piezas_reparacion',$data_insert);
 
-					$id_catalogo_piezas_reparacion = $this->db->insert_id();
+						$id_catalogo_piezas_reparacion = $this->db->insert_id();
 
-					$codigo_barras = time().str_pad($id_catalogo_piezas_reparacion, 3, "0", STR_PAD_LEFT);
-					$data_codigo = array(
-						'codigo_barras' => $codigo_barras
-					);
-					$this->update_model->update('catalogo_piezas_reparacion', 'id_catalogo_piezas_reparacion', $id_catalogo_piezas_reparacion, $data_codigo);
-					/*$customer_name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
-					$address = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
-					$city = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-					$postal_code = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
-					$country = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
-					$data[] = array(
-						'CustomerName'  => $customer_name,
-						'Address'   => $address,
-						'City'    => $city,
-						'PostalCode'  => $postal_code,
-						'Country'   => $country
-					);*/
+						$codigo_barras = time().str_pad($id_catalogo_piezas_reparacion, 3, "0", STR_PAD_LEFT);
+						$data_codigo = array(
+							'codigo_barras' => $codigo_barras
+						);
+						$this->update_model->update('catalogo_piezas_reparacion', 'id_catalogo_piezas_reparacion', $id_catalogo_piezas_reparacion, $data_codigo);
+						/*$customer_name = $worksheet->getCellByColumnAndRow(0, $row)->getValue();
+						$address = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
+						$city = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+						$postal_code = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
+						$country = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
+						$data[] = array(
+							'CustomerName'  => $customer_name,
+							'Address'   => $address,
+							'City'    => $city,
+							'PostalCode'  => $postal_code,
+							'Country'   => $country
+						);*/
+					}
+
 				}
 			}
 

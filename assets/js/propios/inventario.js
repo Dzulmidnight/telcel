@@ -10,7 +10,7 @@ function localizacionRefaccion(valor){
 function mostrarCodigoRefaccion(direccion, codigo){
     var codigo = codigo;
 
-    ruta = direccion+'backend/InformacionProducto/refaccion';
+    ruta = direccion+'backend/InformacionProducto/index/refaccion';
     codigoBarras = codigo;
 
     objetoJson = JSON.stringify(codigoBarras);

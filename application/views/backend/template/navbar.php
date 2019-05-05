@@ -49,7 +49,7 @@
                         </li>
                     </ul>
                 </div>
-                <a class="h5 text-white" href="index.html">
+                <a class="h5 text-white" href="<?php echo base_url('backend/inicio'); ?>">
                     <i class="fa fa-circle-o-notch text-primary"></i> <span class="h4 font-w600 sidebar-mini-hide">Movil Expert</span>
                 </a>
             </div>

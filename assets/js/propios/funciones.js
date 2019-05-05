@@ -895,6 +895,8 @@ function editarProveedor(id){
 
 
 }
+
+// editarArticulo
 function editarArticulo(id, url){
     $('#modal-editar-articulo').modal('show');
 
@@ -936,6 +938,51 @@ function editarArticulo(id, url){
 
 
 }
+// END editarArticulo
+
+// editarRefacción
+function editarRefaccion(id, url){
+    $('#modal-editar-refaccion').modal('show');
+
+    var ruta, objetoJson;
+    var xmlhttp = new XMLHttpRequest();
+
+    ruta = url+'backend/MOD_INVENTARIO/inventario/consultar_refaccion';
+    objetoJson = JSON.stringify(id);
+
+    xmlhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            console.log(this.responseText);
+            let respuesta = JSON.parse(this.responseText);
+
+           // document.getElementById('edit_img_actual_refaccion').src = url+respuesta.imagen;
+            document.getElementById('edit_id_refaccion').value = respuesta.id_catalogo_piezas_reparacion;
+            document.getElementById('edit_precio_publico_refaccion').value = respuesta.precio;
+            document.getElementById('edit_precio_proveedor_refaccion').value = respuesta.precio_interno;
+            document.getElementById('edit_nombre_refaccion').value = respuesta.nombre_pieza;
+            document.getElementById('edit_marca_refaccion').value = respuesta.marca;
+            document.getElementById('edit_modelo_refaccion').value = respuesta.modelo;
+            /*
+            console.log(respuesta.marca);
+            document.getElementById('id_producto_actualizar').value = respuesta.id_producto;
+            document.getElementById('spanTipoArticulo').innerHTML = respuesta.nombre_categoria_producto;
+            document.getElementById('spanArticulo').innerHTML = respuesta.nombre_sub_producto;
+            document.getElementById('spanProductoActualizar').innerHTML = respuesta.nombre;
+            document.getElementById('spanActualizarCantidad').value = respuesta.piezas;
+            document.getElementById('cantidad_actual_actualizar').value = respuesta.piezas;
+            document.getElementById('precio_publico_actualizar').value = respuesta.precio_publico;
+            document.getElementById('precio_interno_actualizar').value = respuesta.precio_interno;*/
+
+        }
+    }
+    xmlhttp.open("POST", ruta, true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send("codigo="+objetoJson);
+
+
+}
+// END editarRefaccion
+
 
 function actualizarCantidad(codigo, url){
     $('#modal-actualizar-cantidad').modal('show');

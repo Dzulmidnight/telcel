@@ -317,7 +317,7 @@
                                         <!-- CODIGO_BARRAS -->
                                         <td>
                                             <?php 
-                                                if($refaccion->cantidad > 0){
+                                                if($refaccion->codigo_barras){
                                                 ?>
                                                     <a href="#" onclick="mostrarCodigoRefaccion('<?= base_url(); ?>','<?= $refaccion->codigo_barras ?>');">
                                                         <i class="si si-printer"></i> <?= $refaccion->codigo_barras ?>
@@ -396,7 +396,7 @@
                                         
                                         <!-- Fecha -->
                                         <td>
-                                            <?= date('d/m/Y', $producto->fecha_registro); ?>
+                                            <?= date('d/m/Y', $refaccion->fecha_registro); ?>
                                         </td>
                                         <!-- Acciones -->                                    
                                         <td class="text-center">
@@ -404,12 +404,12 @@
                                                 <!--<button class="btn btn-xs btn-default">
                                                     <i class="si si-settings"></i>
                                                 </button>-->
-                                                <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
-                                                <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar('id_eliminar', <?= $producto->id_producto; ?>, 'frm_eliminar_articulo');"><i class="fa fa-times"></i></button>
+                                                <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarRefaccion(<?= $refaccion->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
+                                                <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar('id_eliminar', <?= $refaccion->id_catalogo_piezas_reparacion; ?>, 'frm_eliminar_articulo');"><i class="fa fa-times"></i></button>
 
-                                                <button class="btn btn-xs btn-primary" data-toggle="tooltip" title="Actualizar cantidad">
+                                                <!--<button class="btn btn-xs btn-primary" data-toggle="tooltip" title="Actualizar cantidad">
                                                     <i class="fa fa-repeat"></i>
-                                                </button>
+                                                </button>-->
                                                 <?php 
                                                     if($refaccion->estatus == 'PROVEEDOR'){
                                                     ?>
@@ -1143,6 +1143,76 @@
     </div>
 </div>
 <!-- END Modal Editar Producto -->
+
+
+<!-- Modal Editar Refaccion -->
+<div class="modal fade" id="modal-editar-refaccion" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-popout">
+        <div class="modal-content" style="padding:30px;">
+            <?php 
+            $atributos = array('class="form-horizontal push-10-t block-content"');
+            echo form_open_multipart('backend/MOD_INVENTARIO/inventario/editar_refaccion'); 
+            ?>
+
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">Editar Refacción</h3>
+                    </div>
+                    <div class="block-content" style="margin-bottom: 4em;">
+                        <div class="row text-justify">
+                            <div class="col-md-6">
+                                <img id="edit_img_actual_refaccion" width="80px;" height="80px;" src="" alt="">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="img_nueva_refaccion">Reemplazar Imagen</label>
+                                <input type="file" class="form-control" id="img_nueva_refaccion" name="img_nueva_refaccion">
+                            </div> 
+                            <div class="col-md-12">
+                                <hr>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_precio_publico_refaccion">Precio Publico</label>
+                                <input type="text" class="form-control" id="edit_precio_publico_refaccion" name="edit_precio_publico_refaccion">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_precio_proveedor_refaccion">Precio Proveedor</label>
+                                <input type="text" class="form-control" id="edit_precio_proveedor_refaccion" name="edit_precio_proveedor_refaccion">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_nombre_refaccion">Nombre</label>
+                                <input type="text" class="form-control" id="edit_nombre_refaccion" name="edit_nombre_refaccion">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_marca_refaccion">Marca</label>
+                                <input type="text" class="form-control" id="edit_marca_refaccion" name="edit_marca_refaccion">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edit_modelo_refaccion">Modelo</label>
+                                <input type="text" class="form-control" id="edit_modelo_refaccion" name="edit_modelo_refaccion">
+                            </div>
+
+                            <input type="hidden" id="edit_id_refaccion" name="edit_id_refaccion">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-success" type="submit">
+                        Actualizar
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- END Modal Editar Refaccion -->
+
 
 
 <!-- Modal actualizar cantidad -->

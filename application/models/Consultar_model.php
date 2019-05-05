@@ -496,6 +496,32 @@ class Consultar_model extends CI_Model{
         //// END PRODUCTOS ////
 
 
+        /// INICIA detalle_refaccion
+        public function detalle_refaccion($codigo = false, $sucursal = false){
+                $this->db->select('catalogo_piezas_reparacion.*,
+                        sucursal.nombre'
+                );
+                $this->db->from('catalogo_piezas_reparacion');
+                $this->db->join('sucursal', 'sucursal.id_sucursal = catalogo_piezas_reparacion.fk_id_sucursal', 'left');
+
+                $this->db->where('catalogo_piezas_reparacion.codigo_barras', $codigo);
+
+                if($sucursal){
+                        $this->db->where('catalogo_piezas_reparacion.fk_id_sucursal', $sucursal);
+                }
+                //$this->db->like('producto.codigo_barras', $codigo);
+
+                $query = $this->db->get();
+                // imprimir la consultar realizada => echo $this->db->last_query();
+                $result = $query->row();
+
+                return $result;
+
+        }
+        /// END detalle_refaccion
+
+
+
         //// TICKETS /////
         public function consultarTicket($id){
 //SELECT ticket.piezas AS 'piezas_ticket', ticket.total AS 'ticket_total', ticket.fecha_registro, ticket_producto_venta.fk_id_producto_venta, producto_venta.piezas, producto_venta.precio_venta, producto_venta.fk_id_sucursal FROM ticket INNER JOIN ticket_producto_venta ON ticket.id_ticket = ticket_producto_venta.fk_id_ticket INNER JOIN producto_venta ON ticket_producto_venta.fk_id_producto_venta = producto_venta.id_producto_venta
@@ -631,7 +657,7 @@ class Consultar_model extends CI_Model{
                                 users.nombre as nombre_vendedor
                         ');
                         $this->db->from('servicio_tecnico');
-                        $this->db->join('sucusal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
                         $this->db->join('users', 'users.id_user = servicio_tecnico.fk_id_usuario');
 
                         $this->db->order_by('servicio_tecnico.fecha_registro', 'DESC');
