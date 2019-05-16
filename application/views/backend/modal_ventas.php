@@ -147,6 +147,11 @@
                                                     <label for="nombre_servicio">Nombre del servicio</label>
                                                     <select class="form-control" name="nombre_servicio" id="nombre_servicio" onchange="servicioRapido(this.value);">
                                                         <option value="">Servicios recurrentes</option>
+                                                        <?php foreach($row_servicios_rapidos as $servicio_rapido): ?>
+                                                            <option value="<?= $servicio_rapido->id_catalogo_servicio_rapido; ?>">
+                                                                <?= $servicio_rapido->nombre; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
                                                         <option value="otro">Otro</option>
                                                     </select>
 

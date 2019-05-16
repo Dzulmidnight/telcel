@@ -38,6 +38,7 @@ class Inicio extends CI_Controller{
 		$data['modal_ventas'] = $this->load->view('backend/modal_ventas', $data, true);
 
 		$data['row_entregas'] = $this->consultar_model->ultimosAvisos($this->session->userdata('id_sucursal'));
+		$data['row_servicios_rapidos'] = $this->consultar_model->catalogo_servicio_rapido();
 
 		$data['row_consulta_refaccion2'] = $this->consultar_model->consulta_refaccion2();
 

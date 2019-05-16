@@ -43,6 +43,15 @@ class Consultar_model extends CI_Model{
                 return $result;
         }
 
+        public function catalogo_servicio_rapido(){
+                $this->db->select('*');
+                $this->db->from('catalogo_servicio_rapido');
+                $query = $this->db->get();
+                $result = $query->result();
+
+                return $result;  
+        }
+
         public function servicios_sucursal($id_sucursal = false){
                 $this->db->select('
                         catalogo_servicio.id_catalogo_servicio,
@@ -641,7 +650,9 @@ class Consultar_model extends CI_Model{
 
                         return $result;
                 }
-                public function listado_servicios($inicio = false, $fin = false, $sucursal = false, $fecha = false){
+
+                //// consultar la información de los servicios express
+                public function listado_servicios($inicio = false, $fin = false, $sucursal = false, $fecha = false, $limite = false){
                         $this->db->select('
                                 servicio_tecnico.id_servicio_tecnico,
                                 servicio_tecnico.fk_id_cliente,
@@ -681,6 +692,8 @@ class Consultar_model extends CI_Model{
 
                         return $result;
                 }
+
+                /// consultar la información de los servicios tecnicos
                 public function listado_reparaciones($inicio = false, $fin = false, $sucursal = false, $fecha = false){
                         $this->db->select('
                                 servicio_tecnico.id_servicio_tecnico,

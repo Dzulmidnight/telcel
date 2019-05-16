@@ -247,11 +247,34 @@ class Servicios extends CI_Controller{
 		}*/
 	}
 
+	/// para los casos de servicios express
 	public function venta_rapida(){
 		$parametros = json_decode($_POST['parametros']);
-		echo $parametros->pago;
 
-		
+		$id_servicio = $parametros->idServicio;
+		$pago = $parametros->pago;
+		$id_sucursal = $parametros->idSucursal;
+		$id_vendedor = $parametros->idVendedor;
+
+		if($id_servicio == 'otro'){
+			// agregamos la info del catalogo_servicio_rapido
+			$datos_servicio = array(
+				'nombre' => $parametros->nuevoServicio,
+				'fecha_registro' => time()
+			);
+			$this->add_model->agregar($datos_servicio, 'catalogo_servicio_rapido');
+			$id_servicio = $this->db->insert_id();
+		}
+
+		// agregamos la info del servicio rapido
+		$data_info_servicio_rapido = array(
+			'fk_id_catalogo_servicio_rapido' => $id_servicio,
+			'monto' => $pago,
+			'id_usuario' => $id_vendedor,
+			'fk_id_sucursal' => $id_sucursal,
+			'fecha_registro' => time()
+ 		);
+		$this->add_model->agregar($data_info_servicio_rapido, 'servicio_rapido');
 	}
 
 	public function pago_servicios(){

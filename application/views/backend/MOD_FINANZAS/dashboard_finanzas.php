@@ -30,10 +30,10 @@
                 <a href="#" onclick="cambiarContenido('productos', '<?= base_url(); ?>');"><i class="fa fa-fw fa-home push-5-r"></i> Productos</a>
             </li>
             <li id="servicios_li">
-                <a href="#" onclick="cambiarContenido('servicios', '<?= base_url(); ?>');"><i class="fa fa-fw fa-pencil push-5-r"></i> Servicios</a>
+                <a href="#" onclick="cambiarContenido('servicios', '<?= base_url(); ?>');"><i class="fa fa-fw fa-pencil push-5-r"></i> Serv. Express</a>
             </li>
             <li id="reparaciones_li">
-                <a href="#" onclick="cambiarContenido('reparaciones', '<?= base_url(); ?>');"><i class="fa fa-fw fa-pencil push-5-r"></i> Reparaciones</a>
+                <a href="#" onclick="cambiarContenido('reparaciones', '<?= base_url(); ?>');"><i class="fa fa-fw fa-pencil push-5-r"></i> Serv. Tecnico</a>
             </li>
         </ul>
     </div>

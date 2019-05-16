@@ -98,7 +98,7 @@ function siguienteEtapa(){
         console.log(sucursal_producto);
         console.log(proveedor_producto);
         document.getElementById('frm_detalle_producto').style.display = 'block';
-        if(categoria_producto == '2'){
+        if(categoria_producto == '3'){
             document.getElementById('tipo_registro').value = 'telefono'
             document.getElementById('div-categoria').style.display = 'none';
             document.getElementById('div-informacion-telefono').style.display = 'block';

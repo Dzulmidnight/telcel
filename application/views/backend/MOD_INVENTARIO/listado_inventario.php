@@ -747,7 +747,7 @@
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
-                                    <!-- END Sucursales disponibles -->
+                                    <!-- END Sucursales disponiblefs -->
 
                                     <!-- Proveedores -->
                                     <div class="col-sm-4">
