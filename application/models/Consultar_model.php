@@ -154,6 +154,36 @@ class Consultar_model extends CI_Model{
 
                         return $result;    
                 }
+                public function detalle_user($id = false){
+                        $this->db->select('users.*,
+                                        sucursal.nombre as nombre_sucursal
+                                ');
+                        $this->db->from('users');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = users.id_sucursal', 'left');
+                        $this->db->where('users.id_user', $id);
+                        //$this->db->like('producto.codigo_barras', $codigo);
+
+                        $query = $this->db->get();
+                        $result = $query->row();
+
+                        return $result;
+                }
+
+                public function sucursales_administrador($id)
+                {
+                        $this->db->select('
+                                sucursales_administrador.*,
+                                sucursal.nombre as nombre_sucursal
+                        ');
+                        $this->db->from('sucursales_administrador');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = sucursales_administrador.id_sucursal');
+                        $this->db->where('sucursales_administrador.id_administrador', $id);
+
+                        $query = $this->db->get();
+                        $result = $query->result();
+
+                        return $result;  
+                }
         /* END USUARIO*/
         //// CLIENTES ////
                 public function clientes()
@@ -652,41 +682,38 @@ class Consultar_model extends CI_Model{
                 }
 
                 //// consultar la información de los servicios express
-                public function listado_servicios($inicio = false, $fin = false, $sucursal = false, $fecha = false, $limite = false){
+                public function listado_servicios_express($inicio = false, $fin = false, $sucursal = false, $fecha = false, $limite = false){
                         $this->db->select('
-                                servicio_tecnico.id_servicio_tecnico,
-                                servicio_tecnico.fk_id_cliente,
-                                servicio_tecnico.fk_id_sucursal,
-                                servicio_tecnico.fk_id_usuario,
-                                servicio_tecnico.deposito_garantia,
-                                servicio_tecnico.costo_servicio,
-                                servicio_tecnico.monto_pagado,
-                                servicio_tecnico.resultado,
-                                servicio_tecnico.fecha_registro as fecha_registro_servicio,
-                                servicio_tecnico.fecha_entrega as fecha_entrega_servicio,
+                                servicio_rapido.*,
+                                catalogo_servicio_rapido.nombre as nombre_servicio,
                                 sucursal.nombre as nombre_sucursal,
                                 users.nombre as nombre_vendedor
                         ');
-                        $this->db->from('servicio_tecnico');
-                        $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_tecnico.fk_id_sucursal');
-                        $this->db->join('users', 'users.id_user = servicio_tecnico.fk_id_usuario');
+                        $this->db->from('servicio_rapido');
+                        $this->db->join('catalogo_servicio_rapido', 'catalogo_servicio_rapido.id_catalogo_servicio_rapido = fk_id_catalogo_servicio_rapido');
+                        $this->db->join('sucursal', 'sucursal.id_sucursal = servicio_rapido.fk_id_sucursal');
+                        $this->db->join('users', 'users.id_user = servicio_rapido.id_usuario');
 
-                        $this->db->order_by('servicio_tecnico.fecha_registro', 'DESC');
+                        $this->db->order_by('servicio_rapido.fecha_registro', 'DESC');
 
-                        if($fecha){
-                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%d/%m/%Y') = ",$fecha);
+
+                        /*if($fecha){
+                                $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%d/%m/%Y') = ",$fecha);
                         }else{
                                 $fecha_actual = date('d/m/Y', time());
-                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_registro, '%d/%m/%Y') = ",$fecha_actual);
-                        }
-
+                                $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%d/%m/%Y') = ",$fecha_actual);
+                        }*/
                         if($sucursal){
-                                $this->db->where('servicio_tecnico.fk_id_sucursal', $sucursal);
+                                foreach ($sucursal as $valor) {
+                                        $this->db->or_where('servicio_rapido.fk_id_sucursal', $valor);
+                                }
                         }
-                        if($limite){
-                                $this->db->limit($limite);
-                        }
+                        if($inicio && $fin){
+                                $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%m/%d/%Y') >",$inicio);
 
+                                $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%m/%d/%Y') <",$fin);
+                                //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
+                        }
                         $query = $this->db->get();
                         $result = $query->result();
 

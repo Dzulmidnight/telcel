@@ -34,8 +34,6 @@ class Inicio extends CI_Controller{
 		$data['row_sucursales'] = $this->consultar_model->sucursales();
 		$data['row_servicios_en_espera'] = $this->consultar_model->servicios_tecnicos_en_espera();
 		$data['row_servicios_por_entregar'] = $this->consultar_model->servicios_tecnicos_por_entregar();
-		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
-		$data['modal_ventas'] = $this->load->view('backend/modal_ventas', $data, true);
 
 		$data['row_entregas'] = $this->consultar_model->ultimosAvisos($this->session->userdata('id_sucursal'));
 		$data['row_servicios_rapidos'] = $this->consultar_model->catalogo_servicio_rapido();
@@ -52,6 +50,9 @@ class Inicio extends CI_Controller{
 			$data['detalle_refaccion'][$value->id_catalogo_piezas_reparacion] = $this->consultar_model->servicio_tecnico_piezas($value->id_catalogo_piezas_reparacion);
 		}
 
+		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
+		$data['modal_ventas'] = $this->load->view('backend/modal_ventas', $data, true);
+		
 		$this->load->view('backend/template/head');
 		$this->load->view('backend/template/overlay');
 		$this->load->view('backend/template/navbar');

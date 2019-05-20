@@ -4,6 +4,7 @@ class Personal extends CI_Controller{
 	{
 		parent::__construct();
 		$this->load->model('add_model');
+		$this->load->model('update_model');
 		$this->load->model('count_model');
 		$this->load->model('consultar_model');
 	}
@@ -28,6 +29,25 @@ class Personal extends CI_Controller{
 		$this->load->view('backend/template/header');
 			$this->load->view('backend/MOD_PERSONAL/dashboard_personal', $data);
 		$this->load->view('backend/template/footer');	
+	}
+
+	public function detalle($id)
+	{
+		$data['row_sucursales'] = $this->consultar_model->sucursales();
+
+		$data['detalle_personal'] = $this->consultar_model->detalle_user($id);
+
+		if($data['detalle_personal']->perfil == 'administrador'){
+			$data['row_sucursales_administrador'] = $this->consultar_model->sucursales_administrador($id);
+		}else{
+			$data['row_sucursales_administrador'] = '';
+		}
+
+		$respuesta = $this->load->view('backend/MOD_PERSONAL/modal_editar_personal', $data ,true);
+		//$respuesta = json_encode(array($detalle_personal, $row_sucursales_administrador));
+
+		echo $respuesta;
+		//echo $detalle_personal->perfil;
 	}
 
 	public function listado()
@@ -90,11 +110,10 @@ class Personal extends CI_Controller{
 
 		foreach ($this->input->post('ver_sucursal') as $sucursal) {
 			$configuracion = array(
-				'fk_id_sucursal' => $sucursal[0],
-				'fk_id_user' => $id_user,
-				'fecha_registro' => time()
+				'id_administrador' => $id_user,
+				'id_sucursal' => $sucursal[0]
 			);
-			$this->add_model->agregar($configuracion, 'sucursal_user');
+			$this->add_model->agregar($configuracion, 'sucursales_administrador');
 		}
 
 
@@ -117,6 +136,38 @@ class Personal extends CI_Controller{
 
 		$this->add_model->insertar($data, 'users');
 
+	}
+
+	public function editar($id_user)
+	{
+		$info_personal = array(
+			'perfil' => $this->input->post('perfil'),
+			'username' => $this->input->post('username'),
+			'password' => $this->input->post('password'),
+			'nombre' => $this->input->post('nombre'),
+			'ap_paterno' => $this->input->post('ap_paterno'),
+			'ap_materno' => $this->input->post('ap_materno'),
+			'telefono' => $this->input->post('telefono'),
+			'email' => $this->input->post('email'),
+			'id_sucursal' => $this->input->post('id_sucursal'),
+			'fecha_registro' => time()
+ 		);
+
+		$this->update_model->update('users', 'id_user', $id_user, $info_personal);
+
+		/*foreach ($this->input->post('ver_sucursal') as $sucursal) {
+			$configuracion = array(
+				'id_sucursal' => $sucursal[0]
+			);
+			$this->update_model->update('sucursales_administrador', $ $configuracion, 'sucursales_administrador');
+		}*/
+		/// ELIMINAMOS LAS SUCURSALES
+		$this->delete_model
+
+
+		$this->session->set_flashdata('success', "Información actualizada");
+
+		redirect('backend/MOD_PERSONAL/Personal/index', 'refresh');
 	}
 
 	public function actualizar()
@@ -146,6 +197,9 @@ class Personal extends CI_Controller{
 	{
 		$this->load->model('eliminar_model');
 		$this->eliminar_model->eliminar('users', 'id_user', $id);
+
+		/// eliminamos permisos
+		//$this->eliminar_model->eliminar('sucursales_administrador', 'id_administrador', $id);
 
 		redirect('backend/MOD_PERSONAL/personal', 'refresh');
 	}

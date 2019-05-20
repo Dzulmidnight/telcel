@@ -19,5 +19,17 @@ class General extends CI_Controller{
 		redirect('backend/MOD_INVENTARIO/Inventario/listado', 'refresh');
 	}
 
+	public function eliminar_user($tabla = false, $nombre_id = false, $nombre_campo = false)
+	{
+		$id = $this->input->post($nombre_id);
+		
+		if($this->eliminar_model->eliminar($tabla, $nombre_campo, $id)){
+			$this->session->set_flashdata('error', "Información eliminada");
+			$this->eliminar_model->eliminar('sucursales_administrador', 'id_administrador', $id);
+		}
+		redirect('backend/MOD_PERSONAL/Personal/index', 'refresh');
+	}
+
+
 
 }

@@ -52,15 +52,28 @@
     </script>
 
     <div id="" class="block">
+        <input id="base_url_input" type="hidden" value="<?= base_url(); ?>">
         <div id="tarjetasPersonal" class="row">
             <?php foreach ($row_usuarios as $usuario): ?>
+            <?php 
+                if($usuario->perfil == 'administrador'){
+                    $tipo_usuario = 'bg-danger';
+                }else{
+                    $tipo_usuario = 'bg-primary';
+                }
+             ?>
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <!-- Contact -->
                     <div class="block block-rounded">
                         <div class="block-header">
                             <ul class="block-options">
-                                <li>
+                                <!--<li>
                                     <button type="button" onclick="consultaAjax('/listar/users/','<?= $usuario->id_user ?>')">
+                                        <i class="si si-pencil"></i>
+                                    </button>
+                                </li>-->
+                                <li>
+                                    <button type="button" onclick="editarPersonal(<?= $usuario->id_user; ?>)">
                                         <i class="si si-pencil"></i>
                                     </button>
                                 </li>
@@ -72,9 +85,11 @@
                                     
                                 </li>
                             </ul>
-                            <div class="block-title"><?= $usuario->nombre.' '.$usuario->ap_paterno ?></div>
+                            <div class="block-title">
+                                <?= $usuario->nombre.' '.$usuario->ap_paterno ?>
+                            </div>
                         </div>
-                        <div class="block-content block-content-full bg-primary text-center">
+                        <div class="block-content block-content-full <?= $tipo_usuario; ?> text-center">
                             <img class="img-avatar img-avatar-thumb" src="<?php echo base_url(); ?>assets/img/avatars/avatar7.jpg" alt="">
                             <!--<div class="font-s13 push-10-t">Web Designer</div>-->
                         </div>
@@ -85,6 +100,10 @@
                                     <tr>
                                         <td class="font-w600" style="width: 30%;">Sucursal</td>
                                         <td># <?= $usuario->nombre_sucursal; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-w600" style="width: 30%;">Perfil</td>
+                                        <td><?= $usuario->perfil; ?></td>
                                     </tr>
                                     <tr>
                                         <td class="font-w600">Telefono</td>
@@ -104,7 +123,7 @@
             <?php endforeach; ?>
 
             <div id="div_eliminar_personal">
-                <form id="frm_eliminar_personal" action="<?= base_url(); ?>/backend/General/eliminar/users/id_personal/id_user" method="POST">
+                <form id="frm_eliminar_personal" action="<?= base_url(); ?>/backend/General/eliminar_user/users/id_personal/id_user" method="POST">
                     <input type="hidden" id="id_personal" name="id_personal">
                 </form>
             </div>
@@ -152,14 +171,10 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-material">
-                                    <select class="form-control" id="perfil" name="perfil" size="1" style="margin-top: 1.5em;">
+                                    <select class="form-control" id="perfil" name="perfil" size="1" style="margin-top: 1.5em;" onchange="tipoUsuario(this.value);">
                                         <option>Lista de perfiles</option>
                                         <option value="administrador">Administrador</option>
-<<<<<<< Updated upstream
                                         <option value="tecnico">Técnico</option>
-=======
-                                        <option value="tecnico">Tecnico</option>
->>>>>>> Stashed changes
                                         <option value="usuario">Usuario</option>
                                     </select>
                                     <label for="perfil">Perfil de usuario</label>
@@ -206,7 +221,7 @@
                                 <input type="text" class="form-control" name="email" id="email" placeholder="Escribe aquí">
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div id="div_visibilidad_sucursal" class="col-md-12" style="display:none;">
                             <hr>
                             <h4>Configuración de cuenta</h4>
                             <p>
@@ -221,7 +236,7 @@
                         </div>
 
 
-                        <div class="form-group">
+                        <div class="form-group text-right">
                             <div class="col-sm-12" style="margin-top:2em;">
                                 <input type="hidden" name="fecha_registro" value="<?= time() ?>">
                                 <button type="submit" class="btn btn-sm btn-primary">
@@ -237,6 +252,12 @@
     </div>
 </div>
 <!-- END Nuevo Contacto -->
+
+<!-- Contact Edit Modal -->
+<div id="div-editar-contenido"></div>
+<!-- END Contact Edit Modal -->
+
+
 
 <!-- Contact Edit Modal -->
 <div class="modal" id="modal-editar-personal2" tabindex="-1" role="dialog" aria-hidden="true">
@@ -335,7 +356,15 @@
 <!-- END Contact Edit Modal -->
 
 <script>
-    
+    function tipoUsuario(perfil)
+    {
+        if(perfil == 'administrador'){
+            document.getElementById('div_visibilidad_sucursal').style.display = 'block';
+        }else{
+            document.getElementById('div_visibilidad_sucursal').style.display = 'none';
+        }
+    }
+
     function nuevoServicio(id_btn, valor){
         if(valor == 'mostrar'){
             document.getElementById('frm_nuevo_servicio').style.display = 'block';
@@ -469,6 +498,7 @@
 </style>
 
 <script src="<?= base_url('assets/js/propios/funciones.js') ?>"></script>
+<script src="<?= base_url('assets/js/propios/personal.js') ?>"></script>
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/bootstrap.min.js"></script>

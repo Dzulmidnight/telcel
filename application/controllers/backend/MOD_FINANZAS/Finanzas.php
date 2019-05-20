@@ -60,7 +60,8 @@ class Finanzas extends CI_Controller{
 					$vista = $this->load->view('backend/MOD_FINANZAS/tabla_productos', $data, true);
 					break;
 				case 'servicios':
-					$data['row_listado_servicios'] = $this->consultar_model->listado_servicios();
+					$fecha_actual = date('d/m/Y', time());
+					$data['row_listado_servicios_rapidos'] = $this->consultar_model->listado_servicios_express();
 
 					$vista = $this->load->view('backend/MOD_FINANZAS/tabla_servicios', $data, true);
 					break;
@@ -94,17 +95,18 @@ class Finanzas extends CI_Controller{
 		echo $vista;
 	}
 
+	/// INFORMACIÓN SOBRE LOS SERVICIOS EXPRESS
 	public function tabla_servicios(){
-		header("Content-type: application/json");
-
 		$obj = json_decode($_POST['objeto'], false);
 		$inicio = $obj[0];
 		$fin = $obj[1];
 		$sucursal = $obj[2];
 
-		$data['row_listado_ventas'] = $this->consultar_model->pago_servicios($inicio, $fin, $sucursal);
+		//echo 'el inicio es: '.$inicio.' EL fin es: '.$fin;
 
-		$vista = $this->load->view('backend/MOD_FINANZAS/tabla_ventas_ajax', $data, true);
+		$data['row_listado_servicios_rapidos'] = $this->consultar_model->listado_servicios_express($inicio, $fin, $sucursal);
+
+		$vista = $this->load->view('backend/MOD_FINANZAS/tabla_servicios_rapidos_ajax', $data, true);
 
 		echo $vista;
 	}

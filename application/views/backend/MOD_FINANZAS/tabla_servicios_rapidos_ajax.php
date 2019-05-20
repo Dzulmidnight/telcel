@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th class="success text-left" colspan="8">
-                REGISTRO DE SERVICIOS REALIZADAS POR PERIODO <b style="color:#e74c3c;">><?= date('d / m / Y', time()); ?></b>
+                REGISTRO DE SERVICIOS REALIZADAS ENTRE <span id="inicioServicio_span" class="text-danger"></span> al <span id="finServicio_span" class="text-danger"></span>
             </th>
         </tr>
         <tr>
@@ -22,10 +22,16 @@
                 VENDEDOR
             </th>
             <th style="font-size:12px;">
-                SERVICIO
+                ARTICULO
+            </th>
+            <th style="font-size:12px;">
+                VENDIDOS
             </th>
             <th style="font-size:12px;">
                 MONTO
+            </th>
+            <th style="font-size:12px;">
+                STOCK
             </th>
         </tr>
     </thead>
@@ -63,8 +69,10 @@
 
                     <!-- SERVICIO -->
                     <td>
+                        <span class="hidden cantidad-servicios">1</span>
                         <?= $servicio->nombre_servicio; ?>
                     </td>
+
 
                     <!-- MONTO VENTA -->
                     <td style="color:#00a8ff;">

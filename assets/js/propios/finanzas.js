@@ -72,6 +72,8 @@ function busquedaFinanzas(accion, url){
 			break;
 		case 'servicios':
 			ruta = url + 'backend/MOD_FINANZAS/Finanzas/tabla_servicios/';
+			inicioPeriodo = document.getElementById('inicioPeriodo_span');
+			finPeriodo = document.getElementById('finPeriodo_span');
 			break;
 		case 'reparaciones':
 			ruta = url + 'backend/MOD_FINANZAS/Finanzas/tabla_reparaciones/';
@@ -128,8 +130,8 @@ function busquedaFinanzas(accion, url){
 
 
 			if(inicioVentas != null && finVentas != null){
-				inicioPeriodo.innerHTML = ''+inicioVentas;
-				finPeriodo.innerHTML = ''+finVentas;
+				//inicioPeriodo.innerHTML = ''+inicioVentas;
+				//finPeriodo.innerHTML = ''+finVentas;
 			}
 
 		}else{
