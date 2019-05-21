@@ -78,12 +78,18 @@
                     <li>
                         <a href="<?php echo base_url('backend/MOD_INVENTARIO/inventario/listado'); ?>"><i class="si si-tag"></i><span class="sidebar-mini-hide">Inventario</span></a>
                     </li>
-                    <li>
-                        <a href="<?php echo base_url('backend/MOD_FINANZAS/finanzas'); ?>"><i class="fa fa-dollar"></i><span class="sidebar-mini-hide">Finanzas</span></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url('backend/MOD_SUCURSALES/sucursales'); ?>"><i class="si si-home"></i><span class="sidebar-mini-hide">Sucursales</span></a>
-                    </li>
+                    <?php 
+                        if($this->session->userdata('perfil') == 'administrador'){
+                        ?>
+                            <li>
+                                <a href="<?php echo base_url('backend/MOD_FINANZAS/finanzas'); ?>"><i class="fa fa-dollar"></i><span class="sidebar-mini-hide">Finanzas</span></a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url('backend/MOD_SUCURSALES/sucursales'); ?>"><i class="si si-home"></i><span class="sidebar-mini-hide">Sucursales</span></a>
+                            </li>
+                        <?php
+                        }
+                     ?>
                     <li>
                         <a href="<?php echo base_url('backend/MOD_SERV_TECNICO/Serv_tecnico'); ?>"><i class="si si-wrench"></i><span class="sidebar-mini-hide">Reparaciones</span></a>
                     </li>

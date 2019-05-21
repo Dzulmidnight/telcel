@@ -22,16 +22,10 @@
                 VENDEDOR
             </th>
             <th style="font-size:12px;">
-                ARTICULO
-            </th>
-            <th style="font-size:12px;">
-                VENDIDOS
+                SERVICIO
             </th>
             <th style="font-size:12px;">
                 MONTO
-            </th>
-            <th style="font-size:12px;">
-                STOCK
             </th>
         </tr>
     </thead>
@@ -51,7 +45,10 @@
                     <!--<td>
                         <?= $servicio->id_producto_venta; ?>
                     </td>-->
-
+                    <!-- columna para poder hacer la suma de las ventas express -->
+                    <td class="hidden cantidad-venta">
+                        <b>1</b>
+                    </td>
                     <!-- FECHA VENTA -->
                     <td>
                         <?= date('d/m/Y', $servicio->fecha_registro); ?>
@@ -69,13 +66,11 @@
 
                     <!-- SERVICIO -->
                     <td>
-                        <span class="hidden cantidad-servicios">1</span>
                         <?= $servicio->nombre_servicio; ?>
                     </td>
 
-
                     <!-- MONTO VENTA -->
-                    <td style="color:#00a8ff;">
+                    <td style="color:#00a8ff;" class="monto-venta">
                         <b>
                             <?= money_format('%n', $servicio->monto); ?>
                         </b>

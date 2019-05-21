@@ -271,33 +271,34 @@ function ventaRapida(url){
 	let objetoJson;
 	let nuevoServicio_input;
 	let validacion = true;
+	
 
-	if(pagoServicio == 0){
+	if(idVendedor == ''){
+		validacion = false;
+		document.getElementById('id_vendedor_venta').focus();
+		alert('Debes ingresar tu número de vendedor');
+
+	}else if(pagoServicio == 0){
 		validacion = false;
 		document.getElementById('pago_servicio').focus();
 		alert('Debes ingresar el monto pagado');
-		console.log('pago: '+validacion);
-	}
-
-	if(selectServicio == 0){
+	}else if(selectServicio == 0){
 		validacion = false;
 		alert('Debes seleccionar un servicio');
 		document.getElementById('nombre_servicio').focus();
-		console.log('servicio: '+validacion);
 	}else if(selectServicio == 'otro'){
 		let nombreNuevoServicio = document.getElementById('nombre_nuevo_servicio');
 		if(nombreNuevoServicio.value == ''){
 			validacion = false;
 			alert('Debe completar el nombre del servicio');
 			nombreNuevoServicio.focus();
-			console.log('nuevo: '+validacion);
 		}else{
 			nuevoServicio_input = nombreNuevoServicio.value;
 			console.log(nombreNuevoServicio.value);
 		}
 	}
 
-	console.log('al final: '+validacion);
+
 	if(validacion){
 		let arrayRespuestas = {idServicio: selectServicio, nuevoServicio: nuevoServicio_input, pago: pagoServicio, idSucursal: sucursal, idVendedor: idVendedor};
 		objetoJson = JSON.stringify(arrayRespuestas);
@@ -312,7 +313,10 @@ function ventaRapida(url){
 
 	    		// limpiamos la vista
 	    		//document.getElementById("pago_servicio").value = '';
-
+	    		document.getElementById("id_vendedor_venta").value = '';
+	    		document.getElementById("pago_servicio").value = '';
+	    		document.getElementById("nombre_servicio").value = '';
+	    		document.getElementById("span-nombre-vendedor").innerHTML = '';
 	    		$("#modalVenta").modal("toggle");
 	    		swal("Venta registrada", "", "success");
 

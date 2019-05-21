@@ -639,6 +639,7 @@ class Consultar_model extends CI_Model{
 
         //// MOD FINANZAS
                 public function listado_ventas($limite = false, $sucursal = false, $fecha = false){
+                        $fecha = date('d/m/Y', time());
                         $this->db->select('
                              producto_venta.id_producto_venta,
                              producto_venta.precio_venta,
@@ -683,6 +684,9 @@ class Consultar_model extends CI_Model{
 
                 //// consultar la información de los servicios express
                 public function listado_servicios_express($inicio = false, $fin = false, $sucursal = false, $fecha = false, $limite = false){
+                        
+                        $fecha_actual = date('d/m/Y',time());
+
                         $this->db->select('
                                 servicio_rapido.*,
                                 catalogo_servicio_rapido.nombre as nombre_servicio,
@@ -713,15 +717,18 @@ class Consultar_model extends CI_Model{
 
                                 $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%m/%d/%Y') <",$fin);
                                 //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
+                        }else{
+                                $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%d/%m/%Y') = ",$fecha_actual);
                         }
                         $query = $this->db->get();
                         $result = $query->result();
-
                         return $result;
                 }
 
                 /// consultar la información de los servicios tecnicos
                 public function listado_reparaciones($inicio = false, $fin = false, $sucursal = false, $fecha = false){
+                        
+                        $fecha = date('d/m/Y', time());
                         $this->db->select('
                                 servicio_tecnico.id_servicio_tecnico,
                                 servicio_tecnico.fk_id_cliente,
@@ -760,6 +767,8 @@ class Consultar_model extends CI_Model{
                                 $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') <",$fin);
                                 $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') >",$inicio);
                                 //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
+                        }else{
+                               $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%d/%m/%Y') = ",$fecha); 
                         }
 
                         $query = $this->db->get();

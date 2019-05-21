@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th class="success text-left" colspan="8">
-                REGISTRO DE SERVICIOS REALIZADAS POR PERIODO <b style="color:#e74c3c;">><?= date('d / m / Y', time()); ?></b>
+                REGISTRO DE SERVICIOS REALIZADAS POR PERIODO <b style="color:#e74c3c;"> <?= date('d / m / Y', time()); ?></b>
             </th>
         </tr>
         <tr>
@@ -45,7 +45,10 @@
                     <!--<td>
                         <?= $servicio->id_producto_venta; ?>
                     </td>-->
-
+                    <!-- columna para poder hacer la suma de las ventas express -->
+                    <td class="hidden cantidad-venta">
+                        <b>1</b>
+                    </td>
                     <!-- FECHA VENTA -->
                     <td>
                         <?= date('d/m/Y', $servicio->fecha_registro); ?>
@@ -67,7 +70,7 @@
                     </td>
 
                     <!-- MONTO VENTA -->
-                    <td style="color:#00a8ff;">
+                    <td style="color:#00a8ff;" class="monto-venta">
                         <b>
                             <?= money_format('%n', $servicio->monto); ?>
                         </b>

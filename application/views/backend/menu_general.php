@@ -56,14 +56,20 @@
                     </div>
                 </a>
             </div>
-            <div class="col-xs-6 col-sm-6 col-lg-6">
-                <a class="block block-link-hover3 text-center" href="<?php echo base_url('backend/MOD_FINANZAS/finanzas'); ?>">
-                    <div class="block-content block-content-full">
-                        <i class="fa fa-dollar fa-4x text-muted"></i>
-                        <div class="font-w600 push-15-t">Finanzas</div>
-                    </div>
-                </a>
-            </div>
+            <?php 
+            if($this->session->userdata('perfil') == 'administrador'){
+            ?>
+                <div class="col-xs-6 col-sm-6 col-lg-6">
+                    <a class="block block-link-hover3 text-center" href="<?php echo base_url('backend/MOD_FINANZAS/finanzas'); ?>">
+                        <div class="block-content block-content-full">
+                            <i class="fa fa-dollar fa-4x text-muted"></i>
+                            <div class="font-w600 push-15-t">Finanzas</div>
+                        </div>
+                    </a>
+                </div>
+            <?php
+            }
+             ?>
 
             <div class="col-xs-6 col-sm-6 col-lg-6">
                 <a class="block block-link-hover3 text-center" href="<?php echo base_url('backend/MOD_SERVICIOS/Servicios/pago_servicios'); ?>">

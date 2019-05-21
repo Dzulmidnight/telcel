@@ -7,6 +7,7 @@ class Personal extends CI_Controller{
 		$this->load->model('update_model');
 		$this->load->model('count_model');
 		$this->load->model('consultar_model');
+		$this->load->model('eliminar_model');
 	}
 
 	public function index()
@@ -155,15 +156,16 @@ class Personal extends CI_Controller{
 
 		$this->update_model->update('users', 'id_user', $id_user, $info_personal);
 
-		/*foreach ($this->input->post('ver_sucursal') as $sucursal) {
+		/// ELIMINAMOS LAS SUCURSALES
+		$this->eliminar_model->eliminar('sucursales_administrador', 'id_administrador', $id_user);
+
+		foreach ($this->input->post('ver_sucursal') as $sucursal) {
 			$configuracion = array(
+				'id_administrador' => $id_user,
 				'id_sucursal' => $sucursal[0]
 			);
-			$this->update_model->update('sucursales_administrador', $ $configuracion, 'sucursales_administrador');
-		}*/
-		/// ELIMINAMOS LAS SUCURSALES
-		$this->delete_model
-
+			$this->add_model->agregar($configuracion, 'sucursales_administrador');
+		}
 
 		$this->session->set_flashdata('success', "Información actualizada");
 
