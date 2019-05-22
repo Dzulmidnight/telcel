@@ -105,7 +105,7 @@
 								<?php
 								}else{
 								?>
-									<button type="button" class="btn btn-xs btn-success" onclick="agregarPieza(<?= $id_pieza; ?>, '<?= $pieza; ?>', '<?= $modelo; ?>', '<?= $color; ?>', <?= $precio; ?>, <?= $value->id_servicio_tecnico; ?>);">
+									<button type="button" class="btn btn-xs btn-success" onclick="agregarPieza(<?= $id_pieza; ?>, '<?= $pieza; ?>', '<?= $modelo; ?>', '<?= $color; ?>', <?= $precio; ?>);">
 										<i class="fa fa-plus"></i>
 									</button>
 								<?php

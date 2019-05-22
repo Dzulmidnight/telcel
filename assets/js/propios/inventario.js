@@ -6,6 +6,50 @@ function localizacionRefaccion(valor){
     }
 }
 
+function validarInformacion(){
+    let localizacion = $('input[name="localizacion_refaccion"]:checked').val();
+    let nombrePieza = document.getElementById('nombre_refaccion');
+    let modelo = document.getElementById('modelo_refaccion');
+    let precio_publico = document.getElementById('precio_publico_refaccion');
+    let precio_proveedor = document.getElementById('precio_interno_refaccion');
+    let cantidad= document.getElementById('cantidad_refaccion');
+    let validacion = true;
+    if(localizacion.value == ''){
+        alert('Selecciona la localización de la pieza');
+        validacion = false;
+    }else if(nombrePieza.value == ''){
+        validacion = false;
+        alert('Completa el campo');
+        nombrePieza.focus();
+    }else if(modelo.value == ''){
+        validacion = false;
+        alert('Completa el campo');
+        modelo.focus();
+    }else if(precio_publico.value == ''){
+        validacion = false;
+        alert('Completa el campo');
+        precio_publico.focus();
+    }else if(precio_proveedor.value == ''){
+        validacion = false;
+        alert('Completa el campo');
+        precio_proveedor.focus();
+    }else if(cantidad.value == ''){
+        validacion = false;
+        alert('Completa el campo');
+        cantidad.focus();
+    }
+
+    if(localizacion == 'sucursal'){
+        let sucursal = document.getElementById('id_sucursal_refaccion').value;
+        if(sucursal == ''){
+            alert('Selecciona la sucursal');
+            document.getElementById('id_sucursal_refaccion').focus();
+        }
+    }
+    if(validacion){
+        document.getElementById('frm_registro_refaccion').submit();
+    }
+}
 
 function mostrarCodigoRefaccion(direccion, codigo){
     var codigo = codigo;

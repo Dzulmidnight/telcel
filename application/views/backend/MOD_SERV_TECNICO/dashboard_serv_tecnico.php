@@ -73,6 +73,13 @@
                                 Nº
                             </th>
                             <th style="font-size: 12px;">
+                                Ingreso
+                            </th>
+                            <th style="font-size: 12px;">
+                                Entrega
+                            </th>
+
+                            <th style="font-size: 12px;">
                                 Cliente
                             </th>
                             <th style="font-size: 12px;">
@@ -80,12 +87,6 @@
                             </th>
                             <th style="font-size: 12px; width:20%;">
                                 Detalle
-                            </th>
-                            <th style="font-size: 12px;">
-                                Ingreso
-                            </th>
-                            <th style="font-size: 12px;">
-                                Entrega
                             </th>
                             <th style="font-size: 12px;">
                                 Sucursal
@@ -143,6 +144,18 @@
                                     <?= $contador; ?>
                                 </td>
 
+                                <!-- FECHA DE INGRESO -->
+                                <td>
+                                    <b><?= date('d/m/Y', $servicio->fecha_registro); ?></b>
+                                </td>
+
+                                <!-- ENTREGA APROXIMADA -->
+                                <td>
+                                    <b style="color:#ee5253;">
+                                        <?= date('d/m/Y', $servicio->fecha_entrega); ?>
+                                    </b>
+                                </td>
+
                                 <!-- Cliente -->
                                 <td>
                                     <a href="#" onclick="modalDetalleCliente('<?= base_url(); ?>',<?= $servicio->fk_id_cliente; ?>, 'div-mostrar-modal-cliente');">
@@ -162,18 +175,6 @@
                                     <br>
                                     Falla: <span style="color:red"><?= $servicio->falla_reportada; ?></span>
                                     
-                                </td>
-
-                                <!-- FECHA DE INGRESO -->
-                                <td>
-                                    <?= date('d/m/Y', $servicio->fecha_registro); ?>
-                                </td>
-
-                                <!-- ENTREGA APROXIMADA -->
-                                <td>
-                                    <b style="color:#ee5253;">
-                                        <?= date('d/m/Y', $servicio->fecha_entrega); ?>
-                                    </b>
                                 </td>
 
                                 <!-- Sucursal -->

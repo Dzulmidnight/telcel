@@ -86,22 +86,24 @@
                     <ul class="block-options">
                     	<?php 
                     		if($row_servicios->estatus == 'EN PROCESO' || $row_servicios->estatus == 'COTIZACION'){
-                    		?>
-		                        <li>
-		                        	<button type="button" class="" data-toggle="modal" data-target="#modal-actualizar-estatus" onclick="actualizarEstatus();">
-		                        		<span style="color:#f39c12;" class="font-w700">
-                                            <i class="si si-refresh"></i> Actualizar estatus            
-                                        </span>
-		                        	</button>
-		                            <!--<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>-->
-		                        </li>
-		                        <li style="color:#27ae60;">
-		                        	<button type="button" class="" data-toggle="modal" data-target="#modal-finalizar-servicio" onclick="finalizarServicio();">
-		                        		<span style="color:#27ae60" class="font-w700"><i class="si si-check"></i> Finalizar servicio</span>
-		                        	</button>
-		                        </li>
-
-                    		<?php
+ 
+                                if($_SESSION['perfil'] == 'administrador' || $_SESSION['perfil'] == 'tecnico'){ /// if_tipo_perfil
+                                ?>
+                                    <li>
+                                        <button type="button" class="" data-toggle="modal" data-target="#modal-actualizar-estatus" onclick="actualizarEstatus();">
+                                            <span style="color:#f39c12;" class="font-w700">
+                                                <i class="si si-refresh"></i> Actualizar estatus            
+                                            </span>
+                                        </button>
+                                        <!--<button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>-->
+                                    </li>
+                                    <li style="color:#27ae60;">
+                                        <button type="button" class="" data-toggle="modal" data-target="#modal-finalizar-servicio" onclick="finalizarServicio();">
+                                            <span style="color:#27ae60" class="font-w700"><i class="si si-check"></i> Finalizar servicio</span>
+                                        </button>
+                                    </li>
+                                <?php
+                                }/// if tipo_perfil
                     		}
                     	 ?>
 
@@ -306,7 +308,9 @@
                     		</div>
 
                             <div class="col-md-6">
-                                <label for="costo_servicio">Costo del servicio</label>
+                                <label for="costo_servicio">
+                                    Costo del servicio
+                                </label>
                                 <input type="number" step="any" class="form-control" id="costo_servicio" name="costo_servicio" placeholder="$ 000.00" required>
                             </div>
                             <div class="col-md-6">
@@ -540,6 +544,7 @@
 	function actualizarEstatus(){
         document.getElementById('div_mensaje_finalizar').style.display = 'none';
 		document.getElementById('btn_submit_estatus2').innerHTML = 'Registrar acción';
+        document.getElementById('estatus_servicio2').value = 'EN PROCESO';
 	}
 </script>
 

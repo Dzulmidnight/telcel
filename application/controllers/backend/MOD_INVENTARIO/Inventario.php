@@ -364,12 +364,12 @@ class Inventario extends CI_Controller{
 	{
 		$fecha_registro = time();
 		$codigo_barras = 0;
-		$fk_id_sucursal = 0;
+		$fk_id_sucursal = NULL;
 		$estatus = '';
 
 		$localizacion = $this->input->post('localizacion_refaccion');
 		if($localizacion == 'sucursal'){
-			$fk_id_sucursal = $this->input->post('fk_id_sucursal_refaccion');
+			$fk_id_sucursal = $this->input->post('id_sucursal_refaccion');
 			$estatus = 'INVENTARIO';
 		}else{
 			$estatus = 'PROVEEDOR';
@@ -392,7 +392,8 @@ class Inventario extends CI_Controller{
 			'precio_interno' => $precio_interno,
 			'cantidad' => $cantidad,
 			'estatus' => $estatus,
-			'proveedor' => $proveedor
+			'proveedor' => $proveedor,
+			'fecha_registro' => time()
 		);
 		$this->add_model->agregar($data_refaccion, 'catalogo_piezas_reparacion');
 		$id_refaccion = $this->db->insert_id();
@@ -570,7 +571,7 @@ class Inventario extends CI_Controller{
 		$id_refaccion = $this->input->post('edit_id_refaccion');
 
 		$data = array(
-			'precio' => $this->input->post('edit_precio_publico_refaccuib'),
+			'precio' => $this->input->post('edit_precio_publico_refaccion'),
 			'precio_interno' => $this->input->post('edit_precio_proveedor_refaccion'),
 			'nombre_pieza' => $this->input->post('edit_nombre_refaccion'),
 			'marca' => $this->input->post('edit_marca_refaccion'),

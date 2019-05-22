@@ -1012,7 +1012,7 @@
                                 </div>
                                 <div id="div-listado-sucursal" class="col-md-6" style="display:none">
                                     <label for="id_sucursal_refaccion">* Listado de sucursales</label>
-                                    <select class="form-control" name="id_sucursal_refaccion" id="id_sucursal_refaccion" required>
+                                    <select class="form-control" name="id_sucursal_refaccion" id="id_sucursal_refaccion">
                                         <option value="">...</option>
                                         <?php foreach($row_sucursales as $sucursal): ?>
                                             <option value="<?= $sucursal->id_sucursal?>"><?= $sucursal->nombre; ?></option>
@@ -1022,22 +1022,22 @@
 
                                 <div class="col-md-6">
                                     <label for="nombre_refaccion">* Nombre de la pieza</label>
-                                    <input type="text" class="form-control mayusculas" id="nombre_refaccion" name="nombre_refaccion" required>
+                                    <input type="text" class="form-control mayusculas" id="nombre_refaccion" name="nombre_refaccion">
                                 </div>
                                 
                                 <div class="col-md-6">
                                     <label for="modelo_refaccion">* Modelo</label>
-                                    <input type="text" class="form-control mayusculas" id="modelo_refaccion" name="modelo_refaccion" required>
+                                    <input type="text" class="form-control mayusculas" id="modelo_refaccion" name="modelo_refaccion">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="precio_publico_refaccion">* Precio Publico</label>
-                                    <input type="number" step="any" class="form-control mayusculas" id="precio_publico_refaccion" name="precio_publico_refaccion" required>
+                                    <input type="number" step="any" class="form-control mayusculas" id="precio_publico_refaccion" name="precio_publico_refaccion">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="precio_interno_refaccion">* Precio Proveedor</label>
-                                    <input type="number" step="any" class="form-control mayusculas" id="precio_interno_refaccion" name="precio_interno_refaccion" required>
+                                    <input type="number" step="any" class="form-control mayusculas" id="precio_interno_refaccion" name="precio_interno_refaccion">
                                 </div>
 
                                 <div class="col-md-6">
@@ -1047,7 +1047,7 @@
 
                                 <div class="col-md-6">
                                     <label for="cantidad_refaccion">* Cantidad</label>
-                                    <input type="number" min="1" class="form-control mayusculas" id="cantidad_refaccion" name="cantidad_refaccion" value="1" required>
+                                    <input type="number" min="1" class="form-control mayusculas" id="cantidad_refaccion" name="cantidad_refaccion" value="1">
                                 </div>
 
                                 <div class="col-md-6">
@@ -1061,7 +1061,7 @@
                     <div class="modal-footer">
                         <input type="hidden" id="tipo_registro" name="tipo_registro" value="">
                         <button class="btn btn-default" type="button" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-success">
+                        <button type="button" class="btn btn-success" onclick="validarInformacion();">
                             <i class="fa fa-check"></i> Registrar pieza
                         </button>
                     </div>

@@ -197,9 +197,9 @@ function agregarPieza(id, pieza, modelo, color, precio){
     var celda3 = row.insertCell(2);
     var celda4 = row.insertCell(3);
 
-    celda1.innerHTML = '<button class="btn btn-xs btn-danger" onclick="eliminarFila(this)"><i class="fa fa-trash"></i></button> '+pieza+'<input type="text" name="nombre_pieza_repuesto[]" value="'+pieza+'">';
-    celda2.innerHTML = modelo+'<input type="text" name="modelo_pieza_repuesto[]" value="'+modelo+'">';
-    celda3.innerHTML = color+'<input type="text" name="color_pieza_repuesto[]" value="'+color+'">';
+    celda1.innerHTML = '<button class="btn btn-xs btn-danger" onclick="eliminarFila(this)"><i class="fa fa-trash"></i></button> '+pieza+'<input type="hidden" name="nombre_pieza_repuesto[]" value="'+pieza+'">';
+    celda2.innerHTML = modelo+'<input type="hidden" name="modelo_pieza_repuesto[]" value="'+modelo+'">';
+    celda3.innerHTML = color+'<input type="hidden" name="color_pieza_repuesto[]" value="'+color+'">';
     celda4.innerHTML = '$ '+precio+'<input type="hidden" name="precio_pieza_repuesto[]" value="'+precio+'"><input type="hidden" name="id_pieza_repuesto[]" value="'+idPieza+'">';
 
     /*celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";

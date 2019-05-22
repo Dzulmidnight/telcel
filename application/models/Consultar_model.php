@@ -713,9 +713,9 @@ class Consultar_model extends CI_Model{
                                 }
                         }
                         if($inicio && $fin){
-                                $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%m/%d/%Y') >",$inicio);
+                                $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%m/%d/%Y') >=",$inicio);
 
-                                $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%m/%d/%Y') <",$fin);
+                                $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%m/%d/%Y') <=",$fin);
                                 //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
                         }else{
                                 $this->db->where("FROM_UNIXTIME(servicio_rapido.fecha_registro, '%d/%m/%Y') = ",$fecha_actual);
@@ -764,8 +764,8 @@ class Consultar_model extends CI_Model{
                                 }
                         }
                         if($inicio && $fin){
-                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') <",$fin);
-                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') >",$inicio);
+                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') <=",$fin);
+                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') >=",$inicio);
                                 //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
                         }else{
                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%d/%m/%Y') = ",$fecha); 
@@ -811,8 +811,8 @@ class Consultar_model extends CI_Model{
                                 }
                         }
                         if($inicio && $fin){
-                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') <",$fin);
-                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') >",$inicio);
+                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') <=",$fin);
+                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') >=",$inicio);
                                 //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
                         }
 

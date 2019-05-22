@@ -56,7 +56,7 @@
                             </a>
                         </li>
                         <li class="pull-right">
-                            <a href="#btabs-alt-static-settings" data-toggle="tooltip" title="Settings"><i class="si si-settings"></i></a>
+                            <!--<a href="#btabs-alt-static-settings" data-toggle="tooltip" title="Settings"><i class="si si-settings"></i></a>-->
                         </li>
                     </ul>
                     <div class="block-content tab-content">

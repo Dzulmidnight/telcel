@@ -1,8 +1,8 @@
 <div style="padding:1em;">
 	<table class="table table-striped table-condensed">
 		<tr>
-			<td colspan="2" class="text-center">
-				<b>INFORMACIÓN DEL SERVICIO</b>
+			<td colspan="2" class="text-center" style="background:#3498db;color:#fff;">
+				<b>DETALLES DEL SERVICIO TÉCNICO</b>
 			</td>
 		</tr>
 		<tr>
