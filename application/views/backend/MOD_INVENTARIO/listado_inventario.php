@@ -37,9 +37,9 @@
         <div class="block-content tab-content">
             <!-- INICIA sección articulos -->
             <div class="tab-pane active" id="btabs-alt-static-home">
-                <h4 class="font-w300 push-15">
-                    Listado de articulos: <span class="text-primary"><?= count($row_productos) ?></span>
-                </h4>
+                <h3 class="" style="margin-bottom:1em;">
+                    Total de articulos: <span class="text-success"><?= count($row_productos) ?></span>
+                </h3>
                 
                 <div class="row">
                     <div class="col-lg-3" style="margin-bottom:1em;">
@@ -178,12 +178,17 @@
                                                 }else{
                                                     echo '<b style="color:#44bd32">'.$cantidad.'</b>';
                                                 }
+                                             
+                                                if($producto->nombre_categoria_producto != 'TELEFONO'){
+                                                ?>
+                                                    <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');">
+                                                        <b>
+                                                            <i class="glyphicon glyphicon-refresh"></i>
+                                                        </b>
+                                                    </a>
+                                                <?php
+                                                }
                                              ?>
-                                            <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');">
-                                                <b>
-                                                    <i class="glyphicon glyphicon-refresh"></i>
-                                                </b>
-                                            </a>
                                         </td>
                                         <!-- Precio al publico -->
                                         <td>
@@ -1240,16 +1245,16 @@
                             <div class="block">
                                 <ul class="nav nav-tabs nav-tabs-alt" data-toggle="tabs">
                                     <li class="active">
-                                        <a href="#btabs-alt-static-home">Nuevo</a>
+                                        <a href="#btabs-alt-nueva-cantidad">Nuevo</a>
                                     </li>
                                     <li>
-                                        <a href="#btabs-alt-static-profile">Traspasar</a>
+                                        <a href="#btabs-alt-traspasar">Traspasar</a>
                                     </li>
 
                                 </ul>
                                 <div class="block-content tab-content">
                                     <!-- agregar nueva mercancia de lo mismo -->
-                                    <div class="tab-pane active" id="btabs-alt-static-home">
+                                    <div class="tab-pane active" id="btabs-alt-nueva-cantidad">
                                         <!-- Formularios invetario -->
                                         <div id="formularios_inventario">
                                             <div class="col-sm-6">
@@ -1333,7 +1338,7 @@
                                     </div>
                                     
                                     <!-- Traspasar mercancia de sucursales -->
-                                    <div class="tab-pane" id="btabs-alt-static-profile">
+                                    <div class="tab-pane" id="btabs-alt-traspasar">
                                         <!-- Formularios invetario -->
                                         <div id="formularios_inventario">
                                             <div class="col-sm-6">

@@ -126,7 +126,7 @@
                                                         <button type="button" class="btn btn-sm btn-default" onclick="cancelarVenta();">
                                                             Cancelar
                                                         </button>
-                                                        <button type="button" id="btn_realizar_venta" class="btn btn-sm btn-default" onclick="realizarVenta('<?= base_url(); ?>', 'frm_venta_producto');" disabled>
+                                                        <button type="button" id="btn_realizar_venta" class="btn btn-sm btn-default" onclick="|('<?= base_url(); ?>', 'frm_venta_producto');" disabled>
                                                             <i class="fa fa-save"></i> Realizar venta
                                                         </button>
                                                     </div>

@@ -13,8 +13,14 @@
                 ID
             </th>-->
             <th style="font-size:12px;">
-                FECHA
+                <a href="#" data-toggle="tooltip" title="Fecha de entrega del equipo">
+                    <i class="fa fa-info-circle"></i> FECHA
+                </a>
             </th>
+            <th class="text-right" style="font-size:12px;width:150px;">
+                MONTO COBRADO
+            </th>
+
             <th style="font-size:12px;">
                 SUCURSAL
             </th>
@@ -23,9 +29,6 @@
             </th>
             <th style="font-size:12px;">
                 ARTICULO
-            </th>
-            <th style="font-size:12px;">
-                MONTO
             </th>
         </tr>
     </thead>
@@ -51,6 +54,16 @@
                         <?= date('d/m/Y', $reparacion->fecha_entrega); ?>
                     </td>
 
+                    <!-- MONTO VENTA -->
+                    <td class="text-right monto-venta" style="color:#27ae60;width:150px;">
+                        <?php 
+                            $total = $reparacion->deposito_garantia + $reparacion->monto_pagado;
+                         ?>
+                        <b>
+                            <?= money_format('%n', $total); ?>
+                        </b>
+                    </td>
+
                     <!-- SUCURSAL -->
                     <td>
                         <?= $reparacion->nombre_sucursal; ?>
@@ -69,16 +82,6 @@
                             echo '<br>';
                             echo 'Mod: '.$reparacion->modelo_telefono;
                          ?>
-                    </td>
-
-                    <!-- MONTO VENTA -->
-                    <td style="color:#00a8ff;" class="monto-venta">
-                        <?php 
-                            $total = $reparacion->deposito_garantia + $reparacion->monto_pagado;
-                         ?>
-                        <b>
-                            <?= money_format('%n', $total); ?>
-                        </b>
                     </td>
                 </tr>
         <?php

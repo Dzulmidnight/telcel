@@ -42,7 +42,7 @@
         <div class="col-sm-6 col-lg-4">
             <a class="block block-bordered block-link-hover3 text-center" href="javascript:void(0)">
                 <div class="block-content block-content-full bg-gray-lighter border-b">
-                    <div id="montoVentas_div" class="h1 font-w700">
+                    <div id="montoVentas_div" class="h1 font-w700" style="color:#2ecc71;">
                         <?= money_format('%n', $monto_ventas); ?>
                     </div>
                     <div class="h5 text-muted text-uppercase push-5-t">Monto</div>

@@ -767,9 +767,9 @@ class Consultar_model extends CI_Model{
                                 $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') <=",$fin);
                                 $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%m/%d/%Y') >=",$inicio);
                                 //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
-                        }else{
+                        }/*else{
                                $this->db->where("FROM_UNIXTIME(servicio_tecnico.fecha_entrega, '%d/%m/%Y') = ",$fecha); 
-                        }
+                        }*/
 
                         $query = $this->db->get();
                         $result = $query->result();

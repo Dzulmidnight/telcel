@@ -190,7 +190,11 @@
                                         switch ($servicio->estatus) {
                                             case 'ENTREGADO':
                                                 $color = 'color:#44bd32';
-                                                echo '<i class="fa fa-check-circle" style="'.$color.'"></i> <b style="'.$color.'">'.$servicio->estatus.'</b>';
+                                                ?>
+                                                    <a href="#" data-toggle="tooltip" title="El equipo ha sido entragado al cliente">
+                                                        <i class="fa fa-check-circle" style="<?= $color; ?>"></i> <b style="<?= $color; ?>"><?= $servicio->estatus; ?></b>
+                                                    </a>
+                                                <?php
                                                 break;
                                             case 'FINALIZADO':
                                                 $color = 'color:#ff9f43';
@@ -206,7 +210,17 @@
                                                     </a>
                                                 <?php
                                                 break;
+                                            case 'PENDIENTE':
+                                                ?>
+                                                    <a href="#" data-toggle="tooltip" title="Debes generar una cotización de servicio">
+                                                        <b>
+                                                            <i class="fa fa-info-circle"></i> <?= $servicio->estatus; ?>
+                                                        </b>
+                                                    </a>
+                                                <?php
+                                                break;
                                             default:
+
                                                 echo '<i class="fa fa-clock-o"></i> <b>'.$servicio->estatus.'</b>';
                                                 break;
                                         }

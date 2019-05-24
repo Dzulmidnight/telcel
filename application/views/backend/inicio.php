@@ -122,7 +122,7 @@
                                                 <form action="<?= base_url('backend/MOD_SERV_TECNICO/Serv_tecnico/actualizar_estatus_cotizacion'); ?>" id="frm-informacion-cotizacion<?= $servicio_en_espera->id_cotizacion_servicio; ?>" method="POST">
                                                     <input type="hidden" id="id_servicio_tecnico" name="id_servicio_tecnico" value="<?= $servicio_en_espera->id_servicio_tecnico; ?>">
                                                     <input type="hidden" name="fecha_registro" value="<?= time();?>">
-                                                    <input type="hidden" id="estatus_cotizacion_servicio<?= $servicio_en_espera->id_servicio_tecnico; ?>" name="estatus_cotizacion_servicio" value="">
+                                                    <input type="hidden" id="estatus_cotizacion_servicio<?= $servicio_en_espera->id_cotizacion_servicio; ?>" name="estatus_cotizacion_servicio" value="">
                                                 </form>
                                                 <?php 
                                                     if($servicio_en_espera->estatus == 'COTIZACION'){
@@ -130,6 +130,7 @@
                                                         <!-- ACEPTAR COTIZACIÓN -->
                                                         <button class="btn btn-xs btn-success" data-toggle="tooltip" title="Aceptar cotización" onclick="aceptarCotizacion('frm-informacion-cotizacion', <?= $servicio_en_espera->id_cotizacion_servicio; ?>);">
                                                             <i class="fa fa-check"></i>
+                                                            <?= $servicio_en_espera->id_cotizacion_servicio; ?>
                                                         </button>
 
                                                         <!-- RECHAZAR COTIZACIÓN -->
@@ -160,6 +161,7 @@
                                 <thead>
                                     <tr>
                                         <th style="font-size:11px;">Fecha</th>
+                                        <th style="font-size:11px;">Sucursal</th>
                                         <th style="font-size:11px;">Cliente</th>
                                         <th style="font-size:11px;">Adeudo</th>
                                         <th style="font-size:11px;">Ficha</th>
@@ -176,6 +178,10 @@
                                             <td>
                                                 <i class="fa fa-circle" style="color:#c0392b;"></i> <?= date('d/m/Y', $entregas->fecha_entrega); ?>
                                             </td>
+                                            <!-- nombre sucursal -->
+                                            <td>
+                                                <?= $entregas->nombre_sucursal; ?>
+                                            </td>
                                             <td>
                                                 <?= $entregas->nombre_cliente.' '.$entregas->ap_paterno; ?>
                                             </td>
@@ -189,7 +195,7 @@
                                                     }
                                                  ?>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <!--<a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>,'div-mostrar-ficha', <?= $entregas->codigo_barras; ?>);">
                                                     <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
                                                 </a>-->
@@ -198,6 +204,21 @@
                                                         echo '<i class="si si-briefcase"></i> '.$entregas->codigo_barras;
                                                     }else{
                                                     ?>
+                                                        <?php
+                                                            $resultado = $entregas->resultado;
+                                                            if(isset($resultado)){
+                                                                if($resultado == 'POSITIVIO'){
+                                                                    echo '<span style="color:#2ecc71;">'.$resultado.'</span>';
+                                                                }else{
+                                                                ?>
+                                                                    <a href="#" style="color:#e74c3c;" data-toggle="tooltip" title="Resultado del servicio">
+                                                                        <i class="fa fa-info"></i> <?= $resultado; ?>
+                                                                    </a>
+                                                                <?php
+                                                                }
+                                                            }
+                                                         ?>
+                                                        <br>
                                                         <a href="#" data-toggle="tooltip" title="Consultar ficha de servicio" onclick="modalFichaServicio2('<?= base_url(); ?>', <?= $entregas->id_servicio_tecnico; ?>, <?= $entregas->id_cotizacion_servicio; ?>);">
                                                             <i class="si si-briefcase"></i> <?= $entregas->codigo_barras; ?>
                                                         </a>
