@@ -185,9 +185,9 @@ function actualizarCifras(seccion){
 	var arrayMonto = document.querySelectorAll('td.monto-venta > b');
 	var arrayCantidad = document.querySelectorAll('td.cantidad-venta > b');
 		if(arrayCantidad.length == 0){
-			console.log('no se encontro la otra');
+			//console.log('no se encontro la otra');
 			arrayCantidad = document.querySelectorAll('span.cantidad-reparaciones');
-			console.log('la cantidad '+arrayCantidad.length);
+			//console.log('la cantidad '+arrayCantidad.length);
 		}
 	var numPiezas = 0, montoTotal = 0, i = 0;
 	let = montoVentas_div = document.getElementById('montoVentas_div');

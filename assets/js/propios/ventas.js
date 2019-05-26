@@ -102,68 +102,74 @@ function carritoCompras(id_frm){
 	let idSucursalProducto, idProductoVenta, tablaDetalleCompra, producto_span, numFilas, filaActual, productos, marca_span, precio, cantidad, total, totalReal, indice;
 	let formulario = document.forms[id_frm];
 	let numElementos = formulario.elements.length;
-
-	for(let i = 0; i < numElementos; i++){
-		if(formulario[i].required){
-			if(formulario[i].type == 'select-one'){
-				indice = document.getElementById(formulario[i].id).selectedIndex;
-				if(indice == null || indice == 0){
-					document.getElementById(formulario[i].id).focus();
+	let idVendedor = document.getElementById("id_vendedor_venta").value;
+	let realizarVenta_btn = document.getElementById("btn_realizar_venta");
+	if(idVendedor == ''){
+		alert("Debes ingresar el ID de vendedor");
+		document.getElementById("id_vendedor_venta").focus();
+	}else{
+		for(let i = 0; i < numElementos; i++){
+			if(formulario[i].required){
+				if(formulario[i].type == 'select-one'){
+					indice = document.getElementById(formulario[i].id).selectedIndex;
+					if(indice == null || indice == 0){
+						document.getElementById(formulario[i].id).focus();
+					}
+				}else{
+					if(!formulario[i].value){
+						alert("Debes completas el campo");
+						document.getElementById(formulario[i].id).focus();
+						break;
+					}
 				}
 			}else{
-				if(!formulario[i].value){
-					alert("Debes completas el campo");
-					document.getElementById(formulario[i].id).focus();
-					break;
-				}
+				tablaDetalleCompra = document.getElementById('tablaDetalleCompra');
+				idProductoVenta = document.getElementById('id_producto').value;
+				producto_span = document.getElementById('spanProducto').innerHTML;
+				marca_span = document.getElementById("spanMarca").innerHTML;
+				precio = document.getElementById("precio_unitario_venta").value;
+				precioRealVenta = document.getElementById("precio_real_venta").value;
+				cantidad = document.getElementById("piezas_venta").value;
+
+				idSucursalProducto = document.getElementById('fk_id_sucursal_producto').value;
+
+				
+				// activamos el boton de venta
+				realizarVenta_btn.disabled = false;
+				numFilas = tablaDetalleCompra.rows.length;
+				filaActual = numFilas - 1;
+				total = precio * cantidad;
+				totalReal = precioRealVenta * cantidad;
+
+				let row = tablaDetalleCompra.insertRow(filaActual);
+	            let celda1 = row.insertCell(0);
+	            let celda2 = row.insertCell(1);
+	            let celda3 = row.insertCell(2);
+	            let celda4 = row.insertCell(3);
+	            let celda5 = row.insertCell(4);
+	            let celda6 = row.insertCell(5);
+	            let celda7 = row.insertCell(6);
+	                
+	            celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
+	            celda2.innerHTML = idProductoVenta+"<input type='hidden' name='id_producto_carrito' value='"+idProductoVenta+"' readonly>";
+	            celda3.innerHTML = producto_span;
+	            celda4.innerHTML = marca_span;
+	            celda5.innerHTML = "$ "+precio+"<input type='hidden' name='precio_carrito' value='"+precio+"' readonly><input type='hidden' name='precio_real_carrito' value='"+precioRealVenta+"'>";;
+	            celda6.innerHTML = cantidad+"<input type='hidden' name='cantidad_carrito' value='"+cantidad+"' readonly>";;
+	            celda7.innerHTML = '$ '+total.toFixed(2)+"<input type='hidden' name='total_carrito' value='"+total.toFixed(2)+"' readonly><input type='hidden' name='total_real_carrito' value='"+totalReal+"'><input type='hidden' name='id_sucursal_producto' value='"+idSucursalProducto+"'>";
+	                
+	            // limpiamos los campos despues de agregar el producto
+	            document.getElementById('codigoCapturado').value = '';
+
+	            document.getElementById('piezas_venta').value = '';
+	            document.getElementById('precio_unitario_venta').value = '';
+
+	            //habilitamos el boton de venta
+	            document.getElementById('btn_realizar_venta').classList.remove('btn-default');
+	            document.getElementById('btn_realizar_venta').classList.add('btn-success');
+
+	            break;
 			}
-		}else{
-			tablaDetalleCompra = document.getElementById('tablaDetalleCompra');
-			idProductoVenta = document.getElementById('id_producto').value;
-			producto_span = document.getElementById('spanProducto').innerHTML;
-			marca_span = document.getElementById("spanMarca").innerHTML;
-			precio = document.getElementById("precio_unitario_venta").value;
-			precioRealVenta = document.getElementById("precio_real_venta").value;
-			cantidad = document.getElementById("piezas_venta").value;
-			realizarVenta_btn = document.getElementById("btn_realizar_venta");
-			idSucursalProducto = document.getElementById('fk_id_sucursal_producto').value;
-
-			
-			// activamos el boton de venta
-			realizarVenta_btn.disabled = false;
-			numFilas = tablaDetalleCompra.rows.length;
-			filaActual = numFilas - 1;
-			total = precio * cantidad;
-			totalReal = precioRealVenta * cantidad;
-
-			let row = tablaDetalleCompra.insertRow(filaActual);
-            let celda1 = row.insertCell(0);
-            let celda2 = row.insertCell(1);
-            let celda3 = row.insertCell(2);
-            let celda4 = row.insertCell(3);
-            let celda5 = row.insertCell(4);
-            let celda6 = row.insertCell(5);
-            let celda7 = row.insertCell(6);
-                
-            celda1.innerHTML = "<button type='button' onclick='eliminarFila(this)' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button>";
-            celda2.innerHTML = idProductoVenta+"<input type='hidden' name='id_producto_carrito' value='"+idProductoVenta+"' readonly>";
-            celda3.innerHTML = producto_span;
-            celda4.innerHTML = marca_span;
-            celda5.innerHTML = "$ "+precio+"<input type='hidden' name='precio_carrito' value='"+precio+"' readonly><input type='hidden' name='precio_real_carrito' value='"+precioRealVenta+"'>";;
-            celda6.innerHTML = cantidad+"<input type='hidden' name='cantidad_carrito' value='"+cantidad+"' readonly>";;
-            celda7.innerHTML = '$ '+total.toFixed(2)+"<input type='hidden' name='total_carrito' value='"+total.toFixed(2)+"' readonly><input type='hidden' name='total_real_carrito' value='"+totalReal+"'><input type='hidden' name='id_sucursal_producto' value='"+idSucursalProducto+"'>";
-                
-            // limpiamos los campos despues de agregar el producto
-            document.getElementById('codigoCapturado').value = '';
-
-            document.getElementById('piezas_venta').value = '';
-            document.getElementById('precio_unitario_venta').value = '';
-
-            //habilitamos el boton de venta
-            document.getElementById('btn_realizar_venta').classList.remove('btn-default');
-            document.getElementById('btn_realizar_venta').classList.add('btn-success');
-
-            break;
 		}
 	}
 }
@@ -229,11 +235,12 @@ function realizarVenta(url, id_frm){
     		fk_id_ticket = this.responseText;
 
     		// limpiamos la vista
-    		document.getElementById("div_carro_compras").innerHTML = '';
+    		//document.getElementById("div_carro_compras").innerHTML = '';
+    		document.getElementById("tablaDetalleCompra").innerHTML = '';
     		document.getElementById("div_informacion_producto").innerHTML = '';
     		document.getElementById("id_vendedor_venta").value = '';
     		document.getElementById("span-nombre-vendedor").innerHTML = '';
-
+    		document.getElementById("btn_agregar_producto").disabled = true;
     		$("#modalVenta").modal("toggle");
             swal({
                 title: "Ticket",

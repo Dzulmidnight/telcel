@@ -170,9 +170,7 @@ class Servicios extends CI_Controller{
 			);
 			$this->update_model->update('ticket', 'id_ticket', $fk_id_ticket, $data_ticket_update);
 
-
-			echo $fk_id_ticket;
-/*			foreach ($array_producto_venta as $value) {
+			foreach ($array_producto_venta as $value) {
 				$data_ticket_producto = array(
 					'fk_id_ticket' => $fk_id_ticket,
 					'fk_id_producto_venta' => $value,
@@ -180,9 +178,9 @@ class Servicios extends CI_Controller{
 				);
 
 				$this->add_model->agregar($data_ticket_producto, 'ticket_producto_venta');
-			}*/
+			}
 
-			//echo $fk_id_ticket;
+			echo $fk_id_ticket;
 
 		/*foreach ($objeto as $key => $articulo) {
 

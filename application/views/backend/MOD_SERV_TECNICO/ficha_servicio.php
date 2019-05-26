@@ -521,7 +521,7 @@
 <script src="<?php echo base_url(); ?>assets/js/core/js.cookie.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/app.js"></script>
 
-<script src="<?= base_url('assets/js/patternLock.js'); ?>"></script>
+<script src="<?= base_url('assets/js/patternlock.js'); ?>"></script>
 
 <script>
     function solicitarPieza(opcion){

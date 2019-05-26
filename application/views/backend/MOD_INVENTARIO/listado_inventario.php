@@ -38,7 +38,7 @@
             <!-- INICIA sección articulos -->
             <div class="tab-pane active" id="btabs-alt-static-home">
                 <h3 class="" style="margin-bottom:1em;">
-                    Total de articulos: <span class="text-success"><?= count($row_productos) ?></span>
+                    Total de articulos: <span class="text-success"><?= $total_inventario; ?></span>
                 </h3>
                 
                 <div class="row">
@@ -181,7 +181,7 @@
                                              
                                                 if($producto->nombre_categoria_producto != 'TELEFONO'){
                                                 ?>
-                                                    <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');">
+                                                    <a href="#" class="text-success" data-toggle="tooltip" title="Actualizar" onclick="actualizarCantidad('<?= $producto->codigo_barras ?>', '<?= base_url(); ?>');">
                                                         <b>
                                                             <i class="glyphicon glyphicon-refresh"></i>
                                                         </b>
@@ -218,7 +218,7 @@
                                                 <!--<button class="btn btn-xs btn-default">
                                                     <i class="si si-settings"></i>
                                                 </button>-->
-                                                <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo(<?= $producto->codigo_barras ?>, '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
+                                                <button class="btn btn-xs btn-warning" type="button" data-toggle="tooltip" title="Editar articulo" onclick="editarArticulo('<?= $producto->codigo_barras ?>', '<?= base_url(); ?>');"><i class="fa fa-pencil"></i></button>
                                                 <button class="btn btn-xs btn-danger" type="button" data-toggle="tooltip" title="Eliminar articulo" onclick="eliminar('id_eliminar', <?= $producto->id_producto; ?>, 'frm_eliminar_articulo');"><i class="fa fa-times"></i></button>
                                             </div>
                                         </td>
@@ -677,7 +677,7 @@
                                         Número de codigos a generar
                                     </label>
 
-                                    <input type="number" class="form-control" id="numCodigosRefaccion" name="numCodigosRefaccion" min="1" onkeyup="descargarPdf('numCodigosRefaccion', '<?= base_url(); ?>', '', 'refaccion');" value="1">
+                                    <input type="number" class="form-control" id="numCodigosRefaccion" name="numCodigosRefaccion" min="1" onkeyup="descargarPdfRefaccion('numCodigosRefaccion', '<?= base_url(); ?>', '', 'refaccion');" value="1">
                                     <input type="hidden" id="codigoBarras" name="codigoBarras" value="">
                                     <br>
 

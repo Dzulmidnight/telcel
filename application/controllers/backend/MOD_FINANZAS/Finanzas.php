@@ -16,14 +16,14 @@ class Finanzas extends CI_Controller{
 		$fecha_actual = date('d/m/Y',time());
 		$data['row_sucursales'] = $this->consultar_model->sucursales();
 		$data['menu_general'] = $this->load->view('backend/menu_general','',true);
-		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas(false, false, $fecha_actual);
+		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas();
 
 		$data['monto_ventas'] = 0;
 		$data['num_productos'] = 0;
 
 		foreach ($data['row_listado_ventas'] as $venta) {
 			$data['monto_ventas'] += $venta->total;
-			$data['num_productos'] += $venta->piezas;
+			$data['num_productos'] += $venta->piezas_producto_vendido;
 		}
 
 		$this->load->view('backend/template/head');
@@ -88,7 +88,7 @@ class Finanzas extends CI_Controller{
 		$fin = $obj[1];
 		$sucursal = $obj[2];
 
-		$data['row_listado_ventas'] = $this->consultar_model->pago_servicios($inicio, $fin, $sucursal);
+		$data['row_listado_ventas'] = $this->consultar_model->listado_ventas($inicio, $fin, $sucursal);
 
 		$vista = $this->load->view('backend/MOD_FINANZAS/tabla_ventas_ajax', $data, true);
 

@@ -75,12 +75,12 @@
                     <!-- VENDIDOS -->
                     <td class="cantidad-venta">
                         <b>
-                            <?= $venta->piezas; ?>
+                            <?= $venta->piezas_producto_vendido; ?>
                         </b>
                     </td>
 
                     <!-- MONTO VENTA -->
-                    <td style="color:#00a8ff;" class="monto-venta">
+                    <td style="color:#00a8ff;">
                         <b>
                             <?= money_format('%n', $venta->total); ?>
                         </b>

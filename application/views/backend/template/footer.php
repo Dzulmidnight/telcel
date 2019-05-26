@@ -286,6 +286,7 @@
 <script>
     function modalVentas(){
         $('#modalVenta').modal('show');
+        document.getElementById("btn_agregar_producto").disabled = true;
     }
 
     function eliminar(nombreCampoId, id, frm){

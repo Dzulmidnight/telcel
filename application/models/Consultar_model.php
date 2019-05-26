@@ -638,11 +638,12 @@ class Consultar_model extends CI_Model{
 
 
         //// MOD FINANZAS
-                public function listado_ventas($limite = false, $sucursal = false, $fecha = false){
-                        $fecha = date('d/m/Y', time());
+                public function listado_ventas($inicio = false, $fin = false, $sucursal = false, $fecha = false, $limite = false){
+                        $fecha_actual = date('d/m/Y', time());
                         $this->db->select('
                              producto_venta.id_producto_venta,
                              producto_venta.precio_venta,
+                             producto_venta.piezas as piezas_producto_vendido,
                              producto_venta.fk_id_producto,
                              producto_venta.fk_id_sucursal,
                              producto_venta.fk_id_usuario,
@@ -663,18 +664,21 @@ class Consultar_model extends CI_Model{
                         $this->db->join('sucursal', 'sucursal.id_sucursal = producto_venta.fk_id_sucursal');
                         $this->db->join('users', 'users.id_user = producto_venta.fk_id_usuario');
                         $this->db->order_by('producto_venta.fecha_registro', 'DESC');
-                        if($fecha){
-                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%d/%m/%Y') = ",$fecha);
+
+                        if($sucursal){
+                                foreach ($sucursal as $valor) {
+                                        $this->db->or_where('producto_venta.fk_id_sucursal', $valor);
+                                }
+                        }
+                        if($inicio && $fin){
+                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') >=",$inicio);
+
+                                $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y') <=",$fin);
+                                //$this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%m/%d/%Y')", $where);
                         }else{
-                                $fecha_actual = date('d/m/Y', time());
                                 $this->db->where("FROM_UNIXTIME(producto_venta.fecha_registro, '%d/%m/%Y') = ",$fecha_actual);
                         }
-                        if($sucursal){
-                                $this->db->where('producto_venta.fk_id_sucursal', $sucursal);
-                        }
-                        if($limite){
-                                $this->db->limit($limite);
-                        }
+
 
                         $query = $this->db->get();
                         $result = $query->result();

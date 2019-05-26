@@ -2,16 +2,16 @@
     <thead>
         <tr>
             <th class="success text-left" colspan="8">
-                REGISTRO DE VENTAS REALIZADAS ENTRE <span id="inicioPeriodo_span" class="text-danger"></span> al <span id="finPeriodo_span" class="text-danger"></span>
+                REGISTRO DE VENTAS REALIZADAS AL DÍA <b style="color:#e74c3c;"><?= date('d / m / Y', time()); ?></b>
             </th>
         </tr>
         <tr>
             <th style="font-size:12px;">
                 #
             </th>
-            <th style="font-size:12px;">
+            <!--<th style="font-size:12px;">
                 ID
-            </th>
+            </th>-->
             <th style="font-size:12px;">
                 FECHA
             </th>
@@ -35,7 +35,7 @@
             </th>
         </tr>
     </thead>
-    <tbody id="tbody_respuesta" style="font-size:12px;">
+    <tbody style="font-size:12px;">
         <?php
             $contador = 0;
             foreach ($row_listado_ventas as $venta) {
@@ -48,9 +48,9 @@
                     </td>
 
                     <!-- ID VENTA -->
-                    <td>
+                    <!--<td>
                         <?= $venta->id_producto_venta; ?>
-                    </td>
+                    </td>-->
 
                     <!-- FECHA VENTA -->
                     <td>
@@ -75,7 +75,7 @@
                     <!-- VENDIDOS -->
                     <td class="cantidad-venta">
                         <b>
-                            <?= $venta->piezas; ?>
+                            <?= $venta->piezas_producto_vendido; ?>
                         </b>
                     </td>
 
