@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/dropzonejs/dropzone.min.css">
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.css">
 
-
 <!-- Page Header -->
 <div class="content bg-gray-lighter">
     <div class="row items-push">

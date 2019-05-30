@@ -1,3 +1,55 @@
+function filtrarInventario(accion){
+    let base_url = document.getElementById("input_base_url").value;
+    let = listado_sucursales = document.getElementById("select_listado_sucursales").selectedOptions;
+    let = listado_categoria_producto = document.getElementById("select_categoria_producto").selectedOptions;
+    let ruta = base_url+'backend/MOD_INVENTARIO/Inventario/filtrar_inventario/';
+    let arrayRespuestas;
+
+    if(accion == 'filtrar'){
+        let sucursales = [];
+        let tipo_producto = [];
+
+        for(let i=0; i<listado_sucursales.length; i++){
+            sucursales.push(listado_sucursales[i].value);
+        }
+        for(let i=0; i<listado_categoria_producto.length; i++){
+            tipo_producto.push(listado_categoria_producto[i].value);
+        }
+
+        arrayRespuestas = [sucursales, tipo_producto];
+        objetoJson = JSON.stringify(arrayRespuestas);
+
+
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                let respuesta = JSON.parse(this.responseText);
+                let vista = respuesta[0];
+                let total = respuesta[1];
+
+                document.getElementById("div_tabla_inventario").innerHTML = vista;
+                document.getElementById("total_articulos_span").innerHTML = total;
+
+            }else{
+                document.getElementById("div_tabla_inventario").innerHTML = `
+                    <div class="col-lg-12 text-center" style="margin-top:4em; margin-bottom:4em;">
+                        <i class="fa fa-3x fa-spinner fa-spin text-primary"></i>
+                    </div>
+                `;
+            }
+        }
+
+        xmlhttp.open("POST", ruta, true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.send("parametros="+objetoJson);
+
+    }else{
+        $("#select_listado_sucursales").val([]);
+        $("#select_categoria_producto").val([]);
+        document.getElementById("frm_filtrar_informacion").reset();
+    }
+}
+
 function localizacionRefaccion(valor){
     if(valor == 'sucursal'){
         document.getElementById('div-listado-sucursal').style.display = 'block';

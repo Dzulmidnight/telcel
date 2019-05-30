@@ -488,6 +488,40 @@ class Consultar_model extends CI_Model{
 
                 return $result;
         }
+
+        public function filtro_productos($sucursal = false, $tipo = false)
+        {
+                //echo 'la sucursal: '+var_dump($sucursal);
+                $this->db->select('
+                        sucursal_producto.fk_id_sucursal,
+                        producto.*,
+                        categoria_producto.nombre as nombre_categoria_producto,
+                        sub_categoria_producto.nombre as nombre_sub_producto
+                ');
+                $this->db->from('producto');
+                $this->db->join('sucursal_producto', 'sucursal_producto.fk_id_producto = producto.id_producto');
+                $this->db->join('categoria_producto', 'categoria_producto.id_categoria_producto = producto.fk_id_categoria_producto');
+                $this->db->join('sub_categoria_producto', 'sub_categoria_producto.id_sub_categoria_producto = producto.fk_id_sub_categoria_producto', 'left');
+
+
+                if($sucursal){
+                        foreach ($sucursal as $value) {
+                                $this->db->or_where('sucursal_producto.fk_id_sucursal', $value);
+                        }
+                }
+
+                if($tipo){
+                        foreach ($tipo as $value) {
+                                $this->db->where('producto.fk_id_categoria_producto', $value);
+                        }
+                }
+
+                $query = $this->db->get();
+                $result = $query->result();
+
+                return $result;
+        }
+
         public function producto($id = false){
                 $this->db->select('producto.*,
                         sub_categoria_producto.nombre as nombre_sub_producto,

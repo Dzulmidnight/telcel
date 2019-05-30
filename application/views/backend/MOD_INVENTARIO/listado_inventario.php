@@ -10,8 +10,7 @@
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2.min.css">
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/select2/select2-bootstrap.min.css">
+
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/jquery-auto-complete/jquery.auto-complete.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/js/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.min.css">
@@ -37,20 +36,13 @@
         <div class="block-content tab-content">
             <!-- INICIA sección articulos -->
             <div class="tab-pane active" id="btabs-alt-static-home">
-                <h3 class="" style="margin-bottom:1em;">
-                    Total de articulos: <span class="text-success"><?= $total_inventario; ?></span>
-                </h3>
-                
                 <div class="row">
-                    <div class="col-lg-3" style="margin-bottom:1em;">
-                        <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width: 100%;" data-placeholder="Filtrar por sucursales" multiple>
-                            <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
-                            <?php foreach($row_sucursales as $sucursal): ?>
-                                <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                    <div class="col-lg-4">
+                        <h3 class="" style="margin-bottom:1em;">
+                            Total de articulos: <span id="total_articulos_span" class="text-success"><?= $total_inventario; ?></span>
+                        </h3>                        
                     </div>
-                    <div class="col-md-9 text-right">
+                    <div class="col-lg-8 text-right">
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-cargar-excel">
                                 <i class="fa fa-cloud-upload"></i> Importar articulos
                         </button>
@@ -65,8 +57,44 @@
                             <i class="fa fa-arrow-left"></i> Regresar
                         </button>
                     </div>
+                </div>
+                
+                <div class="row" style="margin-bottom:1em;">
+                    <div class="col-lg-12" style="margin-bottom:10px;">
+                        <h4>
+                            Filtrar información
+                        </h4>
+                    </div>
+                    <div class="col-lg-12">
+                        <form id="frm_filtrar_informacion" action="#" method="POST">
+                            <select class="js-select2 form-control" id="select_listado_sucursales" name="select_listado_sucursales" style="width: 30%;" data-placeholder="Listado de Sucursales" multiple>
+                                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                <?php foreach($row_sucursales as $sucursal): ?>
+                                    <option value="<?= $sucursal->id_sucursal ?>"><?= $sucursal->nombre ?></option>
+                                <?php endforeach; ?>
+                            </select>
 
-                    <div class="col-md-12 block">
+                            <select class="js-select2 form-control" id="select_categoria_producto" name="select_categoria_producto" style="width: 30%;" data-placeholder="Tipo de articulo" multiple>
+                                <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                <?php foreach($row_categoria_producto as $categoria_producto): ?>
+                                    <option value="<?= $categoria_producto->id_categoria_producto ?>"><?= $categoria_producto->nombre ?></option>
+                                <?php endforeach; ?>
+                            </select>
+
+                            <button type="button" class="btn btn-info" onclick="filtrarInventario('filtrar');">
+                                <i class="fa fa-search"></i> Filtrar
+                            </button>
+                            
+                            <button type="button" class="btn btn-default" onclick="filtrarInventario('limpiar');">
+                                <i class="glyphicon glyphicon-trash"></i> Limpiar
+                            </button>
+                            <input type="hidden" id="input_base_url" value="<?= base_url(); ?>">
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div id="div_tabla_inventario" class="col-md-12 block">
                         <table id="example" class="table table-condensed table-striped js-dataTable-full" style="font-size:12px;">
                             <thead>
                                 <tr>

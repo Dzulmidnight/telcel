@@ -472,6 +472,26 @@ class Inventario extends CI_Controller{
 		$this->load->view('backend/template/footer');
 	}
 
+	public function filtrar_inventario()
+	{
+		$obj = json_decode($_POST['parametros'], false);
+		$sucursales = $obj[0];
+		$tipo_producto = $obj[1];
+
+		$data['row_productos'] = $this->consultar_model->filtro_productos($sucursales, $tipo_producto);
+		$total_inventario = 0;
+		foreach ($data['row_productos'] as $producto) {
+			$total_inventario += $producto->piezas;
+			$data['row_sucursal_piezas'][$producto->id_producto] = $this->consultar_model->sucursal_producto($producto->id_producto);
+		}
+
+
+		$vista = $this->load->view('backend/MOD_INVENTARIO/tabla_inventario', $data, true);
+		$respuesta = array($vista, $total_inventario);
+		echo json_encode($respuesta);
+
+	}
+
 	public function actualizar()
 	{
 		if(empty($this->input->post('num_piezas_nuevas'))){
