@@ -862,7 +862,4 @@ class Consultar_model extends CI_Model{
                 }
         /// END CONSULTAR SERVICIOS
 
-
-
-
 }

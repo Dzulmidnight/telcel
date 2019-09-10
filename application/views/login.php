@@ -46,7 +46,14 @@
                                 </button>
                             </div>
                         </div>
-                        <?=form_hidden('token',$token)?>
+ <?php 
+ if(isset($token)){
+    $token2 = $token;
+ }else{
+    $token2 = '';
+ }
+  ?>
+                        <?=form_hidden('token',$token2)?>
                         <?php 
                             if($this->session->flashdata('usuario_incorrecto'))
                             {

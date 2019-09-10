@@ -19,7 +19,7 @@
                             </div>
                     </div>
                 </div>
-                <div class="block-content">
+                <!--<div class="block-content">
                     <ul class="nav nav-pills push">
                         <li class="active">
                             <a href="javascript:void(0)">
@@ -32,7 +32,7 @@
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
                     <p class="text-primary" style="margin:0px;">
                         <i class="si si-info"></i> Consultar la garantia de un articulo
                     </p>
-	                <form action="base_pages_support.html" method="post">
+	                <form action="#" method="post">
 	                    <div class="input-group input-group-lg">
                             <!--<div class="input-group-btn">
                                 <select name="" id="">
@@ -77,10 +77,11 @@
                     
                 </div>
                 <h3 class="block-title">
-                    
+                    Detalle de la transacción
                 </h3>
             </div>
-            <div class="block-content">
+            <div class="block-content" style="padding-bottom:3em;">
+                <div id="div-resultado-ticket"></div>
                 <!--
                 Separate your table content with multiple tbody sections. Add one row and add the class .js-table-sections-header to a
                 tbody section to make it clickable. It will then toggle the next tbody section which can have multiple rows. Eg:
@@ -94,117 +95,6 @@
 
                 You can also add the class .open in your tbody.js-table-sections-header to make the next tbody section visible by default
                 -->
-                <table class="js-table-sections table table-condensed table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                #ID
-                            </th>
-                            <th>
-                                IMEI
-                            </th>
-                            <th>
-                                Nº Telefono
-                            </th>
-                            <th>
-                                EQUIPO
-                            </th>
-                            <th>
-                                Cliente
-                            </th>
-                            <th>
-                                Garantia
-                            </th>
-                        </tr>
-                    </thead>
-                    
-                    <?php 
-                    for ($i=0; $i < 5; $i++) { 
-                    ?>
-                    <tbody class="js-table-sections-header">
-                    <!--<tbody class="js-table-sections-header open">-->
-                        <tr>
-                            <!-- ID general -->
-                            <td>
-                                <i class="fa fa-angle-right"></i> <span style="padding-left: 1em;">342</span>
-                            </td>
-                            <!-- IMEI -->
-                            <td>
-                                2234SDF22
-                            </td>
-                            <!-- Nº DE TELEFONO -->
-                            <td>
-                                951 199 9723
-                            </td>
-                            <!-- EQUIPO -->
-                            <td>
-                                <a href="#">
-                                    Nombre del equipo
-                                </a>
-                            </td>
-                            <!-- CLIENTE -->
-                            <td>
-                                <a href="#">Nombre del cliente</a>
-                            </td>
-                            <!-- FECHA DE INGRESO -->
-                            <td class="danger">
-                                <?php 
-                                    $validez = 2.592e+6; // 30 dias
-                                    $fin_garantia = date('d/m/Y', time()+$validez);
-                                 ?>
-                                <?= date('d/m/Y', time()); ?>
-                                -
-                                <?= $fin_garantia ?>
-                            </td>
-
-                        </tr>
-                    </tbody>
-                    <tbody style="font-size:12px;border: 2px solid #ee5253;">
-                        <tr style="margin:0px;padding:0px;">
-                            <td colspan="6" style="padding:0px;padding-top:10px;">
-                                <p class="h4">Historial de acciones</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <b>Fecha</b>
-                            </td>
-                            <td colspan="3">
-                                <b>Actualización</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <?= date('d/m/Y', time()) ?>
-                            </td>
-                            <td colspan="3">
-                                Reemplazo de pieza solicitado
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <?= date('d/m/Y', time()) ?>
-                            </td>
-                            <td colspan="3">
-                                Equipo revisado por el tecnico
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                <?= date('d/m/Y', time()) ?>
-                            </td>
-                            <td colspan="3">
-                                En espera de entrar a revisión
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                    <?php
-                    }
-                     ?>
-                   
-                </table>
             </div>
         </div>
         <!-- END Table Sections -->

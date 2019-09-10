@@ -43,8 +43,8 @@ class Login extends CI_Controller
 
 	public function new_user()
 	{
-		if($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token'))
-		{
+		/*if($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token'))
+		{*/
 	        $this->form_validation->set_rules('username', 'nombre de usuario', 'required');
 	        $this->form_validation->set_rules('password', 'password', 'required');
 
@@ -70,9 +70,9 @@ class Login extends CI_Controller
 					$this->index();
 				}
 			}
-		}else{
+		/*}/*else{
 			redirect(base_url().'login');
-		}
+		}*/
 	}
 	
 	public function token()

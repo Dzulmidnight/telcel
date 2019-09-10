@@ -109,14 +109,17 @@ class Personal extends CI_Controller{
 		$this->add_model->agregar($info_personal, 'users');
 		$id_user = $this->db->insert_id();
 
-		foreach ($this->input->post('ver_sucursal') as $sucursal) {
-			$configuracion = array(
-				'id_administrador' => $id_user,
-				'id_sucursal' => $sucursal[0]
-			);
-			$this->add_model->agregar($configuracion, 'sucursales_administrador');
-		}
+		$sucursales = $this->input->post('ver_sucursal');
 
+		if(isset($sucursal)){
+			foreach ($this->input->post('ver_sucursal') as $sucursal) {
+				$configuracion = array(
+					'id_administrador' => $id_user,
+					'id_sucursal' => $sucursal[0]
+				);
+				$this->add_model->agregar($configuracion, 'sucursales_administrador');
+			}
+		}
 
 		$this->session->set_flashdata('success', "Usuario agregado");
 
