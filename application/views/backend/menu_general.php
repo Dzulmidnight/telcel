@@ -14,14 +14,14 @@
                     </div>
                 </a>
             </div>
-            <!--<div class="col-xs-6 col-sm-6 col-lg-6">
+            <div class="col-xs-6 col-sm-6 col-lg-6">
                 <a class="block block-link-hover2 text-center" href="<?php echo base_url('backend/MOD_GARANTIA/garantia'); ?>">
                     <div class="block-content block-content-full bg-city">
                         <i class="si si-badge fa-4x text-white"></i>
                         <div class="font-w600 text-white-op push-15-t">Garantia</div>
                     </div>
                 </a>
-            </div>-->
+            </div>
             <!--<div class="col-xs-6 col-sm-6 col-lg-6">
                 <a class="block block-link-hover2 text-center" href="<?php echo base_url('backend/MOD_CLIENTES/clientes'); ?>">
                     <div class="block-content block-content-full bg-success">

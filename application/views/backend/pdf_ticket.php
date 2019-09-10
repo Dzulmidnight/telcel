@@ -9,7 +9,7 @@
 				<td colspan="4" style="padding:10px;">Sucursal: <?= $sucursal->nombre; ?></td>
 			</tr>
 			<tr>
-				<td colspan="4" style="text-align:center;padding-bottom: 1em;" >TICKET Nº: <?= str_pad($id_ticket, 2, "0", STR_PAD_LEFT).'-'.$fecha_registro; ?></td>
+				<td colspan="4" style="text-align:center;padding-bottom: 1em;" >TICKET Nº: <?= str_pad($id_ticket, 3, "0", STR_PAD_LEFT).'-'.$fecha_registro; ?></td>
 			</tr>
 			<tr>
 				<td style="padding-bottom: 2em;" colspan="2">Fecha: <?= date('d/m/Y', $fecha_registro); ?></td>

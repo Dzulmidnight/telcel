@@ -88,12 +88,13 @@ class Servicios extends CI_Controller{
 		$piezas_ticket = 0;
 		$total_ticket = 0;
 		$array_producto_venta = array();
+		$fecha_registro = time();
 
 		////// CREAMOS TICKET DE VENTA //////
 			$data_ticket = array(
 				'fk_id_sucursal' => $id_sucursal_venta,
 				'fk_id_usuario' => $id_vendedor,
-				'fecha_registro' => time()
+				'fecha_registro' => $fecha_registro
 			);
 			$this->add_model->agregar($data_ticket, 'ticket');
 
@@ -164,9 +165,12 @@ class Servicios extends CI_Controller{
 		}
 
 		// actualizamos ticket de venta
+			$codigo_ticket = str_pad($fk_id_ticket, 3, "0", STR_PAD_LEFT).'-'.$fecha_registro;
+
 			$data_ticket_update = array(
 				'piezas' => $piezas_ticket,
-				'total' => $total_ticket
+				'total' => $total_ticket,
+				'codigo_ticket' => $codigo_ticket
 			);
 			$this->update_model->update('ticket', 'id_ticket', $fk_id_ticket, $data_ticket_update);
 

@@ -1,41 +1,24 @@
-<!-- Page Content -->
-<div class="content">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="block">
-                <div class="block-header">
-                    <div class="row">
-                            <div class="col-sm-7">
-                                <h3 class="block-title">
-                                    DASHBOARD GARANTIA
-                                    <input type="hidden" id="input-base-url" value="<?= base_url(); ?>">
-                                </h3>
-                            </div>
+<!-- Page Header -->
+<div class="content bg-gray-lighter">
+    <div class="row items-push">
+        <div class="col-sm-7">
+            <h3 class="page-heading">
+                DASHBOARD GARANTIA
+            </h3>
+        </div>
 
-                            <div class="col-sm-5 text-right hidden-xs">
-                                <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
-                                    <i class="fa fa-arrow-left"></i> Regresar
-                                </button>
-                            </div>
-                    </div>
-                </div>
-                <div class="block-content">
-                    <ul class="nav nav-pills push">
-                        <li class="active">
-                            <a href="javascript:void(0)">
-                                Garantia
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= base_url('backend/MOD_GARANTIA/Garantia/devoluciones'); ?>">
-                                Devoluciones
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div class="col-sm-5 text-right hidden-xs">
+            <button class="btn btn-rounded btn-primary" onclick="history.back(-1)">
+                <i class="fa fa-arrow-left"></i> Regresar
+            </button>
         </div>
     </div>
+
+</div>
+<!-- END Page Header -->
+
+<!-- Page Content -->
+<div class="content">
 	<!-- Busqueda de equipo -->
 	<div class="bg-gray-lighter">
 	    <section class="content content-full content-boxed">
@@ -43,21 +26,13 @@
 	        <div class="row">
 	            <div class="col-sm-8 col-sm-offset-2">
                     <p class="text-primary" style="margin:0px;">
-                        <i class="si si-info"></i> Consultar la garantia de un articulo
+                        <i class="si si-info"></i> Consultar la garantia de un equipo
                     </p>
 	                <form action="base_pages_support.html" method="post">
 	                    <div class="input-group input-group-lg">
-                            <!--<div class="input-group-btn">
-                                <select name="" id="">
-                                    <option value="">Tipo</option>
-                                    <option value="">Telefono</option>
-                                    <option value="">Articulo</option>
-                                </select>
-                            </div>-->
-
-	                        <input class="form-control" type="text" id="numero-ticket" placeholder="Busqueda de articulo (Ingrese el numero de ticket)">
+	                        <input class="form-control" type="text" placeholder="Busqueda de equipo (Telefono, IMEI, ID Soporte)">
 	                        <div class="input-group-btn">
-	                            <button class="btn btn-default" type="button" onclick="consultarGarantia();"><i class="fa fa-search"></i></button>
+	                            <button class="btn btn-default"><i class="fa fa-search"></i></button>
 	                        </div>
 	                    </div>
 	                </form>
@@ -310,7 +285,6 @@
 <!-- END FRM Registrar Proveedor -->
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
-<script src="<?= base_url('assets/js/propios/garantia.js'); ?>"></script>
 <script src="<?php echo base_url(); ?>assets/js/core/jquery.min.js"></script>
 
 <!-- Page JS Code -->

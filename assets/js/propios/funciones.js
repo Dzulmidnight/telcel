@@ -320,7 +320,7 @@ function guardarImg(ruta){
     xmlhttp.send("x="+objetoJson);
 }
 
-function carritoComsdfpras(id_frm){
+function carritoComsfpras(id_frm){
     var tabla, numFilas, filaActual, producto, marca, precio, cantidad, total, totalReal;
 
 
