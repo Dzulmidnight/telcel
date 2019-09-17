@@ -45,22 +45,21 @@
                     <p class="text-primary" style="margin:0px;">
                         <i class="si si-info"></i> Consultar la garantia de un articulo
                     </p>
-	                <form action="#" method="post">
-	                    <div class="input-group input-group-lg">
-                            <!--<div class="input-group-btn">
-                                <select name="" id="">
-                                    <option value="">Tipo</option>
-                                    <option value="">Telefono</option>
-                                    <option value="">Articulo</option>
-                                </select>
-                            </div>-->
+                    <div class="input-group input-group-lg">
+                        <!--<div class="input-group-btn">
+                            <select name="" id="">
+                                <option value="">Tipo</option>
+                                <option value="">Telefono</option>
+                                <option value="">Articulo</option>
+                            </select>
+                        </div>-->
+                        <input type="hidden" id="input-base-url" value="<?= base_url(); ?>">
 
-	                        <input class="form-control" type="text" id="numero-ticket" placeholder="Busqueda de articulo (Ingrese el numero de ticket)">
-	                        <div class="input-group-btn">
-	                            <button class="btn btn-default" type="button" onclick="consultarGarantia();"><i class="fa fa-search"></i></button>
-	                        </div>
-	                    </div>
-	                </form>
+                        <input class="form-control" type="text" id="numero-ticket" placeholder="Busqueda de articulo (Ingrese el numero de ticket)">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="consultarGarantia();"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
 	            </div>
 	        </div>
 	        <!-- END Section Content -->
@@ -198,6 +197,31 @@
     </div>
 </div>
 <!-- END FRM Registrar Proveedor -->
+
+<!-- Modal mostrar codigo de barras -->
+<div class="modal fade" id="modalPdf" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-popout">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">Ticket de Compra</h3>
+                </div>
+                <div class="block-content" style="margin-bottom: 4em;">
+                    <iframe id="frame_pdf" src="" height="500px" width="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal mostrar codigo de barras -->
 
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
 <script src="<?= base_url('assets/js/propios/garantia.js'); ?>"></script>

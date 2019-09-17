@@ -9,10 +9,12 @@
 					$fecha_venta = "";
 				}
 				 ?>
-				Fecha: <b style="color:#3498db;"><?= $fecha_venta; ?></b>
+				Fecha Venta: <b style="color:red;"><?= $fecha_venta; ?></b>
 			</th>
 			<th>
 				Codigo: <b style="color:#3498db;"><?= $detalle_ticket->codigo_ticket; ?></b>
+				<input type="hidden" id="input-id-ticket" value="<?= $detalle_ticket->id_ticket; ?>">
+				<input type="hidden" id="input-codigo-ticket" value="<?= $detalle_ticket->codigo_ticket; ?>">
 			</th>
 			<th>
 				Sucursal: <b style="color:#3498db"><?= $detalle_ticket->nombre_sucursal; ?></b>
@@ -28,13 +30,16 @@
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th class="bg-info" colspan="5">
+			<th class="bg-info" colspan="6">
 				Articulos
 			</th>
 		</tr>
 		<tr>
 			<th>
 				#
+			</th>
+			<th>
+				Fecha
 			</th>
 			<th>
 				Producto
@@ -58,11 +63,21 @@
 				foreach ($row_productos as $producto) {
 					$precio_venta = $producto->precio_venta;
 					$piezas = $producto->piezas;
+					$fecha_venta = date('d/m/Y', $producto->fecha_registro);
 				?>
 					<tr>
 						<!-- # -->
 						<td>
 							<?= $contador; ?>
+
+							<button type="button" class="btn btn-default" data-toggle="tooltip" title="Devolver producto" onclick="devolverProducto('<?= $producto->fk_id_producto; ?>', '<?= $piezas; ?>', '<?= $producto->nombre; ?>');">
+								<i class="si si-action-undo"></i>
+							</button>
+						</td>
+						
+						<!-- fecha de venta -->
+						<td>
+							<?= $fecha_venta; ?>						
 						</td>
 
 						<!-- nombre producto -->

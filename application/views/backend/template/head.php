@@ -55,7 +55,8 @@
 
         <link rel="stylesheet" id="css-main" href="<?= base_url(); ?>assets/css/oneui.css">
         <!-- Sweet alert -->
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!--<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+        <script src="<?= base_url('assets/js/sweetalert.js'); ?>"></script>
         <script src="<?= base_url('assets/js/jsPDF/dist/jspdf.min.js'); ?>"></script>
         <script>
             var base_url2 = window.location.href;
